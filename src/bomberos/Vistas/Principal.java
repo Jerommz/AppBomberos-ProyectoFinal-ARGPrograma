@@ -5,12 +5,20 @@
  */
 package bomberos.Vistas;
 
+import com.formdev.flatlaf.FlatIntelliJLaf;
+import com.formdev.flatlaf.FlatLaf;
+import com.formdev.flatlaf.themes.FlatMacDarkLaf;
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
+
 /**
  *
  * @author jero
  */
 public class Principal extends javax.swing.JFrame {
 
+    
+    int var = 0;
+    
     /**
      * Creates new form Principal
      */
@@ -27,21 +35,54 @@ public class Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        panelTop = new javax.swing.JPanel();
+        panelBN = new javax.swing.JPanel();
+        jBotonModos = new javax.swing.JButton();
+        panelBot = new javax.swing.JPanel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1280, 720));
+
+        panelTop.setBackground(new java.awt.Color(60, 2, 70));
+        panelTop.setPreferredSize(new java.awt.Dimension(0, 100));
+        panelTop.setLayout(new java.awt.BorderLayout());
+
+        panelBN.setPreferredSize(new java.awt.Dimension(100, 0));
+        panelBN.setLayout(new java.awt.GridBagLayout());
+
+        jBotonModos.setText("B/N");
+        jBotonModos.setBorderPainted(false);
+        jBotonModos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBotonModosActionPerformed(evt);
+            }
+        });
+        panelBN.add(jBotonModos, new java.awt.GridBagConstraints());
+
+        panelTop.add(panelBN, java.awt.BorderLayout.EAST);
+
+        getContentPane().add(panelTop, java.awt.BorderLayout.NORTH);
+
+        panelBot.setPreferredSize(new java.awt.Dimension(0, 620));
+        panelBot.setLayout(new java.awt.BorderLayout());
+        getContentPane().add(panelBot, java.awt.BorderLayout.CENTER);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jBotonModosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonModosActionPerformed
+        // TODO add your handling code here:
+        boolean dark = false;
+        if(var == 0){
+            dark = true;
+            var = 1;
+        }else{
+            dark = false;
+            var = 0;
+        }
+        cambiarTheme(dark);
+    }//GEN-LAST:event_jBotonModosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -69,6 +110,9 @@ public class Principal extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        
+        FlatLaf.registerCustomDefaultsSource("bomberos.Vistas");
+        FlatIntelliJLaf.install();
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -79,5 +123,22 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBotonModos;
+    private javax.swing.JPanel panelBN;
+    private javax.swing.JPanel panelBot;
+    private javax.swing.JPanel panelTop;
     // End of variables declaration//GEN-END:variables
+
+    private void cambiarTheme(boolean dark) {
+        if (FlatLaf.isLafDark() != dark) {
+            if (dark) {
+                    FlatMacDarkLaf.setup();
+                    FlatLaf.updateUI();
+            } else {
+                    FlatMacLightLaf.setup();
+                    FlatLaf.updateUI();
+            }
+        }
+    }
+
 }
