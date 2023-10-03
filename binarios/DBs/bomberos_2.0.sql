@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-10-2023 a las 01:22:45
+-- Tiempo de generación: 04-10-2023 a las 01:40:08
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -81,7 +81,7 @@ INSERT INTO `brigada` (`codBrigada`, `nombre_br`, `especialidad`, `libre`, `codC
 (6, 'Omega', '(4) Rescate de personas atrapadas en accidentes de tráfico', 1, 1),
 (7, 'Ipsilon', '(5) Socorrer inundaciones', 1, 4),
 (8, 'Delta', '(6) operativos de prevención', 1, 5),
-(9, 'Zeta', '(1) incendios en viviendas', 1, 6);
+(9, 'Zeta', '(1) Incendios en viviendas e industrias', 1, 6);
 
 -- --------------------------------------------------------
 
