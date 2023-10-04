@@ -5,3 +5,4 @@ Final-GP16-ArgPrograma/nbproject/private/
 nbproject/build-impl.xml
 *.xml
 *.properties
+/build/
