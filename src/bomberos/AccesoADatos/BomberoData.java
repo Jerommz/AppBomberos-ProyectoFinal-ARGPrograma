@@ -102,12 +102,12 @@ public class BomberoData {
             ResultSet rs = ps1.executeQuery();
             int exitocon = rs.getInt(1);
             if (exitocon <5) {
-                String sql = "update bombero set dni = ?, codBrigada = ?";
+                String sql = "update bombero set codBrigada = ? WHERE id_bombero = ?";
                 try {
                     //envio de query a la base de datos
                     PreparedStatement ps2 = con.prepareStatement(sql);
-                    ps2.setInt(1, bombero.getDni());
-                    ps2.setInt(2, bombero.getCodBrigada());
+                    ps2.setInt(1, bombero.getCodBrigada());
+                    ps2.setInt(2, bombero.getId_Bombero());
                     int exito = ps2.executeUpdate();
                     if (exito == 1) {
                         JOptionPane.showMessageDialog(null, "Bombero asignado a la brigada");
