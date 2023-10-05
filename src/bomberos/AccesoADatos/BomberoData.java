@@ -101,7 +101,7 @@ public class BomberoData {
             ps1.setInt(1, bombero.getCodBrigada());
             ResultSet rs = ps1.executeQuery();
             int exitocon = rs.getInt(1);
-            if (exitocon <5) {
+            if (exitocon < 5) {
                 String sql = "update bombero set codBrigada = ? WHERE id_bombero = ?";
                 try {
                     //envio de query a la base de datos
@@ -114,17 +114,17 @@ public class BomberoData {
                     } else {
                         JOptionPane.showMessageDialog(null, "El bombero no se pudo asignar a la brigada");
                     }
-                    
+
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
                 }
                 ps1.close();
             } else {
-            JOptionPane.showMessageDialog(null, "La brigada esta completa");
+                JOptionPane.showMessageDialog(null, "La brigada esta completa");
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
         }
-        
+
     }
 }
