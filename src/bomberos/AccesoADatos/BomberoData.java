@@ -93,7 +93,7 @@ public class BomberoData {
     }
 
     public void asignarBombero(Bombero bombero) {
-        //query validacion cantidad de bombero asignados a una brigada en la base de datos
+        //query validacion cantidad de bombero asignados a una brigada en la base de datos (menor a 5)
         String sqlcon = "SELECT COUNT(*) FROM bombero WHERE codBrigada =! null AND estado=1";
         try {
             PreparedStatement ps = con.prepareStatement(sqlcon);
