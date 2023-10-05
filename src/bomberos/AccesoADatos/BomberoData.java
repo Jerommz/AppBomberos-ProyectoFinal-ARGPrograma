@@ -118,9 +118,11 @@ public class BomberoData {
                     JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
                 }
                 ps1.close();
+            } else {
+            JOptionPane.showMessageDialog(null, "La brigada esta completa");
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "La brigada esta completa");
+            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
         }
         
     }
