@@ -94,12 +94,13 @@ public class BomberoData {
 
     public void asignarBombero(Bombero bombero) {
         //query validacion cantidad de bombero asignados a una brigada en la base de datos (menor a 5)
-        String sqlcon = "SELECT COUNT(*) FROM bombero WHERE codBrigada =! null AND estado=1";
+        String sqlcon = "SELECT COUNT(*) FROM bombero WHERE codBrigada =? null AND estado=1";
         try {
             //envio de query a la base de datos
             PreparedStatement ps1 = con.prepareStatement(sqlcon);
+            ps1.setInt(1, bombero.getCodBrigada());
             ResultSet rs = ps1.executeQuery();
-            int exitocon = rs.getInt("");
+            int exitocon = rs.getInt(1);
             if (exitocon <5) {
                 String sql = "update bombero set dni = ?, codBrigada = ?";
                 try {
