@@ -3,9 +3,12 @@ package bomberos.AccesoAdatos;
 import bomberos.Entidades.Bombero;
 import java.sql.Connection;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class BomberoData {
+
     //atributos necesarios para los metodos utilizados
     private final Connection con;
 
@@ -87,5 +90,37 @@ public class BomberoData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
         }
+    }
+
+    public void asignarBombero(Bombero bombero) {
+        //query validacion cantidad de bombero asignados a una brigada en la base de datos
+        String sqlcon = "SELECT COUNT(*) FROM bombero WHERE codBrigada =! null AND estado=1";
+        try {
+            PreparedStatement ps = con.prepareStatement(sqlcon);
+            ResultSet rs = ps.executeQuery();
+            int exitocon = rs.getInt("");
+            if (exitocon <5) {
+                String sql = "update bombero set dni = ?, codBrigada = ?";
+                try {
+                    //envio de query a la base de datos
+                    PreparedStatement pst = con.prepareStatement(sql);
+                    ps.setInt(1, bombero.getDni());
+                    ps.setInt(2, bombero.getCodBrigada());
+                    int exito = pst.executeUpdate();
+                    if (exito == 1) {
+                        JOptionPane.showMessageDialog(null, "Bombero asignado a la brigada");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "El bombero no se pudo asignar a la brigada");
+                    }
+                    
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
+                }
+                ps.close();
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "La brigada esta completa");
+        }
+        
     }
 }
