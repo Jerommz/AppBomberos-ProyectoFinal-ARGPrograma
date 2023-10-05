@@ -96,17 +96,18 @@ public class BomberoData {
         //query validacion cantidad de bombero asignados a una brigada en la base de datos (menor a 5)
         String sqlcon = "SELECT COUNT(*) FROM bombero WHERE codBrigada =! null AND estado=1";
         try {
-            PreparedStatement ps = con.prepareStatement(sqlcon);
-            ResultSet rs = ps.executeQuery();
+            //envio de query a la base de datos
+            PreparedStatement ps1 = con.prepareStatement(sqlcon);
+            ResultSet rs = ps1.executeQuery();
             int exitocon = rs.getInt("");
             if (exitocon <5) {
                 String sql = "update bombero set dni = ?, codBrigada = ?";
                 try {
                     //envio de query a la base de datos
-                    PreparedStatement pst = con.prepareStatement(sql);
-                    ps.setInt(1, bombero.getDni());
-                    ps.setInt(2, bombero.getCodBrigada());
-                    int exito = pst.executeUpdate();
+                    PreparedStatement ps2 = con.prepareStatement(sql);
+                    ps2.setInt(1, bombero.getDni());
+                    ps2.setInt(2, bombero.getCodBrigada());
+                    int exito = ps2.executeUpdate();
                     if (exito == 1) {
                         JOptionPane.showMessageDialog(null, "Bombero asignado a la brigada");
                     } else {
@@ -116,7 +117,7 @@ public class BomberoData {
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
                 }
-                ps.close();
+                ps1.close();
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "La brigada esta completa");
