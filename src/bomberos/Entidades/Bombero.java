@@ -23,25 +23,25 @@ public class Bombero {
     public Bombero() {
     }
 
-    public Bombero(int id_Bombero, int dni, String nombre_ape, LocalDate fecha, String celular, int codBrigada, boolean estado,String grupo_sang) {
+    public Bombero(int id_Bombero, int dni, String nombre_ape, String grupo_sang, LocalDate fecha, String celular, int codBrigada, boolean estado) {
         this.id_Bombero = id_Bombero;
         this.dni = dni;
         this.nombre_ape = nombre_ape;
+        this.grupo_sang = grupo_sang;
         this.fecha = fecha;
         this.celular = celular;
         this.codBrigada = codBrigada;
         this.estado = estado;
-        this.grupo_sang=grupo_sang;
     }
 
-    public Bombero(int dni, String nombre_ape, LocalDate fecha, String celular, int codBrigada, boolean estado,String grupo_sang) {
+    public Bombero(int dni, String nombre_ape, String grupo_sang, LocalDate fecha, String celular, int codBrigada, boolean estado) {
         this.dni = dni;
         this.nombre_ape = nombre_ape;
+        this.grupo_sang = grupo_sang;
         this.fecha = fecha;
         this.celular = celular;
         this.codBrigada = codBrigada;
         this.estado = estado;
-        this.grupo_sang=grupo_sang;
     }
 
     public int getId_Bombero() {
@@ -68,6 +68,14 @@ public class Bombero {
         this.nombre_ape = nombre_ape;
     }
 
+    public String getGrupo_sang() {
+        return grupo_sang;
+    }
+
+    public void setGrupo_sang(String grupo_sang) {
+        this.grupo_sang = grupo_sang;
+    }
+
     public LocalDate getFecha() {
         return fecha;
     }
@@ -88,14 +96,6 @@ public class Bombero {
         return codBrigada;
     }
 
-    public String getGrupo_sang() {
-        return grupo_sang;
-    }
-
-    public void setGrupo_sang(String grupo_sang) {
-        this.grupo_sang = grupo_sang;
-    }
-    
     public void setCodBrigada(int codBrigada) {
         this.codBrigada = codBrigada;
     }
@@ -114,7 +114,4 @@ public class Bombero {
     }
 
    
-    
-    
-    
 }

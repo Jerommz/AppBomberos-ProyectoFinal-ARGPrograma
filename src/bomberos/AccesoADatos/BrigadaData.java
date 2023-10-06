@@ -1,5 +1,7 @@
 package bomberos.AccesoADatos;
 
+import bomberos.AccesoAdatos.Conexion;
+import bomberos.Entidades.Bombero;
 import bomberos.Entidades.Brigada;
 import java.util.*;
 import java.sql.*;
@@ -10,23 +12,24 @@ public class BrigadaData {
 
     //atributos necesarios para los metodos utilizados
     private final Connection con;
-
+    private Bombero bombero;
+    private Brigada brigada;
     //constructor vacio
     public BrigadaData() {
         con = Conexion.getConnection();
     }
 
-    private void nuevaBrigada(Brigada brigada) {
-        String sql = "insert into brigada(codBrigada, nombreBr, especialidad, libre, codCuartel)"
-                + "VALUES (?, ?, ?, ?, ?)";
+    public void nuevaBrigada(Brigada brigada) {
+        String sql = "insert into brigada( nombre_br, especialidad, libre, codCuartel)"
+                + "VALUES (?, ?, ?, ?)";
         try {
             //envio de query a la base de datos
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, brigada.getCodBrigada());
-            ps.setString(2, brigada.getNombre_br());
-            ps.setString(3, brigada.getEspecialidad());
-            ps.setBoolean(4, brigada.isLibre());
-            ps.setInt(5, brigada.getCodCuartel());
+            
+            ps.setString(1, brigada.getNombre_br());
+            ps.setString(2, brigada.getEspecialidad());
+            ps.setBoolean(3, brigada.isLibre());
+            ps.setInt(4, brigada.getCodCuartel());
             int exito = ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
@@ -89,7 +92,7 @@ public class BrigadaData {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 boolean estado = rs.getBoolean("libre");
-                if (estado = true) {
+                if (estado == true) {
                     JOptionPane.showMessageDialog(null, "Brigada disponible.");
                 } else {
                     JOptionPane.showMessageDialog(null, "Brigada no disponible.");
@@ -117,7 +120,7 @@ public class BrigadaData {
         }
     }
 
-    private String obtenerEspecialidadBrigada(int codBrigada) {
+    public String obtenerEspecialidadBrigada(int codBrigada) {
         String especialidad = null;
         String sql = "select especialidad from brigada where codBrigada = ?";
         try {
@@ -132,4 +135,7 @@ public class BrigadaData {
         }
         return especialidad;
     }
+       
 }
+
+
