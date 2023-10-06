@@ -146,8 +146,33 @@ public class BomberoData {
             JOptionPane.showMessageDialog(null, "Error al asignar bombero.");
         }
     }
+<<<<<<< Updated upstream
     
     public void cantBomberos(){
         
+=======
+
+    public List<Bombero> obtenerBombXBrig(int codBrigada) {
+        List<Bombero> bomberos = new ArrayList<>();
+        String sql = "SELECT codBrigada, COUNT(*) FROM bombero WHERE codBrigada=? AND estado=1 group by codBrigada;";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, codBrigada);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Bombero bombero = new Bombero();
+                bombero.setCodBrigada(rs.getInt("codBrigada"));
+                int codbrig =  rs.getInt(1);
+                int cantidad = rs.getInt(2);
+                bomberos.add(bombero);
+                JOptionPane.showMessageDialog(null, "La brigada "+ codbrig +" tiene/n "+cantidad + " bomberos");
+            }
+            ps.close();
+            rs.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
+        }
+        return bomberos;
+>>>>>>> Stashed changes
     }
 }
