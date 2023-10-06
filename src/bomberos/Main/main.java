@@ -88,9 +88,6 @@ public class main {
     //Asignar bomberos a una lista 
      BomberoData bomDB =new BomberoData();
      bomDB.asignarBrigada(1, 6);
-    
-    
-    
    }
    
   
