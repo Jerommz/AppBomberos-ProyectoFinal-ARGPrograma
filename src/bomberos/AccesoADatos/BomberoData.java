@@ -94,7 +94,8 @@ public class BomberoData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
         }
     }
-  // query para asignar y contar los bomberos 
+    // query para asignar y contar los bomberos 
+
     public void asignarBrigada(int codBrigada, int id_bombero) {
         try {
             String sql1 = "SELECT COUNT(*)FROM bombero WHERE codBrigada =? AND estado =1";
@@ -102,42 +103,41 @@ public class BomberoData {
             PreparedStatement ps = con.prepareStatement(sql1);
 
             ps.setInt(1, codBrigada);
-            
+
             ResultSet rs;
 
             rs = ps.executeQuery();
 
-           if (rs.next()) {
-            int count = rs.getInt(1);
-            System.out.println("Cantidad de bomberos en la brigada: " + count);
-            if (count < 5) {
-                AsignarBomberoABrigada(codBrigada, id_bombero);
-            } }
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                System.out.println("Cantidad de bomberos en la brigada: " + count);
+                if (count < 5) {
+                    AsignarBomberoABrigada(codBrigada, id_bombero);
+                }
+            }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "error al cargar el bombero a brigada" + ex);
         }
-       
 
     }
-    public void AsignarBomberoABrigada(int codBrigada,int id_bombero){
-    String sql ="UPDATE bombero set codBrigada =? where id_bombero =?";
-       try{
-            PreparedStatement ps=con.prepareStatement(sql);
-            ps.setInt(1,codBrigada);
+
+    public void AsignarBomberoABrigada(int codBrigada, int id_bombero) {
+        String sql = "UPDATE bombero set codBrigada =? where id_bombero =?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, codBrigada);
             ps.setInt(2, id_bombero);
-            int exito=ps.executeUpdate();
-            if(exito==1){
-            JOptionPane.showMessageDialog(null, "bombero asignado");
-            
-            }else{
-            JOptionPane.showMessageDialog(null, "el bombero no se pudo asignar a la brigada");
+            int exito = ps.executeUpdate();
+            if (exito == 1) {
+                JOptionPane.showMessageDialog(null, "bombero asignado");
+
+            } else {
+                JOptionPane.showMessageDialog(null, "el bombero no se pudo asignar a la brigada");
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "error al cargar asignacion bombero"+ex);
+            JOptionPane.showMessageDialog(null, "error al cargar asignacion bombero" + ex);
         }
-    
-    
-    
+
     }
 
 }
