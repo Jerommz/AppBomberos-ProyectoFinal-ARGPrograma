@@ -92,7 +92,7 @@ public class BomberoData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
         }
     }
-    
+
     public void altaBombero(int dni) {
         //query dar de baja bombero
         String sql = "update bombero set estado = 1 where dni = ?";
@@ -108,7 +108,7 @@ public class BomberoData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
         }
     }
-    
+
     public void dispoBrigada(int codBrigada, int id_bombero) {
         try {
             String sql1 = "SELECT COUNT(*)FROM bombero WHERE codBrigada = ? AND estado = 1";
@@ -120,7 +120,7 @@ public class BomberoData {
                 JOptionPane.showMessageDialog(null, "Cantidad de bomberos en la brigada: " + count);
                 if (count < 5) {
                     asignarBomberoABrigada(codBrigada, id_bombero);
-                }else{
+                } else {
                     JOptionPane.showMessageDialog(null, "Brigada completa.");
                 }
             }
@@ -146,11 +146,6 @@ public class BomberoData {
             JOptionPane.showMessageDialog(null, "Error al asignar bombero.");
         }
     }
-<<<<<<< Updated upstream
-    
-    public void cantBomberos(){
-        
-=======
 
     public List<Bombero> obtenerBombXBrig(int codBrigada) {
         List<Bombero> bomberos = new ArrayList<>();
@@ -162,10 +157,10 @@ public class BomberoData {
             while (rs.next()) {
                 Bombero bombero = new Bombero();
                 bombero.setCodBrigada(rs.getInt("codBrigada"));
-                int codbrig =  rs.getInt(1);
+                int codbrig = rs.getInt(1);
                 int cantidad = rs.getInt(2);
                 bomberos.add(bombero);
-                JOptionPane.showMessageDialog(null, "La brigada "+ codbrig +" tiene/n "+cantidad + " bomberos");
+                JOptionPane.showMessageDialog(null, "La brigada " + codbrig + " tiene/n " + cantidad + " bomberos");
             }
             ps.close();
             rs.close();
@@ -173,6 +168,5 @@ public class BomberoData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
         }
         return bomberos;
->>>>>>> Stashed changes
     }
 }

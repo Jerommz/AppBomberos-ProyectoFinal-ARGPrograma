@@ -14,11 +14,8 @@ public class main {
 
     public static void main(String[] args) {
 
-<<<<<<< Updated upstream
         //Bombero nuevo
-=======
-//        //Bombero nuevo
->>>>>>> Stashed changes
+
 //        Bombero bom1 = new Bombero(123123123, "marco polo", "A +", LocalDate.of(1980, 11, 22), "+01112121", 10, true);
 //        BomberoData bomDB = new BomberoData();
 //        bomDB.nuevoBombero(bom1);
@@ -27,17 +24,17 @@ public class main {
 //        Bombero bom2 = new Bombero(19, 123123123, "maria polo", "A +", LocalDate.of(1980, 11, 22), "+01112121", 10, true);
 //        bomDB.modificarBombero(bom2);
 //
-<<<<<<< Updated upstream
+
         //Baja bombero
 //        bomDB.bajaBombero(33333333);
         
         //Alta bombero
 //        bomDB.altaBombero(33333333);
-=======
+
 //        //Eliminar bombero de forma logica
 //        Bombero bom3 = new Bombero(19, 123123123, "maria polo", "A +", LocalDate.of(1980, 11, 22), "+01112121", 10, true);
 //        bomDB.eliminarBombero(123123123);
->>>>>>> Stashed changes
+
 //
 //        //crear brigada nueva 
 //        Brigada bri = new Brigada("Cobra", "derrames industriales", true, 1);
@@ -62,10 +59,6 @@ public class main {
 //                System.out.println("CODIGO DE CUARTEL" + " " + briGada.getCodCuartel());
 //                System.out.println("-----------------");
 //            }
-<<<<<<< Updated upstream
-=======
-//
->>>>>>> Stashed changes
 //        }
 //
 //        // ocupar brigada  
@@ -80,10 +73,6 @@ public class main {
 //        // obtener especialidad de brigada 
 //        System.out.println(briDB.obtenerEspecialidadBrigada(10));
 //        
-<<<<<<< Updated upstream
-        //Asignar bomberos a una lista 
-//        bomDB.dispoBrigada(5, 12);
-=======
 //        //Asignar bomberos a una lista 
 //        bomDB.asignarBrigada(5, 6);
 //        
@@ -91,8 +80,6 @@ public class main {
 //        BomberoData bomb1 = new BomberoData();
 //        List<Bombero> bombxBrig = bomb1.obtenerBombXBrig(2);
 
-
->>>>>>> Stashed changes
     }
 }
 
