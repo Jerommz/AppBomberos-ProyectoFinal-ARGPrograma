@@ -15,6 +15,7 @@ public class main {
     public static void main(String[] args) {
 
         //Bombero nuevo
+
 //        Bombero bom1 = new Bombero(123123123, "marco polo", "A +", LocalDate.of(1980, 11, 22), "+01112121", 10, true);
 //        BomberoData bomDB = new BomberoData();
 //        bomDB.nuevoBombero(bom1);
@@ -23,11 +24,17 @@ public class main {
 //        Bombero bom2 = new Bombero(19, 123123123, "maria polo", "A +", LocalDate.of(1980, 11, 22), "+01112121", 10, true);
 //        bomDB.modificarBombero(bom2);
 //
+
         //Baja bombero
 //        bomDB.bajaBombero(33333333);
         
         //Alta bombero
 //        bomDB.altaBombero(33333333);
+
+//        //Eliminar bombero de forma logica
+//        Bombero bom3 = new Bombero(19, 123123123, "maria polo", "A +", LocalDate.of(1980, 11, 22), "+01112121", 10, true);
+//        bomDB.eliminarBombero(123123123);
+
 //
 //        //crear brigada nueva 
 //        Brigada bri = new Brigada("Cobra", "derrames industriales", true, 1);
@@ -66,9 +73,20 @@ public class main {
 //        // obtener especialidad de brigada 
 //        System.out.println(briDB.obtenerEspecialidadBrigada(10));
 //        
+<<<<<<< HEAD
         //Asignar bomberos a una lista 
 //        bomDB.dispoBrigada(5, 12);
 System.out.println("hasta aqui funciona todo");
+=======
+//        //Asignar bomberos a una lista 
+//        bomDB.asignarBrigada(5, 6);
+//        
+        // obtener cantidad de bomberos por brigada 
+//        BomberoData bomb1 = new BomberoData();
+//        List<Bombero> bombxBrig = bomb1.obtenerBombXBrig(2);
+
+>>>>>>> fc0e40f15d37fb06583e27adb42bdf4bd362a2d8
     }
     
 }
+

@@ -3,6 +3,8 @@ package bomberos.AccesoAdatos;
 import bomberos.Entidades.Bombero;
 import java.sql.Connection;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class BomberoData {
@@ -92,7 +94,7 @@ public class BomberoData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
         }
     }
-    
+
     public void altaBombero(int dni) {
         //query dar de baja bombero
         String sql = "update bombero set estado = 1 where dni = ?";
@@ -108,7 +110,7 @@ public class BomberoData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
         }
     }
-    
+
     public void dispoBrigada(int codBrigada, int id_bombero) {
         try {
             String sql1 = "SELECT COUNT(*)FROM bombero WHERE codBrigada = ? AND estado = 1";
@@ -120,7 +122,7 @@ public class BomberoData {
                 JOptionPane.showMessageDialog(null, "Cantidad de bomberos en la brigada: " + count);
                 if (count < 5) {
                     asignarBomberoABrigada(codBrigada, id_bombero);
-                }else{
+                } else {
                     JOptionPane.showMessageDialog(null, "Brigada completa.");
                 }
             }
@@ -146,8 +148,27 @@ public class BomberoData {
             JOptionPane.showMessageDialog(null, "Error al asignar bombero.");
         }
     }
-    
-    public void cantBomberos(){
-        
+
+    public List<Bombero> obtenerBombXBrig(int codBrigada) {
+        List<Bombero> bomberos = new ArrayList<>();
+        String sql = "SELECT codBrigada, COUNT(*) FROM bombero WHERE codBrigada=? AND estado=1 group by codBrigada;";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, codBrigada);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Bombero bombero = new Bombero();
+                bombero.setCodBrigada(rs.getInt("codBrigada"));
+                int codbrig = rs.getInt(1);
+                int cantidad = rs.getInt(2);
+                bomberos.add(bombero);
+                JOptionPane.showMessageDialog(null, "La brigada " + codbrig + " tiene/n " + cantidad + " bomberos");
+            }
+            ps.close();
+            rs.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
+        }
+        return bomberos;
     }
 }
