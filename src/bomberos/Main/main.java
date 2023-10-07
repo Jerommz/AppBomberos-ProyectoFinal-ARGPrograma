@@ -68,5 +68,7 @@ public class main {
 //        
         //Asignar bomberos a una lista 
 //        bomDB.dispoBrigada(5, 12);
+System.out.println("hasta aqui funciona todo");
     }
+    
 }
