@@ -3,6 +3,8 @@ package bomberos.AccesoAdatos;
 import bomberos.Entidades.Bombero;
 import java.sql.Connection;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class BomberoData {
