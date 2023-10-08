@@ -3,6 +3,9 @@ package bomberos.AccesoAdatos;
 import bomberos.Entidades.Bombero;
 import java.sql.Connection;
 import java.sql.*;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -138,6 +141,30 @@ public class BomberoData {
     
     
     
+    }
+    public List <Bombero>listarBomberos(int codBombero){
+     String sql ="SELECT  id_bombero,dni, nombre_ape, grupo_sang, fecha, celular,  estado FROM bombero WHERE codBrigada =?";
+     List <Bombero>bom1 = new ArrayList<>();
+        try {
+            PreparedStatement ps= con.prepareStatement(sql);
+            ps.setInt(1, bombero.getCodBrigada());
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+            Bombero bombero =new Bombero();
+            bombero.setId_Bombero(rs.getInt("id_bombero"));
+            bombero.setNombre_ape(rs.getString("nombre_ape"));
+            bombero.setGrupo_sang(rs.getString("grupo_sang"));
+            bombero.setFecha(rs.getDate("fecha").toLocalDate());
+            bombero.setCelular("celular");
+            bombero.setEstado(rs.getBoolean("estado"));
+            bom1.add(bombero);
+            }
+            ps.close();
+            rs.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "error en sql en listar bomberos ");
+        }
+      return bom1;
     }
 
 }
