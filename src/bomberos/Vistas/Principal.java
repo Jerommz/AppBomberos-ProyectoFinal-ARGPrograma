@@ -13,17 +13,44 @@ import javax.swing.JButton;
 import javax.swing.plaf.basic.BasicButtonUI;
 
 public class Principal extends javax.swing.JFrame {
-
+    
     int var = 1;
     boolean dark = false;
     int spacing = 1;
-
+    
     public Principal() {
         initComponents();
         this.setTitle("Bomberos");
         FlatLaf.updateUI();
-//        cambiarTheme(true);
-        theme();
+        cambiarTheme(true);
+        JButton btns[] = {jBotonBombero, jBotonBrigada, jBotonCuartel, jBotonSiniestro, jBotonTheme};
+        for (JButton btn : btns) {
+            btn.setBackground(new Color(255,0,0));
+            btn.setUI(new BasicButtonUI());
+            btn.addMouseListener(new MouseListener() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                }
+
+                @Override
+                public void mousePressed(MouseEvent e) {
+                }
+
+                @Override
+                public void mouseReleased(MouseEvent e) {
+                }
+
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    btn.setBackground(new Color(80, 41, 179));
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    btn.setBackground(new Color(255,0,0));
+                }
+            });
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -46,75 +73,37 @@ public class Principal extends javax.swing.JFrame {
         panelRoot.setPreferredSize(new java.awt.Dimension(1280, 720));
         panelRoot.setLayout(new java.awt.BorderLayout());
 
-        panelTop.setBackground(new java.awt.Color(184, 30, 30));
+        panelTop.setBackground(new java.awt.Color(186, 53, 53));
         panelTop.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        panelTop.setPreferredSize(new java.awt.Dimension(1280, 80));
+        panelTop.setPreferredSize(new java.awt.Dimension(0, 80));
         panelTop.setLayout(new java.awt.GridBagLayout());
 
-        jBotonBombero.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-hombre-bombero-32.png"))); // NOI18N
         jBotonBombero.setText("Bomberos");
-        jBotonBombero.setBorderPainted(false);
-        jBotonBombero.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBotonBombero.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jBotonBombero.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 8, 8, 8));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.ipady = 50;
-        gridBagConstraints.weighty = 1.5;
-        gridBagConstraints.insets = new java.awt.Insets(0, 315, 0, 10);
+        gridBagConstraints.insets = new java.awt.Insets(0, 404, 0, 0);
         panelTop.add(jBotonBombero, gridBagConstraints);
 
-        jBotonBrigada.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bomberos.png"))); // NOI18N
         jBotonBrigada.setText("Brigadas");
-        jBotonBrigada.setBorderPainted(false);
-        jBotonBrigada.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBotonBrigada.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jBotonBrigada.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBotonBrigadaActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.ipady = 50;
-        gridBagConstraints.weighty = 1.5;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
-        panelTop.add(jBotonBrigada, gridBagConstraints);
+        jBotonBrigada.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 8, 8, 8));
+        panelTop.add(jBotonBrigada, new java.awt.GridBagConstraints());
 
-        jBotonCuartel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cuartel.png"))); // NOI18N
         jBotonCuartel.setText("Cuarteles");
-        jBotonCuartel.setBorderPainted(false);
-        jBotonCuartel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBotonCuartel.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.ipady = 50;
-        gridBagConstraints.weighty = 1.5;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
-        panelTop.add(jBotonCuartel, gridBagConstraints);
+        jBotonCuartel.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 8, 8, 8));
+        panelTop.add(jBotonCuartel, new java.awt.GridBagConstraints());
 
-        jBotonSiniestro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-incendios-32.png"))); // NOI18N
         jBotonSiniestro.setText("Siniestros");
-        jBotonSiniestro.setBorderPainted(false);
-        jBotonSiniestro.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBotonSiniestro.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.ipady = 50;
-        gridBagConstraints.weighty = 1.5;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
-        panelTop.add(jBotonSiniestro, gridBagConstraints);
+        jBotonSiniestro.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 8, 8, 8));
+        panelTop.add(jBotonSiniestro, new java.awt.GridBagConstraints());
 
-        jBotonTheme.setBorderPainted(false);
-        jBotonTheme.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBotonThemeActionPerformed(evt);
-            }
-        });
+        jBotonTheme.setText("Theme");
+        jBotonTheme.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 8, 8, 8));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.ipady = 10;
-        gridBagConstraints.weighty = 1.5;
-        gridBagConstraints.insets = new java.awt.Insets(0, 349, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(0, 439, 0, 0);
         panelTop.add(jBotonTheme, gridBagConstraints);
 
         panelRoot.add(panelTop, java.awt.BorderLayout.NORTH);
 
-        panelBot.setBackground(new java.awt.Color(136, 14, 32));
         panelBot.setForeground(new java.awt.Color(159, 66, 45));
         panelBot.setPreferredSize(new java.awt.Dimension(0, 640));
 
@@ -136,15 +125,6 @@ public class Principal extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jBotonBrigadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonBrigadaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBotonBrigadaActionPerformed
-
-    private void jBotonThemeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonThemeActionPerformed
-        // TODO add your handling code here:
-        theme();
-    }//GEN-LAST:event_jBotonThemeActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -190,20 +170,20 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPanel panelRoot;
     private javax.swing.JPanel panelTop;
     // End of variables declaration//GEN-END:variables
-//
-//    private void cambiarTheme(boolean dark) {
-//        if (FlatLaf.isLafDark() != dark) {
-//            if (dark) {
-//                FlatMacDarkLaf.setup();
-//                FlatLaf.updateUI();
-//            } else {
-//                FlatMacLightLaf.setup();
-//                FlatLaf.updateUI();
-//            }
-//        }
-//    }
 
-    public void mousePos() {
+    private void cambiarTheme(boolean dark) {
+        if (FlatLaf.isLafDark() != dark) {
+            if (dark) {
+                FlatMacDarkLaf.setup();
+                FlatLaf.updateUI();
+            } else {
+                FlatMacLightLaf.setup();
+                FlatLaf.updateUI();
+            }
+        }
+    }
+    
+    public  void mousePos(){
         // Get the current mouse pointer info
         PointerInfo pointerInfo = MouseInfo.getPointerInfo();
 
@@ -214,75 +194,5 @@ public class Principal extends javax.swing.JFrame {
         // Display the mouse coordinates
         System.out.println("Mouse X: " + mouseX);
         System.out.println("Mouse Y: " + mouseY);
-    }
-
-    public void theme() {
-        if (var == 1) {
-            JButton btns[] = {jBotonBombero, jBotonBrigada, jBotonCuartel, jBotonSiniestro, jBotonTheme};
-            for (JButton btn : btns) {
-                btn.setBackground(new Color(173, 33, 33));
-                btn.setUI(new BasicButtonUI());
-                btn.addMouseListener(new MouseListener() {
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                    }
-
-                    @Override
-                    public void mousePressed(MouseEvent e) {
-                    }
-
-                    @Override
-                    public void mouseReleased(MouseEvent e) {
-                    }
-
-                    @Override
-                    public void mouseEntered(MouseEvent e) {
-                        btn.setBackground(new Color(209, 73, 13));
-                    }
-
-                    @Override
-                    public void mouseExited(MouseEvent e) {
-                        btn.setBackground(new Color(173, 33, 33));
-                    }
-                });
-            }
-            jBotonTheme.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/apagado.png")));
-            panelTop.setBackground(new Color(184, 30, 30));
-            panelBot.setBackground(new Color(136, 14, 32));
-            var = 0;
-        } else {
-            JButton btns[] = {jBotonBombero, jBotonBrigada, jBotonCuartel, jBotonSiniestro, jBotonTheme};
-            for (JButton btn : btns) {
-                btn.setBackground(new Color(179, 60, 60));
-                btn.setUI(new BasicButtonUI());
-                btn.addMouseListener(new MouseListener() {
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                    }
-
-                    @Override
-                    public void mousePressed(MouseEvent e) {
-                    }
-
-                    @Override
-                    public void mouseReleased(MouseEvent e) {
-                    }
-
-                    @Override
-                    public void mouseEntered(MouseEvent e) {
-                        btn.setBackground(new Color(242, 103, 44));
-                    }
-
-                    @Override
-                    public void mouseExited(MouseEvent e) {
-                        btn.setBackground(new Color(179, 60, 60));
-                    }
-                });
-            }
-            jBotonTheme.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/encendido.png")));
-            panelTop.setBackground(new Color(192, 63, 63));
-            panelBot.setBackground(new Color(218, 53, 79));
-            var = 1;
-        }
     }
 }

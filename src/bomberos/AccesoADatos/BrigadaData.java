@@ -135,23 +135,7 @@ public class BrigadaData {
         }
         return especialidad;
     }
-    
-    public int cantCuarteles(int codCuartel) {
-        int cantidad = 0;
-        try {
-            String sql1 = "SELECT COUNT(*)FROM brigada WHERE codCuartel = ?";
-            PreparedStatement ps = con.prepareStatement(sql1);
-            ps.setInt(1, codCuartel);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                cantidad = rs.getInt(1);
-//                JOptionPane.showMessageDialog(null, "Cantidad de brigadas en el cuartel: " + cantidad);
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al asignar bombero.");
-        }
-        return cantidad;
-    }
+       
 }
 
 
