@@ -2,7 +2,6 @@ package bomberos.AccesoADatos;
 
 import bomberos.Entidades.Cuartel;
 import bomberos.AccesoAdatos.BomberoData;
-import bomberos.AccesoAdatos.Conexion;
 import bomberos.Entidades.Siniestro;
 import java.sql.Connection;
 import java.sql.Date;
@@ -11,8 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class SiniestroData {
@@ -85,7 +82,6 @@ public class SiniestroData {
             JOptionPane.showMessageDialog(null, "error sql de ubicar siniestro");
 
         }
-
     }
 
     public void cuartelMasCercano(int codigo) {
