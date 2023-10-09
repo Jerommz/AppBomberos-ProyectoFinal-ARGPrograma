@@ -5,6 +5,8 @@
  */
 package bomberos.Vistas;
 
+import java.awt.Color;
+
 /**
  *
  * @author jero
@@ -28,50 +30,61 @@ public class Bomberos extends javax.swing.JPanel {
     private void initComponents() {
 
         panelRoot = new javax.swing.JPanel();
-        panelLeft = new javax.swing.JPanel();
-        panelRight = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
 
         setLayout(new java.awt.BorderLayout());
 
-        panelRoot.setLayout(new java.awt.BorderLayout());
+        panelRoot.setPreferredSize(new java.awt.Dimension(1280, 640));
 
-        panelLeft.setPreferredSize(new java.awt.Dimension(640, 0));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/fondo.png"))); // NOI18N
+        jLabel1.setMaximumSize(new java.awt.Dimension(1280, 853));
+        jLabel1.setMinimumSize(new java.awt.Dimension(1280, 640));
+        jLabel1.setPreferredSize(new java.awt.Dimension(1280, 640));
 
-        javax.swing.GroupLayout panelLeftLayout = new javax.swing.GroupLayout(panelLeft);
-        panelLeft.setLayout(panelLeftLayout);
-        panelLeftLayout.setHorizontalGroup(
-            panelLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 640, Short.MAX_VALUE)
+        jPanel1.setBackground(new Color(0,0,0,0));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1200, 600));
+        jPanel1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
+
+        jPanel2.setBackground(new java.awt.Color(161, 27, 27,128));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1280, Short.MAX_VALUE)
         );
-        panelLeftLayout.setVerticalGroup(
-            panelLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 640, Short.MAX_VALUE)
-        );
-
-        panelRoot.add(panelLeft, java.awt.BorderLayout.WEST);
-
-        panelRight.setPreferredSize(new java.awt.Dimension(640, 0));
-
-        javax.swing.GroupLayout panelRightLayout = new javax.swing.GroupLayout(panelRight);
-        panelRight.setLayout(panelRightLayout);
-        panelRightLayout.setHorizontalGroup(
-            panelRightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        panelRightLayout.setVerticalGroup(
-            panelRightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 640, Short.MAX_VALUE)
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 680, Short.MAX_VALUE)
         );
 
-        panelRoot.add(panelRight, java.awt.BorderLayout.EAST);
+        jPanel1.add(jPanel2);
+
+        javax.swing.GroupLayout panelRootLayout = new javax.swing.GroupLayout(panelRoot);
+        panelRoot.setLayout(panelRootLayout);
+        panelRootLayout.setHorizontalGroup(
+            panelRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1280, Short.MAX_VALUE)
+            .addGroup(panelRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelRootLayout.setVerticalGroup(
+            panelRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
+            .addGroup(panelRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         add(panelRoot, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel panelLeft;
-    private javax.swing.JPanel panelRight;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel panelRoot;
     // End of variables declaration//GEN-END:variables
 }
