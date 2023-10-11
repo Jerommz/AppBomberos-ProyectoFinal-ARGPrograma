@@ -9,19 +9,18 @@ import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JButton;
-import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicButtonUI;
 
 /**
  *
  * @author jero
  */
-public class Bomberos extends javax.swing.JPanel {
+public class Cuarteles extends javax.swing.JPanel {
 
     /**
      * Creates new form Bomberos
      */
-    public Bomberos() {
+    public Cuarteles() {
         initComponents();
         botones();
     }
@@ -45,8 +44,6 @@ public class Bomberos extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         panelInternoDer = new javax.swing.JPanel();
@@ -56,14 +53,12 @@ public class Bomberos extends javax.swing.JPanel {
         botonModificarBomberos = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         panelInternoIzq2 = new javax.swing.JPanel();
-        checkEstadoBombero = new javax.swing.JCheckBox();
-        dateFechaNacBombero = new com.toedter.calendar.JDateChooser();
-        comboCodBriBombero = new javax.swing.JComboBox<>();
-        textCelularBombero = new javax.swing.JTextField();
-        textNombreApBombero = new javax.swing.JTextField();
-        textDNIBombero = new javax.swing.JTextField();
-        textIDBombero = new javax.swing.JTextField();
-        comboSangreBombero = new javax.swing.JComboBox<>();
+        textNombreCuartel = new javax.swing.JTextField();
+        textCodigoCuartel = new javax.swing.JTextField();
+        textCorreoCuartel = new javax.swing.JTextField();
+        textDireccionCuartel = new javax.swing.JTextField();
+        textCoordenadasCuartel = new javax.swing.JTextField();
+        textNumeroCuartel = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
         setLayout(new java.awt.BorderLayout());
@@ -88,7 +83,7 @@ public class Bomberos extends javax.swing.JPanel {
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel2.setForeground(java.awt.Color.white);
-        jLabel2.setText("ID bombero:");
+        jLabel2.setText("Codigo de cuartel:");
         jLabel2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.ipadx = 215;
@@ -98,7 +93,7 @@ public class Bomberos extends javax.swing.JPanel {
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel3.setForeground(java.awt.Color.white);
-        jLabel3.setText("Nombre y apellido:");
+        jLabel3.setText("Direccion:");
         jLabel3.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -110,7 +105,7 @@ public class Bomberos extends javax.swing.JPanel {
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel4.setForeground(java.awt.Color.white);
-        jLabel4.setText("DNI:");
+        jLabel4.setText("Nombre:");
         jLabel4.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -122,7 +117,7 @@ public class Bomberos extends javax.swing.JPanel {
 
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel5.setForeground(java.awt.Color.white);
-        jLabel5.setText("Celular:");
+        jLabel5.setText("Coordenadas:");
         jLabel5.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -132,37 +127,13 @@ public class Bomberos extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(10, 240, 20, 0);
         panelInternoIzq.add(jLabel5, gridBagConstraints);
 
-        jLabel6.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel6.setForeground(java.awt.Color.white);
-        jLabel6.setText("Grupo sanguineo:");
-        jLabel6.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.ipadx = 215;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        gridBagConstraints.insets = new java.awt.Insets(10, 240, 20, 0);
-        panelInternoIzq.add(jLabel6, gridBagConstraints);
-
-        jLabel7.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel7.setForeground(java.awt.Color.white);
-        jLabel7.setText("Fecha de nacimiento:");
-        jLabel7.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.ipadx = 215;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        gridBagConstraints.insets = new java.awt.Insets(10, 240, 20, 0);
-        panelInternoIzq.add(jLabel7, gridBagConstraints);
-
         jLabel8.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel8.setForeground(java.awt.Color.white);
-        jLabel8.setText("Codigo de brigada:");
+        jLabel8.setText("Correo electronico:");
         jLabel8.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 7;
         gridBagConstraints.ipadx = 215;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         gridBagConstraints.insets = new java.awt.Insets(10, 240, 20, 0);
@@ -170,11 +141,11 @@ public class Bomberos extends javax.swing.JPanel {
 
         jLabel9.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel9.setForeground(java.awt.Color.white);
-        jLabel9.setText("Estado:");
+        jLabel9.setText("Numero de telefono:");
         jLabel9.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.ipadx = 215;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         gridBagConstraints.insets = new java.awt.Insets(10, 240, 20, 0);
@@ -254,124 +225,90 @@ public class Bomberos extends javax.swing.JPanel {
         panelInternoIzq2.setPreferredSize(new java.awt.Dimension(300, 0));
         panelInternoIzq2.setLayout(new java.awt.GridBagLayout());
 
-        checkEstadoBombero.setBackground(new Color(193,29,29));
-        checkEstadoBombero.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        checkEstadoBombero.setForeground(java.awt.Color.white);
-        checkEstadoBombero.setText("Marque si esta activo o no");
-        checkEstadoBombero.setBorder(null);
-        checkEstadoBombero.setPreferredSize(new java.awt.Dimension(256, 30));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 30;
-        gridBagConstraints.gridwidth = 4;
-        gridBagConstraints.ipadx = 4;
-        gridBagConstraints.ipady = 6;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 15, 0);
-        panelInternoIzq2.add(checkEstadoBombero, gridBagConstraints);
-
-        dateFechaNacBombero.setBackground(new Color(193,29,29));
-        dateFechaNacBombero.setForeground(java.awt.Color.white);
-        dateFechaNacBombero.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        dateFechaNacBombero.setPreferredSize(new java.awt.Dimension(215, 30));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 24;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.ipadx = 5;
-        gridBagConstraints.ipady = 5;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 15, 0);
-        panelInternoIzq2.add(dateFechaNacBombero, gridBagConstraints);
-
-        comboCodBriBombero.setBackground(new Color(193,29,29));
-        comboCodBriBombero.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        comboCodBriBombero.setForeground(java.awt.Color.white);
-        comboCodBriBombero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        comboCodBriBombero.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        comboCodBriBombero.setPreferredSize(new java.awt.Dimension(100, 30));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 29;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.ipadx = 16;
-        gridBagConstraints.ipady = 5;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 15, 0);
-        panelInternoIzq2.add(comboCodBriBombero, gridBagConstraints);
-
-        textCelularBombero.setBackground(new Color(193,29,29));
-        textCelularBombero.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        textCelularBombero.setForeground(java.awt.Color.white);
-        textCelularBombero.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        textCelularBombero.setPreferredSize(new java.awt.Dimension(200, 30));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.ipadx = 20;
-        gridBagConstraints.ipady = 6;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 15, 0);
-        panelInternoIzq2.add(textCelularBombero, gridBagConstraints);
-
-        textNombreApBombero.setBackground(new Color(193,29,29));
-        textNombreApBombero.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        textNombreApBombero.setForeground(java.awt.Color.white);
-        textNombreApBombero.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        textNombreApBombero.setPreferredSize(new java.awt.Dimension(200, 30));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.ipadx = 20;
-        gridBagConstraints.ipady = 6;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 15, 0);
-        panelInternoIzq2.add(textNombreApBombero, gridBagConstraints);
-
-        textDNIBombero.setBackground(new Color(193,29,29));
-        textDNIBombero.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        textDNIBombero.setForeground(java.awt.Color.white);
-        textDNIBombero.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        textDNIBombero.setPreferredSize(new java.awt.Dimension(200, 30));
+        textNombreCuartel.setBackground(new Color(193,29,29));
+        textNombreCuartel.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        textNombreCuartel.setForeground(java.awt.Color.white);
+        textNombreCuartel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        textNombreCuartel.setPreferredSize(new java.awt.Dimension(200, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 6;
         gridBagConstraints.ipadx = 20;
         gridBagConstraints.ipady = 6;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 15, 0);
-        panelInternoIzq2.add(textDNIBombero, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(6, 5, 15, 0);
+        panelInternoIzq2.add(textNombreCuartel, gridBagConstraints);
 
-        textIDBombero.setEditable(false);
-        textIDBombero.setBackground(new Color(193,29,29));
-        textIDBombero.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        textIDBombero.setForeground(java.awt.Color.white);
-        textIDBombero.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        textIDBombero.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        textIDBombero.setPreferredSize(new java.awt.Dimension(50, 30));
+        textCodigoCuartel.setEditable(false);
+        textCodigoCuartel.setBackground(new Color(193,29,29));
+        textCodigoCuartel.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        textCodigoCuartel.setForeground(java.awt.Color.white);
+        textCodigoCuartel.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        textCodigoCuartel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        textCodigoCuartel.setPreferredSize(new java.awt.Dimension(50, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 5;
         gridBagConstraints.ipady = 5;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 15, 0);
-        panelInternoIzq2.add(textIDBombero, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(6, 5, 15, 0);
+        panelInternoIzq2.add(textCodigoCuartel, gridBagConstraints);
 
-        comboSangreBombero.setBackground(new Color(193,29,29));
-        comboSangreBombero.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        comboSangreBombero.setForeground(java.awt.Color.white);
-        comboSangreBombero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        comboSangreBombero.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        comboSangreBombero.setPreferredSize(new java.awt.Dimension(100, 30));
+        textCorreoCuartel.setBackground(new Color(193,29,29));
+        textCorreoCuartel.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        textCorreoCuartel.setForeground(java.awt.Color.white);
+        textCorreoCuartel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        textCorreoCuartel.setPreferredSize(new java.awt.Dimension(200, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 23;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.ipadx = 16;
-        gridBagConstraints.ipady = 5;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.ipadx = 20;
+        gridBagConstraints.ipady = 6;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 15, 0);
-        panelInternoIzq2.add(comboSangreBombero, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(6, 5, 15, 0);
+        panelInternoIzq2.add(textCorreoCuartel, gridBagConstraints);
+
+        textDireccionCuartel.setBackground(new Color(193,29,29));
+        textDireccionCuartel.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        textDireccionCuartel.setForeground(java.awt.Color.white);
+        textDireccionCuartel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        textDireccionCuartel.setPreferredSize(new java.awt.Dimension(200, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.ipadx = 20;
+        gridBagConstraints.ipady = 6;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 5, 15, 0);
+        panelInternoIzq2.add(textDireccionCuartel, gridBagConstraints);
+
+        textCoordenadasCuartel.setBackground(new Color(193,29,29));
+        textCoordenadasCuartel.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        textCoordenadasCuartel.setForeground(java.awt.Color.white);
+        textCoordenadasCuartel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        textCoordenadasCuartel.setPreferredSize(new java.awt.Dimension(200, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.ipadx = 20;
+        gridBagConstraints.ipady = 6;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 5, 15, 0);
+        panelInternoIzq2.add(textCoordenadasCuartel, gridBagConstraints);
+
+        textNumeroCuartel.setBackground(new Color(193,29,29));
+        textNumeroCuartel.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        textNumeroCuartel.setForeground(java.awt.Color.white);
+        textNumeroCuartel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        textNumeroCuartel.setPreferredSize(new java.awt.Dimension(200, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 9;
+        gridBagConstraints.ipadx = 20;
+        gridBagConstraints.ipady = 6;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 5, 15, 0);
+        panelInternoIzq2.add(textNumeroCuartel, gridBagConstraints);
 
         panelInternoDer.add(panelInternoIzq2, java.awt.BorderLayout.WEST);
 
@@ -390,7 +327,7 @@ public class Bomberos extends javax.swing.JPanel {
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/fondoBombero.jpg"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/fondoCuartel.jpg"))); // NOI18N
         jLabel1.setMaximumSize(new java.awt.Dimension(1280, 853));
         jLabel1.setMinimumSize(new java.awt.Dimension(1280, 640));
         jLabel1.setPreferredSize(new java.awt.Dimension(1280, 640));
@@ -418,18 +355,12 @@ public class Bomberos extends javax.swing.JPanel {
     private javax.swing.JButton botonAgregarBomberos;
     private javax.swing.JButton botonEliminarBomberos;
     private javax.swing.JButton botonModificarBomberos;
-    private javax.swing.JCheckBox checkEstadoBombero;
-    private javax.swing.JComboBox<String> comboCodBriBombero;
-    private javax.swing.JComboBox<String> comboSangreBombero;
-    private com.toedter.calendar.JDateChooser dateFechaNacBombero;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -440,45 +371,44 @@ public class Bomberos extends javax.swing.JPanel {
     private javax.swing.JPanel panelInternoIzq;
     private javax.swing.JPanel panelInternoIzq2;
     private javax.swing.JPanel panelRoot;
-    private javax.swing.JTextField textCelularBombero;
-    private javax.swing.JTextField textDNIBombero;
-    private javax.swing.JTextField textIDBombero;
-    private javax.swing.JTextField textNombreApBombero;
+    private javax.swing.JTextField textCodigoCuartel;
+    private javax.swing.JTextField textCoordenadasCuartel;
+    private javax.swing.JTextField textCorreoCuartel;
+    private javax.swing.JTextField textDireccionCuartel;
+    private javax.swing.JTextField textNombreCuartel;
+    private javax.swing.JTextField textNumeroCuartel;
     // End of variables declaration//GEN-END:variables
 
-    public void botones() {
+    
+    public void botones(){
         JButton btns[] = {botonAgregarBomberos, botonEliminarBomberos, botonModificarBomberos, jButton1};
-        for (JButton btn : btns) {
-            btn.setBackground(new Color(184, 34, 34));
-            btn.setUI(new BasicButtonUI());
-            btn.addMouseListener(new MouseListener() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                }
+            for (JButton btn : btns) {
+                btn.setBackground(new Color(184, 34, 34));
+                btn.setUI(new BasicButtonUI());
+                btn.addMouseListener(new MouseListener() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                    }
 
-                @Override
-                public void mousePressed(MouseEvent e) {
-                }
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                    }
 
-                @Override
-                public void mouseReleased(MouseEvent e) {
-                }
+                    @Override
+                    public void mouseReleased(MouseEvent e) {
+                    }
 
-                @Override
-                public void mouseEntered(MouseEvent e) {
-                    btn.setBackground(new Color(252, 68, 22));
-                }
+                    @Override
+                    public void mouseEntered(MouseEvent e) {
+                        btn.setBackground(new Color(252, 68, 22));
+                    }
 
-                @Override
-                public void mouseExited(MouseEvent e) {
-                    btn.setBackground(new Color(184, 34, 34));
-                }
-            });
-        }
+                    @Override
+                    public void mouseExited(MouseEvent e) {
+                        btn.setBackground(new Color(184, 34, 34));
+                    }
+                });
+            }
     }
-
-//    public void calendar() {
-//        JTextField dateField = (JTextField) dateFechaNacBombero.getDateEditor().getUiComponent();
-//        dateField.setEditable(false);
-//    }
+    
 }
