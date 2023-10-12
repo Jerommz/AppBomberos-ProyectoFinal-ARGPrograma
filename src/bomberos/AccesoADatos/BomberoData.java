@@ -3,6 +3,7 @@ package bomberos.AccesoAdatos;
 import bomberos.Entidades.Bombero;
 import java.sql.Connection;
 import java.sql.*;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +65,10 @@ public class BomberoData {
             ps.setInt(1, bombero.getDni());
             ps.setString(2, bombero.getNombre_ape());
             ps.setString(3, bombero.getGrupo_sang());
-            ps.setDate(4, Date.valueOf(bombero.getFecha()));
+            //java.sql.Date sqlDate = java.sql.Date.valueOf(bombero.getFecha());
+            //ps.setDate(4, sqlDate);
+
+             ps.setDate(4, Date.valueOf(bombero.getFecha()));
             ps.setString(5, bombero.getCelular());
             ps.setInt(6, bombero.getCodBrigada());
             ps.setBoolean(7, bombero.isEstado());
@@ -155,7 +159,7 @@ public class BomberoData {
             bombero.setNombre_ape(rs.getString("nombre_ape"));
             bombero.setGrupo_sang(rs.getString("grupo_sang"));
             bombero.setFecha(rs.getDate("fecha").toLocalDate());
-            bombero.setCelular("celular");
+            bombero.setCelular(rs.getString("celular"));
             bombero.setEstado(rs.getBoolean("estado"));
             bom1.add(bombero);
             }
@@ -166,5 +170,68 @@ public class BomberoData {
         }
       return bom1;
     }
+    public Bombero buscarBombero(int id) {
+        //query para obtener datos
+        String sql = "select dni,nombre_ape,gruposanguineo , fecha , celular from bombero  where id_bombero = ? and estado = 1";
+        Bombero bombero = null;
+        try {
+            
+            //envio de query a la base de datos
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                
+                //seteo de datos en nueva instancia de bombero
+            bombero =new Bombero();
+            bombero.setId_Bombero(rs.getInt("id_bombero"));
+            bombero.setNombre_ape(rs.getString("nombre_ape"));
+            bombero.setGrupo_sang(rs.getString("grupo_sang"));
+            bombero.setFecha(rs.getDate("fecha").toLocalDate());
+            bombero.setCelular(rs.getString("celular"));
+            bombero.setEstado(rs.getBoolean("estado"));
+            
+            } else {
+                JOptionPane.showMessageDialog(null, "bombero no encontrado no encontrado.");
+            }
+            ps.close();
+            rs.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error sql de bombero al buscarlo");
+        }
+        return bombero;
+    }
+    //metodo para buscar bombero con dni en la base de datos
+    public Bombero buscarBomberoPorDni(int dni) {
+        //query para obtener datos
+        String sql = "select id_bombero,nombre_ape,gruposanguineo,fecha,celular from bombero where dni = ? and estado = 1";
+        Bombero bombero = null;
+        try {
+            
+            //envio de query a la base de datos
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, dni);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                
+                //seteo de datos en nueva instancia de bombero
+               
+                bombero =new Bombero();
+            bombero.setId_Bombero(rs.getInt("id_bombero"));
+            bombero.setNombre_ape(rs.getString("nombre_ape"));
+            bombero.setGrupo_sang(rs.getString("grupo_sang"));
+            bombero.setFecha(rs.getDate("fecha").toLocalDate());
+            bombero.setCelular(rs.getString("celular"));
+            bombero.setEstado(rs.getBoolean("estado"));
+            } else {
+                JOptionPane.showMessageDialog(null, "Alumno no encontrado.");
+            }
+            ps.close();
+            rs.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla alumno");
+        }
+        return bombero;
 
+    }
 }
