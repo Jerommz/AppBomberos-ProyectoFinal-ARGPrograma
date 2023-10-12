@@ -1,6 +1,5 @@
 package bomberos.Vistas;
 
-import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.MouseInfo;
@@ -18,7 +17,7 @@ public class Principal extends javax.swing.JFrame {
         initComponents();
         this.setTitle("Bomberos");
         mostrarPanel(new Bomberos());
-        theme();
+        botones();
     }
 
     @SuppressWarnings("unchecked")
@@ -32,7 +31,6 @@ public class Principal extends javax.swing.JFrame {
         jBotonBrigada = new javax.swing.JButton();
         jBotonCuartel = new javax.swing.JButton();
         jBotonSiniestro = new javax.swing.JButton();
-        jBotonTheme = new javax.swing.JButton();
         panelBotMostrar = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -47,6 +45,7 @@ public class Principal extends javax.swing.JFrame {
         jBotonBombero.setForeground(java.awt.Color.white);
         jBotonBombero.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-hombre-bombero-32.png"))); // NOI18N
         jBotonBombero.setText("Bomberos");
+        jBotonBombero.setBorder(null);
         jBotonBombero.setBorderPainted(false);
         jBotonBombero.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBotonBombero.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -56,43 +55,64 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(0, 404, 0, 0);
+        gridBagConstraints.ipadx = 10;
+        gridBagConstraints.ipady = 10;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         panelTop.add(jBotonBombero, gridBagConstraints);
 
         jBotonBrigada.setForeground(java.awt.Color.white);
         jBotonBrigada.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bomberos.png"))); // NOI18N
         jBotonBrigada.setText("Brigadas");
+        jBotonBrigada.setBorder(null);
         jBotonBrigada.setBorderPainted(false);
         jBotonBrigada.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBotonBrigada.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        panelTop.add(jBotonBrigada, new java.awt.GridBagConstraints());
+        jBotonBrigada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBotonBrigadaActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.ipadx = 15;
+        gridBagConstraints.ipady = 15;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        panelTop.add(jBotonBrigada, gridBagConstraints);
 
         jBotonCuartel.setForeground(java.awt.Color.white);
         jBotonCuartel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cuartel.png"))); // NOI18N
         jBotonCuartel.setText("Cuarteles");
+        jBotonCuartel.setBorder(null);
         jBotonCuartel.setBorderPainted(false);
         jBotonCuartel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBotonCuartel.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        panelTop.add(jBotonCuartel, new java.awt.GridBagConstraints());
+        jBotonCuartel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBotonCuartelActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.ipadx = 10;
+        gridBagConstraints.ipady = 10;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        panelTop.add(jBotonCuartel, gridBagConstraints);
 
         jBotonSiniestro.setForeground(java.awt.Color.white);
         jBotonSiniestro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-incendios-32.png"))); // NOI18N
         jBotonSiniestro.setText("Siniestros");
+        jBotonSiniestro.setBorder(null);
         jBotonSiniestro.setBorderPainted(false);
         jBotonSiniestro.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBotonSiniestro.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        panelTop.add(jBotonSiniestro, new java.awt.GridBagConstraints());
-
-        jBotonTheme.setForeground(java.awt.Color.white);
-        jBotonTheme.setBorderPainted(false);
-        jBotonTheme.addActionListener(new java.awt.event.ActionListener() {
+        jBotonSiniestro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBotonThemeActionPerformed(evt);
+                jBotonSiniestroActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(0, 439, 0, 0);
-        panelTop.add(jBotonTheme, gridBagConstraints);
+        gridBagConstraints.ipadx = 10;
+        gridBagConstraints.ipady = 10;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        panelTop.add(jBotonSiniestro, gridBagConstraints);
 
         panelRoot.add(panelTop, java.awt.BorderLayout.NORTH);
 
@@ -106,15 +126,25 @@ public class Principal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jBotonThemeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonThemeActionPerformed
-        // TODO add your handling code here:
-        theme();
-    }//GEN-LAST:event_jBotonThemeActionPerformed
-
     private void jBotonBomberoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonBomberoActionPerformed
         // TODO add your handling code here:
         mostrarPanel(new Bomberos());
     }//GEN-LAST:event_jBotonBomberoActionPerformed
+
+    private void jBotonBrigadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonBrigadaActionPerformed
+        // TODO add your handling code here:
+        mostrarPanel(new Brigadas());
+    }//GEN-LAST:event_jBotonBrigadaActionPerformed
+
+    private void jBotonCuartelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonCuartelActionPerformed
+        // TODO add your handling code here:
+        mostrarPanel(new Cuarteles());
+    }//GEN-LAST:event_jBotonCuartelActionPerformed
+
+    private void jBotonSiniestroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonSiniestroActionPerformed
+        // TODO add your handling code here:
+        mostrarPanel(new Siniestros());
+    }//GEN-LAST:event_jBotonSiniestroActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -139,7 +169,6 @@ public class Principal extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        FlatMacDarkLaf.install();
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -154,7 +183,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton jBotonBrigada;
     private javax.swing.JButton jBotonCuartel;
     private javax.swing.JButton jBotonSiniestro;
-    private javax.swing.JButton jBotonTheme;
     private javax.swing.JPanel panelBotMostrar;
     private javax.swing.JPanel panelRoot;
     private javax.swing.JPanel panelTop;
@@ -173,9 +201,9 @@ public class Principal extends javax.swing.JFrame {
         System.out.println("Mouse Y: " + mouseY);
     }
 
-    public void theme() {
+    public void botones() {
         if (var == 1) {
-            JButton btns[] = {jBotonBombero, jBotonBrigada, jBotonCuartel, jBotonSiniestro, jBotonTheme};
+            JButton btns[] = {jBotonBombero, jBotonBrigada, jBotonCuartel, jBotonSiniestro};
             for (JButton btn : btns) {
                 btn.setBackground(new Color(206, 32, 40));
                 btn.setUI(new BasicButtonUI());
@@ -203,12 +231,11 @@ public class Principal extends javax.swing.JFrame {
                     }
                 });
             }
-            jBotonTheme.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/apagado.png")));
             panelTop.setBackground(new Color(206, 32, 40));
             panelBotMostrar.setBackground(new Color(161, 27, 27));
             var = 0;
         } else {
-            JButton btns[] = {jBotonBombero, jBotonBrigada, jBotonCuartel, jBotonSiniestro, jBotonTheme};
+            JButton btns[] = {jBotonBombero, jBotonBrigada, jBotonCuartel, jBotonSiniestro};
             for (JButton btn : btns) {
                 btn.setBackground(new Color(241, 119, 0));
                 btn.setUI(new BasicButtonUI());
@@ -236,7 +263,6 @@ public class Principal extends javax.swing.JFrame {
                     }
                 });
             }
-            jBotonTheme.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/encendido.png")));
             panelTop.setBackground(new Color(241, 119, 0));
             panelBotMostrar.setBackground(new Color(255, 186, 5));
             var = 1;
