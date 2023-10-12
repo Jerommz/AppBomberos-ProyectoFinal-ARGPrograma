@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-10-2023 a las 00:09:40
+-- Tiempo de generación: 13-10-2023 a las 01:51:09
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -45,15 +45,15 @@ CREATE TABLE `bombero` (
 --
 
 INSERT INTO `bombero` (`id_bombero`, `dni`, `nombre_ape`, `grupo_sang`, `fecha`, `celular`, `codBrigada`, `estado`) VALUES
-(3, 11111111, 'Pepe Argento', '0+', '1993-04-01', 1111111111, 1, 1),
-(4, 77777777, 'Tito Llama', '0+', '2003-04-01', 2147483647, NULL, 1),
-(5, 22222222, 'Conan ElBarbaro', '0-', '1998-05-09', 2147483647, NULL, 1),
+(3, 11111111, 'Pepe Argento', 'O+', '1993-04-01', 1111111111, 1, 1),
+(4, 77777777, 'Tito Llama', 'O+', '2003-04-01', 2147483647, NULL, 1),
+(5, 22222222, 'Conan ElBarbaro', 'B-', '1998-05-09', 2147483647, NULL, 1),
 (6, 33333333, 'Pipo Pescador', 'A+', '1991-09-09', 2147483647, NULL, 1),
-(7, 44444444, 'Roger Waters', '0+', '1990-10-09', 2147483647, NULL, 1),
-(8, 55555555, 'Roberto Humito', '0-', '1997-12-09', 2147483647, NULL, 1),
+(7, 44444444, 'Roger Waters', 'A-', '1990-10-09', 2147483647, NULL, 1),
+(8, 55555555, 'Roberto Humito', 'AB-', '1997-12-09', 2147483647, NULL, 1),
 (9, 66666666, 'Angela Fire', 'A-', '2000-12-30', 2147483647, 2, 0),
-(10, 88888888, 'Lorena Ceniza', '0+', '2001-01-01', 2147483647, 1, 1),
-(11, 99999999, 'Juana Balde', '0+', '1991-01-01', 2147483647, 5, 1),
+(10, 88888888, 'Lorena Ceniza', 'B+', '2001-01-01', 2147483647, 1, 1),
+(11, 99999999, 'Juana Balde', 'AB+', '1991-01-01', 2147483647, 5, 1),
 (12, 11111222, 'Esperanza Llama', 'A+', '2001-02-01', 1111112222, 2, 1);
 
 -- --------------------------------------------------------
