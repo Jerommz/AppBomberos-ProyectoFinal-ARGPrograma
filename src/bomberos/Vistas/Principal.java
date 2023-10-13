@@ -31,6 +31,7 @@ public class Principal extends javax.swing.JFrame {
         jBotonBrigada = new javax.swing.JButton();
         jBotonCuartel = new javax.swing.JButton();
         jBotonSiniestro = new javax.swing.JButton();
+        jBotonAdmin = new javax.swing.JButton();
         panelBotMostrar = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -114,6 +115,24 @@ public class Principal extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         panelTop.add(jBotonSiniestro, gridBagConstraints);
 
+        jBotonAdmin.setForeground(java.awt.Color.white);
+        jBotonAdmin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/admin2.png"))); // NOI18N
+        jBotonAdmin.setText("Administracion");
+        jBotonAdmin.setBorder(null);
+        jBotonAdmin.setBorderPainted(false);
+        jBotonAdmin.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jBotonAdmin.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jBotonAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBotonAdminActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.ipadx = 10;
+        gridBagConstraints.ipady = 10;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        panelTop.add(jBotonAdmin, gridBagConstraints);
+
         panelRoot.add(panelTop, java.awt.BorderLayout.NORTH);
 
         panelBotMostrar.setPreferredSize(new java.awt.Dimension(0, 640));
@@ -145,6 +164,10 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
         mostrarPanel(new Siniestros());
     }//GEN-LAST:event_jBotonSiniestroActionPerformed
+
+    private void jBotonAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonAdminActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBotonAdminActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -179,6 +202,7 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBotonAdmin;
     private javax.swing.JButton jBotonBombero;
     private javax.swing.JButton jBotonBrigada;
     private javax.swing.JButton jBotonCuartel;
@@ -203,7 +227,7 @@ public class Principal extends javax.swing.JFrame {
 
     public void botones() {
         if (var == 1) {
-            JButton btns[] = {jBotonBombero, jBotonBrigada, jBotonCuartel, jBotonSiniestro};
+            JButton btns[] = {jBotonBombero, jBotonBrigada, jBotonCuartel, jBotonSiniestro, jBotonAdmin};
             for (JButton btn : btns) {
                 btn.setBackground(new Color(206, 32, 40));
                 btn.setUI(new BasicButtonUI());
@@ -235,7 +259,7 @@ public class Principal extends javax.swing.JFrame {
             panelBotMostrar.setBackground(new Color(161, 27, 27));
             var = 0;
         } else {
-            JButton btns[] = {jBotonBombero, jBotonBrigada, jBotonCuartel, jBotonSiniestro};
+            JButton btns[] = {jBotonBombero, jBotonBrigada, jBotonCuartel, jBotonSiniestro, jBotonAdmin};
             for (JButton btn : btns) {
                 btn.setBackground(new Color(241, 119, 0));
                 btn.setUI(new BasicButtonUI());
@@ -268,7 +292,7 @@ public class Principal extends javax.swing.JFrame {
             var = 1;
         }
     }
-    
+
     public void mostrarPanel(Component com) {
         panelBotMostrar.removeAll();
         panelBotMostrar.add(com);

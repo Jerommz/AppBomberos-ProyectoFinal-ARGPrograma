@@ -36,7 +36,7 @@ public class CuartelData {
             ps.setString(2, cuartel.getDireccion());
             ps.setInt(3, cuartel.getCoord_X());
             ps.setInt(4, cuartel.getCoord_Y());
-            ps.setString(5, cuartel.getTelefono());
+            ps.setInt(5, cuartel.getTelefono());
             ps.setString(6, cuartel.getCorreo());
             int exito = ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
@@ -61,7 +61,7 @@ public class CuartelData {
             ps.setInt(2, cuartel.getCoord_X());
             ps.setString(3, cuartel.getDireccion());
             ps.setInt(4, cuartel.getCoord_Y());
-            ps.setString(5, cuartel.getTelefono());
+            ps.setInt(5, cuartel.getTelefono());
             ps.setString(6, cuartel.getCorreo());
             ps.setInt(7, cuartel.getCodCuartel());
             int exito = ps.executeUpdate();

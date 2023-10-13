@@ -353,36 +353,35 @@ public class Brigadas extends javax.swing.JPanel {
     private javax.swing.JTextField textNombreBrigada;
     // End of variables declaration//GEN-END:variables
 
-    
-    public void botones(){
+    public void botones() {
         JButton btns[] = {botonAgregarBomberos, botonEliminarBomberos, botonModificarBomberos, jButton1};
-            for (JButton btn : btns) {
-                btn.setBackground(new Color(184, 34, 34));
-                btn.setUI(new BasicButtonUI());
-                btn.addMouseListener(new MouseListener() {
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                    }
+        for (JButton btn : btns) {
+            btn.setBackground(new Color(184, 34, 34));
+            btn.setUI(new BasicButtonUI());
+            btn.addMouseListener(new MouseListener() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                }
 
-                    @Override
-                    public void mousePressed(MouseEvent e) {
-                    }
+                @Override
+                public void mousePressed(MouseEvent e) {
+                }
 
-                    @Override
-                    public void mouseReleased(MouseEvent e) {
-                    }
+                @Override
+                public void mouseReleased(MouseEvent e) {
+                }
 
-                    @Override
-                    public void mouseEntered(MouseEvent e) {
-                        btn.setBackground(new Color(252, 68, 22));
-                    }
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    btn.setBackground(new Color(252, 68, 22));
+                }
 
-                    @Override
-                    public void mouseExited(MouseEvent e) {
-                        btn.setBackground(new Color(184, 34, 34));
-                    }
-                });
-            }
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    btn.setBackground(new Color(184, 34, 34));
+                }
+            });
+        }
     }
-    
+
 }

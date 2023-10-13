@@ -16,14 +16,14 @@ public class Bombero {
     private String nombre_ape;
     private String grupo_sang;
     private LocalDate fecha;
-    private String celular;
+    private int celular;
     private int codBrigada;
     private boolean estado;
 
     public Bombero() {
     }
 
-    public Bombero(int id_Bombero, int dni, String nombre_ape, String grupo_sang, LocalDate fecha, String celular, int codBrigada, boolean estado) {
+    public Bombero(int id_Bombero, int dni, String nombre_ape, String grupo_sang, LocalDate fecha, int celular, int codBrigada, boolean estado) {
         this.id_Bombero = id_Bombero;
         this.dni = dni;
         this.nombre_ape = nombre_ape;
@@ -34,7 +34,7 @@ public class Bombero {
         this.estado = estado;
     }
 
-    public Bombero(int dni, String nombre_ape, String grupo_sang, LocalDate fecha, String celular, int codBrigada, boolean estado) {
+    public Bombero(int dni, String nombre_ape, String grupo_sang, LocalDate fecha, int celular, int codBrigada, boolean estado) {
         this.dni = dni;
         this.nombre_ape = nombre_ape;
         this.grupo_sang = grupo_sang;
@@ -84,11 +84,11 @@ public class Bombero {
         this.fecha = fecha;
     }
 
-    public String getCelular() {
+    public int getCelular() {
         return celular;
     }
 
-    public void setCelular(String celular) {
+    public void setCelular(int celular) {
         this.celular = celular;
     }
 

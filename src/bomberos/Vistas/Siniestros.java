@@ -18,7 +18,7 @@ import javax.swing.JLabel;
 public class Siniestros extends javax.swing.JPanel {
 
     private ImageIcon icono;
-    
+
     /**
      * Creates new form Siniestros
      */
@@ -322,8 +322,7 @@ public class Siniestros extends javax.swing.JPanel {
     private javax.swing.JTextField textTiempoSiniestro;
     // End of variables declaration//GEN-END:variables
 
-    
-    public void agregarMarcador(int x, int y){
+    public void agregarMarcador(int x, int y) {
         icono = new ImageIcon("marker.png");
         JLabel label = new JLabel(icono);
         label.setBounds(x - icono.getIconWidth() / 2, y - icono.getIconHeight() / 2, icono.getIconWidth(), icono.getIconHeight());
@@ -331,7 +330,7 @@ public class Siniestros extends javax.swing.JPanel {
         repaint();
         System.out.println("1");
     }
-    
+
     public void mousePos() {
         // Get the current mouse pointer info
         PointerInfo pointerInfo = MouseInfo.getPointerInfo();

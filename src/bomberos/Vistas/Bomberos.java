@@ -5,10 +5,20 @@
  */
 package bomberos.Vistas;
 
+import bomberos.AccesoADatos.BrigadaData;
+import bomberos.AccesoAdatos.BomberoData;
+import bomberos.Entidades.Bombero;
+import bomberos.Entidades.Brigada;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicButtonUI;
 
@@ -18,12 +28,17 @@ import javax.swing.plaf.basic.BasicButtonUI;
  */
 public class Bomberos extends javax.swing.JPanel {
 
+    BomberoData bomberoDB = new BomberoData();
+    BrigadaData brigadaDB = new BrigadaData();
+    String[] sang = {"AB+", "AB-", "B+", "B-", "A+", "A-", "O+", "O-"};
+
     /**
      * Creates new form Bomberos
      */
     public Bomberos() {
         initComponents();
         botones();
+        mostrarComboCodBrig();
     }
 
     /**
@@ -51,10 +66,10 @@ public class Bomberos extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         panelInternoDer = new javax.swing.JPanel();
         panelInternoDer2 = new javax.swing.JPanel();
-        botonAgregarBomberos = new javax.swing.JButton();
+        botonAgregarBombero = new javax.swing.JButton();
         botonEliminarBomberos = new javax.swing.JButton();
         botonModificarBomberos = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        botonBuscarBombero = new javax.swing.JButton();
         panelInternoIzq2 = new javax.swing.JPanel();
         checkEstadoBombero = new javax.swing.JCheckBox();
         dateFechaNacBombero = new com.toedter.calendar.JDateChooser();
@@ -63,7 +78,7 @@ public class Bomberos extends javax.swing.JPanel {
         textNombreApBombero = new javax.swing.JTextField();
         textDNIBombero = new javax.swing.JTextField();
         textIDBombero = new javax.swing.JTextField();
-        comboSangreBombero = new javax.swing.JComboBox<>();
+        comboSangreBombero = new javax.swing.JComboBox<>(sang);
         jLabel1 = new javax.swing.JLabel();
 
         setLayout(new java.awt.BorderLayout());
@@ -74,6 +89,7 @@ public class Bomberos extends javax.swing.JPanel {
         jPanel1.setPreferredSize(new java.awt.Dimension(1200, 600));
 
         jPanel2.setBackground(new java.awt.Color(161, 27, 27,20));
+        jPanel2.setMinimumSize(new java.awt.Dimension(1100, 640));
         java.awt.FlowLayout flowLayout1 = new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 70);
         flowLayout1.setAlignOnBaseline(true);
         jPanel2.setLayout(flowLayout1);
@@ -190,12 +206,17 @@ public class Bomberos extends javax.swing.JPanel {
         panelInternoDer2.setPreferredSize(new java.awt.Dimension(200, 0));
         panelInternoDer2.setLayout(new java.awt.GridBagLayout());
 
-        botonAgregarBomberos.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        botonAgregarBomberos.setForeground(java.awt.Color.white);
-        botonAgregarBomberos.setText("Agregar");
-        botonAgregarBomberos.setBorder(null);
-        botonAgregarBomberos.setBorderPainted(false);
-        botonAgregarBomberos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonAgregarBombero.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        botonAgregarBombero.setForeground(java.awt.Color.white);
+        botonAgregarBombero.setText("Agregar");
+        botonAgregarBombero.setBorder(null);
+        botonAgregarBombero.setBorderPainted(false);
+        botonAgregarBombero.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonAgregarBombero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAgregarBomberoActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
@@ -203,13 +224,18 @@ public class Bomberos extends javax.swing.JPanel {
         gridBagConstraints.ipady = 25;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(80, 50, 0, 5);
-        panelInternoDer2.add(botonAgregarBomberos, gridBagConstraints);
+        panelInternoDer2.add(botonAgregarBombero, gridBagConstraints);
 
         botonEliminarBomberos.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         botonEliminarBomberos.setForeground(java.awt.Color.white);
         botonEliminarBomberos.setText("Eliminar");
         botonEliminarBomberos.setBorder(null);
         botonEliminarBomberos.setBorderPainted(false);
+        botonEliminarBomberos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonEliminarBomberosActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 5;
@@ -225,6 +251,11 @@ public class Bomberos extends javax.swing.JPanel {
         botonModificarBomberos.setText("Modificar");
         botonModificarBomberos.setBorder(null);
         botonModificarBomberos.setBorderPainted(false);
+        botonModificarBomberos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonModificarBomberosActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 6;
@@ -235,18 +266,23 @@ public class Bomberos extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(80, 45, 60, 45);
         panelInternoDer2.add(botonModificarBomberos, gridBagConstraints);
 
-        jButton1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jButton1.setForeground(java.awt.Color.white);
-        jButton1.setText("Buscar");
-        jButton1.setBorder(null);
-        jButton1.setBorderPainted(false);
+        botonBuscarBombero.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        botonBuscarBombero.setForeground(java.awt.Color.white);
+        botonBuscarBombero.setText("Buscar");
+        botonBuscarBombero.setBorder(null);
+        botonBuscarBombero.setBorderPainted(false);
+        botonBuscarBombero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonBuscarBomberoActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.ipadx = 25;
         gridBagConstraints.ipady = 25;
         gridBagConstraints.insets = new java.awt.Insets(80, 50, 0, 5);
-        panelInternoDer2.add(jButton1, gridBagConstraints);
+        panelInternoDer2.add(botonBuscarBombero, gridBagConstraints);
 
         panelInternoDer.add(panelInternoDer2, java.awt.BorderLayout.EAST);
 
@@ -272,6 +308,7 @@ public class Bomberos extends javax.swing.JPanel {
 
         dateFechaNacBombero.setBackground(new Color(193,29,29));
         dateFechaNacBombero.setForeground(java.awt.Color.white);
+        dateFechaNacBombero.setDateFormatString("yyyy-MM-dd");
         dateFechaNacBombero.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         dateFechaNacBombero.setPreferredSize(new java.awt.Dimension(215, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -287,7 +324,6 @@ public class Bomberos extends javax.swing.JPanel {
         comboCodBriBombero.setBackground(new Color(193,29,29));
         comboCodBriBombero.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         comboCodBriBombero.setForeground(java.awt.Color.white);
-        comboCodBriBombero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         comboCodBriBombero.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         comboCodBriBombero.setPreferredSize(new java.awt.Dimension(100, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -360,7 +396,6 @@ public class Bomberos extends javax.swing.JPanel {
         comboSangreBombero.setBackground(new Color(193,29,29));
         comboSangreBombero.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         comboSangreBombero.setForeground(java.awt.Color.white);
-        comboSangreBombero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         comboSangreBombero.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         comboSangreBombero.setPreferredSize(new java.awt.Dimension(100, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -405,7 +440,7 @@ public class Bomberos extends javax.swing.JPanel {
         );
         panelRootLayout.setVerticalGroup(
             panelRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 716, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
             .addGroup(panelRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -413,16 +448,76 @@ public class Bomberos extends javax.swing.JPanel {
         add(panelRoot, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void botonBuscarBomberoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarBomberoActionPerformed
+        // TODO add your handling code here:
+        try {
+            if (textDNIBombero.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Introduzca un DNI.");
+            } else {
+                int dni = Integer.parseInt(textDNIBombero.getText());
+                Bombero bombero = bomberoDB.buscarBomberoPorDni(dni);
+                textIDBombero.setText(String.valueOf(bombero.getId_Bombero()));
+                textNombreApBombero.setText(bombero.getNombre_ape());
+                textCelularBombero.setText(String.valueOf(bombero.getCelular()));
+                comboSangreBombero.setSelectedItem((Object) bombero.getGrupo_sang());
+                dateFechaNacBombero.setDate(Date.valueOf(bombero.getFecha()));
+                comboCodBriBombero.setSelectedItem((Object) bombero.getCodBrigada());
+                checkEstadoBombero.setSelected(bombero.isEstado());
+            }
+        } catch (NullPointerException ex) {
+            JOptionPane.showMessageDialog(null, "Bombero no encontrado, corrija el DNI.");
+        }
+    }//GEN-LAST:event_botonBuscarBomberoActionPerformed
+
+    private void botonAgregarBomberoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarBomberoActionPerformed
+        // TODO add your handling code here:
+        try {
+            Component[] comps = panelInternoIzq2.getComponents();
+            for (Component comp : comps) {
+                if (comp instanceof JTextField) {
+                    if (((JTextField) comp).getText().equals("")) {
+                        JOptionPane.showMessageDialog(null, "Ningun campo puede estar vacio.");
+                    } else {
+                        int dni = Integer.valueOf(textDNIBombero.getText());
+                        String nombre_ape = textNombreApBombero.getText();
+                        int celular = Integer.valueOf(textCelularBombero.getText());
+                        String grupo_sang = String.valueOf(comboSangreBombero.getSelectedItem());
+                        String fecha = ((JTextField) dateFechaNacBombero.getDateEditor().getUiComponent()).getText();
+                        String codBrigada = String.valueOf(comboCodBriBombero.getSelectedItem());
+                        boolean estado = checkEstadoBombero.isSelected();
+                        Bombero bombero = new Bombero(dni, nombre_ape, grupo_sang, LocalDate.parse(fecha), celular, Integer.parseInt(codBrigada), estado);
+                        bomberoDB.nuevoBombero(bombero);
+                    }
+                }
+            }
+            textDNIBombero.setText("");
+            textNombreApBombero.setText("");
+            textCelularBombero.setText("");
+            dateFechaNacBombero.setDate(null);
+            checkEstadoBombero.setSelected(false);
+        } catch (NullPointerException ex) {
+            JOptionPane.showMessageDialog(null, "error./agg");
+        }
+    }//GEN-LAST:event_botonAgregarBomberoActionPerformed
+
+    private void botonEliminarBomberosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarBomberosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonEliminarBomberosActionPerformed
+
+    private void botonModificarBomberosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarBomberosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonModificarBomberosActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botonAgregarBomberos;
+    private javax.swing.JButton botonAgregarBombero;
+    private javax.swing.JButton botonBuscarBombero;
     private javax.swing.JButton botonEliminarBomberos;
     private javax.swing.JButton botonModificarBomberos;
     private javax.swing.JCheckBox checkEstadoBombero;
     private javax.swing.JComboBox<String> comboCodBriBombero;
     private javax.swing.JComboBox<String> comboSangreBombero;
     private com.toedter.calendar.JDateChooser dateFechaNacBombero;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -447,7 +542,7 @@ public class Bomberos extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     public void botones() {
-        JButton btns[] = {botonAgregarBomberos, botonEliminarBomberos, botonModificarBomberos, jButton1};
+        JButton btns[] = {botonAgregarBombero, botonEliminarBomberos, botonModificarBomberos, botonBuscarBombero};
         for (JButton btn : btns) {
             btn.setBackground(new Color(184, 34, 34));
             btn.setUI(new BasicButtonUI());
@@ -481,4 +576,11 @@ public class Bomberos extends javax.swing.JPanel {
 //        JTextField dateField = (JTextField) dateFechaNacBombero.getDateEditor().getUiComponent();
 //        dateField.setEditable(false);
 //    }
+    public void mostrarComboCodBrig() {
+        List<Brigada> brig = new ArrayList<>();
+        brig = brigadaDB.obtenerBrigadas();
+        for (Brigada brigada : brig) {
+            comboCodBriBombero.addItem(String.valueOf(brigada.getCodBrigada()));
+        }
+    }
 }

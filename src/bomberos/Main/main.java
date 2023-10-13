@@ -86,15 +86,7 @@ public class main {
         System.out.println(briDB.obtenerEspecialidadBrigada(10));
     */
     //Asignar bomberos a una lista 
-     BomberoData bomDB =new BomberoData();
-     bomDB.asignarBrigada(5, 11);
-    
-    
-    
+//     BomberoData bomDB =new BomberoData();
+//     bomDB.asignarBrigada(5, 11);
    }
-   
-  
-
-
-
 }
