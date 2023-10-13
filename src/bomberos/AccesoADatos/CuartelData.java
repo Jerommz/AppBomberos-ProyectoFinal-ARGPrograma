@@ -7,12 +7,9 @@ import bomberos.Entidades.Cuartel;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class CuartelData {
@@ -28,10 +25,10 @@ public class CuartelData {
 
     
 
-    public void cargarCuartel(int codbrigada) {
-        String sql = "INSERT INTO cuartel( nombre_cuartel, direccion, coord_X, coord_Y, telefono, correo) VALUES (?,?,?,?,?,?)";
+    public void nuevoCuartel(Cuartel cuartel) {
+        String sql = "INSERT INTO cuartel(nombre_cuartel, direccion, coord_X, coord_Y, telefono, correo) VALUES (?,?,?,?,?,?)";
         try {
-            PreparedStatement ps = con.prepareStatement(sql);
+            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, cuartel.getNombre_cuartel());
             ps.setString(2, cuartel.getDireccion());
             ps.setInt(3, cuartel.getCoord_X());
@@ -53,7 +50,7 @@ public class CuartelData {
         }
     }
 
-    public void modificarCuartel(int codCuartel) {
+    public void modificarCuartel(Cuartel cuartel) {
         String sql = "UPDATE cuartel SET nombre_cuartel=?,direccion=?,coord_X=?,coord_Y=?,telefono=?,correo=? WHERE codCuartel =?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -117,8 +114,54 @@ public class CuartelData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "error en el sql de contar brigadas en el cuartel");
         }
-        
-
+    }
+    
+    public List<Cuartel> obtenerCuarteles(){
+        List<Cuartel> cuarteles = new ArrayList<>();
+        String sql = "select * from cuartel";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Cuartel cuartel = new Cuartel();
+                cuartel.setCodCuartel(rs.getInt("codCuartel"));
+                cuartel.setNombre_cuartel(rs.getString("nombre_cuartel"));
+                cuartel.setDireccion(rs.getString("direccion"));
+                cuartel.setCoord_X(rs.getInt("coord_X"));
+                cuartel.setCoord_X(rs.getInt("coord_Y"));
+                cuartel.setTelefono(rs.getInt("telefono"));
+                cuartel.setCorreo(rs.getString("correo"));
+                cuarteles.add(cuartel);
+            }
+            ps.close();
+            rs.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
+        }
+        return cuarteles;
     }
    
+    public Cuartel buscarCuartel(int codCuartel){
+        String sql = "select nombre_cuartel, direccion, coord_X, coord_Y, telefono, correo from cuartel where codCuartel = ?";
+        Cuartel cuartel = new Cuartel();
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, codCuartel);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                cuartel.setCodCuartel(codCuartel);
+                cuartel.setNombre_cuartel(rs.getString("nombre_cuartel"));
+                cuartel.setDireccion(rs.getString("direccion"));
+                cuartel.setCoord_X(rs.getInt("coord_X"));
+                cuartel.setCoord_X(rs.getInt("coord_Y"));
+                cuartel.setTelefono(rs.getInt("telefono"));
+                cuartel.setCorreo(rs.getString("correo"));
+            }
+            ps.close();
+            rs.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.1");
+        }
+        return cuartel;
+    }
 }

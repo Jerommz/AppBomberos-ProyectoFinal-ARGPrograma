@@ -100,7 +100,7 @@ public class BomberoData {
                 int count = rs.getInt(1);
                 System.out.println("Cantidad de bomberos en la brigada: " + count);
                 if (count < 5) {
-                    AsignarBomberoABrigada(codBrigada, id_bombero);
+                    asignarBomberoABrigada(codBrigada, id_bombero);
                 }
             }
         } catch (SQLException ex) {
@@ -109,7 +109,7 @@ public class BomberoData {
 
     }
 
-    public void AsignarBomberoABrigada(int codBrigada, int id_bombero) {
+    public void asignarBomberoABrigada(int codBrigada, int id_bombero) {
         String sql = "UPDATE bombero set codBrigada =? where id_bombero =?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -153,40 +153,14 @@ public class BomberoData {
         return bomberos;
     }
 
-//    public Bombero buscarBombero(int id) {
-//        String sql = "select dni,nombre_ape,gruposanguineo , fecha , celular from bombero  where id_bombero = ? and estado = 1";
-//        Bombero bombero = null;
-//        try {
-//            PreparedStatement ps = con.prepareStatement(sql);
-//            ps.setInt(1, id);
-//            ResultSet rs = ps.executeQuery();
-//            if (rs.next()) {
-//                bombero = new Bombero();
-//                bombero.setId_Bombero(rs.getInt("id_bombero"));
-//                bombero.setNombre_ape(rs.getString("nombre_ape"));
-//                bombero.setGrupo_sang(rs.getString("grupo_sang"));
-//                bombero.setFecha(rs.getDate("fecha").toLocalDate());
-//                bombero.setCelular(rs.getInt("celular"));
-//                bombero.setEstado(rs.getBoolean("estado"));
-//            } else {
-//                JOptionPane.showMessageDialog(null, "bombero no encontrado no encontrado.");
-//            }
-//            ps.close();
-//            rs.close();
-//        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(null, "Error sql de bombero al buscarlo");
-//        }
-//        return bombero;
-//    }
     public Bombero buscarBomberoPorDni(int dni) {
         String sql = "select id_bombero, nombre_ape, grupo_sang, fecha, celular, codBrigada from bombero where dni = ? and estado = 1";
-        Bombero bombero = null;
+        bombero = new Bombero();
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, dni);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                bombero = new Bombero();
                 bombero.setId_Bombero(rs.getInt("id_bombero"));
                 bombero.setDni(dni);
                 bombero.setNombre_ape(rs.getString("nombre_ape"));

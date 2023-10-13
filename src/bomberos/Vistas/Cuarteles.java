@@ -5,10 +5,16 @@
  */
 package bomberos.Vistas;
 
+import bomberos.AccesoADatos.CuartelData;
+import bomberos.Entidades.Brigada;
+import bomberos.Entidades.Cuartel;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicButtonUI;
 
 /**
@@ -17,6 +23,8 @@ import javax.swing.plaf.basic.BasicButtonUI;
  */
 public class Cuarteles extends javax.swing.JPanel {
 
+    CuartelData cuartelDB = new CuartelData();
+    
     /**
      * Creates new form Bomberos
      */
@@ -48,10 +56,10 @@ public class Cuarteles extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         panelInternoDer = new javax.swing.JPanel();
         panelInternoDer2 = new javax.swing.JPanel();
-        botonAgregarBomberos = new javax.swing.JButton();
-        botonEliminarBomberos = new javax.swing.JButton();
-        botonModificarBomberos = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        botonAgregarCuarteles = new javax.swing.JButton();
+        botonEliminarCuarteles = new javax.swing.JButton();
+        botonModificarCuarteles = new javax.swing.JButton();
+        botonBuscarCuarteles = new javax.swing.JButton();
         panelInternoIzq2 = new javax.swing.JPanel();
         textNombreCuartel = new javax.swing.JTextField();
         textCodigoCuartel = new javax.swing.JTextField();
@@ -66,9 +74,10 @@ public class Cuarteles extends javax.swing.JPanel {
         panelRoot.setPreferredSize(new java.awt.Dimension(1280, 640));
 
         jPanel1.setBackground(new Color(0,0,0,0));
-        jPanel1.setPreferredSize(new java.awt.Dimension(1200, 600));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1280, 640));
 
         jPanel2.setBackground(new java.awt.Color(161, 27, 27,20));
+        jPanel2.setMinimumSize(new java.awt.Dimension(1000, 640));
         java.awt.FlowLayout flowLayout1 = new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 70);
         flowLayout1.setAlignOnBaseline(true);
         jPanel2.setLayout(flowLayout1);
@@ -161,12 +170,17 @@ public class Cuarteles extends javax.swing.JPanel {
         panelInternoDer2.setPreferredSize(new java.awt.Dimension(200, 0));
         panelInternoDer2.setLayout(new java.awt.GridBagLayout());
 
-        botonAgregarBomberos.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        botonAgregarBomberos.setForeground(java.awt.Color.white);
-        botonAgregarBomberos.setText("Agregar");
-        botonAgregarBomberos.setBorder(null);
-        botonAgregarBomberos.setBorderPainted(false);
-        botonAgregarBomberos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonAgregarCuarteles.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        botonAgregarCuarteles.setForeground(java.awt.Color.white);
+        botonAgregarCuarteles.setText("Agregar");
+        botonAgregarCuarteles.setBorder(null);
+        botonAgregarCuarteles.setBorderPainted(false);
+        botonAgregarCuarteles.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonAgregarCuarteles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAgregarCuartelesActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
@@ -174,13 +188,18 @@ public class Cuarteles extends javax.swing.JPanel {
         gridBagConstraints.ipady = 25;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(80, 50, 0, 5);
-        panelInternoDer2.add(botonAgregarBomberos, gridBagConstraints);
+        panelInternoDer2.add(botonAgregarCuarteles, gridBagConstraints);
 
-        botonEliminarBomberos.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        botonEliminarBomberos.setForeground(java.awt.Color.white);
-        botonEliminarBomberos.setText("Eliminar");
-        botonEliminarBomberos.setBorder(null);
-        botonEliminarBomberos.setBorderPainted(false);
+        botonEliminarCuarteles.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        botonEliminarCuarteles.setForeground(java.awt.Color.white);
+        botonEliminarCuarteles.setText("Eliminar");
+        botonEliminarCuarteles.setBorder(null);
+        botonEliminarCuarteles.setBorderPainted(false);
+        botonEliminarCuarteles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonEliminarCuartelesActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 5;
@@ -189,13 +208,18 @@ public class Cuarteles extends javax.swing.JPanel {
         gridBagConstraints.ipady = 25;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(80, 49, 0, 5);
-        panelInternoDer2.add(botonEliminarBomberos, gridBagConstraints);
+        panelInternoDer2.add(botonEliminarCuarteles, gridBagConstraints);
 
-        botonModificarBomberos.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        botonModificarBomberos.setForeground(java.awt.Color.white);
-        botonModificarBomberos.setText("Modificar");
-        botonModificarBomberos.setBorder(null);
-        botonModificarBomberos.setBorderPainted(false);
+        botonModificarCuarteles.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        botonModificarCuarteles.setForeground(java.awt.Color.white);
+        botonModificarCuarteles.setText("Modificar");
+        botonModificarCuarteles.setBorder(null);
+        botonModificarCuarteles.setBorderPainted(false);
+        botonModificarCuarteles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonModificarCuartelesActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 6;
@@ -204,20 +228,25 @@ public class Cuarteles extends javax.swing.JPanel {
         gridBagConstraints.ipady = 25;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(80, 45, 60, 45);
-        panelInternoDer2.add(botonModificarBomberos, gridBagConstraints);
+        panelInternoDer2.add(botonModificarCuarteles, gridBagConstraints);
 
-        jButton1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jButton1.setForeground(java.awt.Color.white);
-        jButton1.setText("Buscar");
-        jButton1.setBorder(null);
-        jButton1.setBorderPainted(false);
+        botonBuscarCuarteles.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        botonBuscarCuarteles.setForeground(java.awt.Color.white);
+        botonBuscarCuarteles.setText("Buscar");
+        botonBuscarCuarteles.setBorder(null);
+        botonBuscarCuarteles.setBorderPainted(false);
+        botonBuscarCuarteles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonBuscarCuartelesActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.ipadx = 25;
         gridBagConstraints.ipady = 25;
         gridBagConstraints.insets = new java.awt.Insets(80, 50, 0, 5);
-        panelInternoDer2.add(jButton1, gridBagConstraints);
+        panelInternoDer2.add(botonBuscarCuarteles, gridBagConstraints);
 
         panelInternoDer.add(panelInternoDer2, java.awt.BorderLayout.EAST);
 
@@ -239,7 +268,6 @@ public class Cuarteles extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(6, 5, 15, 0);
         panelInternoIzq2.add(textNombreCuartel, gridBagConstraints);
 
-        textCodigoCuartel.setEditable(false);
         textCodigoCuartel.setBackground(new Color(193,29,29));
         textCodigoCuartel.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         textCodigoCuartel.setForeground(java.awt.Color.white);
@@ -336,13 +364,13 @@ public class Cuarteles extends javax.swing.JPanel {
         panelRoot.setLayout(panelRootLayout);
         panelRootLayout.setHorizontalGroup(
             panelRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1280, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(panelRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelRootLayout.setVerticalGroup(
             panelRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 716, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(panelRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -350,12 +378,106 @@ public class Cuarteles extends javax.swing.JPanel {
         add(panelRoot, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void botonBuscarCuartelesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarCuartelesActionPerformed
+        // TODO add your handling code here:
+        try {
+            if (textCodigoCuartel.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Introduzca un codigo valido.");
+            } else {
+                int codBrigada = Integer.valueOf(textCodigoCuartel.getText());
+                Cuartel cuartel = cuartelDB.buscarCuartel(codBrigada);
+                textNombreCuartel.setText(cuartel.getNombre_cuartel());
+                textDireccionCuartel.setText(cuartel.getDireccion());
+                String coords = "X:" + cuartel.getCoord_X() + " Y:" + cuartel.getCoord_Y();
+                textCoordenadasCuartel.setText(coords);
+                textNumeroCuartel.setText(cuartel.getTelefono()+ "");
+                textCorreoCuartel.setText(cuartel.getCorreo());
+            }
+        } catch (NullPointerException ex) {
+            JOptionPane.showMessageDialog(null, "Cuartel no encontrado, corrija el codigo.");
+        }
+    }//GEN-LAST:event_botonBuscarCuartelesActionPerformed
+
+    private void botonAgregarCuartelesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarCuartelesActionPerformed
+        // TODO add your handling code here:
+        try {
+            Component[] comps = panelInternoIzq2.getComponents();
+            for (Component comp : comps) {
+                if (comp instanceof JTextField) {
+                    if (((JTextField) comp).getText().equals("")) {
+                        JOptionPane.showMessageDialog(null, "Ningun campo puede estar vacio.");
+                        break;
+                    } else {
+                        int codCuartel = Integer.valueOf(textCodigoCuartel.getText());
+                        String nombre_cuartel = textNombreCuartel.getText();
+                        String direccion = textDireccionCuartel.getText();
+                        String cords = textCoordenadasCuartel.getText();
+                        String[] cord = cords.split(" ");
+                        String cordX = cord[0];
+                        String cordY = cord[1];
+                        int coord_X = cordX.charAt(cordX.length() - 1);
+                        int coord_Y = cordY.charAt(cordY.length() - 1);
+                        int telefono = Integer.valueOf(textNumeroCuartel.getText());
+                        String correo = textCorreoCuartel.getText();
+                        Cuartel cuartel = new Cuartel(codCuartel, nombre_cuartel, direccion, coord_X, coord_Y, telefono, correo);
+                        cuartelDB.nuevoCuartel(cuartel);
+                        break;
+                    }
+                }
+            }
+            textCodigoCuartel.setText("");
+            textNombreCuartel.setText("");
+            textDireccionCuartel.setText("");
+            textCoordenadasCuartel.setText("");
+            textNumeroCuartel.setText("");
+            textCorreoCuartel.setText("");
+        } catch (NullPointerException ex) {
+            JOptionPane.showMessageDialog(null, "Error al intentar agregar una brigada nuevo.");
+        }
+    }//GEN-LAST:event_botonAgregarCuartelesActionPerformed
+
+    private void botonEliminarCuartelesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarCuartelesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonEliminarCuartelesActionPerformed
+
+    private void botonModificarCuartelesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarCuartelesActionPerformed
+        // TODO add your handling code here:
+        try{
+            Component[] comps = panelInternoIzq2.getComponents();
+            for (Component comp : comps) {
+                if (comp instanceof JTextField) {
+                    if (((JTextField) comp).getText().equals("")) {
+                        JOptionPane.showMessageDialog(null, "Ningun campo puede estar vacio, primero realice una busqueda.");
+                        break;
+                    } else {
+                        int codCuartel = Integer.valueOf(textCodigoCuartel.getText());
+                        String nombre_cuartel = textNombreCuartel.getText();
+                        String direccion = textDireccionCuartel.getText();
+                        String cords = textCoordenadasCuartel.getText();
+                        String[] cord = cords.split(" ");
+                        String cordX = cord[0];
+                        String cordY = cord[1];
+                        int coord_X = cordX.charAt(cordX.length() - 1);
+                        int coord_Y = cordY.charAt(cordY.length() - 1);
+                        int telefono = Integer.valueOf(textNumeroCuartel.getText());
+                        String correo = textCorreoCuartel.getText();
+                        Cuartel cuartel = new Cuartel(codCuartel, nombre_cuartel, direccion, coord_X, coord_Y, telefono, correo);
+                        cuartelDB.modificarCuartel(cuartel);
+                        break;
+                    }
+                }
+            }
+        } catch (NullPointerException ex) {
+            JOptionPane.showMessageDialog(null, "Error al intentar modificar brigada.");
+        }
+    }//GEN-LAST:event_botonModificarCuartelesActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botonAgregarBomberos;
-    private javax.swing.JButton botonEliminarBomberos;
-    private javax.swing.JButton botonModificarBomberos;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton botonAgregarCuarteles;
+    private javax.swing.JButton botonBuscarCuarteles;
+    private javax.swing.JButton botonEliminarCuarteles;
+    private javax.swing.JButton botonModificarCuarteles;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -381,7 +503,7 @@ public class Cuarteles extends javax.swing.JPanel {
 
     
     public void botones(){
-        JButton btns[] = {botonAgregarBomberos, botonEliminarBomberos, botonModificarBomberos, jButton1};
+        JButton btns[] = {botonAgregarCuarteles, botonEliminarCuarteles, botonModificarCuarteles, botonBuscarCuarteles};
             for (JButton btn : btns) {
                 btn.setBackground(new Color(184, 34, 34));
                 btn.setUI(new BasicButtonUI());

@@ -5,10 +5,21 @@
  */
 package bomberos.Vistas;
 
+import bomberos.AccesoADatos.BrigadaData;
+import bomberos.AccesoADatos.CuartelData;
+import bomberos.Entidades.Bombero;
+import bomberos.Entidades.Brigada;
+import bomberos.Entidades.Cuartel;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicButtonUI;
 
 /**
@@ -17,12 +28,16 @@ import javax.swing.plaf.basic.BasicButtonUI;
  */
 public class Brigadas extends javax.swing.JPanel {
 
+    CuartelData cuartelDB = new CuartelData();
+    BrigadaData brigadaDB = new BrigadaData();
+
     /**
      * Creates new form Bomberos
      */
     public Brigadas() {
         initComponents();
         botones();
+        mostrarComboCodCuart();
     }
 
     /**
@@ -47,10 +62,10 @@ public class Brigadas extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         panelInternoDer = new javax.swing.JPanel();
         panelInternoDer2 = new javax.swing.JPanel();
-        botonAgregarBomberos = new javax.swing.JButton();
-        botonEliminarBomberos = new javax.swing.JButton();
-        botonModificarBomberos = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        botonAgregarBrigadas = new javax.swing.JButton();
+        botonEliminarBrigadas = new javax.swing.JButton();
+        botonModificarBrigadas = new javax.swing.JButton();
+        botonBuscarBrigadas = new javax.swing.JButton();
         panelInternoIzq2 = new javax.swing.JPanel();
         checkLibreBrigada = new javax.swing.JCheckBox();
         textNombreBrigada = new javax.swing.JTextField();
@@ -72,6 +87,7 @@ public class Brigadas extends javax.swing.JPanel {
         jPanel2.setLayout(flowLayout1);
 
         panelInterno.setBackground(new Color(161, 27, 27,180));
+        panelInterno.setMinimumSize(new java.awt.Dimension(1000, 500));
         panelInterno.setPreferredSize(new java.awt.Dimension(1000, 500));
         panelInterno.setLayout(new java.awt.BorderLayout());
 
@@ -147,12 +163,17 @@ public class Brigadas extends javax.swing.JPanel {
         panelInternoDer2.setPreferredSize(new java.awt.Dimension(200, 0));
         panelInternoDer2.setLayout(new java.awt.GridBagLayout());
 
-        botonAgregarBomberos.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        botonAgregarBomberos.setForeground(java.awt.Color.white);
-        botonAgregarBomberos.setText("Agregar");
-        botonAgregarBomberos.setBorder(null);
-        botonAgregarBomberos.setBorderPainted(false);
-        botonAgregarBomberos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonAgregarBrigadas.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        botonAgregarBrigadas.setForeground(java.awt.Color.white);
+        botonAgregarBrigadas.setText("Agregar");
+        botonAgregarBrigadas.setBorder(null);
+        botonAgregarBrigadas.setBorderPainted(false);
+        botonAgregarBrigadas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonAgregarBrigadas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAgregarBrigadasActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
@@ -160,13 +181,18 @@ public class Brigadas extends javax.swing.JPanel {
         gridBagConstraints.ipady = 25;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(80, 50, 0, 5);
-        panelInternoDer2.add(botonAgregarBomberos, gridBagConstraints);
+        panelInternoDer2.add(botonAgregarBrigadas, gridBagConstraints);
 
-        botonEliminarBomberos.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        botonEliminarBomberos.setForeground(java.awt.Color.white);
-        botonEliminarBomberos.setText("Eliminar");
-        botonEliminarBomberos.setBorder(null);
-        botonEliminarBomberos.setBorderPainted(false);
+        botonEliminarBrigadas.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        botonEliminarBrigadas.setForeground(java.awt.Color.white);
+        botonEliminarBrigadas.setText("Eliminar");
+        botonEliminarBrigadas.setBorder(null);
+        botonEliminarBrigadas.setBorderPainted(false);
+        botonEliminarBrigadas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonEliminarBrigadasActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 5;
@@ -175,13 +201,18 @@ public class Brigadas extends javax.swing.JPanel {
         gridBagConstraints.ipady = 25;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(80, 49, 0, 5);
-        panelInternoDer2.add(botonEliminarBomberos, gridBagConstraints);
+        panelInternoDer2.add(botonEliminarBrigadas, gridBagConstraints);
 
-        botonModificarBomberos.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        botonModificarBomberos.setForeground(java.awt.Color.white);
-        botonModificarBomberos.setText("Modificar");
-        botonModificarBomberos.setBorder(null);
-        botonModificarBomberos.setBorderPainted(false);
+        botonModificarBrigadas.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        botonModificarBrigadas.setForeground(java.awt.Color.white);
+        botonModificarBrigadas.setText("Modificar");
+        botonModificarBrigadas.setBorder(null);
+        botonModificarBrigadas.setBorderPainted(false);
+        botonModificarBrigadas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonModificarBrigadasActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 6;
@@ -190,20 +221,25 @@ public class Brigadas extends javax.swing.JPanel {
         gridBagConstraints.ipady = 25;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(80, 45, 60, 45);
-        panelInternoDer2.add(botonModificarBomberos, gridBagConstraints);
+        panelInternoDer2.add(botonModificarBrigadas, gridBagConstraints);
 
-        jButton1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jButton1.setForeground(java.awt.Color.white);
-        jButton1.setText("Buscar");
-        jButton1.setBorder(null);
-        jButton1.setBorderPainted(false);
+        botonBuscarBrigadas.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        botonBuscarBrigadas.setForeground(java.awt.Color.white);
+        botonBuscarBrigadas.setText("Buscar");
+        botonBuscarBrigadas.setBorder(null);
+        botonBuscarBrigadas.setBorderPainted(false);
+        botonBuscarBrigadas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonBuscarBrigadasActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.ipadx = 25;
         gridBagConstraints.ipady = 25;
         gridBagConstraints.insets = new java.awt.Insets(80, 50, 0, 5);
-        panelInternoDer2.add(jButton1, gridBagConstraints);
+        panelInternoDer2.add(botonBuscarBrigadas, gridBagConstraints);
 
         panelInternoDer.add(panelInternoDer2, java.awt.BorderLayout.EAST);
 
@@ -241,7 +277,6 @@ public class Brigadas extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(6, 5, 15, 0);
         panelInternoIzq2.add(textNombreBrigada, gridBagConstraints);
 
-        textCodigoBrigada.setEditable(false);
         textCodigoBrigada.setBackground(new Color(193,29,29));
         textCodigoBrigada.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         textCodigoBrigada.setForeground(java.awt.Color.white);
@@ -273,7 +308,6 @@ public class Brigadas extends javax.swing.JPanel {
         comboCodCuartelBrigada.setBackground(new Color(193,29,29));
         comboCodCuartelBrigada.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         comboCodCuartelBrigada.setForeground(java.awt.Color.white);
-        comboCodCuartelBrigada.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         comboCodCuartelBrigada.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         comboCodCuartelBrigada.setPreferredSize(new java.awt.Dimension(100, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -296,7 +330,7 @@ public class Brigadas extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1280, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -318,7 +352,7 @@ public class Brigadas extends javax.swing.JPanel {
         );
         panelRootLayout.setVerticalGroup(
             panelRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 716, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
             .addGroup(panelRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -326,14 +360,92 @@ public class Brigadas extends javax.swing.JPanel {
         add(panelRoot, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void botonBuscarBrigadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarBrigadasActionPerformed
+        // TODO add your handling code here:
+        try {
+            if (textCodigoBrigada.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Introduzca un codigo valido.");
+            } else {
+                int codBrigada = Integer.valueOf(textCodigoBrigada.getText());
+                Brigada brigada = brigadaDB.buscarBrigada(codBrigada);
+                textNombreBrigada.setText(brigada.getNombre_br());
+                textEspecialidadBrigada.setText(brigada.getEspecialidad());
+                checkLibreBrigada.setSelected(brigada.isLibre());
+                comboCodCuartelBrigada.setSelectedItem((Object) brigada.getCodCuartel());
+            }
+        } catch (NullPointerException ex) {
+            JOptionPane.showMessageDialog(null, "Brigada no encontrada, corrija el codigo.");
+        }
+    }//GEN-LAST:event_botonBuscarBrigadasActionPerformed
+
+    private void botonAgregarBrigadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarBrigadasActionPerformed
+        // TODO add your handling code here:
+        try {
+            Component[] comps = panelInternoIzq2.getComponents();
+            for (Component comp : comps) {
+                if (comp instanceof JTextField) {
+                    if (((JTextField) comp).getText().equals("")) {
+                        JOptionPane.showMessageDialog(null, "Ningun campo puede estar vacio.");
+                    } else {
+                        int codBrigada = Integer.valueOf(textCodigoBrigada.getText());
+                        String nombre_br = textNombreBrigada.getText();
+                        String especialidad = textEspecialidadBrigada.getText();
+                        boolean libre = checkLibreBrigada.isSelected();
+                        String codCuartel = String.valueOf(comboCodCuartelBrigada.getSelectedItem());
+                        Brigada brigada = new Brigada(nombre_br, especialidad, libre, Integer.parseInt(codCuartel));
+                        brigadaDB.nuevaBrigada(brigada);
+                        break;
+                    }
+                }
+            }
+            textCodigoBrigada.setText("");
+            textNombreBrigada.setText("");
+            textEspecialidadBrigada.setText("");
+            checkLibreBrigada.setSelected(false);
+        } catch (NullPointerException ex) {
+            JOptionPane.showMessageDialog(null, "Error al intentar agregar una brigada nuevo.");
+        }
+    }//GEN-LAST:event_botonAgregarBrigadasActionPerformed
+
+    private void botonEliminarBrigadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarBrigadasActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_botonEliminarBrigadasActionPerformed
+
+    private void botonModificarBrigadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarBrigadasActionPerformed
+        // TODO add your handling code here:
+        try{
+            Component[] comps = panelInternoIzq2.getComponents();
+            for (Component comp : comps) {
+                if (comp instanceof JTextField) {
+                    if (((JTextField) comp).getText().equals("")) {
+                        JOptionPane.showMessageDialog(null, "Ningun campo puede estar vacio, primero realice una busqueda.");
+                        break;
+                    } else {
+                        int idBrigada = Integer.valueOf(textCodigoBrigada.getText());
+                        String nombre_br = textNombreBrigada.getText();
+                        String especialidad = textEspecialidadBrigada.getText();
+                        boolean estado = checkLibreBrigada.isSelected();
+                        String codCuartel = String.valueOf(comboCodCuartelBrigada.getSelectedItem());
+                        Brigada brigada = new Brigada(idBrigada, nombre_br, especialidad, estado, Integer.parseInt(codCuartel));
+                        brigadaDB.modificarBrigada(brigada);
+                        break;
+                    }
+                }
+            }
+        } catch (NullPointerException ex) {
+            JOptionPane.showMessageDialog(null, "Error al intentar modificar brigada.");
+        }
+    }//GEN-LAST:event_botonModificarBrigadasActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botonAgregarBomberos;
-    private javax.swing.JButton botonEliminarBomberos;
-    private javax.swing.JButton botonModificarBomberos;
+    private javax.swing.JButton botonAgregarBrigadas;
+    private javax.swing.JButton botonBuscarBrigadas;
+    private javax.swing.JButton botonEliminarBrigadas;
+    private javax.swing.JButton botonModificarBrigadas;
     private javax.swing.JCheckBox checkLibreBrigada;
     private javax.swing.JComboBox<String> comboCodCuartelBrigada;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -354,7 +466,7 @@ public class Brigadas extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     public void botones() {
-        JButton btns[] = {botonAgregarBomberos, botonEliminarBomberos, botonModificarBomberos, jButton1};
+        JButton btns[] = {botonAgregarBrigadas, botonEliminarBrigadas, botonModificarBrigadas, botonBuscarBrigadas};
         for (JButton btn : btns) {
             btn.setBackground(new Color(184, 34, 34));
             btn.setUI(new BasicButtonUI());
@@ -384,4 +496,11 @@ public class Brigadas extends javax.swing.JPanel {
         }
     }
 
+    public void mostrarComboCodCuart() {
+        List<Cuartel> cuart = new ArrayList<>();
+        cuart = cuartelDB.obtenerCuarteles();
+        for (Cuartel cuartel : cuart) {
+            comboCodCuartelBrigada.addItem(String.valueOf(cuartel.getCodCuartel()));
+        }
+    }
 }

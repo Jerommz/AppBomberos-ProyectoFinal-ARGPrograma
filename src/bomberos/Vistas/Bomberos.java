@@ -69,7 +69,7 @@ public class Bomberos extends javax.swing.JPanel {
         botonAgregarBombero = new javax.swing.JButton();
         botonEliminarBomberos = new javax.swing.JButton();
         botonModificarBomberos = new javax.swing.JButton();
-        botonBuscarBombero = new javax.swing.JButton();
+        botonBuscarBomberos = new javax.swing.JButton();
         panelInternoIzq2 = new javax.swing.JPanel();
         checkEstadoBombero = new javax.swing.JCheckBox();
         dateFechaNacBombero = new com.toedter.calendar.JDateChooser();
@@ -266,14 +266,14 @@ public class Bomberos extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(80, 45, 60, 45);
         panelInternoDer2.add(botonModificarBomberos, gridBagConstraints);
 
-        botonBuscarBombero.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        botonBuscarBombero.setForeground(java.awt.Color.white);
-        botonBuscarBombero.setText("Buscar");
-        botonBuscarBombero.setBorder(null);
-        botonBuscarBombero.setBorderPainted(false);
-        botonBuscarBombero.addActionListener(new java.awt.event.ActionListener() {
+        botonBuscarBomberos.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        botonBuscarBomberos.setForeground(java.awt.Color.white);
+        botonBuscarBomberos.setText("Buscar");
+        botonBuscarBomberos.setBorder(null);
+        botonBuscarBomberos.setBorderPainted(false);
+        botonBuscarBomberos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonBuscarBomberoActionPerformed(evt);
+                botonBuscarBomberosActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -282,7 +282,7 @@ public class Bomberos extends javax.swing.JPanel {
         gridBagConstraints.ipadx = 25;
         gridBagConstraints.ipady = 25;
         gridBagConstraints.insets = new java.awt.Insets(80, 50, 0, 5);
-        panelInternoDer2.add(botonBuscarBombero, gridBagConstraints);
+        panelInternoDer2.add(botonBuscarBomberos, gridBagConstraints);
 
         panelInternoDer.add(panelInternoDer2, java.awt.BorderLayout.EAST);
 
@@ -448,7 +448,7 @@ public class Bomberos extends javax.swing.JPanel {
         add(panelRoot, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void botonBuscarBomberoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarBomberoActionPerformed
+    private void botonBuscarBomberosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarBomberosActionPerformed
         // TODO add your handling code here:
         try {
             if (textDNIBombero.getText().equals("")) {
@@ -467,7 +467,7 @@ public class Bomberos extends javax.swing.JPanel {
         } catch (NullPointerException ex) {
             JOptionPane.showMessageDialog(null, "Bombero no encontrado, corrija el DNI.");
         }
-    }//GEN-LAST:event_botonBuscarBomberoActionPerformed
+    }//GEN-LAST:event_botonBuscarBomberosActionPerformed
 
     private void botonAgregarBomberoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarBomberoActionPerformed
         // TODO add your handling code here:
@@ -487,31 +487,81 @@ public class Bomberos extends javax.swing.JPanel {
                         boolean estado = checkEstadoBombero.isSelected();
                         Bombero bombero = new Bombero(dni, nombre_ape, grupo_sang, LocalDate.parse(fecha), celular, Integer.parseInt(codBrigada), estado);
                         bomberoDB.nuevoBombero(bombero);
+                        break;
                     }
                 }
             }
+            textIDBombero.setText("");
             textDNIBombero.setText("");
             textNombreApBombero.setText("");
             textCelularBombero.setText("");
             dateFechaNacBombero.setDate(null);
             checkEstadoBombero.setSelected(false);
         } catch (NullPointerException ex) {
-            JOptionPane.showMessageDialog(null, "error./agg");
+            JOptionPane.showMessageDialog(null, "Error al intentar agregar un bombero nuevo.");
         }
     }//GEN-LAST:event_botonAgregarBomberoActionPerformed
 
     private void botonEliminarBomberosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarBomberosActionPerformed
         // TODO add your handling code here:
+        try {
+            Component[] comps = panelInternoIzq2.getComponents();
+            for (Component comp : comps) {
+                if (comp instanceof JTextField) {
+                    if (((JTextField) comp).getText().equals("")) {
+                        JOptionPane.showMessageDialog(null, "Ningun campo puede estar vacio, primero realice una busqueda.");
+                        break;
+                    } else {
+                        int dni = Integer.valueOf(textDNIBombero.getText());
+                        bomberoDB.eliminarBombero(dni);
+                        break;
+                    }
+                }
+            }
+            textIDBombero.setText("");
+            textDNIBombero.setText("");
+            textNombreApBombero.setText("");
+            textCelularBombero.setText("");
+            dateFechaNacBombero.setDate(null);
+            checkEstadoBombero.setSelected(false);
+        } catch (NullPointerException ex) {
+            JOptionPane.showMessageDialog(null, "Error al intentar eliminar bombero.");
+        }
     }//GEN-LAST:event_botonEliminarBomberosActionPerformed
 
     private void botonModificarBomberosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarBomberosActionPerformed
         // TODO add your handling code here:
+        try{
+            Component[] comps = panelInternoIzq2.getComponents();
+            for (Component comp : comps) {
+                if (comp instanceof JTextField) {
+                    if (((JTextField) comp).getText().equals("")) {
+                        JOptionPane.showMessageDialog(null, "Ningun campo puede estar vacio, primero realice una busqueda.");
+                        break;
+                    } else {
+                        int idBombero = Integer.valueOf(textIDBombero.getText());
+                        int dni = Integer.valueOf(textDNIBombero.getText());
+                        String nombre_ape = textNombreApBombero.getText();
+                        int celular = Integer.valueOf(textCelularBombero.getText());
+                        String grupo_sang = String.valueOf(comboSangreBombero.getSelectedItem());
+                        String fecha = ((JTextField) dateFechaNacBombero.getDateEditor().getUiComponent()).getText();
+                        String codBrigada = String.valueOf(comboCodBriBombero.getSelectedItem());
+                        boolean estado = checkEstadoBombero.isSelected();
+                        Bombero bombero = new Bombero(idBombero, dni, nombre_ape, grupo_sang, LocalDate.parse(fecha), celular, Integer.parseInt(codBrigada), estado);
+                        bomberoDB.modificarBombero(bombero);
+                        break;
+                    }
+                }
+            }
+        } catch (NullPointerException ex) {
+            JOptionPane.showMessageDialog(null, "Error al intentar modificar bombero.");
+        }
     }//GEN-LAST:event_botonModificarBomberosActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAgregarBombero;
-    private javax.swing.JButton botonBuscarBombero;
+    private javax.swing.JButton botonBuscarBomberos;
     private javax.swing.JButton botonEliminarBomberos;
     private javax.swing.JButton botonModificarBomberos;
     private javax.swing.JCheckBox checkEstadoBombero;
@@ -542,7 +592,7 @@ public class Bomberos extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     public void botones() {
-        JButton btns[] = {botonAgregarBombero, botonEliminarBomberos, botonModificarBomberos, botonBuscarBombero};
+        JButton btns[] = {botonAgregarBombero, botonEliminarBomberos, botonModificarBomberos, botonBuscarBomberos};
         for (JButton btn : btns) {
             btn.setBackground(new Color(184, 34, 34));
             btn.setUI(new BasicButtonUI());

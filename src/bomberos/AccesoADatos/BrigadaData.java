@@ -12,15 +12,13 @@ public class BrigadaData {
 
     //atributos necesarios para los metodos utilizados
     private final Connection con;
-    private Bombero bombero;
-    private Brigada brigada;
     //constructor vacio
     public BrigadaData() {
         con = Conexion.getConnection();
     }
 
     public void nuevaBrigada(Brigada brigada) {
-        String sql = "insert into brigada( nombre_br, especialidad, libre, codCuartel)"
+        String sql = "insert into brigada(nombre_br, especialidad, libre, codCuartel)"
                 + "VALUES (?, ?, ?, ?)";
         try {
             //envio de query a la base de datos
@@ -43,6 +41,28 @@ public class BrigadaData {
             rs.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
+        }
+    }
+    
+    public void modificarBrigada(Brigada brigada) {
+        String sql = "update brigada set nombre_br = ?, especialidad = ?, "
+                + "libre = ?, codCuartel = ? WHERE codBrigada = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, brigada.getNombre_br());
+            ps.setString(2, brigada.getEspecialidad());
+            ps.setBoolean(3, brigada.isLibre());
+            ps.setInt(4, brigada.getCodCuartel());
+            ps.setInt(5, brigada.getCodBrigada());
+            int exito = ps.executeUpdate();
+            if (exito == 1) {
+                JOptionPane.showMessageDialog(null, "Datos modificados");
+            } else {
+                JOptionPane.showMessageDialog(null, "Datos no modificados.");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.aca");
         }
     }
 
@@ -136,6 +156,28 @@ public class BrigadaData {
         return especialidad;
     }
        
+    
+    public Brigada buscarBrigada(int codBrigada){
+        String sql = "select nombre_br, especialidad, libre, codCuartel from brigada where codBrigada = ?";
+        Brigada brigada = new Brigada();
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, codBrigada);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                brigada.setCodBrigada(codBrigada);
+                brigada.setNombre_br(rs.getString("nombre_br"));
+                brigada.setEspecialidad(rs.getString("especialidad"));
+                brigada.setLibre(rs.getBoolean("libre"));
+                brigada.setCodCuartel(rs.getInt("codCuartel"));
+            }
+            ps.close();
+            rs.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.1");
+        }
+        return brigada;
+    }
 }
 
 
