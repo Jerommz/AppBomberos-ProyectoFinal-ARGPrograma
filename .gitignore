@@ -9,3 +9,6 @@ nbproject/private/private.properties
 *.xml
 *.xml
 *.xml
+nbproject/project.properties
+nbproject/project.properties
+*.properties
