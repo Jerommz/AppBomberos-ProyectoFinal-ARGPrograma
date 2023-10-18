@@ -1,7 +1,6 @@
 package bomberos.AccesoADatos;
 
 import bomberos.AccesoAdatos.Conexion;
-import bomberos.Entidades.Bombero;
 import bomberos.Entidades.Brigada;
 import java.util.*;
 import java.sql.*;
@@ -66,6 +65,23 @@ public class BrigadaData {
         }
     }
 
+    public void eliminarBrigada(int codBrigada){
+        String sql = "delete * from brigada where codBrigada = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, codBrigada);
+            int exito = ps.executeUpdate();
+            if(exito == 1){
+                JOptionPane.showMessageDialog(null, "Brigada eliminado.");
+            }else{
+                JOptionPane.showMessageDialog(null, "Brigada no eliminada.");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
+        }
+    }
+    
     public List<Brigada> obtenerBrigadas(){
         List<Brigada> brigadas = new ArrayList<>();
         String sql = "select * from brigada";
@@ -174,7 +190,7 @@ public class BrigadaData {
             ps.close();
             rs.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.1");
+            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
         }
         return brigada;
     }

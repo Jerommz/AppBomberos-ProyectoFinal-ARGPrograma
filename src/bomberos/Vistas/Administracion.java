@@ -5,11 +5,16 @@
  */
 package bomberos.Vistas;
 
+import bomberos.AccesoADatos.BrigadaData;
+import bomberos.AccesoADatos.CuartelData;
+import bomberos.AccesoAdatos.BomberoData;
+import bomberos.Entidades.Bombero;
+import bomberos.Entidades.Brigada;
+import bomberos.Entidades.Cuartel;
 import java.awt.Color;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import javax.swing.JButton;
-import javax.swing.plaf.basic.BasicButtonUI;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -17,12 +22,40 @@ import javax.swing.plaf.basic.BasicButtonUI;
  */
 public class Administracion extends javax.swing.JPanel {
 
-    /**
-     * Creates new form Bomberos
-     */
+    String[] modeloCB = {"Bomberos", "Brigadas", "Cuarteles", "Siniestros"};
+    String[] modeloBombero = {"ID", "Dni", "Nombre", "Sangre", "Nacimiento", "Celular", "Brigada", "Activo"};
+    String[] modeloBrigada = {"ID", "Nombre", "Especialidad", "Libre", "Cuartel"};
+    String[] modeloCuartel = {"ID", "Nombre", "Direccion", "X", "Y", "Telefono", "Correo"};
+    BomberoData bomberoDB = new BomberoData();
+    BrigadaData brigadaDB = new BrigadaData();
+    CuartelData cuartelDB = new CuartelData();
+
+    DefaultTableModel modeloBomberoAct = new DefaultTableModel(null, modeloBombero) {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
+
+    DefaultTableModel modeloBrigadaAct = new DefaultTableModel(null, modeloBrigada) {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
+
+    DefaultTableModel modeloCuartelAct = new DefaultTableModel(null, modeloCuartel) {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
+
     public Administracion() {
         initComponents();
-//        botones();
+        actualizarTabla();
+        modeloTablaBombero();
+        mostrarTablaBombero();
     }
 
     /**
@@ -36,105 +69,217 @@ public class Administracion extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         panelRoot = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        panelInterno = new javax.swing.JPanel();
+        panelMain = new javax.swing.JPanel();
+        panelTop = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-
-        setLayout(new java.awt.BorderLayout());
+        cbListarAdmin = new javax.swing.JComboBox<>(modeloCB);
+        panelBot = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaListarAdmin = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
 
         panelRoot.setPreferredSize(new java.awt.Dimension(1280, 640));
+        panelRoot.setLayout(null);
 
-        jPanel1.setBackground(new Color(0,0,0,0));
-        jPanel1.setPreferredSize(new java.awt.Dimension(1200, 600));
+        panelMain.setBackground(new Color(0,0,0,0));
+        panelMain.setMinimumSize(new java.awt.Dimension(0, 0));
+        panelMain.setPreferredSize(new java.awt.Dimension(1280, 640));
+        panelMain.setLayout(new java.awt.BorderLayout());
 
-        jPanel2.setBackground(new java.awt.Color(161, 27, 27,20));
-        jPanel2.setMinimumSize(new java.awt.Dimension(1100, 640));
-        java.awt.FlowLayout flowLayout1 = new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 70);
-        flowLayout1.setAlignOnBaseline(true);
-        jPanel2.setLayout(flowLayout1);
+        panelTop.setBackground(new Color(161, 27, 27,220));
+        panelTop.setPreferredSize(new java.awt.Dimension(0, 100));
+        panelTop.setLayout(new java.awt.GridBagLayout());
 
-        panelInterno.setBackground(new Color(161, 27, 27,180));
-        panelInterno.setPreferredSize(new java.awt.Dimension(1000, 500));
-        panelInterno.setLayout(new java.awt.BorderLayout());
-        jPanel2.add(panelInterno);
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel1.setForeground(java.awt.Color.white);
+        jLabel1.setText("Seleccione lo que desee listar:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(13, 505, 5, 505);
+        panelTop.add(jLabel1, gridBagConstraints);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1280, Short.MAX_VALUE)
+        cbListarAdmin.setBackground(new Color(193,29,29));
+        cbListarAdmin.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        cbListarAdmin.setForeground(new Color(193,29,29));
+        cbListarAdmin.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        cbListarAdmin.setMinimumSize(new java.awt.Dimension(0, 0));
+        cbListarAdmin.setPreferredSize(new java.awt.Dimension(150, 30));
+        cbListarAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbListarAdminActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(8, 565, 8, 0);
+        panelTop.add(cbListarAdmin, gridBagConstraints);
+
+        panelMain.add(panelTop, java.awt.BorderLayout.NORTH);
+
+        panelBot.setBackground(new Color(161, 27, 27,220));
+        panelBot.setPreferredSize(new java.awt.Dimension(1280, 540));
+        panelBot.setLayout(new java.awt.BorderLayout());
+
+        tablaListarAdmin.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        tablaListarAdmin.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        tablaListarAdmin.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        tablaListarAdmin.setRowHeight(30);
+        jScrollPane1.setViewportView(tablaListarAdmin);
+
+        panelBot.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        panelMain.add(panelBot, java.awt.BorderLayout.SOUTH);
+
+        panelRoot.add(panelMain);
+        panelMain.setBounds(0, 0, 1280, 640);
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/fondoAdmin.jpg.png"))); // NOI18N
+        panelRoot.add(jLabel2);
+        jLabel2.setBounds(0, 0, 1280, 640);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(panelRoot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(panelRoot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/fondoBombero.jpg"))); // NOI18N
-        jLabel1.setMaximumSize(new java.awt.Dimension(1280, 853));
-        jLabel1.setMinimumSize(new java.awt.Dimension(1280, 640));
-        jLabel1.setPreferredSize(new java.awt.Dimension(1280, 640));
-
-        javax.swing.GroupLayout panelRootLayout = new javax.swing.GroupLayout(panelRoot);
-        panelRoot.setLayout(panelRootLayout);
-        panelRootLayout.setHorizontalGroup(
-            panelRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1280, Short.MAX_VALUE)
-            .addGroup(panelRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        panelRootLayout.setVerticalGroup(
-            panelRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
-            .addGroup(panelRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        add(panelRoot, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cbListarAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbListarAdminActionPerformed
+        // TODO add your handling code here:
+        String selected = cbListarAdmin.getSelectedItem().toString();
+        if ("Bomberos".equals(selected)) {
+            modeloTablaBombero();
+            mostrarTablaBombero();
+        } else if ("Brigadas".equals(selected)) {
+            modeloTablaBrigada();
+            mostrarTablaBrigada();
+        } else if ("Cuarteles".equals(selected)) {
+            modeloTablaCuartel();
+            mostrarTablaCuartel();
+        }
+    }//GEN-LAST:event_cbListarAdminActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cbListarAdmin;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel panelInterno;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel panelBot;
+    private javax.swing.JPanel panelMain;
     private javax.swing.JPanel panelRoot;
+    private javax.swing.JPanel panelTop;
+    private javax.swing.JTable tablaListarAdmin;
     // End of variables declaration//GEN-END:variables
 
-//    public void botones() {
-//        JButton btns[] = {botonAgregarBomberos, botonEliminarBomberos, botonModificarBomberos, jButton1};
-//        for (JButton btn : btns) {
-//            btn.setBackground(new Color(184, 34, 34));
-//            btn.setUI(new BasicButtonUI());
-//            btn.addMouseListener(new MouseListener() {
-//                @Override
-//                public void mouseClicked(MouseEvent e) {
-//                }
-//
-//                @Override
-//                public void mousePressed(MouseEvent e) {
-//                }
-//
-//                @Override
-//                public void mouseReleased(MouseEvent e) {
-//                }
-//
-//                @Override
-//                public void mouseEntered(MouseEvent e) {
-//                    btn.setBackground(new Color(252, 68, 22));
-//                }
-//
-//                @Override
-//                public void mouseExited(MouseEvent e) {
-//                    btn.setBackground(new Color(184, 34, 34));
-//                }
-//            });
-//        }
-//    }
+    public void actualizarTabla() {
+        DefaultTableModel mod = (DefaultTableModel) tablaListarAdmin.getModel();
+        mod.setRowCount(0);
+    }
 
-//    public void calendar() {
-//        JTextField dateField = (JTextField) dateFechaNacBombero.getDateEditor().getUiComponent();
-//        dateField.setEditable(false);
-//    }
+    public void modeloTablaBombero() {
+        tablaListarAdmin.setModel(modeloBomberoAct);
+        TableColumnModel columnaBombero = tablaListarAdmin.getColumnModel();
+        columnaBombero.getColumn(0).setMaxWidth(60);
+        columnaBombero.getColumn(1).setMaxWidth(80);
+        columnaBombero.getColumn(3).setMaxWidth(80);
+        columnaBombero.getColumn(6).setMaxWidth(100);
+        columnaBombero.getColumn(7).setMaxWidth(100);
+
+    }
+
+    public void modeloTablaBrigada() {
+        tablaListarAdmin.setModel(modeloBrigadaAct);
+        TableColumnModel columnaBrigada = tablaListarAdmin.getColumnModel();
+        columnaBrigada.getColumn(0).setMaxWidth(60);
+        columnaBrigada.getColumn(1).setMaxWidth(300);
+        columnaBrigada.getColumn(2).setMaxWidth(800);
+        columnaBrigada.getColumn(3).setMaxWidth(80);
+        columnaBrigada.getColumn(4).setMaxWidth(80);
+    }
+
+    public void modeloTablaCuartel() {
+        tablaListarAdmin.setModel(modeloCuartelAct);
+        TableColumnModel columnaCuartel = tablaListarAdmin.getColumnModel();
+        columnaCuartel.getColumn(0).setMaxWidth(60);
+        columnaCuartel.getColumn(1).setMaxWidth(300);
+        columnaCuartel.getColumn(2).setMaxWidth(500);
+        columnaCuartel.getColumn(3).setMaxWidth(40);
+        columnaCuartel.getColumn(4).setMaxWidth(40);
+        columnaCuartel.getColumn(5).setMaxWidth(100);
+        columnaCuartel.getColumn(6).setMaxWidth(500);
+    }
+
+    public void mostrarTablaBombero() {
+        actualizarTabla();
+        List<Bombero> bomberos = bomberoDB.obtenerBomberos();
+        for (Bombero bombero : bomberos) {
+            modeloBomberoAct.addRow(new Object[]{
+                bombero.getId_Bombero(),
+                bombero.getDni(),
+                bombero.getNombre_ape(),
+                bombero.getGrupo_sang(),
+                bombero.getFecha(),
+                bombero.getCelular(),
+                bombero.getCodBrigada(),
+                bombero.isEstado()
+            });
+        }
+    }
+    
+    public void mostrarTablaBrigada() {
+        actualizarTabla();
+        List<Brigada> brigadas = brigadaDB.obtenerBrigadas();
+        for (Brigada brigada : brigadas) {
+            modeloBrigadaAct.addRow(new Object[]{
+                brigada.getCodBrigada(),
+                brigada.getNombre_br(),
+                brigada.getEspecialidad(),
+                brigada.isLibre(),
+                brigada.getCodCuartel()
+            });
+        }
+    }
+    
+    public void mostrarTablaCuartel() {
+        actualizarTabla();
+        List<Cuartel> cuarteles = cuartelDB.obtenerCuarteles();
+        for (Cuartel cuartel : cuarteles) {
+            modeloCuartelAct.addRow(new Object[]{
+                cuartel.getCodCuartel(),
+                cuartel.getNombre_cuartel(),
+                cuartel.getDireccion(),
+                cuartel.getCoord_X(),
+                cuartel.getCoord_Y(),
+                cuartel.getTelefono(),
+                cuartel.getCorreo()
+            });
+        }
+    }
+
 }

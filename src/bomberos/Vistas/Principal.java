@@ -167,6 +167,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void jBotonAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonAdminActionPerformed
         // TODO add your handling code here:
+        mostrarPanel(new Administracion());
     }//GEN-LAST:event_jBotonAdminActionPerformed
 
     public static void main(String args[]) {

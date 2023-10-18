@@ -8,6 +8,9 @@ package bomberos.Vistas;
 import java.awt.Color;
 import java.awt.MouseInfo;
 import java.awt.PointerInfo;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -24,6 +27,7 @@ public class Siniestros extends javax.swing.JPanel {
      */
     public Siniestros() {
         initComponents();
+        agregarMarcador();
     }
 
     /**
@@ -36,6 +40,8 @@ public class Siniestros extends javax.swing.JPanel {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        popupMenu = new javax.swing.JPopupMenu();
+        popmenuMarcar = new javax.swing.JMenuItem();
         panelRoot = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -57,6 +63,9 @@ public class Siniestros extends javax.swing.JPanel {
         panelMapa = new javax.swing.JPanel();
         labelMap = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+
+        popmenuMarcar.setText("Marcar");
+        popupMenu.add(popmenuMarcar);
 
         panelRoot.setPreferredSize(new java.awt.Dimension(1280, 640));
 
@@ -219,6 +228,11 @@ public class Siniestros extends javax.swing.JPanel {
         labelMap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/mapaedit.png"))); // NOI18N
         labelMap.setMaximumSize(new java.awt.Dimension(980, 540));
         labelMap.setPreferredSize(new java.awt.Dimension(980, 540));
+        labelMap.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelMapMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelMapaLayout = new javax.swing.GroupLayout(panelMapa);
         panelMapa.setLayout(panelMapaLayout);
@@ -292,10 +306,13 @@ public class Siniestros extends javax.swing.JPanel {
 
     private void panelMapaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelMapaMouseClicked
         // TODO add your handling code here:
-        agregarMarcador(evt.getX(), evt.getY());
-        System.out.println("2");
-        mousePos();
+
     }//GEN-LAST:event_panelMapaMouseClicked
+
+    private void labelMapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelMapMouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_labelMapMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -315,21 +332,18 @@ public class Siniestros extends javax.swing.JPanel {
     private javax.swing.JPanel panelIzq;
     private javax.swing.JPanel panelMapa;
     private javax.swing.JPanel panelRoot;
+    private javax.swing.JMenuItem popmenuMarcar;
+    private javax.swing.JPopupMenu popupMenu;
     private javax.swing.JTextField textBrigadaAsignadaSiniestro;
     private javax.swing.JTextField textCuartelCercanoSiniestro;
     private javax.swing.JTextField textDescripcionSiniestro;
     private javax.swing.JTextField textDistanciaSiniestro;
     private javax.swing.JTextField textTiempoSiniestro;
     // End of variables declaration//GEN-END:variables
-
-    public void agregarMarcador(int x, int y) {
-        icono = new ImageIcon("marker.png");
-        JLabel label = new JLabel(icono);
-        label.setBounds(x - icono.getIconWidth() / 2, y - icono.getIconHeight() / 2, icono.getIconWidth(), icono.getIconHeight());
-        panelMapa.add(label);
-        repaint();
-        System.out.println("1");
-    }
+//
+//    public void agregarMarcador(int x, int y) {
+//        
+//    }
 
     public void mousePos() {
         // Get the current mouse pointer info
@@ -342,5 +356,21 @@ public class Siniestros extends javax.swing.JPanel {
         // Display the mouse coordinates
         System.out.println("Mouse X: " + mouseX);
         System.out.println("Mouse Y: " + mouseY);
+    }
+
+    public void agregarMarcador() {
+        panelMapa.setComponentPopupMenu(popupMenu);
+        popmenuMarcar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JLabel iconoLabel = new JLabel(getIcon("images/marker.png", 15, 15));
+                panelMapa.add(iconoLabel);
+            }
+        });
+    }
+
+    public Icon getIcon(String ruta, int width, int height) {
+        Icon icono = new ImageIcon(new ImageIcon(getClass().getResource(ruta)).getImage().getScaledInstance(width, height, 0));
+        return icono;
     }
 }
