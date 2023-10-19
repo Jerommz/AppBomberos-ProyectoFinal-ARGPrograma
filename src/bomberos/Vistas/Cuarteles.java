@@ -23,7 +23,7 @@ import javax.swing.plaf.basic.BasicButtonUI;
 public class Cuarteles extends javax.swing.JPanel {
 
     CuartelData cuartelDB = new CuartelData();
-    
+
     /**
      * Creates new form Bomberos
      */
@@ -448,7 +448,7 @@ public class Cuarteles extends javax.swing.JPanel {
                 textDireccionCuartel.setText(cuartel.getDireccion());
                 textCoordX.setText(cuartel.getCoord_X() + "");
                 textCoordY.setText(cuartel.getCoord_Y() + "");
-                textNumeroCuartel.setText(cuartel.getTelefono()+ "");
+                textNumeroCuartel.setText(cuartel.getTelefono() + "");
                 textCorreoCuartel.setText(cuartel.getCorreo());
             }
         } catch (NullPointerException ex) {
@@ -466,29 +466,36 @@ public class Cuarteles extends javax.swing.JPanel {
                         JOptionPane.showMessageDialog(null, "Ningun campo puede estar vacio.");
                         break;
                     } else {
-                        int codCuartel = Integer.valueOf(textCodigoCuartel.getText());
-                        String nombre_cuartel = textNombreCuartel.getText();
-                        String direccion = textDireccionCuartel.getText();
-                        int coordX = Integer.valueOf(textCoordX.getText());
-                        int coordY = Integer.valueOf(textCoordY.getText());
-                        int telefono = Integer.valueOf(textNumeroCuartel.getText());
-                        String correo = textCorreoCuartel.getText();
-                        Cuartel cuartel = new Cuartel(codCuartel, nombre_cuartel, direccion, coordX, coordY, telefono, correo);
-                        cuartelDB.nuevoCuartel(cuartel);
-                        break;
+                        String textX = textCoordX.getText();
+                        String textY = textCoordY.getText();
+                        String textTel = textNumeroCuartel.getText();
+                        if (!textX.matches("\\d+") || !textY.matches("\\d+")) {
+                            JOptionPane.showMessageDialog(null, "Las coordenadas X e Y deben ser solo numericas.");
+                            break;
+                        } else if (!textTel.matches("\\d+")) {
+                            JOptionPane.showMessageDialog(null, "El telefono debe ser solo numerico.");
+                            break;
+                        } else {
+                            int codCuartel = Integer.valueOf(textCodigoCuartel.getText());
+                            String nombre_cuartel = textNombreCuartel.getText();
+                            String direccion = textDireccionCuartel.getText();
+                            int coordX = Integer.valueOf(textCoordX.getText());
+                            int coordY = Integer.valueOf(textCoordY.getText());
+                            int telefono = Integer.valueOf(textNumeroCuartel.getText());
+                            String correo = textCorreoCuartel.getText();
+                            Cuartel cuartel = new Cuartel(codCuartel, nombre_cuartel, direccion, coordX, coordY, telefono, correo);
+                            cuartelDB.nuevoCuartel(cuartel);
+
+                            break;
+                        }
                     }
                 }
             }
-            textCodigoCuartel.setText("");
-            textNombreCuartel.setText("");
-            textDireccionCuartel.setText("");
-            textCoordX.setText("");
-            textCoordY.setText("");
-            textNumeroCuartel.setText("");
-            textCorreoCuartel.setText("");
+
         } catch (NullPointerException ex) {
             JOptionPane.showMessageDialog(null, "Error al intentar agregar una brigada nuevo.");
         }
+
     }//GEN-LAST:event_botonAgregarCuartelesActionPerformed
 
     private void botonEliminarCuartelesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarCuartelesActionPerformed
@@ -497,7 +504,7 @@ public class Cuarteles extends javax.swing.JPanel {
 
     private void botonModificarCuartelesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarCuartelesActionPerformed
         // TODO add your handling code here:
-        try{
+        try {
             Component[] comps = panelInternoIzq2.getComponents();
             for (Component comp : comps) {
                 if (comp instanceof JTextField) {
@@ -505,21 +512,33 @@ public class Cuarteles extends javax.swing.JPanel {
                         JOptionPane.showMessageDialog(null, "Ningun campo puede estar vacio, primero realice una busqueda.");
                         break;
                     } else {
-                        int codCuartel = Integer.valueOf(textCodigoCuartel.getText());
-                        String nombre_cuartel = textNombreCuartel.getText();
-                        String direccion = textDireccionCuartel.getText();
-                        int coordX = Integer.valueOf(textCoordX.getText());
-                        int coordY = Integer.valueOf(textCoordY.getText());
-                        int telefono = Integer.valueOf(textNumeroCuartel.getText());
-                        String correo = textCorreoCuartel.getText();
-                        Cuartel cuartel = new Cuartel(codCuartel, nombre_cuartel, direccion, coordX, coordY, telefono, correo);
-                        cuartelDB.modificarCuartel(cuartel);
-                        break;
+                        String textX = textCoordX.getText();
+                        String textY = textCoordY.getText();
+                        String textTel = textNumeroCuartel.getText();
+                        if (!textX.matches("\\d+") || !textY.matches("\\d+")) {
+                            JOptionPane.showMessageDialog(null, "Las coordenadas X e Y deben ser solo numericas.");
+                            break;
+                        } else if (!textTel.matches("\\d+")) {
+                            JOptionPane.showMessageDialog(null, "El telefono debe ser solo numerico.");
+                            break;
+                        } else {
+                            int codCuartel = Integer.valueOf(textCodigoCuartel.getText());
+                            String nombre_cuartel = textNombreCuartel.getText();
+                            String direccion = textDireccionCuartel.getText();
+                            int coordX = Integer.valueOf(textCoordX.getText());
+                            int coordY = Integer.valueOf(textCoordY.getText());
+                            int telefono = Integer.valueOf(textNumeroCuartel.getText());
+                            String correo = textCorreoCuartel.getText();
+                            Cuartel cuartel = new Cuartel(codCuartel, nombre_cuartel, direccion, coordX, coordY, telefono, correo);
+                            cuartelDB.modificarCuartel(cuartel);
+                            break;
+                        }
                     }
                 }
             }
         } catch (NullPointerException ex) {
             JOptionPane.showMessageDialog(null, "Error al intentar modificar brigada.");
+
         }
     }//GEN-LAST:event_botonModificarCuartelesActionPerformed
 
@@ -560,37 +579,36 @@ public class Cuarteles extends javax.swing.JPanel {
     private javax.swing.JTextField textNumeroCuartel;
     // End of variables declaration//GEN-END:variables
 
-    
-    public void botones(){
+    public void botones() {
         JButton btns[] = {botonAgregarCuarteles, botonEliminarCuarteles, botonModificarCuarteles, botonBuscarCuarteles, botonListarCuarteles
         };
-            for (JButton btn : btns) {
-                btn.setBackground(new Color(184, 34, 34));
-                btn.setUI(new BasicButtonUI());
-                btn.addMouseListener(new MouseListener() {
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                    }
+        for (JButton btn : btns) {
+            btn.setBackground(new Color(184, 34, 34));
+            btn.setUI(new BasicButtonUI());
+            btn.addMouseListener(new MouseListener() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                }
 
-                    @Override
-                    public void mousePressed(MouseEvent e) {
-                    }
+                @Override
+                public void mousePressed(MouseEvent e) {
+                }
 
-                    @Override
-                    public void mouseReleased(MouseEvent e) {
-                    }
+                @Override
+                public void mouseReleased(MouseEvent e) {
+                }
 
-                    @Override
-                    public void mouseEntered(MouseEvent e) {
-                        btn.setBackground(new Color(252, 68, 22));
-                    }
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    btn.setBackground(new Color(252, 68, 22));
+                }
 
-                    @Override
-                    public void mouseExited(MouseEvent e) {
-                        btn.setBackground(new Color(184, 34, 34));
-                    }
-                });
-            }
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    btn.setBackground(new Color(184, 34, 34));
+                }
+            });
+        }
     }
-    
+
 }
