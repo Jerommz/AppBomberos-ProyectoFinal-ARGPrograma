@@ -11,6 +11,8 @@ import bomberos.Entidades.Bombero;
 import bomberos.Entidades.Brigada;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.Date;
@@ -507,6 +509,30 @@ public class Bomberos extends javax.swing.JPanel {
             for (Component comp : comps) {
                 if (comp instanceof JTextField) {
                     if (((JTextField) comp).getText().equals("")) {
+                        textNombreApBombero.addKeyListener(new KeyAdapter() {
+                            public void keyTyped(KeyEvent e) {
+                                char c = e.getKeyChar();
+                                if (!(Character.isLetter(c) || c == ' ')) {
+                                    e.consume(); // Ignora caracteres que no son letras ni espacios
+                                }
+                            }
+                        });
+                        textIDBombero.addKeyListener(new KeyAdapter() {
+                            public void keyTyped(KeyEvent e) {
+                                char c = e.getKeyChar();
+                                if (!Character.isDigit(c)) {
+                                    e.consume(); // Ignora caracteres que no son dígitos
+                                }
+                            }
+                        });
+                        textCelularBombero.addKeyListener(new KeyAdapter() {
+                            public void keyTyped(KeyEvent e) {
+                                char c = e.getKeyChar();
+                                if (!Character.isDigit(c)) {
+                                    e.consume(); // Ignora caracteres que no son dígitos
+                                }
+                            }
+                        });
                         JOptionPane.showMessageDialog(null, "Ningun campo puede estar vacio.");
                         break;
                     } else {
