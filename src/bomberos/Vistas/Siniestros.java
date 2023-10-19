@@ -110,7 +110,7 @@ public class Siniestros extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 11;
-        gridBagConstraints.insets = new java.awt.Insets(15, 0, 20, 0);
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 20, 0);
         panelIzq.add(comboTipoAccidenteSiniestro, gridBagConstraints);
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -119,7 +119,7 @@ public class Siniestros extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 6;
-        gridBagConstraints.insets = new java.awt.Insets(15, 0, 20, 0);
+        gridBagConstraints.insets = new java.awt.Insets(15, 0, 5, 0);
         panelIzq.add(jLabel3, gridBagConstraints);
 
         textCuartelCercanoSiniestro.setBackground(new Color(193,29,29));
@@ -130,7 +130,7 @@ public class Siniestros extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 7;
-        gridBagConstraints.insets = new java.awt.Insets(15, 0, 20, 0);
+        gridBagConstraints.insets = new java.awt.Insets(1, 0, 20, 0);
         panelIzq.add(textCuartelCercanoSiniestro, gridBagConstraints);
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -139,7 +139,7 @@ public class Siniestros extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 8;
-        gridBagConstraints.insets = new java.awt.Insets(15, 0, 20, 0);
+        gridBagConstraints.insets = new java.awt.Insets(15, 0, 0, 0);
         panelIzq.add(jLabel4, gridBagConstraints);
 
         textBrigadaAsignadaSiniestro.setBackground(new Color(193,29,29));
@@ -150,7 +150,7 @@ public class Siniestros extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 9;
-        gridBagConstraints.insets = new java.awt.Insets(15, 0, 20, 0);
+        gridBagConstraints.insets = new java.awt.Insets(4, 0, 20, 0);
         panelIzq.add(textBrigadaAsignadaSiniestro, gridBagConstraints);
 
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -159,7 +159,7 @@ public class Siniestros extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 10;
-        gridBagConstraints.insets = new java.awt.Insets(15, 0, 20, 0);
+        gridBagConstraints.insets = new java.awt.Insets(15, 0, 0, 0);
         panelIzq.add(jLabel5, gridBagConstraints);
 
         jLabel8.setText("X:");
