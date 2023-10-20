@@ -35,6 +35,7 @@ public class CuartelData {
             int exito = ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
+                cuartel.setCodCuartel(rs.getInt(1));
                 JOptionPane.showMessageDialog(null, "Cuartel agregado.");
             } else {
                 JOptionPane.showMessageDialog(null, "Cuartel no agregado.");
@@ -119,7 +120,7 @@ public class CuartelData {
                 cuartel.setNombre_cuartel(rs.getString("nombre_cuartel"));
                 cuartel.setDireccion(rs.getString("direccion"));
                 cuartel.setCoord_X(rs.getInt("coord_X"));
-                cuartel.setCoord_X(rs.getInt("coord_Y"));
+                cuartel.setCoord_Y(rs.getInt("coord_Y"));
                 cuartel.setTelefono(rs.getInt("telefono"));
                 cuartel.setCorreo(rs.getString("correo"));
                 cuarteles.add(cuartel);
