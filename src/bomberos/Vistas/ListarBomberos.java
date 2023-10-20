@@ -5,6 +5,8 @@
  */
 package bomberos.Vistas;
 
+import java.awt.Color;
+
 /**
  *
  * @author jero
