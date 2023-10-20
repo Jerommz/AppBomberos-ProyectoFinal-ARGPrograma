@@ -35,6 +35,7 @@ public class CuartelData {
             int exito = ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
+                cuartel.setCodCuartel(rs.getInt(1));
                 JOptionPane.showMessageDialog(null, "Cuartel agregado.");
             } else {
                 JOptionPane.showMessageDialog(null, "Cuartel no agregado.");
