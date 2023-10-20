@@ -415,13 +415,21 @@ public class Brigadas extends javax.swing.JPanel {
             if (textCodigoBrigada.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Introduzca un codigo valido.");
             } else {
-                int codBrigada = Integer.valueOf(textCodigoBrigada.getText());
-                Brigada brigada = brigadaDB.buscarBrigada(codBrigada);
-                textNombreBrigada.setText(brigada.getNombre_br());
-                textEspecialidadBrigada.setText(brigada.getEspecialidad());
-                checkLibreBrigada.setSelected(brigada.isLibre());
-                mostrarComboCodCuart(brigada.getCodCuartel());
-                textBomberosActivos.setText(bomberoDB.sumarBomberos(codBrigada) + "");
+                String codBrigada = textCodigoBrigada.getText();
+                if (codBrigada.matches("\\d+")) {
+                    Brigada brigada = brigadaDB.buscarBrigada(Integer.valueOf(codBrigada));
+                    textNombreBrigada.setText(brigada.getNombre_br());
+                    textEspecialidadBrigada.setText(brigada.getEspecialidad());
+                    checkLibreBrigada.setSelected(brigada.isLibre());
+                    mostrarComboCodCuart(brigada.getCodCuartel());
+                    textBomberosActivos.setText(bomberoDB.sumarBomberos(Integer.valueOf(codBrigada)) + "");
+                } else {
+                    JOptionPane.showMessageDialog(null, "El campo codigo no puede contener letras.");
+                    textCodigoBrigada.setText("");
+                    textNombreBrigada.setText("");
+                    textEspecialidadBrigada.setText("");
+                    checkLibreBrigada.setSelected(false);
+                }
             }
         } catch (NullPointerException ex) {
             JOptionPane.showMessageDialog(null, "Brigada no encontrada, corrija el codigo.");
@@ -438,21 +446,27 @@ public class Brigadas extends javax.swing.JPanel {
                         JOptionPane.showMessageDialog(null, "Ningun campo puede estar vacio.");
                         break;
                     } else {
-                        int codBrigada = Integer.valueOf(textCodigoBrigada.getText());
-                        String nombre_br = textNombreBrigada.getText();
-                        String especialidad = textEspecialidadBrigada.getText();
-                        boolean libre = checkLibreBrigada.isSelected();
-                        String codCuartel = String.valueOf(comboCodCuartelBrigada.getSelectedItem());
-                        Brigada brigada = new Brigada(nombre_br, especialidad, libre, Integer.parseInt(codCuartel));
-                        brigadaDB.nuevaBrigada(brigada);
-                        break;
+                        String codBrigada = textCodigoBrigada.getText();
+                        if (codBrigada.matches("\\d+")) {
+                            String nombre_br = textNombreBrigada.getText();
+                            String especialidad = textEspecialidadBrigada.getText();
+                            boolean libre = checkLibreBrigada.isSelected();
+                            String codCuartel = String.valueOf(comboCodCuartelBrigada.getSelectedItem());
+                            Brigada brigada = new Brigada(nombre_br, especialidad, libre, Integer.parseInt(codCuartel));
+                            brigadaDB.nuevaBrigada(brigada);
+                            break;
+                        } else {
+                            JOptionPane.showMessageDialog(null, "El campo codigo no puede contener letras.");
+                            textCodigoBrigada.setText("");
+                            textNombreBrigada.setText("");
+                            textEspecialidadBrigada.setText("");
+                            checkLibreBrigada.setSelected(false);
+                            break;
+                        }
                     }
                 }
             }
-            textCodigoBrigada.setText("");
-            textNombreBrigada.setText("");
-            textEspecialidadBrigada.setText("");
-            checkLibreBrigada.setSelected(false);
+
         } catch (NullPointerException ex) {
             JOptionPane.showMessageDialog(null, "Error al intentar agregar una brigada nuevo.");
         }
@@ -460,7 +474,7 @@ public class Brigadas extends javax.swing.JPanel {
 
     private void botonEliminarBrigadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarBrigadasActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_botonEliminarBrigadasActionPerformed
 
     private void botonModificarBrigadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarBrigadasActionPerformed
@@ -473,14 +487,23 @@ public class Brigadas extends javax.swing.JPanel {
                         JOptionPane.showMessageDialog(null, "Ningun campo puede estar vacio, primero realice una busqueda.");
                         break;
                     } else {
-                        int idBrigada = Integer.valueOf(textCodigoBrigada.getText());
-                        String nombre_br = textNombreBrigada.getText();
-                        String especialidad = textEspecialidadBrigada.getText();
-                        boolean estado = checkLibreBrigada.isSelected();
-                        String codCuartel = String.valueOf(comboCodCuartelBrigada.getSelectedItem());
-                        Brigada brigada = new Brigada(idBrigada, nombre_br, especialidad, estado, Integer.parseInt(codCuartel));
-                        brigadaDB.modificarBrigada(brigada);
-                        break;
+                        String codBrigada = textCodigoBrigada.getText();
+                        if (codBrigada.matches("\\d+")) {
+                            String nombre_br = textNombreBrigada.getText();
+                            String especialidad = textEspecialidadBrigada.getText();
+                            boolean libre = checkLibreBrigada.isSelected();
+                            String codCuartel = String.valueOf(comboCodCuartelBrigada.getSelectedItem());
+                            Brigada brigada = new Brigada(nombre_br, especialidad, libre, Integer.parseInt(codCuartel));
+                            brigadaDB.modificarBrigada(brigada);
+                            break;
+                        } else {
+                            JOptionPane.showMessageDialog(null, "El campo codigo no puede contener letras.");
+                            textCodigoBrigada.setText("");
+                            textNombreBrigada.setText("");
+                            textEspecialidadBrigada.setText("");
+                            checkLibreBrigada.setSelected(false);
+                            break;
+                        }
                     }
                 }
             }

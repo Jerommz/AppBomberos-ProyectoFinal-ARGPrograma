@@ -11,8 +11,6 @@ import bomberos.Entidades.Bombero;
 import bomberos.Entidades.Brigada;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.Date;
@@ -487,74 +485,76 @@ public class Bomberos extends javax.swing.JPanel {
             if (textDNIBombero.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Introduzca un DNI.");
             } else {
-                int dni = Integer.parseInt(textDNIBombero.getText());
-                Bombero bombero = bomberoDB.buscarBomberoPorDni(dni);
-                textIDBombero.setText(String.valueOf(bombero.getId_Bombero()));
-                textNombreApBombero.setText(bombero.getNombre_ape());
-                textCelularBombero.setText(String.valueOf(bombero.getCelular()));
-                comboSangreBombero.setSelectedItem((Object) bombero.getGrupo_sang());
-                dateFechaNacBombero.setDate(Date.valueOf(bombero.getFecha()));
-                mostrarComboCodBrig(bombero.getCodBrigada());
-                checkEstadoBombero.setSelected(bombero.isEstado());
+                String dni = textDNIBombero.getText();
+                if (dni.matches("\\d+")) {
+                    Bombero bombero = bomberoDB.buscarBomberoPorDni(Integer.valueOf(dni));
+                    textIDBombero.setText(String.valueOf(bombero.getId_Bombero()));
+                    textNombreApBombero.setText(bombero.getNombre_ape());
+                    textCelularBombero.setText(String.valueOf(bombero.getCelular()));
+                    comboSangreBombero.setSelectedItem((Object) bombero.getGrupo_sang());
+                    dateFechaNacBombero.setDate(Date.valueOf(bombero.getFecha()));
+                    mostrarComboCodBrig(bombero.getCodBrigada());
+                    checkEstadoBombero.setSelected(bombero.isEstado());
+                } else {
+                    JOptionPane.showMessageDialog(null, "El campo DNI no puede contener letras.");
+                }
             }
         } catch (NullPointerException ex) {
-            JOptionPane.showMessageDialog(null, "Bombero no encontrado, corrija el DNI.");
+            JOptionPane.showMessageDialog(null, "Bombero no encontrado, corrija el DNI." + ex.getMessage());
         }
     }//GEN-LAST:event_botonBuscarBomberosActionPerformed
 
     private void botonAgregarBomberoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarBomberoActionPerformed
         // TODO add your handling code here:
         try {
+            int cont = 0;
             Component[] comps = panelInternoIzq2.getComponents();
             for (Component comp : comps) {
                 if (comp instanceof JTextField) {
                     if (((JTextField) comp).getText().equals("")) {
-                        textNombreApBombero.addKeyListener(new KeyAdapter() {
-                            public void keyTyped(KeyEvent e) {
-                                char c = e.getKeyChar();
-                                if (!(Character.isLetter(c) || c == ' ')) {
-                                    e.consume(); // Ignora caracteres que no son letras ni espacios
-                                }
-                            }
-                        });
-                        textIDBombero.addKeyListener(new KeyAdapter() {
-                            public void keyTyped(KeyEvent e) {
-                                char c = e.getKeyChar();
-                                if (!Character.isDigit(c)) {
-                                    e.consume(); // Ignora caracteres que no son dígitos
-                                }
-                            }
-                        });
-                        textCelularBombero.addKeyListener(new KeyAdapter() {
-                            public void keyTyped(KeyEvent e) {
-                                char c = e.getKeyChar();
-                                if (!Character.isDigit(c)) {
-                                    e.consume(); // Ignora caracteres que no son dígitos
-                                }
-                            }
-                        });
                         JOptionPane.showMessageDialog(null, "Ningun campo puede estar vacio.");
                         break;
                     } else {
-                        int dni = Integer.valueOf(textDNIBombero.getText());
+                        String dni = textDNIBombero.getText();
                         String nombre_ape = textNombreApBombero.getText();
-                        int celular = Integer.valueOf(textCelularBombero.getText());
-                        String grupo_sang = String.valueOf(comboSangreBombero.getSelectedItem());
+                        String celular = textCelularBombero.getText();
                         String fecha = ((JTextField) dateFechaNacBombero.getDateEditor().getUiComponent()).getText();
-                        String codBrigada = String.valueOf(comboCodBriBombero.getSelectedItem());
-                        boolean estado = checkEstadoBombero.isSelected();
-                        Bombero bombero = new Bombero(dni, nombre_ape, grupo_sang, LocalDate.parse(fecha), celular, Integer.parseInt(codBrigada), estado);
-                        bomberoDB.nuevoBombero(bombero);
-                        break;
+
+                        if (dni.matches("\\d+") && celular.matches("\\d+")) {
+                            cont += 1;
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Los campos dni y celular no pueden contener letras.");
+                            break;
+                        }
+                        if (nombre_ape.matches("[a-z A-Z]+")) {
+                            cont += 1;
+                        } else {
+                            JOptionPane.showMessageDialog(null, "El campo nombre no puede contener numeros.");
+                            break;
+                        }
+                        if (fecha.matches("[-0-9]+")) {
+                            cont += 1;
+                        } else {
+                            JOptionPane.showMessageDialog(null, "El campo fecha no puede contener letras.");
+                            break;
+                        }
+                        if (cont == 3) {
+                            String grupo_sang = String.valueOf(comboSangreBombero.getSelectedItem());
+                            String codBrigada = String.valueOf(comboCodBriBombero.getSelectedItem());
+                            boolean estado = checkEstadoBombero.isSelected();
+                            Bombero bombero = new Bombero(Integer.valueOf(dni), nombre_ape, grupo_sang, LocalDate.parse(fecha), Integer.valueOf(celular), Integer.parseInt(codBrigada), estado);
+                            bomberoDB.nuevoBombero(bombero);
+                            textIDBombero.setText("");
+                            textDNIBombero.setText("");
+                            textNombreApBombero.setText("");
+                            textCelularBombero.setText("");
+                            dateFechaNacBombero.setDate(null);
+                            checkEstadoBombero.setSelected(false);
+                            break;
+                        }
                     }
                 }
             }
-            textIDBombero.setText("");
-            textDNIBombero.setText("");
-            textNombreApBombero.setText("");
-            textCelularBombero.setText("");
-            dateFechaNacBombero.setDate(null);
-            checkEstadoBombero.setSelected(false);
         } catch (NullPointerException ex) {
             JOptionPane.showMessageDialog(null, "Error al intentar agregar un bombero nuevo.");
         }
@@ -590,6 +590,7 @@ public class Bomberos extends javax.swing.JPanel {
     private void botonModificarBomberosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarBomberosActionPerformed
         // TODO add your handling code here:
         try {
+            int cont = 0;
             Component[] comps = panelInternoIzq2.getComponents();
             for (Component comp : comps) {
                 if (comp instanceof JTextField) {
@@ -598,16 +599,36 @@ public class Bomberos extends javax.swing.JPanel {
                         break;
                     } else {
                         int idBombero = Integer.valueOf(textIDBombero.getText());
-                        int dni = Integer.valueOf(textDNIBombero.getText());
+                        String dni = textDNIBombero.getText();
                         String nombre_ape = textNombreApBombero.getText();
-                        int celular = Integer.valueOf(textCelularBombero.getText());
-                        String grupo_sang = String.valueOf(comboSangreBombero.getSelectedItem());
+                        String celular = textCelularBombero.getText();
                         String fecha = ((JTextField) dateFechaNacBombero.getDateEditor().getUiComponent()).getText();
-                        String codBrigada = String.valueOf(comboCodBriBombero.getSelectedItem());
-                        boolean estado = checkEstadoBombero.isSelected();
-                        Bombero bombero = new Bombero(idBombero, dni, nombre_ape, grupo_sang, LocalDate.parse(fecha), celular, Integer.parseInt(codBrigada), estado);
-                        bomberoDB.modificarBombero(bombero);
-                        break;
+                        if (dni.matches("\\d+") && celular.matches("\\d+")) {
+                            cont += 1;
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Los campos dni y celular no pueden contener letras.");
+                            break;
+                        }
+                        if (nombre_ape.matches("[a-z A-Z]+")) {
+                            cont += 1;
+                        } else {
+                            JOptionPane.showMessageDialog(null, "El campo nombre no puede contener numeros.");
+                            break;
+                        }
+                        if (fecha.matches("[-0-9]+")) {
+                            cont += 1;
+                        } else {
+                            JOptionPane.showMessageDialog(null, "El campo fecha no puede contener letras.");
+                            break;
+                        }
+                        if (cont == 3) {
+                            String grupo_sang = String.valueOf(comboSangreBombero.getSelectedItem());
+                            String codBrigada = String.valueOf(comboCodBriBombero.getSelectedItem());
+                            boolean estado = checkEstadoBombero.isSelected();
+                            Bombero bombero = new Bombero(idBombero, Integer.valueOf(dni), nombre_ape, grupo_sang, LocalDate.parse(fecha), Integer.valueOf(celular), Integer.parseInt(codBrigada), estado);
+                            bomberoDB.modificarBombero(bombero);
+                            break;
+                        }
                     }
                 }
             }
@@ -618,6 +639,7 @@ public class Bomberos extends javax.swing.JPanel {
 
     private void botonListarBomberosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonListarBomberosActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_botonListarBomberosActionPerformed
 
 
