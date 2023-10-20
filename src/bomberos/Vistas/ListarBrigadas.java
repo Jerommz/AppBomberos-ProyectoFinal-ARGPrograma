@@ -31,7 +31,7 @@ public class ListarBrigadas extends javax.swing.JPanel {
         panelMain = new javax.swing.JPanel();
         panelTop = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        cbListarAdmin = new javax.swing.JComboBox<>(modeloCB);
+        cbListarAdmin = new javax.swing.JComboBox<>();
         panelBot = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaListarAdmin = new javax.swing.JTable();
