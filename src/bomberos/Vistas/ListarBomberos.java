@@ -5,17 +5,30 @@
  */
 package bomberos.Vistas;
 
+import java.awt.Color;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
+
 /**
  *
  * @author jero
  */
 public class ListarBomberos extends javax.swing.JPanel {
 
+    String[] modeloBombero = {"ID", "Dni", "Nombre", "Sangre", "Nacimiento", "Celular", "Brigada", "Activo"};
+    DefaultTableModel modeloBomberoAct = new DefaultTableModel(null, modeloBombero) {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
+    
     /**
      * Creates new form ListarBomberos
      */
     public ListarBomberos() {
         initComponents();
+        modeloTablaBombero();
     }
 
     /**
@@ -31,17 +44,20 @@ public class ListarBomberos extends javax.swing.JPanel {
         panelMain = new javax.swing.JPanel();
         panelTop = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        cbListarAdmin = new javax.swing.JComboBox<>(modeloCB);
+        cbListarAdmin = new javax.swing.JComboBox<>();
         panelBot = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        JScrollPane = new javax.swing.JScrollPane();
         tablaListarAdmin = new javax.swing.JTable();
+
+        setPreferredSize(new java.awt.Dimension(1000, 500));
 
         panelMain.setBackground(new Color(0,0,0,0));
         panelMain.setMinimumSize(new java.awt.Dimension(0, 0));
+        panelMain.setPreferredSize(new java.awt.Dimension(1000, 500));
         panelMain.setLayout(new java.awt.BorderLayout());
 
-        panelTop.setBackground(new Color(161, 27, 27,220));
-        panelTop.setPreferredSize(new java.awt.Dimension(0, 100));
+        panelTop.setBackground(new Color(161, 27, 27));
+        panelTop.setPreferredSize(new java.awt.Dimension(0, 80));
         panelTop.setLayout(new java.awt.GridBagLayout());
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -52,7 +68,6 @@ public class ListarBomberos extends javax.swing.JPanel {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(13, 535, 5, 505);
         panelTop.add(jLabel1, gridBagConstraints);
 
         cbListarAdmin.setBackground(new Color(193,29,29));
@@ -71,32 +86,29 @@ public class ListarBomberos extends javax.swing.JPanel {
         gridBagConstraints.gridy = 2;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(8, 565, 8, 0);
+        gridBagConstraints.insets = new java.awt.Insets(0, 31, 0, 31);
         panelTop.add(cbListarAdmin, gridBagConstraints);
 
         panelMain.add(panelTop, java.awt.BorderLayout.NORTH);
 
         panelBot.setBackground(new Color(161, 27, 27,220));
-        panelBot.setPreferredSize(new java.awt.Dimension(1280, 540));
+        panelBot.setPreferredSize(new java.awt.Dimension(1000, 420));
         panelBot.setLayout(new java.awt.BorderLayout());
 
-        tablaListarAdmin.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        tablaListarAdmin.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         tablaListarAdmin.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tablaListarAdmin.setRowHeight(30);
-        jScrollPane1.setViewportView(tablaListarAdmin);
+        JScrollPane.setViewportView(tablaListarAdmin);
 
-        panelBot.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        panelBot.add(JScrollPane, java.awt.BorderLayout.CENTER);
 
         panelMain.add(panelBot, java.awt.BorderLayout.SOUTH);
 
@@ -104,7 +116,7 @@ public class ListarBomberos extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1280, Short.MAX_VALUE)
+            .addGap(0, 1000, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -113,7 +125,7 @@ public class ListarBomberos extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 640, Short.MAX_VALUE)
+            .addGap(0, 500, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -124,17 +136,27 @@ public class ListarBomberos extends javax.swing.JPanel {
 
     private void cbListarAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbListarAdminActionPerformed
         // TODO add your handling code here:
-        
     }//GEN-LAST:event_cbListarAdminActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane JScrollPane;
     private javax.swing.JComboBox<String> cbListarAdmin;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelBot;
     private javax.swing.JPanel panelMain;
     private javax.swing.JPanel panelTop;
     private javax.swing.JTable tablaListarAdmin;
     // End of variables declaration//GEN-END:variables
+
+    public void modeloTablaBombero() {
+        tablaListarAdmin.setModel(modeloBomberoAct);
+        TableColumnModel columnaBombero = tablaListarAdmin.getColumnModel();
+        columnaBombero.getColumn(0).setMaxWidth(60);
+        columnaBombero.getColumn(1).setMaxWidth(80);
+        columnaBombero.getColumn(3).setMaxWidth(80);
+        columnaBombero.getColumn(6).setMaxWidth(100);
+        columnaBombero.getColumn(7).setMaxWidth(100);
+    }
+    
 }

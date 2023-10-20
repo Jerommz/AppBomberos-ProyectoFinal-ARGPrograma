@@ -5,17 +5,30 @@
  */
 package bomberos.Vistas;
 
+import java.awt.Color;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
+
 /**
  *
  * @author jero
  */
 public class ListarBrigadas extends javax.swing.JPanel {
 
+    String[] modeloBrigada = {"ID", "Nombre", "Especialidad", "Libre", "Cuartel"};
+    DefaultTableModel modeloBrigadaAct = new DefaultTableModel(null, modeloBrigada) {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
+    
     /**
      * Creates new form ListarBrigadas
      */
     public ListarBrigadas() {
         initComponents();
+        modeloTablaBrigada();
     }
 
     /**
@@ -31,17 +44,18 @@ public class ListarBrigadas extends javax.swing.JPanel {
         panelMain = new javax.swing.JPanel();
         panelTop = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        cbListarAdmin = new javax.swing.JComboBox<>(modeloCB);
+        cbListarAdmin = new javax.swing.JComboBox<>();
         panelBot = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaListarAdmin = new javax.swing.JTable();
 
         panelMain.setBackground(new Color(0,0,0,0));
         panelMain.setMinimumSize(new java.awt.Dimension(0, 0));
+        panelMain.setPreferredSize(new java.awt.Dimension(1000, 500));
         panelMain.setLayout(new java.awt.BorderLayout());
 
-        panelTop.setBackground(new Color(161, 27, 27,220));
-        panelTop.setPreferredSize(new java.awt.Dimension(0, 100));
+        panelTop.setBackground(new Color(161, 27, 27));
+        panelTop.setPreferredSize(new java.awt.Dimension(0, 80));
         panelTop.setLayout(new java.awt.GridBagLayout());
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -52,7 +66,6 @@ public class ListarBrigadas extends javax.swing.JPanel {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(13, 535, 5, 505);
         panelTop.add(jLabel1, gridBagConstraints);
 
         cbListarAdmin.setBackground(new Color(193,29,29));
@@ -71,13 +84,13 @@ public class ListarBrigadas extends javax.swing.JPanel {
         gridBagConstraints.gridy = 2;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(8, 565, 8, 0);
+        gridBagConstraints.insets = new java.awt.Insets(0, 31, 0, 31);
         panelTop.add(cbListarAdmin, gridBagConstraints);
 
         panelMain.add(panelTop, java.awt.BorderLayout.NORTH);
 
         panelBot.setBackground(new Color(161, 27, 27,220));
-        panelBot.setPreferredSize(new java.awt.Dimension(1280, 540));
+        panelBot.setPreferredSize(new java.awt.Dimension(1000, 420));
         panelBot.setLayout(new java.awt.BorderLayout());
 
         tablaListarAdmin.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -104,7 +117,7 @@ public class ListarBrigadas extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1280, Short.MAX_VALUE)
+            .addGap(0, 1000, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -113,7 +126,7 @@ public class ListarBrigadas extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 640, Short.MAX_VALUE)
+            .addGap(0, 500, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -124,6 +137,7 @@ public class ListarBrigadas extends javax.swing.JPanel {
 
     private void cbListarAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbListarAdminActionPerformed
         // TODO add your handling code here:
+
     }//GEN-LAST:event_cbListarAdminActionPerformed
 
 
@@ -136,4 +150,15 @@ public class ListarBrigadas extends javax.swing.JPanel {
     private javax.swing.JPanel panelTop;
     private javax.swing.JTable tablaListarAdmin;
     // End of variables declaration//GEN-END:variables
+
+    public void modeloTablaBrigada() {
+        tablaListarAdmin.setModel(modeloBrigadaAct);
+        TableColumnModel columnaBrigada = tablaListarAdmin.getColumnModel();
+        columnaBrigada.getColumn(0).setMaxWidth(60);
+        columnaBrigada.getColumn(1).setMaxWidth(300);
+        columnaBrigada.getColumn(2).setMaxWidth(800);
+        columnaBrigada.getColumn(3).setMaxWidth(80);
+        columnaBrigada.getColumn(4).setMaxWidth(80);
+    }
+    
 }

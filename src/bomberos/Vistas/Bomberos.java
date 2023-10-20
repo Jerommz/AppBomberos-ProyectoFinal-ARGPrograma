@@ -639,7 +639,7 @@ public class Bomberos extends javax.swing.JPanel {
 
     private void botonListarBomberosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonListarBomberosActionPerformed
         // TODO add your handling code here:
-        
+        mostrarPanel(new ListarBomberos());
     }//GEN-LAST:event_botonListarBomberosActionPerformed
 
 
@@ -721,5 +721,12 @@ public class Bomberos extends javax.swing.JPanel {
         if (codigo == codBrigada) {
             comboCodBriBombero.setSelectedItem(String.valueOf(codigo));
         }
+    }
+    
+    public void mostrarPanel(Component com) {
+        panelInterno.removeAll();
+        panelInterno.add(com);
+        panelInterno.repaint();
+        panelInterno.revalidate();
     }
 }

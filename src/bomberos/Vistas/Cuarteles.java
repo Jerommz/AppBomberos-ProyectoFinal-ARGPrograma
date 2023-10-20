@@ -551,6 +551,7 @@ public class Cuarteles extends javax.swing.JPanel {
 
     private void botonListarCuartelesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonListarCuartelesActionPerformed
         // TODO add your handling code here:
+        mostrarPanel(new ListarCuarteles());
     }//GEN-LAST:event_botonListarCuartelesActionPerformed
 
 
@@ -618,4 +619,10 @@ public class Cuarteles extends javax.swing.JPanel {
         }
     }
 
+    public void mostrarPanel(Component com) {
+        panelInterno.removeAll();
+        panelInterno.add(com);
+        panelInterno.repaint();
+        panelInterno.revalidate();
+    }
 }

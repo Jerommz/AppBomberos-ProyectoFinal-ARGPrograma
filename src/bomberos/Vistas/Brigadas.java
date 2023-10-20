@@ -514,6 +514,7 @@ public class Brigadas extends javax.swing.JPanel {
 
     private void botonListarBrigadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonListarBrigadasActionPerformed
         // TODO add your handling code here:
+        mostrarPanel(new ListarBrigadas());
     }//GEN-LAST:event_botonListarBrigadasActionPerformed
 
 
@@ -591,5 +592,12 @@ public class Brigadas extends javax.swing.JPanel {
         if (codigo == codCuartel) {
             comboCodCuartelBrigada.setSelectedItem(String.valueOf(codigo));
         }
+    }
+    
+    public void mostrarPanel(Component com) {
+        panelInterno.removeAll();
+        panelInterno.add(com);
+        panelInterno.repaint();
+        panelInterno.revalidate();
     }
 }
