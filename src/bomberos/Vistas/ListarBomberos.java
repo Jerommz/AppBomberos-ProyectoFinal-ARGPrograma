@@ -5,7 +5,10 @@
  */
 package bomberos.Vistas;
 
+import bomberos.AccesoAdatos.BomberoData;
+import bomberos.Entidades.Bombero;
 import java.awt.Color;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
@@ -15,6 +18,7 @@ import javax.swing.table.TableColumnModel;
  */
 public class ListarBomberos extends javax.swing.JPanel {
 
+    BomberoData bomberoDB = new BomberoData();
     String[] modeloBombero = {"ID", "Dni", "Nombre", "Sangre", "Nacimiento", "Celular", "Brigada", "Activo"};
     DefaultTableModel modeloBomberoAct = new DefaultTableModel(null, modeloBombero) {
         @Override
@@ -29,6 +33,7 @@ public class ListarBomberos extends javax.swing.JPanel {
     public ListarBomberos() {
         initComponents();
         modeloTablaBombero();
+        mostrarTablaBombero();
     }
 
     /**
@@ -45,6 +50,8 @@ public class ListarBomberos extends javax.swing.JPanel {
         panelTop = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         cbListarAdmin = new javax.swing.JComboBox<>();
+        jCheckBox2 = new javax.swing.JCheckBox();
+        jCheckBox1 = new javax.swing.JCheckBox();
         panelBot = new javax.swing.JPanel();
         JScrollPane = new javax.swing.JScrollPane();
         tablaListarAdmin = new javax.swing.JTable();
@@ -62,12 +69,13 @@ public class ListarBomberos extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setForeground(java.awt.Color.white);
-        jLabel1.setText("Seleccione un bombero:");
+        jLabel1.setText("Seleccione una brigada:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 0);
         panelTop.add(jLabel1, gridBagConstraints);
 
         cbListarAdmin.setBackground(new Color(193,29,29));
@@ -86,8 +94,26 @@ public class ListarBomberos extends javax.swing.JPanel {
         gridBagConstraints.gridy = 2;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 31, 0, 31);
+        gridBagConstraints.insets = new java.awt.Insets(0, 51, 0, 31);
         panelTop.add(cbListarAdmin, gridBagConstraints);
+
+        jCheckBox2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jCheckBox2.setForeground(java.awt.Color.white);
+        jCheckBox2.setText("Activos");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.insets = new java.awt.Insets(0, 105, 0, 0);
+        panelTop.add(jCheckBox2, gridBagConstraints);
+
+        jCheckBox1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jCheckBox1.setForeground(java.awt.Color.white);
+        jCheckBox1.setText("Inactivos");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 75);
+        panelTop.add(jCheckBox1, gridBagConstraints);
 
         panelMain.add(panelTop, java.awt.BorderLayout.NORTH);
 
@@ -142,6 +168,8 @@ public class ListarBomberos extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane JScrollPane;
     private javax.swing.JComboBox<String> cbListarAdmin;
+    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel panelBot;
     private javax.swing.JPanel panelMain;
@@ -158,5 +186,28 @@ public class ListarBomberos extends javax.swing.JPanel {
         columnaBombero.getColumn(6).setMaxWidth(100);
         columnaBombero.getColumn(7).setMaxWidth(100);
     }
+    
+    public void actualizarTabla() {
+        DefaultTableModel mod = (DefaultTableModel) tablaListarAdmin.getModel();
+        mod.setRowCount(0);
+    }
+    
+    public void mostrarTablaBombero() {
+        actualizarTabla();
+        List<Bombero> bomberos = bomberoDB.obtenerBomberos();
+        for (Bombero bombero : bomberos) {
+            modeloBomberoAct.addRow(new Object[]{
+                bombero.getId_Bombero(),
+                bombero.getDni(),
+                bombero.getNombre_ape(),
+                bombero.getGrupo_sang(),
+                bombero.getFecha(),
+                bombero.getCelular(),
+                bombero.getCodBrigada(),
+                bombero.isEstado()
+            });
+        }
+    }
+    
     
 }

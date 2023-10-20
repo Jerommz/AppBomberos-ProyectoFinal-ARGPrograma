@@ -6,13 +6,12 @@
 package bomberos.Vistas;
 
 import java.awt.Color;
-import java.awt.MouseInfo;
-import java.awt.PointerInfo;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.Icon;
+import java.awt.Component;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
+import javax.swing.JButton;
+import javax.swing.plaf.basic.BasicButtonUI;
 
 /**
  *
@@ -27,7 +26,7 @@ public class Siniestros extends javax.swing.JPanel {
      */
     public Siniestros() {
         initComponents();
-        agregarMarcador();
+        botones();
     }
 
     /**
@@ -47,25 +46,29 @@ public class Siniestros extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         panelIzq = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        textDescripcionSiniestro = new javax.swing.JTextField();
         comboTipoAccidenteSiniestro = new javax.swing.JComboBox<>();
-        jLabel3 = new javax.swing.JLabel();
-        textCuartelCercanoSiniestro = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        textBrigadaAsignadaSiniestro = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        textCoordX = new javax.swing.JTextField();
+        textFechaSiniestro = new javax.swing.JTextField();
         textCoordY = new javax.swing.JTextField();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        textAreaDescripcion = new javax.swing.JTextArea();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        textCoordX1 = new javax.swing.JTextField();
+        botonListarSiniestros = new javax.swing.JButton();
         panelDer = new javax.swing.JPanel();
-        panelInfo = new javax.swing.JPanel();
+        panelDerTop = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
-        textDistanciaSiniestro = new javax.swing.JTextField();
+        panelDerMid = new javax.swing.JPanel();
+        botonAsignarSiniestro = new javax.swing.JButton();
+        panelDerBot = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
-        textTiempoSiniestro = new javax.swing.JTextField();
-        panelMapa = new javax.swing.JPanel();
-        labelMap = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         popmenuMarcar.setText("Marcar");
@@ -80,117 +83,134 @@ public class Siniestros extends javax.swing.JPanel {
         jPanel2.setLayout(new java.awt.BorderLayout());
 
         panelIzq.setBackground(new Color (161, 27, 27,160));
-        panelIzq.setPreferredSize(new java.awt.Dimension(300, 100));
+        panelIzq.setPreferredSize(new java.awt.Dimension(300, 0));
         panelIzq.setLayout(new java.awt.GridBagLayout());
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel2.setForeground(java.awt.Color.white);
-        jLabel2.setText("Describa el accidente:");
+        jLabel2.setText("Detalle del accidente:");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(15, 0, 1, 0);
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 5, 0);
         panelIzq.add(jLabel2, gridBagConstraints);
-
-        textDescripcionSiniestro.setBackground(new Color(193,29,29));
-        textDescripcionSiniestro.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        textDescripcionSiniestro.setForeground(java.awt.Color.white);
-        textDescripcionSiniestro.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        textDescripcionSiniestro.setPreferredSize(new java.awt.Dimension(150, 30));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.insets = new java.awt.Insets(6, 0, 20, 0);
-        panelIzq.add(textDescripcionSiniestro, gridBagConstraints);
 
         comboTipoAccidenteSiniestro.setBackground(new Color(193,29,29));
         comboTipoAccidenteSiniestro.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         comboTipoAccidenteSiniestro.setForeground(java.awt.Color.white);
         comboTipoAccidenteSiniestro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         comboTipoAccidenteSiniestro.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        comboTipoAccidenteSiniestro.setPreferredSize(new java.awt.Dimension(150, 30));
+        comboTipoAccidenteSiniestro.setPreferredSize(new java.awt.Dimension(250, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 11;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 20, 0);
+        gridBagConstraints.gridy = 13;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 10, 0);
         panelIzq.add(comboTipoAccidenteSiniestro, gridBagConstraints);
-
-        jLabel3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel3.setForeground(java.awt.Color.white);
-        jLabel3.setText("Cuartel mas cercano:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.insets = new java.awt.Insets(15, 0, 5, 0);
-        panelIzq.add(jLabel3, gridBagConstraints);
-
-        textCuartelCercanoSiniestro.setBackground(new Color(193,29,29));
-        textCuartelCercanoSiniestro.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        textCuartelCercanoSiniestro.setForeground(java.awt.Color.white);
-        textCuartelCercanoSiniestro.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        textCuartelCercanoSiniestro.setPreferredSize(new java.awt.Dimension(150, 30));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.insets = new java.awt.Insets(1, 0, 20, 0);
-        panelIzq.add(textCuartelCercanoSiniestro, gridBagConstraints);
-
-        jLabel4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel4.setForeground(java.awt.Color.white);
-        jLabel4.setText("Brigada asignada:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.insets = new java.awt.Insets(15, 0, 0, 0);
-        panelIzq.add(jLabel4, gridBagConstraints);
-
-        textBrigadaAsignadaSiniestro.setBackground(new Color(193,29,29));
-        textBrigadaAsignadaSiniestro.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        textBrigadaAsignadaSiniestro.setForeground(java.awt.Color.white);
-        textBrigadaAsignadaSiniestro.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        textBrigadaAsignadaSiniestro.setPreferredSize(new java.awt.Dimension(150, 30));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 9;
-        gridBagConstraints.insets = new java.awt.Insets(4, 0, 20, 0);
-        panelIzq.add(textBrigadaAsignadaSiniestro, gridBagConstraints);
 
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel5.setForeground(java.awt.Color.white);
         jLabel5.setText("Tipo de accidente:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 10;
-        gridBagConstraints.insets = new java.awt.Insets(15, 0, 0, 0);
+        gridBagConstraints.gridy = 12;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
         panelIzq.add(jLabel5, gridBagConstraints);
 
+        jLabel8.setForeground(java.awt.Color.white);
         jLabel8.setText("X:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 11;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(5, 55, 10, 0);
         panelIzq.add(jLabel8, gridBagConstraints);
 
+        jLabel9.setForeground(java.awt.Color.white);
         jLabel9.setText("Y:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.insets = new java.awt.Insets(15, 25, 20, 0);
+        gridBagConstraints.gridy = 11;
+        gridBagConstraints.insets = new java.awt.Insets(5, 6, 10, 0);
         panelIzq.add(jLabel9, gridBagConstraints);
 
-        textCoordX.setPreferredSize(new java.awt.Dimension(40, 30));
+        textFechaSiniestro.setBackground(new Color(193,29,29));
+        textFechaSiniestro.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        textFechaSiniestro.setForeground(java.awt.Color.white);
+        textFechaSiniestro.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        textFechaSiniestro.setPreferredSize(new java.awt.Dimension(70, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.insets = new java.awt.Insets(0, 25, 0, 0);
-        panelIzq.add(textCoordX, gridBagConstraints);
+        gridBagConstraints.gridy = 15;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 10, 0);
+        panelIzq.add(textFechaSiniestro, gridBagConstraints);
 
+        textCoordY.setBackground(new Color(193,29,29));
+        textCoordY.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        textCoordY.setForeground(java.awt.Color.white);
+        textCoordY.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         textCoordY.setPreferredSize(new java.awt.Dimension(40, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.insets = new java.awt.Insets(0, 85, 0, 0);
+        gridBagConstraints.gridy = 11;
+        gridBagConstraints.insets = new java.awt.Insets(5, 65, 10, 0);
         panelIzq.add(textCoordY, gridBagConstraints);
+
+        textAreaDescripcion.setBackground(new Color(193,29,29));
+        textAreaDescripcion.setColumns(20);
+        textAreaDescripcion.setRows(5);
+        textAreaDescripcion.setBorder(null);
+        jScrollPane4.setViewportView(textAreaDescripcion);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 0);
+        panelIzq.add(jScrollPane4, gridBagConstraints);
+
+        jLabel10.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel10.setForeground(java.awt.Color.white);
+        jLabel10.setText("Fecha:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 14;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
+        panelIzq.add(jLabel10, gridBagConstraints);
+
+        jLabel11.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel11.setForeground(java.awt.Color.white);
+        jLabel11.setText("Ubicacion:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
+        panelIzq.add(jLabel11, gridBagConstraints);
+
+        textCoordX1.setBackground(new Color(193,29,29));
+        textCoordX1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        textCoordX1.setForeground(java.awt.Color.white);
+        textCoordX1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        textCoordX1.setPreferredSize(new java.awt.Dimension(40, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 11;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(5, 70, 10, 0);
+        panelIzq.add(textCoordX1, gridBagConstraints);
+
+        botonListarSiniestros.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        botonListarSiniestros.setForeground(java.awt.Color.white);
+        botonListarSiniestros.setText("Listar siniestros");
+        botonListarSiniestros.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        botonListarSiniestros.setBorderPainted(false);
+        botonListarSiniestros.setPreferredSize(new java.awt.Dimension(140, 30));
+        botonListarSiniestros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonListarSiniestrosActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 16;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
+        panelIzq.add(botonListarSiniestros, gridBagConstraints);
 
         jPanel2.add(panelIzq, java.awt.BorderLayout.WEST);
 
@@ -198,88 +218,81 @@ public class Siniestros extends javax.swing.JPanel {
         panelDer.setPreferredSize(new java.awt.Dimension(980, 0));
         panelDer.setLayout(new java.awt.BorderLayout());
 
-        panelInfo.setBackground(new Color (161, 27, 27,160));
-        panelInfo.setPreferredSize(new java.awt.Dimension(0, 100));
-        panelInfo.setLayout(new java.awt.GridBagLayout());
+        panelDerTop.setBackground(new Color(184, 34, 34));
+        panelDerTop.setPreferredSize(new java.awt.Dimension(980, 300));
+        panelDerTop.setLayout(new java.awt.BorderLayout());
 
-        jLabel6.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jTable1.setBackground(new Color(193,29,29));
+        jTable1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jTable1.setForeground(java.awt.Color.white);
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jTable1.setRowHeight(24);
+        jScrollPane1.setViewportView(jTable1);
+
+        panelDerTop.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        jLabel6.setBackground(new Color(184, 34, 34));
+        jLabel6.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel6.setForeground(java.awt.Color.white);
-        jLabel6.setText("Distancia al cuartel mas cercano:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTH;
-        gridBagConstraints.insets = new java.awt.Insets(20, 15, 20, 5);
-        panelInfo.add(jLabel6, gridBagConstraints);
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Cuarteles");
+        panelDerTop.add(jLabel6, java.awt.BorderLayout.PAGE_START);
 
-        textDistanciaSiniestro.setBackground(new Color(193,29,29));
-        textDistanciaSiniestro.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        textDistanciaSiniestro.setForeground(java.awt.Color.white);
-        textDistanciaSiniestro.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        textDistanciaSiniestro.setPreferredSize(new java.awt.Dimension(80, 30));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 66;
-        gridBagConstraints.ipady = 3;
-        gridBagConstraints.insets = new java.awt.Insets(15, 0, 15, 35);
-        panelInfo.add(textDistanciaSiniestro, gridBagConstraints);
+        panelDer.add(panelDerTop, java.awt.BorderLayout.NORTH);
 
-        jLabel7.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        panelDerMid.setBackground(new Color(184, 34, 34));
+        panelDerMid.setPreferredSize(new java.awt.Dimension(980, 40));
+        panelDerMid.setLayout(new java.awt.BorderLayout());
+
+        botonAsignarSiniestro.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        botonAsignarSiniestro.setForeground(java.awt.Color.white);
+        botonAsignarSiniestro.setText("Asignar");
+        botonAsignarSiniestro.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        botonAsignarSiniestro.setPreferredSize(new java.awt.Dimension(71, 30));
+        panelDerMid.add(botonAsignarSiniestro, java.awt.BorderLayout.CENTER);
+
+        panelDer.add(panelDerMid, java.awt.BorderLayout.CENTER);
+
+        panelDerBot.setBackground(new Color(184, 34, 34));
+        panelDerBot.setPreferredSize(new java.awt.Dimension(980, 300));
+        panelDerBot.setLayout(new java.awt.BorderLayout());
+
+        jTable2.setBackground(new Color(193,29,29));
+        jTable2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jTable2.setRowHeight(24);
+        jScrollPane2.setViewportView(jTable2);
+
+        panelDerBot.add(jScrollPane2, java.awt.BorderLayout.CENTER);
+
+        jLabel7.setBackground(new Color(184, 34, 34));
+        jLabel7.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel7.setForeground(java.awt.Color.white);
-        jLabel7.setText("Tiempo estimado de llegada:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(20, 15, 15, 0);
-        panelInfo.add(jLabel7, gridBagConstraints);
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("Brigadas");
+        panelDerBot.add(jLabel7, java.awt.BorderLayout.PAGE_START);
 
-        textTiempoSiniestro.setBackground(new Color(193,29,29));
-        textTiempoSiniestro.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        textTiempoSiniestro.setForeground(java.awt.Color.white);
-        textTiempoSiniestro.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        textTiempoSiniestro.setPreferredSize(new java.awt.Dimension(60, 30));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 46;
-        gridBagConstraints.ipady = 3;
-        gridBagConstraints.insets = new java.awt.Insets(15, 5, 15, 15);
-        panelInfo.add(textTiempoSiniestro, gridBagConstraints);
-
-        panelDer.add(panelInfo, java.awt.BorderLayout.NORTH);
-
-        panelMapa.setBackground(new Color(161, 27, 27,64));
-        panelMapa.setPreferredSize(new java.awt.Dimension(0, 540));
-        panelMapa.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                panelMapaMouseClicked(evt);
-            }
-        });
-
-        labelMap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/mapaedit.png"))); // NOI18N
-        labelMap.setMaximumSize(new java.awt.Dimension(980, 540));
-        labelMap.setPreferredSize(new java.awt.Dimension(980, 540));
-        labelMap.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                labelMapMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelMapaLayout = new javax.swing.GroupLayout(panelMapa);
-        panelMapa.setLayout(panelMapaLayout);
-        panelMapaLayout.setHorizontalGroup(
-            panelMapaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelMap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        panelMapaLayout.setVerticalGroup(
-            panelMapaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelMap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-
-        panelDer.add(panelMapa, java.awt.BorderLayout.SOUTH);
+        panelDer.add(panelDerBot, java.awt.BorderLayout.SOUTH);
 
         jPanel2.add(panelDer, java.awt.BorderLayout.EAST);
 
@@ -338,23 +351,20 @@ public class Siniestros extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void panelMapaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelMapaMouseClicked
+    private void botonListarSiniestrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonListarSiniestrosActionPerformed
         // TODO add your handling code here:
-
-    }//GEN-LAST:event_panelMapaMouseClicked
-
-    private void labelMapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelMapMouseClicked
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_labelMapMouseClicked
+        mostrarPanel(new ListarSiniestros());
+    }//GEN-LAST:event_botonListarSiniestrosActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonAsignarSiniestro;
+    private javax.swing.JButton botonListarSiniestros;
     private javax.swing.JComboBox<String> comboTipoAccidenteSiniestro;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -362,53 +372,61 @@ public class Siniestros extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JLabel labelMap;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     private javax.swing.JPanel panelDer;
-    private javax.swing.JPanel panelInfo;
+    private javax.swing.JPanel panelDerBot;
+    private javax.swing.JPanel panelDerMid;
+    private javax.swing.JPanel panelDerTop;
     private javax.swing.JPanel panelIzq;
-    private javax.swing.JPanel panelMapa;
     private javax.swing.JPanel panelRoot;
     private javax.swing.JMenuItem popmenuMarcar;
     private javax.swing.JPopupMenu popupMenu;
-    private javax.swing.JTextField textBrigadaAsignadaSiniestro;
-    private javax.swing.JTextField textCoordX;
+    private javax.swing.JTextArea textAreaDescripcion;
+    private javax.swing.JTextField textCoordX1;
     private javax.swing.JTextField textCoordY;
-    private javax.swing.JTextField textCuartelCercanoSiniestro;
-    private javax.swing.JTextField textDescripcionSiniestro;
-    private javax.swing.JTextField textDistanciaSiniestro;
-    private javax.swing.JTextField textTiempoSiniestro;
+    private javax.swing.JTextField textFechaSiniestro;
     // End of variables declaration//GEN-END:variables
-//
-//    public void agregarMarcador(int x, int y) {
-//        
-//    }
 
-    public void mousePos() {
-        // Get the current mouse pointer info
-        PointerInfo pointerInfo = MouseInfo.getPointerInfo();
 
-        // Get the mouse coordinates
-        int mouseX = pointerInfo.getLocation().x;
-        int mouseY = pointerInfo.getLocation().y;
+    public void botones() {
+        JButton btns[] = {botonAsignarSiniestro, botonListarSiniestros};
+        for (JButton btn : btns) {
+            btn.setBackground(new Color(161, 27, 27));
+            btn.setUI(new BasicButtonUI());
+            btn.addMouseListener(new MouseListener() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                }
 
-        // Display the mouse coordinates
-        System.out.println("Mouse X: " + mouseX);
-        System.out.println("Mouse Y: " + mouseY);
+                @Override
+                public void mousePressed(MouseEvent e) {
+                }
+
+                @Override
+                public void mouseReleased(MouseEvent e) {
+                }
+
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    btn.setBackground(new Color(252, 68, 22));
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    btn.setBackground(new Color(161, 27, 27));
+                }
+            });
+        }
     }
-
-    public void agregarMarcador() {
-        panelMapa.setComponentPopupMenu(popupMenu);
-        popmenuMarcar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JLabel iconoLabel = new JLabel(getIcon("images/marker.png", 15, 15));
-                panelMapa.add(iconoLabel);
-            }
-        });
-    }
-
-    public Icon getIcon(String ruta, int width, int height) {
-        Icon icono = new ImageIcon(new ImageIcon(getClass().getResource(ruta)).getImage().getScaledInstance(width, height, 0));
-        return icono;
+    
+        public void mostrarPanel(Component com) {
+        panelDer.removeAll();
+        panelDer.add(com);
+        panelDer.repaint();
+        panelDer.revalidate();
     }
 }

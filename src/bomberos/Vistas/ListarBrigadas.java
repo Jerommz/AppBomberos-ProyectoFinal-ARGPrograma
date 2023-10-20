@@ -38,7 +38,7 @@ public class ListarBrigadas extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
@@ -46,11 +46,13 @@ public class ListarBrigadas extends javax.swing.JPanel {
         panelTop = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         cbListarAdmin = new javax.swing.JComboBox<>();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        jCheckBox2 = new javax.swing.JCheckBox();
         panelBot = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaListarAdmin = new javax.swing.JTable();
 
-        panelMain.setBackground(new Color(0, 0, 0, 0));
+        panelMain.setBackground(new Color(0,0,0,0));
         panelMain.setMinimumSize(new java.awt.Dimension(0, 0));
         panelMain.setPreferredSize(new java.awt.Dimension(1000, 500));
         panelMain.setLayout(new java.awt.BorderLayout());
@@ -61,17 +63,17 @@ public class ListarBrigadas extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setForeground(java.awt.Color.white);
-        jLabel1.setText("Seleccione una brigada:");
+        jLabel1.setText("Seleccione un cuartel:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
         panelTop.add(jLabel1, gridBagConstraints);
 
-        cbListarAdmin.setBackground(new Color(193, 29, 29));
+        cbListarAdmin.setBackground(new Color(193,29,29));
         cbListarAdmin.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        cbListarAdmin.setForeground(new Color(193, 29, 29));
+        cbListarAdmin.setForeground(new Color(193,29,29));
         cbListarAdmin.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         cbListarAdmin.setMinimumSize(new java.awt.Dimension(0, 0));
         cbListarAdmin.setPreferredSize(new java.awt.Dimension(150, 30));
@@ -84,28 +86,46 @@ public class ListarBrigadas extends javax.swing.JPanel {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.gridheight = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 31, 0, 31);
         panelTop.add(cbListarAdmin, gridBagConstraints);
 
+        jCheckBox1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jCheckBox1.setForeground(java.awt.Color.white);
+        jCheckBox1.setText("Asignadas");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 75);
+        panelTop.add(jCheckBox1, gridBagConstraints);
+
+        jCheckBox2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jCheckBox2.setForeground(java.awt.Color.white);
+        jCheckBox2.setText("Libres");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.insets = new java.awt.Insets(0, 105, 0, 0);
+        panelTop.add(jCheckBox2, gridBagConstraints);
+
         panelMain.add(panelTop, java.awt.BorderLayout.NORTH);
 
-        panelBot.setBackground(new Color(161, 27, 27, 220));
+        panelBot.setBackground(new Color(161, 27, 27,220));
         panelBot.setPreferredSize(new java.awt.Dimension(1000, 420));
         panelBot.setLayout(new java.awt.BorderLayout());
 
         tablaListarAdmin.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         tablaListarAdmin.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         tablaListarAdmin.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][] {
-                        {},
-                        {},
-                        {},
-                        {}
-                },
-                new String[] {
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
 
-                }));
+            }
+        ));
         tablaListarAdmin.setRowHeight(30);
         jScrollPane1.setViewportView(tablaListarAdmin);
 
@@ -116,26 +136,28 @@ public class ListarBrigadas extends javax.swing.JPanel {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 1000, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(panelMain, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE))));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1000, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(panelMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 500, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(panelMain, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE))));
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 500, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(panelMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cbListarAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbListarAdminActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbListarAdminActionPerformed
 
     private void cbListarAdminActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cbListarAdminActionPerformed
         // TODO add your handling code here:
@@ -144,6 +166,8 @@ public class ListarBrigadas extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cbListarAdmin;
+    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelBot;
