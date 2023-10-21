@@ -5,13 +5,26 @@
  */
 package bomberos.Vistas;
 
+import bomberos.AccesoADatos.BrigadaData;
+import bomberos.AccesoADatos.CuartelData;
+import bomberos.AccesoADatos.SiniestroData;
+import bomberos.AccesoAdatos.Conexion;
+import bomberos.Entidades.Brigada;
+import bomberos.Entidades.Cuartel;
+import bomberos.Entidades.Siniestro;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicButtonUI;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -19,7 +32,20 @@ import javax.swing.plaf.basic.BasicButtonUI;
  */
 public class Siniestros extends javax.swing.JPanel {
 
+    private Siniestro accidente;
+    private SiniestroData siDB;
+    private Brigada brigada;
+    private BrigadaData briDB;
+    private Cuartel cuartel;
+    private CuartelData cuakDB;
+    private DefaultTableModel modeloCuartel;
+    private DefaultTableModel modeloBrigada;
+    private String[] comboBoxLista = {"Incendios en casa e industrias", "Salvamento en derrumbes", "Rescate en montaña", "Rescate de pesonas atrapadas en accidente de transito", "Socorrer inundaciones", "Operativo de prevencion"};
+    private List<Siniestro> sinie;
     private ImageIcon icono;
+    private Conexion con;
+    private List<Brigada> brigadas = new ArrayList<>();
+    private List<Cuartel> cuarteles = new ArrayList<>();
 
     /**
      * Creates new form Siniestros
@@ -27,6 +53,30 @@ public class Siniestros extends javax.swing.JPanel {
     public Siniestros() {
         initComponents();
         botones();
+        Conexion con = new Conexion();
+        SiniestroData siDB = new SiniestroData();
+        Siniestro accidente = new Siniestro();
+        List<Siniestro> sinie = siDB.listarSiniestros();
+        Cuartel cuartel = new Cuartel();
+        CuartelData cuakDB = new CuartelData();
+        BrigadaData briDB = new BrigadaData();
+        //mostrarCuartel();
+        //mostrarBrigadas();
+        mostrarComboBox();
+        modeloCuartel = new DefaultTableModel();
+        modeloBrigada = new DefaultTableModel();
+        con = new Conexion();
+        siDB = new SiniestroData();
+        accidente = new Siniestro();
+        sinie = siDB.listarSiniestros();
+        cuartel = new Cuartel();
+        cuakDB = new CuartelData();
+        briDB = new BrigadaData();
+        //mostrarCuartel();
+        //mostrarBrigadas();
+        modeloCuartel = new DefaultTableModel();
+        modeloBrigada = new DefaultTableModel();
+
     }
 
     /**
@@ -58,16 +108,17 @@ public class Siniestros extends javax.swing.JPanel {
         jLabel11 = new javax.swing.JLabel();
         textCoordX1 = new javax.swing.JTextField();
         botonListarSiniestros = new javax.swing.JButton();
+        jbcargar = new javax.swing.JButton();
         panelDer = new javax.swing.JPanel();
         panelDerTop = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTcuarteles = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
         panelDerMid = new javax.swing.JPanel();
         botonAsignarSiniestro = new javax.swing.JButton();
         panelDerBot = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jTbrigadas = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -96,7 +147,6 @@ public class Siniestros extends javax.swing.JPanel {
         comboTipoAccidenteSiniestro.setBackground(new Color(193,29,29));
         comboTipoAccidenteSiniestro.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         comboTipoAccidenteSiniestro.setForeground(java.awt.Color.white);
-        comboTipoAccidenteSiniestro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         comboTipoAccidenteSiniestro.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         comboTipoAccidenteSiniestro.setPreferredSize(new java.awt.Dimension(250, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -212,6 +262,14 @@ public class Siniestros extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
         panelIzq.add(botonListarSiniestros, gridBagConstraints);
 
+        jbcargar.setText("cargar");
+        jbcargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbcargarActionPerformed(evt);
+            }
+        });
+        panelIzq.add(jbcargar, new java.awt.GridBagConstraints());
+
         jPanel2.add(panelIzq, java.awt.BorderLayout.WEST);
 
         panelDer.setBackground(new Color (161, 27, 27,64));
@@ -222,10 +280,10 @@ public class Siniestros extends javax.swing.JPanel {
         panelDerTop.setPreferredSize(new java.awt.Dimension(980, 300));
         panelDerTop.setLayout(new java.awt.BorderLayout());
 
-        jTable1.setBackground(new Color(193,29,29));
-        jTable1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jTable1.setForeground(java.awt.Color.white);
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTcuarteles.setBackground(new Color(193,29,29));
+        jTcuarteles.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jTcuarteles.setForeground(java.awt.Color.white);
+        jTcuarteles.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -236,8 +294,8 @@ public class Siniestros extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTable1.setRowHeight(24);
-        jScrollPane1.setViewportView(jTable1);
+        jTcuarteles.setRowHeight(24);
+        jScrollPane1.setViewportView(jTcuarteles);
 
         panelDerTop.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
@@ -267,9 +325,9 @@ public class Siniestros extends javax.swing.JPanel {
         panelDerBot.setPreferredSize(new java.awt.Dimension(980, 300));
         panelDerBot.setLayout(new java.awt.BorderLayout());
 
-        jTable2.setBackground(new Color(193,29,29));
-        jTable2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jTbrigadas.setBackground(new Color(193,29,29));
+        jTbrigadas.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jTbrigadas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -280,8 +338,8 @@ public class Siniestros extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTable2.setRowHeight(24);
-        jScrollPane2.setViewportView(jTable2);
+        jTbrigadas.setRowHeight(24);
+        jScrollPane2.setViewportView(jTbrigadas);
 
         panelDerBot.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
@@ -353,8 +411,27 @@ public class Siniestros extends javax.swing.JPanel {
 
     private void botonListarSiniestrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonListarSiniestrosActionPerformed
         // TODO add your handling code here:
-        mostrarPanel(new ListarSiniestros());
+        // mostrarPanel(new ListarSiniestros());
     }//GEN-LAST:event_botonListarSiniestrosActionPerformed
+
+    private void jbcargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbcargarActionPerformed
+        /* try{
+        if(textAreaDescripcion== null ||textCoordX1== null ||textCoordY ==null|| textFechaSiniestro==null ||comboTipoAccidenteSiniestro ==null){
+       JOptionPane.showMessageDialog(null, "los campos deben estar completos ");
+       }else {
+       String descripcion =textAreaDescripcion.getText();
+        int coorX = Integer.parseInt(textCoordX1.getText());
+            int coorY = Integer.parseInt(textCoordY.getText());
+            LocalDate now = LocalDate.now();
+            LocalDate fechaSiniestro = Date.valueOf(now).toLocalDate();
+            
+            // Continuar con la lógica para cargar el siniestro en la base de datos
+             siDB.cargarSiniestro(accidente);
+       
+       }}catch(NullPointerException ex){
+        JOptionPane.showMessageDialog(null, "Error al cargar siniestro: " + ex.getMessage());
+       }*/
+    }//GEN-LAST:event_jbcargarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -375,8 +452,9 @@ public class Siniestros extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTbrigadas;
+    private javax.swing.JTable jTcuarteles;
+    private javax.swing.JButton jbcargar;
     private javax.swing.JPanel panelDer;
     private javax.swing.JPanel panelDerBot;
     private javax.swing.JPanel panelDerMid;
@@ -390,7 +468,6 @@ public class Siniestros extends javax.swing.JPanel {
     private javax.swing.JTextField textCoordY;
     private javax.swing.JTextField textFechaSiniestro;
     // End of variables declaration//GEN-END:variables
-
 
     public void botones() {
         JButton btns[] = {botonAsignarSiniestro, botonListarSiniestros};
@@ -422,11 +499,91 @@ public class Siniestros extends javax.swing.JPanel {
             });
         }
     }
-    
-        public void mostrarPanel(Component com) {
+
+    public void mostrarPanel(Component com) {
         panelDer.removeAll();
         panelDer.add(com);
         panelDer.repaint();
         panelDer.revalidate();
+    }
+
+    public void mostrarComboBox() {
+        comboTipoAccidenteSiniestro.addItem("SELECCIONE UN SINIESTRO");
+        for (int i =0;i<sinie.size();i++) {
+            Siniestro sini =sinie.get(i);
+            comboTipoAccidenteSiniestro.addItem("" + sini.getTipo());
+        }
+    }
+
+    public void mostrarCabeceraTablaCuarteles() {
+        ArrayList<Object> filasCabecera = new ArrayList<>();
+        filasCabecera.add("CODIGO_CUARTEL");
+        filasCabecera.add("NOMBRE_CUARTEL");
+        filasCabecera.add("DIRECCION");
+        filasCabecera.add("COORDENADAS X");
+        filasCabecera.add("COORDENADAS Y");
+        filasCabecera.add("TELEFONO");
+        filasCabecera.add("CORREO");
+        for (Object it : filasCabecera) {
+            modeloCuartel.addColumn(it);
+        }
+        jTcuarteles.setModel(modeloCuartel);
+
+    }
+
+    public void mostrarCabeceraTablaBrigadas() {
+        ArrayList<Object> filasCabecera = new ArrayList<>();
+        filasCabecera.add("CODIGO_BRIGADA");
+        filasCabecera.add("NOMBRE_BRIGADA");
+        filasCabecera.add("ESPECIALIDAD");
+        filasCabecera.add("LIBRE");
+        filasCabecera.add("CODIGO_CUARTEL");
+        for (Object it : filasCabecera) {
+            modeloBrigada.addColumn(it);
+        }
+        jTbrigadas.setModel(modeloBrigada);
+
+    }
+
+    public void mostrarCuartel() {
+        if (modeloCuartel == null) {
+            modeloCuartel = new DefaultTableModel();
+
+            jTcuarteles.setModel(modeloCuartel);
+            mostrarCabeceraTablaCuarteles();
+            modeloCuartel.setRowCount(0);
+            List<Cuartel> cuarteles = (List<Cuartel>) cuakDB.obtenerCuarteles();
+            for (Cuartel cuartel : cuarteles) {
+                modeloCuartel.addRow(new Object[]{
+                    cuartel.getCodCuartel(),
+                    cuartel.getNombre_cuartel(),
+                    cuartel.getDireccion(),
+                    cuartel.getCoord_X(),
+                    cuartel.getCoord_Y(),
+                    cuartel.getTelefono(),
+                    cuartel.getCorreo(),});
+            }
+        }
+    }
+
+    public void mostrarBrigadas() {
+        if (modeloBrigada == null) {
+            modeloBrigada = new DefaultTableModel();
+
+            jTbrigadas.setModel(modeloBrigada);
+            mostrarCabeceraTablaBrigadas();
+            modeloBrigada.setRowCount(0);
+            ArrayList<Brigada> brigadas = (ArrayList<Brigada>) briDB.obtenerBrigadas();
+            for (Brigada brigada : brigadas) {
+                modeloBrigada.addRow(new Object[]{
+                    brigada.getCodBrigada(),
+                    brigada.getNombre_br(),
+                    brigada.getEspecialidad(),
+                    brigada.isLibre(),
+                    brigada.getCodCuartel(),});
+            }
+
+        }
+
     }
 }

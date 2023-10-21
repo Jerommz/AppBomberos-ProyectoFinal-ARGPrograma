@@ -45,7 +45,6 @@ public class ListarCuarteles extends javax.swing.JPanel {
         panelMain = new javax.swing.JPanel();
         panelTop = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        cbListarAdmin = new javax.swing.JComboBox<>();
         panelBot = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaListarAdmin = new javax.swing.JTable();
@@ -68,25 +67,6 @@ public class ListarCuarteles extends javax.swing.JPanel {
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         panelTop.add(jLabel1, gridBagConstraints);
-
-        cbListarAdmin.setBackground(new Color(193,29,29));
-        cbListarAdmin.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        cbListarAdmin.setForeground(new Color(193,29,29));
-        cbListarAdmin.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        cbListarAdmin.setMinimumSize(new java.awt.Dimension(0, 0));
-        cbListarAdmin.setPreferredSize(new java.awt.Dimension(150, 30));
-        cbListarAdmin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbListarAdminActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 24, 0, 24);
-        panelTop.add(cbListarAdmin, gridBagConstraints);
 
         panelMain.add(panelTop, java.awt.BorderLayout.NORTH);
 
@@ -138,16 +118,11 @@ public class ListarCuarteles extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cbListarAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbListarAdminActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbListarAdminActionPerformed
-
     private void cbListarAdminActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cbListarAdminActionPerformed
         // TODO add your handling code here:
     }// GEN-LAST:event_cbListarAdminActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> cbListarAdmin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelBot;

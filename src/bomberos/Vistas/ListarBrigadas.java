@@ -45,7 +45,6 @@ public class ListarBrigadas extends javax.swing.JPanel {
         panelMain = new javax.swing.JPanel();
         panelTop = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        cbListarAdmin = new javax.swing.JComboBox<>();
         jCheckBox1 = new javax.swing.JCheckBox();
         jCheckBox2 = new javax.swing.JCheckBox();
         panelBot = new javax.swing.JPanel();
@@ -70,24 +69,6 @@ public class ListarBrigadas extends javax.swing.JPanel {
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
         panelTop.add(jLabel1, gridBagConstraints);
-
-        cbListarAdmin.setBackground(new Color(193,29,29));
-        cbListarAdmin.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        cbListarAdmin.setForeground(new Color(193,29,29));
-        cbListarAdmin.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        cbListarAdmin.setMinimumSize(new java.awt.Dimension(0, 0));
-        cbListarAdmin.setPreferredSize(new java.awt.Dimension(150, 30));
-        cbListarAdmin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbListarAdminActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.insets = new java.awt.Insets(0, 31, 0, 31);
-        panelTop.add(cbListarAdmin, gridBagConstraints);
 
         jCheckBox1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jCheckBox1.setForeground(java.awt.Color.white);
@@ -155,17 +136,12 @@ public class ListarBrigadas extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cbListarAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbListarAdminActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbListarAdminActionPerformed
-
     private void cbListarAdminActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cbListarAdminActionPerformed
         // TODO add your handling code here:
 
     }// GEN-LAST:event_cbListarAdminActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> cbListarAdmin;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JLabel jLabel1;

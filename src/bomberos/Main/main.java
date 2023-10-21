@@ -3,9 +3,11 @@ package bomberos.Main;
 
 import bomberos.AccesoADatos.BrigadaData;
 import bomberos.AccesoADatos.CuartelData;
+import bomberos.AccesoADatos.SiniestroData;
 import bomberos.AccesoAdatos.BomberoData;
 import bomberos.Entidades.Bombero;
 import bomberos.Entidades.Brigada;
+import bomberos.Entidades.Siniestro;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -65,11 +67,11 @@ public class main {
     
     }*/
     // ocupar brigada  
-    /*
-    BrigadaData briDB = new BrigadaData();
-    briDB.ocuparBrigada(true, 11);
     
-    */
+    BrigadaData briDB = new BrigadaData();
+    briDB.ocuparBrigada(true, 9);
+    
+    
     // Disponibilidad de brigada 
     /*
     BrigadaData briDB = new BrigadaData();
@@ -84,9 +86,32 @@ public class main {
     /*
     BrigadaData briDB = new BrigadaData();
         System.out.println(briDB.obtenerEspecialidadBrigada(10));
-    */
+    
     //Asignar bomberos a una lista 
-//     BomberoData bomDB =new BomberoData();
-//     bomDB.asignarBrigada(5, 11);
-   }
+     //BomberoData bomDB =new BomberoData();
+    //bomDB.asignarBrigada(5, 11)
+}*/
+    
+
+        Siniestro siniestro1 = new Siniestro();
+            SiniestroData siniestroData = new SiniestroData();
+    List<Siniestro> siniestros = siniestroData.listarSiniestros();
+
+    if (siniestros.isEmpty()) {
+        System.out.println("La lista de siniestros está vacía.");
+    } else {
+        System.out.println("Siniestros encontrados:");
+        for (Siniestro siniestro : siniestros) {
+            System.out.println("Código: " + siniestro.getCodigo());
+            System.out.println("Tipo: " + siniestro.getTipo());
+            System.out.println("Fecha de siniestro: " + siniestro.getFecha_siniestro());
+            System.out.println("Coordenada X: " + siniestro.getCoord_X());
+            System.out.println("Coordenada Y: " + siniestro.getCoord_Y());
+            System.out.println("Detalles: " + siniestro.getDetalles());
+            System.out.println("Fecha de resolución: " + siniestro.getFecha_resol());
+            System.out.println("Puntuación: " + siniestro.getPuntuacion());
+            System.out.println("Código de brigada: " + siniestro.getCodBrigada());
+        }
+    }
+    }
 }

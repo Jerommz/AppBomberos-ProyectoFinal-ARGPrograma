@@ -16,9 +16,11 @@ public class CuartelData {
     //atributos necesarios para los metodos utilizados
     private final Connection con;
     private Cuartel cuartel;
-
+    private CuartelData cuakDB;
+    private  Conexion conexion;
     //constructor vacio
     public CuartelData() {
+        Conexion conexion  =new Conexion();
         con = Conexion.getConnection();
     }
 
@@ -109,6 +111,9 @@ public class CuartelData {
     }
 
     public List<Cuartel> obtenerCuarteles() {
+        if(con == null){
+        JOptionPane.showMessageDialog(null, "error en conexion verifique maria ");
+        }
         List<Cuartel> cuarteles = new ArrayList<>();
         String sql = "select * from cuartel";
         try {
@@ -127,6 +132,7 @@ public class CuartelData {
             }
             ps.close();
             rs.close();
+            con.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
         }

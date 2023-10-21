@@ -7,14 +7,17 @@ package bomberos.Vistas;
 
 import bomberos.AccesoADatos.BrigadaData;
 import bomberos.AccesoADatos.CuartelData;
+import bomberos.AccesoADatos.SiniestroData;
 import bomberos.AccesoAdatos.BomberoData;
 import bomberos.Entidades.Bombero;
 import bomberos.Entidades.Brigada;
 import bomberos.Entidades.Cuartel;
+import bomberos.Entidades.Siniestro;
 import java.awt.Color;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -26,10 +29,11 @@ public class Administracion extends javax.swing.JPanel {
     String[] modeloBombero = {"ID", "Dni", "Nombre", "Sangre", "Nacimiento", "Celular", "Brigada", "Activo"};
     String[] modeloBrigada = {"ID", "Nombre", "Especialidad", "Libre", "Cuartel"};
     String[] modeloCuartel = {"ID", "Nombre", "Direccion", "X", "Y", "Telefono", "Correo"};
+    String []modeloSiniestro = {"CODIGO","TIPO","FECHA_SINIESTRO","COORD_x","COORD_Y","DETALLES","FECHA_RESOL","PUNTAJE","CODBRIGADA"};
     BomberoData bomberoDB = new BomberoData();
     BrigadaData brigadaDB = new BrigadaData();
     CuartelData cuartelDB = new CuartelData();
-
+    SiniestroData SiDB =new SiniestroData();
     DefaultTableModel modeloBomberoAct = new DefaultTableModel(null, modeloBombero) {
         @Override
         public boolean isCellEditable(int row, int column) {
@@ -38,6 +42,12 @@ public class Administracion extends javax.swing.JPanel {
     };
 
     DefaultTableModel modeloBrigadaAct = new DefaultTableModel(null, modeloBrigada) {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
+    DefaultTableModel modeloSiniestroAct = new DefaultTableModel(null, modeloSiniestro) {
         @Override
         public boolean isCellEditable(int row, int column) {
             return false;
@@ -56,6 +66,8 @@ public class Administracion extends javax.swing.JPanel {
         actualizarTabla();
         modeloTablaBombero();
         mostrarTablaBombero();
+        
+        
     }
 
     /**
@@ -181,6 +193,9 @@ public class Administracion extends javax.swing.JPanel {
         } else if ("Cuarteles".equals(selected)) {
             modeloTablaCuartel();
             mostrarTablaCuartel();
+        }else if ("Siniestros".equals(selected)){
+            modeloTablaSiniestro();
+            mostrarTablaSiniestro();
         }
     }//GEN-LAST:event_cbListarAdminActionPerformed
 
@@ -235,6 +250,20 @@ public class Administracion extends javax.swing.JPanel {
         columnaCuartel.getColumn(6).setMaxWidth(500);
     }
 
+    public void modeloTablaSiniestro() {
+      
+        tablaListarAdmin.setModel(modeloSiniestroAct);
+        TableColumnModel columnaSiniestro = tablaListarAdmin.getColumnModel();
+        columnaSiniestro.getColumn(0).setMaxWidth(60);
+        columnaSiniestro.getColumn(1).setMaxWidth(300);
+        columnaSiniestro.getColumn(2).setMaxWidth(500);
+        columnaSiniestro.getColumn(3).setMaxWidth(40);
+        columnaSiniestro.getColumn(4).setMaxWidth(40);
+        columnaSiniestro.getColumn(5).setMaxWidth(100);
+        columnaSiniestro.getColumn(6).setMaxWidth(500);
+        columnaSiniestro.getColumn(7).setMaxWidth(500);
+        columnaSiniestro.getColumn(8).setMaxWidth(500);
+    }
     public void mostrarTablaBombero() {
         actualizarTabla();
         List<Bombero> bomberos = bomberoDB.obtenerBomberos();
@@ -281,5 +310,21 @@ public class Administracion extends javax.swing.JPanel {
             });
         }
     }
-
+    public void mostrarTablaSiniestro() {
+        actualizarTabla();
+        List<Siniestro> siniestros = SiDB.listarSiniestros();
+        for (Siniestro sini: siniestros) {
+            modeloSiniestroAct.addRow(new Object[]{
+                sini.getCodigo(),
+                sini.getTipo(),
+                sini.getFecha_siniestro(),
+                sini.getDetalles(),
+                sini.getCoord_X(),
+                sini.getCoord_Y(),
+                sini.getFecha_resol(),
+                sini.getPuntuacion(),
+                sini.getCodBrigada()
+            });
+        }
+    }
 }
