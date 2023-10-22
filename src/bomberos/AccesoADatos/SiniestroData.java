@@ -27,10 +27,10 @@ public class SiniestroData {
     }
 
     public void cargarSiniestro(Siniestro siniestro) {
-        String sql = "INSERT INTO siniestro( tipo, fecha_siniestro, coord_X, coord_Y, detalles, codBrigada) VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO siniestro( codigo,tipo, fecha_siniestro, coord_X, coord_Y, detalles, codBrigada) VALUES (?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-
+            ps.setInt(0, siniestro.getCodigo());
             ps.setString(1, siniestro.getTipo());
             ps.setDate(2, Date.valueOf(siniestro.getFecha_siniestro()));
             ps.setDouble(3, siniestro.getCoord_X());
@@ -184,14 +184,14 @@ public class SiniestroData {
                 accidentes.add(siniestro);
             }
 
-            System.out.println("2");
+            
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "error al acceder al listado de siniestros" + ex);
             // Aquí podrías arrojar la excepción o manejarla de alguna otra manera según lo requiera tu aplicación.
         }
 
-        System.out.println("3");
+        
 
         return accidentes;
     }

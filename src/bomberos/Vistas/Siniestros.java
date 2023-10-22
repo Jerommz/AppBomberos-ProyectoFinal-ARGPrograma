@@ -22,9 +22,11 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicButtonUI;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -38,45 +40,41 @@ public class Siniestros extends javax.swing.JPanel {
     private BrigadaData briDB;
     private Cuartel cuartel;
     private CuartelData cuakDB;
-    private DefaultTableModel modeloCuartel;
-    private DefaultTableModel modeloBrigada;
-    private String[] comboBoxLista = {"Incendios en casa e industrias", "Salvamento en derrumbes", "Rescate en montaña", "Rescate de pesonas atrapadas en accidente de transito", "Socorrer inundaciones", "Operativo de prevencion"};
-    private List<Siniestro> sinie;
     private ImageIcon icono;
     private Conexion con;
     private List<Brigada> brigadas = new ArrayList<>();
     private List<Cuartel> cuarteles = new ArrayList<>();
+    private List<Siniestros> sinie;
+    String[] modeloCuartel = {"ID", "Nombre", "Direccion", "X", "Y", "Telefono", "Correo"};
+    String[] modeloBrigada = {"ID", "Nombre", "Especialidad", "Libre", "Cuartel"};
+    DefaultTableModel modeloCuartelArt = new DefaultTableModel(null, modeloCuartel) {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
+    DefaultTableModel modeloBrigadaArt = new DefaultTableModel(null, modeloBrigada) {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
 
-    /**
-     * Creates new form Siniestros
-     */
     public Siniestros() {
         initComponents();
         botones();
-        Conexion con = new Conexion();
-        SiniestroData siDB = new SiniestroData();
-        Siniestro accidente = new Siniestro();
-        List<Siniestro> sinie = siDB.listarSiniestros();
-        Cuartel cuartel = new Cuartel();
-        CuartelData cuakDB = new CuartelData();
-        BrigadaData briDB = new BrigadaData();
-        //mostrarCuartel();
-        //mostrarBrigadas();
-        mostrarComboBox();
-        modeloCuartel = new DefaultTableModel();
-        modeloBrigada = new DefaultTableModel();
         con = new Conexion();
         siDB = new SiniestroData();
-        accidente = new Siniestro();
-        sinie = siDB.listarSiniestros();
-        cuartel = new Cuartel();
         cuakDB = new CuartelData();
         briDB = new BrigadaData();
-        //mostrarCuartel();
-        //mostrarBrigadas();
-        modeloCuartel = new DefaultTableModel();
-        modeloBrigada = new DefaultTableModel();
+        cuartel = new Cuartel();
+        brigadas = new ArrayList<>();
 
+        mostrarTablaCuartel();
+        modeloTablaCuartel();
+        mostrarTablaBrigada();
+        modeloTablaBrigada();
+        mostrarComboBox();
     }
 
     /**
@@ -108,7 +106,6 @@ public class Siniestros extends javax.swing.JPanel {
         jLabel11 = new javax.swing.JLabel();
         textCoordX1 = new javax.swing.JTextField();
         botonListarSiniestros = new javax.swing.JButton();
-        jbcargar = new javax.swing.JButton();
         panelDer = new javax.swing.JPanel();
         panelDerTop = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -262,14 +259,6 @@ public class Siniestros extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
         panelIzq.add(botonListarSiniestros, gridBagConstraints);
 
-        jbcargar.setText("cargar");
-        jbcargar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbcargarActionPerformed(evt);
-            }
-        });
-        panelIzq.add(jbcargar, new java.awt.GridBagConstraints());
-
         jPanel2.add(panelIzq, java.awt.BorderLayout.WEST);
 
         panelDer.setBackground(new Color (161, 27, 27,64));
@@ -414,25 +403,6 @@ public class Siniestros extends javax.swing.JPanel {
         // mostrarPanel(new ListarSiniestros());
     }//GEN-LAST:event_botonListarSiniestrosActionPerformed
 
-    private void jbcargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbcargarActionPerformed
-        /* try{
-        if(textAreaDescripcion== null ||textCoordX1== null ||textCoordY ==null|| textFechaSiniestro==null ||comboTipoAccidenteSiniestro ==null){
-       JOptionPane.showMessageDialog(null, "los campos deben estar completos ");
-       }else {
-       String descripcion =textAreaDescripcion.getText();
-        int coorX = Integer.parseInt(textCoordX1.getText());
-            int coorY = Integer.parseInt(textCoordY.getText());
-            LocalDate now = LocalDate.now();
-            LocalDate fechaSiniestro = Date.valueOf(now).toLocalDate();
-            
-            // Continuar con la lógica para cargar el siniestro en la base de datos
-             siDB.cargarSiniestro(accidente);
-       
-       }}catch(NullPointerException ex){
-        JOptionPane.showMessageDialog(null, "Error al cargar siniestro: " + ex.getMessage());
-       }*/
-    }//GEN-LAST:event_jbcargarActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAsignarSiniestro;
@@ -454,7 +424,6 @@ public class Siniestros extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable jTbrigadas;
     private javax.swing.JTable jTcuarteles;
-    private javax.swing.JButton jbcargar;
     private javax.swing.JPanel panelDer;
     private javax.swing.JPanel panelDerBot;
     private javax.swing.JPanel panelDerMid;
@@ -508,82 +477,67 @@ public class Siniestros extends javax.swing.JPanel {
     }
 
     public void mostrarComboBox() {
+
         comboTipoAccidenteSiniestro.addItem("SELECCIONE UN SINIESTRO");
-        for (int i =0;i<sinie.size();i++) {
-            Siniestro sini =sinie.get(i);
-            comboTipoAccidenteSiniestro.addItem("" + sini.getTipo());
+        for (Siniestro a : siDB.listarSiniestros()) {
+
+            comboTipoAccidenteSiniestro.addItem("" + a.getTipo());
         }
     }
 
-    public void mostrarCabeceraTablaCuarteles() {
-        ArrayList<Object> filasCabecera = new ArrayList<>();
-        filasCabecera.add("CODIGO_CUARTEL");
-        filasCabecera.add("NOMBRE_CUARTEL");
-        filasCabecera.add("DIRECCION");
-        filasCabecera.add("COORDENADAS X");
-        filasCabecera.add("COORDENADAS Y");
-        filasCabecera.add("TELEFONO");
-        filasCabecera.add("CORREO");
-        for (Object it : filasCabecera) {
-            modeloCuartel.addColumn(it);
-        }
-        jTcuarteles.setModel(modeloCuartel);
-
+    public void modeloTablaCuartel() {
+        jTcuarteles.setModel(modeloCuartelArt);
+        TableColumnModel columnaCuartel = jTcuarteles.getColumnModel();
+        columnaCuartel.getColumn(0).setMaxWidth(60);
+        columnaCuartel.getColumn(1).setMaxWidth(300);
+        columnaCuartel.getColumn(2).setMaxWidth(500);
+        columnaCuartel.getColumn(3).setMaxWidth(40);
+        columnaCuartel.getColumn(4).setMaxWidth(40);
+        columnaCuartel.getColumn(5).setMaxWidth(100);
+        columnaCuartel.getColumn(6).setMaxWidth(500);
     }
 
-    public void mostrarCabeceraTablaBrigadas() {
-        ArrayList<Object> filasCabecera = new ArrayList<>();
-        filasCabecera.add("CODIGO_BRIGADA");
-        filasCabecera.add("NOMBRE_BRIGADA");
-        filasCabecera.add("ESPECIALIDAD");
-        filasCabecera.add("LIBRE");
-        filasCabecera.add("CODIGO_CUARTEL");
-        for (Object it : filasCabecera) {
-            modeloBrigada.addColumn(it);
-        }
-        jTbrigadas.setModel(modeloBrigada);
-
+    public void modeloTablaBrigada() {
+        jTbrigadas.setModel(modeloBrigadaArt);
+        TableColumnModel columnaBrigada = jTbrigadas.getColumnModel();
+        columnaBrigada.getColumn(0).setMaxWidth(60);
+        columnaBrigada.getColumn(1).setMaxWidth(300);
+        columnaBrigada.getColumn(2).setMaxWidth(800);
+        columnaBrigada.getColumn(3).setMaxWidth(80);
+        columnaBrigada.getColumn(4).setMaxWidth(80);
     }
 
-    public void mostrarCuartel() {
-        if (modeloCuartel == null) {
-            modeloCuartel = new DefaultTableModel();
+    public void mostrarTablaBrigada() {
 
-            jTcuarteles.setModel(modeloCuartel);
-            mostrarCabeceraTablaCuarteles();
-            modeloCuartel.setRowCount(0);
-            List<Cuartel> cuarteles = (List<Cuartel>) cuakDB.obtenerCuarteles();
-            for (Cuartel cuartel : cuarteles) {
-                modeloCuartel.addRow(new Object[]{
-                    cuartel.getCodCuartel(),
-                    cuartel.getNombre_cuartel(),
-                    cuartel.getDireccion(),
-                    cuartel.getCoord_X(),
-                    cuartel.getCoord_Y(),
-                    cuartel.getTelefono(),
-                    cuartel.getCorreo(),});
-            }
+        List<Brigada> brigadas = briDB.obtenerBrigadas();
+        for (Brigada brigada : brigadas) {
+            modeloBrigadaArt.addRow(new Object[]{
+                brigada.getCodBrigada(),
+                brigada.getNombre_br(),
+                brigada.getEspecialidad(),
+                brigada.isLibre(),
+                brigada.getCodCuartel()
+            });
         }
     }
 
-    public void mostrarBrigadas() {
-        if (modeloBrigada == null) {
-            modeloBrigada = new DefaultTableModel();
+    public void mostrarTablaCuartel() {
 
-            jTbrigadas.setModel(modeloBrigada);
-            mostrarCabeceraTablaBrigadas();
-            modeloBrigada.setRowCount(0);
-            ArrayList<Brigada> brigadas = (ArrayList<Brigada>) briDB.obtenerBrigadas();
-            for (Brigada brigada : brigadas) {
-                modeloBrigada.addRow(new Object[]{
-                    brigada.getCodBrigada(),
-                    brigada.getNombre_br(),
-                    brigada.getEspecialidad(),
-                    brigada.isLibre(),
-                    brigada.getCodCuartel(),});
-            }
-
+        List<Cuartel> cuarteles = cuakDB.obtenerCuarteles();
+        for (Cuartel cuartel : cuarteles) {
+            modeloCuartelArt.addRow(new Object[]{
+                cuartel.getCodCuartel(),
+                cuartel.getNombre_cuartel(),
+                cuartel.getDireccion(),
+                cuartel.getCoord_X(),
+                cuartel.getCoord_Y(),
+                cuartel.getTelefono(),
+                cuartel.getCorreo()
+            });
         }
-
+        
     }
+    public void Asignarbrigada(){
+        
+        }
 }

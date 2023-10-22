@@ -17,7 +17,7 @@ import javax.swing.table.TableColumnModel;
  *
  * @author jero
  */
-public class ListarSiniestros extends javax.swing.JPanel {
+public class ListarSiniestros1 extends javax.swing.JPanel {
 
     String[] modeloCuartel = {"ID", "Nombre", "Direccion", "X", "Y", "Telefono", "Correo"};
     DefaultTableModel modeloCuartelAct = new DefaultTableModel(null, modeloCuartel) {
@@ -30,7 +30,7 @@ public class ListarSiniestros extends javax.swing.JPanel {
     /**
      * Creates new form ListarCuarteles
      */
-    public ListarSiniestros() {
+    public ListarSiniestros1() {
         initComponents();
 //        modeloTablaCuartel();
         botones();

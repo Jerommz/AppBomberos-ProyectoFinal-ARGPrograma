@@ -100,7 +100,7 @@ public class BrigadaData {
             ps.close();
             rs.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
+            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.brigada");
         }
         return brigadas;
     }

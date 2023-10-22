@@ -20,7 +20,7 @@ public class CuartelData {
     private  Conexion conexion;
     //constructor vacio
     public CuartelData() {
-        Conexion conexion  =new Conexion();
+       
         con = Conexion.getConnection();
     }
 
@@ -115,7 +115,8 @@ public class CuartelData {
         JOptionPane.showMessageDialog(null, "error en conexion verifique maria ");
         }
         List<Cuartel> cuarteles = new ArrayList<>();
-        String sql = "select * from cuartel";
+        String sql = "SELECT codCuartel, nombre_cuartel, direccion, coord_X, coord_Y, telefono, correo FROM cuartel";
+        
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -130,13 +131,15 @@ public class CuartelData {
                 cuartel.setCorreo(rs.getString("correo"));
                 cuarteles.add(cuartel);
             }
+          
             ps.close();
             rs.close();
-            con.close();
+            
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
+            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.Cuarteles");
         }
         return cuarteles;
+        
     }
 
     public Cuartel buscarCuartel(int codCuartel) {
