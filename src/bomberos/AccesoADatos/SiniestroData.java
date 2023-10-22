@@ -220,5 +220,27 @@ public class SiniestroData {
         }
 
     }
+    public String cuartelMasCercano() {
+    String cuartelMasCercano = null;
+    String sql = "SELECT siniestro.codigo AS siniestro_codigo, MIN(SQRT(POW(cuartel.coord_X - siniestro.coord_X, 2) + POW(cuartel.coord_Y - siniestro.coord_Y, 2))) AS distancia_minima, cuartel.codCuartel AS cuartel_Mas_Cercano FROM cuartel CROSS JOIN siniestro GROUP BY siniestro.codigo, cuartel.codCuartel ORDER BY distancia_minima LIMIT 1";
+
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            double distancia_minima = rs.getDouble("distancia_minima");
+            cuartelMasCercano = rs.getString("cuartel_Mas_Cercano");
+            JOptionPane.showMessageDialog(null, "El cuartel más cercano se encuentra a una distancia de: " + distancia_minima);
+            JOptionPane.showMessageDialog(null, "El código del cuartel más cercano es: " + cuartelMasCercano);
+        } else {
+            JOptionPane.showMessageDialog(null, "No se encontró ubicación");
+        }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error SQL al ubicar el siniestro");
+    }
+
+    return cuartelMasCercano;
+}
+
 
 }

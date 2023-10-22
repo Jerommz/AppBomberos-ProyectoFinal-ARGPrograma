@@ -14,6 +14,8 @@ import bomberos.Entidades.Cuartel;
 import bomberos.Entidades.Siniestro;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.Date;
@@ -27,13 +29,15 @@ import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicButtonUI;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+import bomberos.Entidades.Cuartel;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
  * @author jero
  */
 public class Siniestros extends javax.swing.JPanel {
-
+    private int contador=0;
     private Siniestro accidente;
     private SiniestroData siDB;
     private Brigada brigada;
@@ -69,7 +73,7 @@ public class Siniestros extends javax.swing.JPanel {
         briDB = new BrigadaData();
         cuartel = new Cuartel();
         brigadas = new ArrayList<>();
-
+        
         mostrarTablaCuartel();
         modeloTablaCuartel();
         mostrarTablaBrigada();
@@ -306,6 +310,11 @@ public class Siniestros extends javax.swing.JPanel {
         botonAsignarSiniestro.setText("Asignar");
         botonAsignarSiniestro.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         botonAsignarSiniestro.setPreferredSize(new java.awt.Dimension(71, 30));
+        botonAsignarSiniestro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAsignarSiniestroActionPerformed(evt);
+            }
+        });
         panelDerMid.add(botonAsignarSiniestro, java.awt.BorderLayout.CENTER);
 
         panelDer.add(panelDerMid, java.awt.BorderLayout.CENTER);
@@ -403,6 +412,23 @@ public class Siniestros extends javax.swing.JPanel {
         // mostrarPanel(new ListarSiniestros());
     }//GEN-LAST:event_botonListarSiniestrosActionPerformed
 
+    private void botonAsignarSiniestroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAsignarSiniestroActionPerformed
+       if(textAreaDescripcion == null ||textCoordX1 ==null || textCoordY ==null ||textFechaSiniestro ==null||comboTipoAccidenteSiniestro.getSelectedItem().toString().equals("")) {
+       JOptionPane.showMessageDialog(null, "debe rellenar todos los campos ");
+       }else{
+       int codigo =contador;
+       String detalle=textAreaDescripcion.getText();
+       int Coord_X =Integer.valueOf(textCoordX1.getText());
+       int Coord_Y =Integer.valueOf(textCoordY.getText());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+       LocalDate fecha_siniestro=LocalDate.parse(textFechaSiniestro.getText(),formatter);
+       String tipo =(String)comboTipoAccidenteSiniestro.getSelectedItem();
+       int codCuartel=Integer.parseInt(siDB.cuartelMasCercano());
+       AsignarBrigada(codCuartel);
+       
+       }
+    }//GEN-LAST:event_botonAsignarSiniestroActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAsignarSiniestro;
@@ -477,12 +503,24 @@ public class Siniestros extends javax.swing.JPanel {
     }
 
     public void mostrarComboBox() {
-
+        int contador =0;
+      
         comboTipoAccidenteSiniestro.addItem("SELECCIONE UN SINIESTRO");
         for (Siniestro a : siDB.listarSiniestros()) {
 
             comboTipoAccidenteSiniestro.addItem("" + a.getTipo());
+            contador =contador+1;
         }
+         comboTipoAccidenteSiniestro.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // Aquí puedes realizar la acción que desees cuando se seleccione un elemento del JComboBox
+            String seleccion = (String) comboTipoAccidenteSiniestro.getSelectedItem();
+            
+            //  imprimirlo en la consola:
+            JOptionPane.showMessageDialog(null, "SELECCIONASTE"+seleccion);
+        }
+    });
     }
 
     public void modeloTablaCuartel() {
@@ -537,7 +575,27 @@ public class Siniestros extends javax.swing.JPanel {
         }
         
     }
-    public void Asignarbrigada(){
+    public void   AsignarBrigada(int codCuartel){
+        actualizarTablaBrigadas();
+        List<Brigada> brigadas = briDB.listarBrigadasDeCuartel(codCuartel);
+        for (Brigada brigada : brigadas) {
+            modeloBrigadaArt.addRow(new Object[]{
+                brigada.getCodBrigada(),
+                brigada.getNombre_br(),
+                brigada.getEspecialidad(),
+                brigada.isLibre(),
+                brigada.getCodCuartel()
+            });
+        }
+        
         
         }
+     public void actualizarTablaCuarteles() {
+        DefaultTableModel mod = (DefaultTableModel) jTcuarteles.getModel();
+        mod.setRowCount(0);
+    }
+     public void actualizarTablaBrigadas() {
+        DefaultTableModel mod = (DefaultTableModel) jTbrigadas.getModel();
+        mod.setRowCount(0);
+    }
 }

@@ -194,6 +194,30 @@ public class BrigadaData {
         }
         return brigada;
     }
+    public List<Brigada> listarBrigadasDeCuartel(int codCuartel) {
+    List<Brigada> brigadas = new ArrayList<>();
+    String sql = "SELECT * FROM brigada WHERE codCuartel = ?";
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, codCuartel);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            Brigada brigada = new Brigada();
+            brigada.setCodBrigada(rs.getInt("codBrigada"));
+            brigada.setNombre_br(rs.getString("nombre_br"));
+            brigada.setEspecialidad(rs.getString("especialidad"));
+            brigada.isLibre();
+            brigada.setCodCuartel(rs.getInt("codCuartel"));
+            brigadas.add(brigada);
+        }
+        ps.close();
+        rs.close();
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos de brigadas por cuartel: " + ex.getMessage());
+    }
+    return brigadas;
+}
+
 }
 
 
