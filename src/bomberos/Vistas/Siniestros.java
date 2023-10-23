@@ -37,7 +37,8 @@ import java.time.format.DateTimeFormatter;
  * @author jero
  */
 public class Siniestros extends javax.swing.JPanel {
-    private int contador=0;
+    private int contador;
+    private int codCuartel =1;
     private Siniestro accidente;
     private SiniestroData siDB;
     private Brigada brigada;
@@ -423,6 +424,11 @@ public class Siniestros extends javax.swing.JPanel {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
        LocalDate fecha_siniestro=LocalDate.parse(textFechaSiniestro.getText(),formatter);
        String tipo =(String)comboTipoAccidenteSiniestro.getSelectedItem();
+       int codBrigada = briDB.obtenerCodigoBrigadaDisponible(codCuartel);
+       LocalDate fecha_resol =LocalDate.parse(textFechaSiniestro.getText(), formatter);
+       int puntuacion = 0;
+       Siniestro accidente =new Siniestro( tipo, fecha_siniestro, Coord_X, Coord_Y, detalle, fecha_resol, puntuacion, codBrigada);
+       siDB.cargarSiniestro(accidente);
        int codCuartel=Integer.parseInt(siDB.cuartelMasCercano());
        AsignarBrigada(codCuartel);
        

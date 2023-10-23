@@ -217,6 +217,25 @@ public class BrigadaData {
     }
     return brigadas;
 }
+public int obtenerCodigoBrigadaDisponible(int codCuartel) {
+    String sql = "SELECT MIN(codBrigada) AS codigo FROM brigada WHERE codCuartel = ? AND libre =1";
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, codCuartel);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            int codigo = rs.getInt("codigo");
+            ps.close();
+            rs.close();
+            return codigo;
+        }
+        ps.close();
+        rs.close();
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos de brigadas por cuartel: " + ex.getMessage());
+    }
+    return -1; // Si no se encontró ningún código de brigada disponible
+}
 
 }
 
