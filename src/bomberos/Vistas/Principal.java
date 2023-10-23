@@ -33,6 +33,7 @@ public class Principal extends javax.swing.JFrame {
         jBotonSiniestro = new javax.swing.JButton();
         jBotonAdmin = new javax.swing.JButton();
         panelBotMostrar = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -137,6 +138,8 @@ public class Principal extends javax.swing.JFrame {
 
         panelBotMostrar.setPreferredSize(new java.awt.Dimension(0, 640));
         panelBotMostrar.setLayout(new java.awt.BorderLayout());
+        panelBotMostrar.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
         panelRoot.add(panelBotMostrar, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(panelRoot, java.awt.BorderLayout.CENTER);
@@ -208,6 +211,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton jBotonBrigada;
     private javax.swing.JButton jBotonCuartel;
     private javax.swing.JButton jBotonSiniestro;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelBotMostrar;
     private javax.swing.JPanel panelRoot;
     private javax.swing.JPanel panelTop;

@@ -11,6 +11,8 @@ import bomberos.Entidades.Bombero;
 import bomberos.Entidades.Brigada;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.Date;
@@ -39,7 +41,16 @@ public class Bomberos extends javax.swing.JPanel {
         initComponents();
         botones();
         mostrarComboCodBrig(1);
-    }
+        textNombreApBombero.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                if (textNombreApBombero.getText().length() >= 50) {
+                    evt.consume();
+                    JOptionPane.showMessageDialog(null, "Maximo 50 caracteres.");
+                }
+            }
+        });
+      }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -372,6 +383,11 @@ public class Bomberos extends javax.swing.JPanel {
         textCelularBombero.setForeground(java.awt.Color.white);
         textCelularBombero.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         textCelularBombero.setPreferredSize(new java.awt.Dimension(200, 30));
+        textCelularBombero.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                textCelularBomberoKeyTyped(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 8;
@@ -400,6 +416,11 @@ public class Bomberos extends javax.swing.JPanel {
         textDNIBombero.setForeground(java.awt.Color.white);
         textDNIBombero.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         textDNIBombero.setPreferredSize(new java.awt.Dimension(200, 30));
+        textDNIBombero.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                textDNIBomberoKeyTyped(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 6;
@@ -642,6 +663,22 @@ public class Bomberos extends javax.swing.JPanel {
         mostrarPanel(new ListarBomberos());
     }//GEN-LAST:event_botonListarBomberosActionPerformed
 
+    private void textDNIBomberoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textDNIBomberoKeyTyped
+        // TODO add your handling code here:
+        if (textDNIBombero.getText().length() >= 8) {
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Maximo 8 numeros.");
+        }
+    }//GEN-LAST:event_textDNIBomberoKeyTyped
+
+    private void textCelularBomberoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textCelularBomberoKeyTyped
+        // TODO add your handling code here:
+        if (textCelularBombero.getText().length() >= 11) {
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Maximo 11 numeros.");
+        }
+    }//GEN-LAST:event_textCelularBomberoKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAgregarBombero;
@@ -722,7 +759,7 @@ public class Bomberos extends javax.swing.JPanel {
             comboCodBriBombero.setSelectedItem(String.valueOf(codigo));
         }
     }
-    
+
     public void mostrarPanel(Component com) {
         panelInterno.removeAll();
         panelInterno.add(com);
