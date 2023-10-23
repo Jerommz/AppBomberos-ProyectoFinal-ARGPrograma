@@ -1,7 +1,6 @@
 package bomberos.AccesoAdatos;
 
 import bomberos.Entidades.Bombero;
-import bomberos.Entidades.Brigada;
 import java.sql.Connection;
 import java.sql.*;
 import java.util.ArrayList;
@@ -87,7 +86,7 @@ public class BomberoData {
 
     public void contarBomberos(int codBrigada, int id_bombero) {
         try {
-            String sql1 = "SELECT COUNT(*)FROM bombero WHERE codBrigada = ? AND estado =1";
+            String sql1 = "SELECT COUNT(*)FROM bombero WHERE codBrigada = ? AND estado = 1";
             PreparedStatement ps = con.prepareStatement(sql1);
             ps.setInt(1, codBrigada);
             ResultSet rs = ps.executeQuery();
@@ -105,7 +104,7 @@ public class BomberoData {
     }
 
     public void asignarBomberoABrigada(int codBrigada, int id_bombero) {
-        String sql = "UPDATE bombero set codBrigada =? where id_bombero =?";
+        String sql = "UPDATE bombero set codBrigada = ? where id_bombero = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, codBrigada);
@@ -119,7 +118,6 @@ public class BomberoData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
         }
-
     }
 
     public List<Bombero> listarBomberos(int codBrigada) {
@@ -187,8 +185,8 @@ public class BomberoData {
         }
         return count;
     }
-    
-    public List<Bombero> obtenerBomberos(){
+
+    public List<Bombero> obtenerBomberos() {
         List<Bombero> bomberos = new ArrayList<>();
         String sql = "select * from bombero";
         try {

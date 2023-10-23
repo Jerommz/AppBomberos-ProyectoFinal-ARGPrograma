@@ -29,11 +29,11 @@ public class Administracion extends javax.swing.JPanel {
     String[] modeloBombero = {"ID", "Dni", "Nombre", "Sangre", "Nacimiento", "Celular", "Brigada", "Activo"};
     String[] modeloBrigada = {"ID", "Nombre", "Especialidad", "Libre", "Cuartel"};
     String[] modeloCuartel = {"ID", "Nombre", "Direccion", "X", "Y", "Telefono", "Correo"};
-    String []modeloSiniestro = {"CODIGO","TIPO","FECHA_SINIESTRO","COORD_x","COORD_Y","DETALLES","FECHA_RESOL","PUNTAJE","CODBRIGADA"};
+    String[] modeloSiniestro = {"Codigo", "Tipo", "Fecha", "X", "Y", "Detalles", "Fecha finalizacion", "Puntaje", "Codigo Brigada"};
     BomberoData bomberoDB = new BomberoData();
     BrigadaData brigadaDB = new BrigadaData();
     CuartelData cuartelDB = new CuartelData();
-    SiniestroData SiDB =new SiniestroData();
+    SiniestroData SiDB = new SiniestroData();
     DefaultTableModel modeloBomberoAct = new DefaultTableModel(null, modeloBombero) {
         @Override
         public boolean isCellEditable(int row, int column) {
@@ -66,8 +66,7 @@ public class Administracion extends javax.swing.JPanel {
         actualizarTabla();
         modeloTablaBombero();
         mostrarTablaBombero();
-        
-        
+
     }
 
     /**
@@ -193,7 +192,7 @@ public class Administracion extends javax.swing.JPanel {
         } else if ("Cuarteles".equals(selected)) {
             modeloTablaCuartel();
             mostrarTablaCuartel();
-        }else if ("Siniestros".equals(selected)){
+        } else if ("Siniestros".equals(selected)) {
             modeloTablaSiniestro();
             mostrarTablaSiniestro();
         }
@@ -251,7 +250,7 @@ public class Administracion extends javax.swing.JPanel {
     }
 
     public void modeloTablaSiniestro() {
-      
+
         tablaListarAdmin.setModel(modeloSiniestroAct);
         TableColumnModel columnaSiniestro = tablaListarAdmin.getColumnModel();
         columnaSiniestro.getColumn(0).setMaxWidth(60);
@@ -264,6 +263,7 @@ public class Administracion extends javax.swing.JPanel {
         columnaSiniestro.getColumn(7).setMaxWidth(500);
         columnaSiniestro.getColumn(8).setMaxWidth(500);
     }
+
     public void mostrarTablaBombero() {
         actualizarTabla();
         List<Bombero> bomberos = bomberoDB.obtenerBomberos();
@@ -280,7 +280,7 @@ public class Administracion extends javax.swing.JPanel {
             });
         }
     }
-    
+
     public void mostrarTablaBrigada() {
         actualizarTabla();
         List<Brigada> brigadas = brigadaDB.obtenerBrigadas();
@@ -294,7 +294,7 @@ public class Administracion extends javax.swing.JPanel {
             });
         }
     }
-    
+
     public void mostrarTablaCuartel() {
         actualizarTabla();
         List<Cuartel> cuarteles = cuartelDB.obtenerCuarteles();
@@ -310,10 +310,11 @@ public class Administracion extends javax.swing.JPanel {
             });
         }
     }
+
     public void mostrarTablaSiniestro() {
         actualizarTabla();
         List<Siniestro> siniestros = SiDB.listarSiniestros();
-        for (Siniestro sini: siniestros) {
+        for (Siniestro sini : siniestros) {
             modeloSiniestroAct.addRow(new Object[]{
                 sini.getCodigo(),
                 sini.getTipo(),

@@ -10,7 +10,6 @@ import bomberos.AccesoADatos.CuartelData;
 import bomberos.AccesoADatos.SiniestroData;
 import bomberos.AccesoAdatos.Conexion;
 import bomberos.Entidades.Brigada;
-import bomberos.Entidades.Cuartel;
 import bomberos.Entidades.Siniestro;
 import java.awt.Color;
 import java.awt.Component;
@@ -18,46 +17,35 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicButtonUI;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import bomberos.Entidades.Cuartel;
-import java.time.format.DateTimeFormatter;
+import java.sql.Date;
+import java.time.LocalDate;
 
 /**
  *
  * @author jero
  */
 public class Siniestros extends javax.swing.JPanel {
-    private int contador;
-    private int codCuartel =1;
+
+    SiniestroData siniestroDB = new SiniestroData();
+    CuartelData cuartelDB = new CuartelData();
+    BrigadaData brigadaDB = new BrigadaData();
+
     private Siniestro accidente;
-    private SiniestroData siDB;
     private Brigada brigada;
-    private BrigadaData briDB;
-    private Cuartel cuartel;
-    private CuartelData cuakDB;
     private ImageIcon icono;
     private Conexion con;
     private List<Brigada> brigadas = new ArrayList<>();
-    private List<Cuartel> cuarteles = new ArrayList<>();
     private List<Siniestros> sinie;
-    String[] modeloCuartel = {"ID", "Nombre", "Direccion", "X", "Y", "Telefono", "Correo"};
-    String[] modeloBrigada = {"ID", "Nombre", "Especialidad", "Libre", "Cuartel"};
-    DefaultTableModel modeloCuartelArt = new DefaultTableModel(null, modeloCuartel) {
-        @Override
-        public boolean isCellEditable(int row, int column) {
-            return false;
-        }
-    };
+    String[] modeloBrigada = {"ID", "Nombre", "Especialidad", "Libre", "Distancia"};
     DefaultTableModel modeloBrigadaArt = new DefaultTableModel(null, modeloBrigada) {
         @Override
         public boolean isCellEditable(int row, int column) {
@@ -69,15 +57,6 @@ public class Siniestros extends javax.swing.JPanel {
         initComponents();
         botones();
         con = new Conexion();
-        siDB = new SiniestroData();
-        cuakDB = new CuartelData();
-        briDB = new BrigadaData();
-        cuartel = new Cuartel();
-        brigadas = new ArrayList<>();
-        
-        mostrarTablaCuartel();
-        modeloTablaCuartel();
-        mostrarTablaBrigada();
         modeloTablaBrigada();
         mostrarComboBox();
     }
@@ -109,15 +88,22 @@ public class Siniestros extends javax.swing.JPanel {
         textAreaDescripcion = new javax.swing.JTextArea();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        textCoordX1 = new javax.swing.JTextField();
-        botonListarSiniestros = new javax.swing.JButton();
+        textCoordX = new javax.swing.JTextField();
+        botonCalcularSiniestros = new javax.swing.JButton();
+        botonListarSiniestros1 = new javax.swing.JButton();
         panelDer = new javax.swing.JPanel();
         panelDerTop = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTcuarteles = new javax.swing.JTable();
+        textCuartelCercano = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        textDistancia = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        textDireccion = new javax.swing.JTextField();
+        textCoordY1 = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        textCoordX1 = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
         panelDerMid = new javax.swing.JPanel();
-        botonAsignarSiniestro = new javax.swing.JButton();
         panelDerBot = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTbrigadas = new javax.swing.JTable();
@@ -228,41 +214,57 @@ public class Siniestros extends javax.swing.JPanel {
 
         jLabel11.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel11.setForeground(java.awt.Color.white);
-        jLabel11.setText("Ubicacion:");
+        jLabel11.setText("Coordenadas:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 10;
         gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
         panelIzq.add(jLabel11, gridBagConstraints);
 
-        textCoordX1.setBackground(new Color(193,29,29));
-        textCoordX1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        textCoordX1.setForeground(java.awt.Color.white);
-        textCoordX1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        textCoordX1.setPreferredSize(new java.awt.Dimension(40, 30));
+        textCoordX.setBackground(new Color(193,29,29));
+        textCoordX.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        textCoordX.setForeground(java.awt.Color.white);
+        textCoordX.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        textCoordX.setPreferredSize(new java.awt.Dimension(40, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 11;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.insets = new java.awt.Insets(5, 70, 10, 0);
-        panelIzq.add(textCoordX1, gridBagConstraints);
+        panelIzq.add(textCoordX, gridBagConstraints);
 
-        botonListarSiniestros.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        botonListarSiniestros.setForeground(java.awt.Color.white);
-        botonListarSiniestros.setText("Listar siniestros");
-        botonListarSiniestros.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        botonListarSiniestros.setBorderPainted(false);
-        botonListarSiniestros.setPreferredSize(new java.awt.Dimension(140, 30));
-        botonListarSiniestros.addActionListener(new java.awt.event.ActionListener() {
+        botonCalcularSiniestros.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        botonCalcularSiniestros.setForeground(java.awt.Color.white);
+        botonCalcularSiniestros.setText("Calcular");
+        botonCalcularSiniestros.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        botonCalcularSiniestros.setBorderPainted(false);
+        botonCalcularSiniestros.setPreferredSize(new java.awt.Dimension(140, 30));
+        botonCalcularSiniestros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonListarSiniestrosActionPerformed(evt);
+                botonCalcularSiniestrosActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 16;
+        gridBagConstraints.gridy = 17;
+        panelIzq.add(botonCalcularSiniestros, gridBagConstraints);
+
+        botonListarSiniestros1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        botonListarSiniestros1.setForeground(java.awt.Color.white);
+        botonListarSiniestros1.setText("Listar siniestros");
+        botonListarSiniestros1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        botonListarSiniestros1.setBorderPainted(false);
+        botonListarSiniestros1.setPreferredSize(new java.awt.Dimension(140, 30));
+        botonListarSiniestros1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonListarSiniestros1ActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 18;
         gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
-        panelIzq.add(botonListarSiniestros, gridBagConstraints);
+        panelIzq.add(botonListarSiniestros1, gridBagConstraints);
 
         jPanel2.add(panelIzq, java.awt.BorderLayout.WEST);
 
@@ -272,52 +274,115 @@ public class Siniestros extends javax.swing.JPanel {
 
         panelDerTop.setBackground(new Color(184, 34, 34));
         panelDerTop.setPreferredSize(new java.awt.Dimension(980, 300));
-        panelDerTop.setLayout(new java.awt.BorderLayout());
+        panelDerTop.setLayout(new java.awt.GridBagLayout());
 
-        jTcuarteles.setBackground(new Color(193,29,29));
-        jTcuarteles.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jTcuarteles.setForeground(java.awt.Color.white);
-        jTcuarteles.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jTcuarteles.setRowHeight(24);
-        jScrollPane1.setViewportView(jTcuarteles);
+        textCuartelCercano.setPreferredSize(new java.awt.Dimension(200, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.insets = new java.awt.Insets(0, 35, 0, 0);
+        panelDerTop.add(textCuartelCercano, gridBagConstraints);
 
-        panelDerTop.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel3.setForeground(java.awt.Color.white);
+        jLabel3.setText("Distancia");
+        jLabel3.setMaximumSize(new java.awt.Dimension(200, 30));
+        jLabel3.setMinimumSize(new java.awt.Dimension(0, 0));
+        jLabel3.setPreferredSize(new java.awt.Dimension(100, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        panelDerTop.add(jLabel3, gridBagConstraints);
 
-        jLabel6.setBackground(new Color(184, 34, 34));
+        textDistancia.setPreferredSize(new java.awt.Dimension(60, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 7;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 110);
+        panelDerTop.add(textDistancia, gridBagConstraints);
+
+        jLabel4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel4.setForeground(java.awt.Color.white);
+        jLabel4.setText("Cuartel mas cercano");
+        jLabel4.setMaximumSize(new java.awt.Dimension(200, 30));
+        jLabel4.setMinimumSize(new java.awt.Dimension(0, 0));
+        jLabel4.setPreferredSize(new java.awt.Dimension(200, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 45, 0, 0);
+        panelDerTop.add(jLabel4, gridBagConstraints);
+
         jLabel6.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel6.setForeground(java.awt.Color.white);
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Cuarteles");
-        panelDerTop.add(jLabel6, java.awt.BorderLayout.PAGE_START);
+        jLabel6.setText("Ubicacion");
+        jLabel6.setMaximumSize(new java.awt.Dimension(200, 30));
+        jLabel6.setMinimumSize(new java.awt.Dimension(0, 0));
+        jLabel6.setPreferredSize(new java.awt.Dimension(100, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTH;
+        gridBagConstraints.insets = new java.awt.Insets(0, 80, 0, 105);
+        panelDerTop.add(jLabel6, gridBagConstraints);
+
+        textDireccion.setPreferredSize(new java.awt.Dimension(150, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 40);
+        panelDerTop.add(textDireccion, gridBagConstraints);
+
+        textCoordY1.setBackground(new Color(193,29,29));
+        textCoordY1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        textCoordY1.setForeground(java.awt.Color.white);
+        textCoordY1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        textCoordY1.setPreferredSize(new java.awt.Dimension(40, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.insets = new java.awt.Insets(5, 65, 10, 20);
+        panelDerTop.add(textCoordY1, gridBagConstraints);
+
+        jLabel12.setForeground(java.awt.Color.white);
+        jLabel12.setText("Y:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.insets = new java.awt.Insets(5, 6, 10, 20);
+        panelDerTop.add(jLabel12, gridBagConstraints);
+
+        textCoordX1.setBackground(new Color(193,29,29));
+        textCoordX1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        textCoordX1.setForeground(java.awt.Color.white);
+        textCoordX1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        textCoordX1.setPreferredSize(new java.awt.Dimension(40, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(5, 70, 10, 20);
+        panelDerTop.add(textCoordX1, gridBagConstraints);
+
+        jLabel13.setForeground(java.awt.Color.white);
+        jLabel13.setText("X:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(5, 55, 10, 20);
+        panelDerTop.add(jLabel13, gridBagConstraints);
 
         panelDer.add(panelDerTop, java.awt.BorderLayout.NORTH);
 
         panelDerMid.setBackground(new Color(184, 34, 34));
         panelDerMid.setPreferredSize(new java.awt.Dimension(980, 40));
         panelDerMid.setLayout(new java.awt.BorderLayout());
-
-        botonAsignarSiniestro.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        botonAsignarSiniestro.setForeground(java.awt.Color.white);
-        botonAsignarSiniestro.setText("Asignar");
-        botonAsignarSiniestro.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        botonAsignarSiniestro.setPreferredSize(new java.awt.Dimension(71, 30));
-        botonAsignarSiniestro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonAsignarSiniestroActionPerformed(evt);
-            }
-        });
-        panelDerMid.add(botonAsignarSiniestro, java.awt.BorderLayout.CENTER);
-
         panelDer.add(panelDerMid, java.awt.BorderLayout.CENTER);
 
         panelDerBot.setBackground(new Color(184, 34, 34));
@@ -326,6 +391,7 @@ public class Siniestros extends javax.swing.JPanel {
 
         jTbrigadas.setBackground(new Color(193,29,29));
         jTbrigadas.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jTbrigadas.setForeground(java.awt.Color.white);
         jTbrigadas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -408,42 +474,55 @@ public class Siniestros extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void botonListarSiniestrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonListarSiniestrosActionPerformed
+    private void botonCalcularSiniestrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCalcularSiniestrosActionPerformed
         // TODO add your handling code here:
-        // mostrarPanel(new ListarSiniestros());
-    }//GEN-LAST:event_botonListarSiniestrosActionPerformed
+        int xSiniestro = Integer.valueOf(textCoordX.getText());
+        int ySiniestro = Integer.valueOf(textCoordY.getText());
+        double min = 0;
+        double sum = 100;
+        int codCuartel = 0;
+        List<Cuartel> cuarteles = cuartelDB.obtenerCuarteles();
+        for (Cuartel cuartel : cuarteles) {
+            int xCuartel = cuartel.getCoord_X();
+            int yCuartel = cuartel.getCoord_Y();
+            int cod = cuartel.getCodCuartel();
+            min = Math.hypot(xCuartel - xSiniestro, yCuartel - ySiniestro);
+            if (min <= sum) {
+                sum = min;
+                codCuartel = cod;
+            }
+        }
+        String desc = textAreaDescripcion.getText();
+        String tipo = comboTipoAccidenteSiniestro.getSelectedItem().toString();
+        Date fecha = Date.valueOf(textFechaSiniestro.getText());
+        Cuartel cuartel = cuartelDB.buscarCuartel(codCuartel);
+        List<Brigada> brigadas = brigadaDB.obtenerBrigadaCuartel(codCuartel);
+        mostrarTablaBrigada(brigadas);
+        
+        textCuartelCercano.setText(cuartel.getNombre_cuartel());
+        textCoordX1.setText(cuartel.getCoord_X() + "");
+        textCoordY1.setText(cuartel.getCoord_Y() + "");
+        textDireccion.setText(cuartel.getDireccion());
+        textDistancia.setText(sum + "");
+    }//GEN-LAST:event_botonCalcularSiniestrosActionPerformed
 
-    private void botonAsignarSiniestroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAsignarSiniestroActionPerformed
-       if(textAreaDescripcion == null ||textCoordX1 ==null || textCoordY ==null ||textFechaSiniestro ==null||comboTipoAccidenteSiniestro.getSelectedItem().toString().equals("")) {
-       JOptionPane.showMessageDialog(null, "debe rellenar todos los campos ");
-       }else{
-       int codigo =contador;
-       String detalle=textAreaDescripcion.getText();
-       int Coord_X =Integer.valueOf(textCoordX1.getText());
-       int Coord_Y =Integer.valueOf(textCoordY.getText());
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-       LocalDate fecha_siniestro=LocalDate.parse(textFechaSiniestro.getText(),formatter);
-       String tipo =(String)comboTipoAccidenteSiniestro.getSelectedItem();
-       int codBrigada = briDB.obtenerCodigoBrigadaDisponible(codCuartel);
-       LocalDate fecha_resol =LocalDate.parse(textFechaSiniestro.getText(), formatter);
-       int puntuacion = 0;
-       Siniestro accidente =new Siniestro( tipo, fecha_siniestro, Coord_X, Coord_Y, detalle, fecha_resol, puntuacion, codBrigada);
-       siDB.cargarSiniestro(accidente);
-       int codCuartel=Integer.parseInt(siDB.cuartelMasCercano());
-       AsignarBrigada(codCuartel);
-       
-       }
-    }//GEN-LAST:event_botonAsignarSiniestroActionPerformed
+    private void botonListarSiniestros1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonListarSiniestros1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonListarSiniestros1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botonAsignarSiniestro;
-    private javax.swing.JButton botonListarSiniestros;
+    private javax.swing.JButton botonCalcularSiniestros;
+    private javax.swing.JButton botonListarSiniestros1;
     private javax.swing.JComboBox<String> comboTipoAccidenteSiniestro;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -451,11 +530,9 @@ public class Siniestros extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable jTbrigadas;
-    private javax.swing.JTable jTcuarteles;
     private javax.swing.JPanel panelDer;
     private javax.swing.JPanel panelDerBot;
     private javax.swing.JPanel panelDerMid;
@@ -465,13 +542,18 @@ public class Siniestros extends javax.swing.JPanel {
     private javax.swing.JMenuItem popmenuMarcar;
     private javax.swing.JPopupMenu popupMenu;
     private javax.swing.JTextArea textAreaDescripcion;
+    private javax.swing.JTextField textCoordX;
     private javax.swing.JTextField textCoordX1;
     private javax.swing.JTextField textCoordY;
+    private javax.swing.JTextField textCoordY1;
+    private javax.swing.JTextField textCuartelCercano;
+    private javax.swing.JTextField textDireccion;
+    private javax.swing.JTextField textDistancia;
     private javax.swing.JTextField textFechaSiniestro;
     // End of variables declaration//GEN-END:variables
 
     public void botones() {
-        JButton btns[] = {botonAsignarSiniestro, botonListarSiniestros};
+        JButton btns[] = {botonCalcularSiniestros};
         for (JButton btn : btns) {
             btn.setBackground(new Color(161, 27, 27));
             btn.setUI(new BasicButtonUI());
@@ -509,36 +591,19 @@ public class Siniestros extends javax.swing.JPanel {
     }
 
     public void mostrarComboBox() {
-        int contador =0;
-      
-        comboTipoAccidenteSiniestro.addItem("SELECCIONE UN SINIESTRO");
-        for (Siniestro a : siDB.listarSiniestros()) {
-
+        int contador = 0;
+        comboTipoAccidenteSiniestro.addItem("Seleccione un siniestro");
+        for (Siniestro a : siniestroDB.listarSiniestros()) {
             comboTipoAccidenteSiniestro.addItem("" + a.getTipo());
-            contador =contador+1;
+            contador = contador + 1;
         }
-         comboTipoAccidenteSiniestro.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            // Aquí puedes realizar la acción que desees cuando se seleccione un elemento del JComboBox
-            String seleccion = (String) comboTipoAccidenteSiniestro.getSelectedItem();
-            
-            //  imprimirlo en la consola:
-            JOptionPane.showMessageDialog(null, "SELECCIONASTE"+seleccion);
-        }
-    });
-    }
-
-    public void modeloTablaCuartel() {
-        jTcuarteles.setModel(modeloCuartelArt);
-        TableColumnModel columnaCuartel = jTcuarteles.getColumnModel();
-        columnaCuartel.getColumn(0).setMaxWidth(60);
-        columnaCuartel.getColumn(1).setMaxWidth(300);
-        columnaCuartel.getColumn(2).setMaxWidth(500);
-        columnaCuartel.getColumn(3).setMaxWidth(40);
-        columnaCuartel.getColumn(4).setMaxWidth(40);
-        columnaCuartel.getColumn(5).setMaxWidth(100);
-        columnaCuartel.getColumn(6).setMaxWidth(500);
+        comboTipoAccidenteSiniestro.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String seleccion = (String) comboTipoAccidenteSiniestro.getSelectedItem();
+                JOptionPane.showMessageDialog(null, "Seleccionaste: " + seleccion);
+            }
+        });
     }
 
     public void modeloTablaBrigada() {
@@ -551,39 +616,22 @@ public class Siniestros extends javax.swing.JPanel {
         columnaBrigada.getColumn(4).setMaxWidth(80);
     }
 
-    public void mostrarTablaBrigada() {
-
-        List<Brigada> brigadas = briDB.obtenerBrigadas();
+    public void mostrarTablaBrigada(List brig) {
+        brigadas = new ArrayList<>();
+        List<Brigada> brigadas = brig;
         for (Brigada brigada : brigadas) {
             modeloBrigadaArt.addRow(new Object[]{
                 brigada.getCodBrigada(),
                 brigada.getNombre_br(),
                 brigada.getEspecialidad(),
-                brigada.isLibre(),
-                brigada.getCodCuartel()
+                brigada.isLibre()
             });
         }
     }
 
-    public void mostrarTablaCuartel() {
-
-        List<Cuartel> cuarteles = cuakDB.obtenerCuarteles();
-        for (Cuartel cuartel : cuarteles) {
-            modeloCuartelArt.addRow(new Object[]{
-                cuartel.getCodCuartel(),
-                cuartel.getNombre_cuartel(),
-                cuartel.getDireccion(),
-                cuartel.getCoord_X(),
-                cuartel.getCoord_Y(),
-                cuartel.getTelefono(),
-                cuartel.getCorreo()
-            });
-        }
-        
-    }
-    public void   AsignarBrigada(int codCuartel){
+    public void AsignarBrigada(int codCuartel) {
         actualizarTablaBrigadas();
-        List<Brigada> brigadas = briDB.listarBrigadasDeCuartel(codCuartel);
+        List<Brigada> brigadas = brigadaDB.listarBrigadasDeCuartel(codCuartel);
         for (Brigada brigada : brigadas) {
             modeloBrigadaArt.addRow(new Object[]{
                 brigada.getCodBrigada(),
@@ -593,14 +641,9 @@ public class Siniestros extends javax.swing.JPanel {
                 brigada.getCodCuartel()
             });
         }
-        
-        
-        }
-     public void actualizarTablaCuarteles() {
-        DefaultTableModel mod = (DefaultTableModel) jTcuarteles.getModel();
-        mod.setRowCount(0);
     }
-     public void actualizarTablaBrigadas() {
+
+    public void actualizarTablaBrigadas() {
         DefaultTableModel mod = (DefaultTableModel) jTbrigadas.getModel();
         mod.setRowCount(0);
     }
