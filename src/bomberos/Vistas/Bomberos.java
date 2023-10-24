@@ -50,7 +50,7 @@ public class Bomberos extends javax.swing.JPanel {
                 }
             }
         });
-      }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -521,7 +521,10 @@ public class Bomberos extends javax.swing.JPanel {
                 }
             }
         } catch (NullPointerException ex) {
-            JOptionPane.showMessageDialog(null, "Bombero no encontrado, corrija el DNI." + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Bombero no encontrado, corrija el DNI.");
+            textIDBombero.setText("");
+            textCelularBombero.setText("");
+            textDNIBombero.setText("");
         }
     }//GEN-LAST:event_botonBuscarBomberosActionPerformed
 
