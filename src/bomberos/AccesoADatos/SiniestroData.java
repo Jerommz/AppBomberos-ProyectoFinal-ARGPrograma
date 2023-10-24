@@ -5,6 +5,7 @@ import bomberos.AccesoAdatos.*;
 import bomberos.Entidades.Siniestro;
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -18,7 +19,11 @@ public class SiniestroData {
     private Siniestro siniestro;
 
     public SiniestroData() {
-        Connection con = Conexion.getConnection();
+
+    }
+
+    public SiniestroData(Connection con) {
+        this.con = con;
     }
 
     public void cargarSiniestro(Siniestro siniestro) {
@@ -130,7 +135,7 @@ public class SiniestroData {
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
+            while (rs.next()) {
                 siniestro.setCodBrigada(rs.getInt("codBrigada"));
                 siniestro.setCodigo(rs.getInt("codigo"));
                 siniestro.setCoord_X((int) rs.getDouble("cood_X"));
@@ -200,6 +205,27 @@ public class SiniestroData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
         }
     }
+
+    String sql = "UPDATE siniestro SET fecha_resol = ?, puntuacion = ? WHERE codigo = ?";try
+    {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setDate(1, java.sql.Date.valueOf(fecha_resol));
+        ps.setInt(2, puntuacion);
+        ps.setInt(3, codigo);
+        int rowsAfectadas = ps.executeUpdate();
+        if (rowsAfectadas > 0) {
+            JOptionPane.showMessageDialog(null,
+                    "El siniestro con código " + codigo + " ha sido administrativamente concluido.");
+        } else {
+            JOptionPane.showMessageDialog(null, "No se pudo anotar la terminación del siniestro.");
+        }
+    }catch(
+    SQLException ex)
+    {
+        JOptionPane.showMessageDialog(null,
+                "Error al intentar anotar la terminación del siniestro: " + ex.getMessage());
+    }
+}
 
     public String cuartelMasCercano() {
         String cuartelMasCercano = null;
