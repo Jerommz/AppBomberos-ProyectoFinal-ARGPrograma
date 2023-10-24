@@ -12,6 +12,8 @@ import bomberos.Entidades.Brigada;
 import bomberos.Entidades.Cuartel;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -38,6 +40,15 @@ public class Brigadas extends javax.swing.JPanel {
         initComponents();
         botones();
         mostrarComboCodCuart(1);
+        textNombreBrigada.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                if (textNombreBrigada.getText().length() >= 20) {
+                    evt.consume();
+                    JOptionPane.showMessageDialog(null, "Maximo 20 caracteres.");
+                }
+            }
+        });
     }
 
     /**
