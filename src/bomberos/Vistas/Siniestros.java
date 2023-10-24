@@ -69,7 +69,7 @@ public class Siniestros extends javax.swing.JPanel {
             public void keyTyped(KeyEvent evt) {
                 if (textAreaDescripcion.getText().length() >= 80) {
                     evt.consume();
-                    JOptionPane.showMessageDialog(null, "Maximo 80 caracteres para el nombre de cuartel.");    // ---> Control de caracteres maximo por campo
+                    JOptionPane.showMessageDialog(null, "Maximo 80 caracteres para detalle de Siniestros.");    // ---> Control de caracteres maximo por campo
                 }
             }
         });
@@ -538,7 +538,7 @@ public class Siniestros extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (textCoordX.getText().length() >= 3) {
             evt.consume();
-            JOptionPane.showMessageDialog(null, "Maximo 3 numeros para las coordenadas X en Cuarteles.");    // ---> Control de caracteres maximo por campo
+            JOptionPane.showMessageDialog(null, "Maximo 3 numeros para las coordenadas X en Siniestros.");    // ---> Control de caracteres maximo por campo
         }
     }//GEN-LAST:event_textCoordXKeyTyped
 
@@ -546,7 +546,7 @@ public class Siniestros extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (textCoordY.getText().length() >= 3) {
             evt.consume();
-            JOptionPane.showMessageDialog(null, "Maximo 3 numeros para las coordenadas Y en Cuarteles.");    // ---> Control de caracteres maximo por campo
+            JOptionPane.showMessageDialog(null, "Maximo 3 numeros para las coordenadas Y en Siniestros.");    // ---> Control de caracteres maximo por campo
         }
     }//GEN-LAST:event_textCoordYKeyTyped
 
