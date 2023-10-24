@@ -276,6 +276,8 @@ public class Siniestros extends javax.swing.JPanel {
         panelDerTop.setPreferredSize(new java.awt.Dimension(980, 300));
         panelDerTop.setLayout(new java.awt.GridBagLayout());
 
+        textCuartelCercano.setBackground(new Color(201, 16, 40));
+        textCuartelCercano.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         textCuartelCercano.setPreferredSize(new java.awt.Dimension(200, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -298,6 +300,8 @@ public class Siniestros extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         panelDerTop.add(jLabel3, gridBagConstraints);
 
+        textDistancia.setBackground(new Color(201, 16, 40));
+        textDistancia.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         textDistancia.setPreferredSize(new java.awt.Dimension(60, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 7;
@@ -331,6 +335,8 @@ public class Siniestros extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 80, 0, 105);
         panelDerTop.add(jLabel6, gridBagConstraints);
 
+        textDireccion.setBackground(new Color(201, 16, 40));
+        textDireccion.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         textDireccion.setPreferredSize(new java.awt.Dimension(150, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
@@ -338,7 +344,7 @@ public class Siniestros extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 40);
         panelDerTop.add(textDireccion, gridBagConstraints);
 
-        textCoordY1.setBackground(new Color(193,29,29));
+        textCoordY1.setBackground(new Color(201, 16, 40));
         textCoordY1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         textCoordY1.setForeground(java.awt.Color.white);
         textCoordY1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -357,7 +363,7 @@ public class Siniestros extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(5, 6, 10, 20);
         panelDerTop.add(jLabel12, gridBagConstraints);
 
-        textCoordX1.setBackground(new Color(193,29,29));
+        textCoordX1.setBackground(new Color(201, 16, 40));
         textCoordX1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         textCoordX1.setForeground(java.awt.Color.white);
         textCoordX1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
