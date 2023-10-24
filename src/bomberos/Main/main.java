@@ -138,5 +138,29 @@ public class main {
         }
     }*/
    
+    Conexion con = new Conexion(); // Reemplaza 'Conexion' con tu clase de conexión real
+        SiniestroData siniestroData = new SiniestroData(con.getConnection()); // Reemplaza 'SiniestroData' con tu clase real
+          //List<Siniestro> accidente = new ArrayList<>();
+        // Crea un objeto Siniestro para pasar al método consultarSiniestros
+        Siniestro siniestro = new Siniestro();
+        List<Siniestro> listaSiniestros = siniestroData.consultarSiniestros(siniestro);
+
+        // Iterar sobre la lista de siniestros y mostrar la información
+        if (listaSiniestros.isEmpty()) {
+            System.out.println("No se encontraron siniestros.");
+        } else {
+            // Iterar sobre la lista de siniestros y mostrar la información
+            for (Siniestro accidente : listaSiniestros) {
+                System.out.println("Código de brigada: " + accidente.getCodBrigada());
+                System.out.println("Código: " + accidente.getCodigo());
+                System.out.println("Coordenada X: " + accidente.getCoord_X());
+                System.out.println("Coordenada Y: " + accidente.getCoord_Y());
+                System.out.println("Detalles: " + accidente.getDetalles());
+                System.out.println("Fecha de siniestro: " + accidente.getFecha_siniestro());
+                System.out.println("Fecha de resolución: " + accidente.getFecha_resol());
+                System.out.println("Puntuación: " + accidente.getPuntuacion());
+            }
+   }
     
-}
+
+} 

@@ -5,7 +5,10 @@
  */
 package bomberos.Vistas;
 
+import bomberos.AccesoADatos.BrigadaData;
+import bomberos.Entidades.Brigada;
 import java.awt.Color;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
@@ -14,7 +17,7 @@ import javax.swing.table.TableColumnModel;
  * @author jero
  */
 public class ListarBrigadas extends javax.swing.JPanel {
-
+    BrigadaData brigadaDB =new BrigadaData();
     String[] modeloBrigada = { "ID", "Nombre", "Especialidad", "Libre", "Cuartel" };
     DefaultTableModel modeloBrigadaAct = new DefaultTableModel(null, modeloBrigada) {
         @Override
@@ -29,6 +32,7 @@ public class ListarBrigadas extends javax.swing.JPanel {
     public ListarBrigadas() {
         initComponents();
         modeloTablaBrigada();
+        mostrarTablaBrigada();
     }
 
     /**
@@ -160,6 +164,20 @@ public class ListarBrigadas extends javax.swing.JPanel {
         columnaBrigada.getColumn(2).setMaxWidth(800);
         columnaBrigada.getColumn(3).setMaxWidth(80);
         columnaBrigada.getColumn(4).setMaxWidth(80);
+    }
+
+     public void mostrarTablaBrigada() {
+        
+        List<Brigada> brigadas = brigadaDB.obtenerBrigadas();
+        for (Brigada brigada : brigadas) {
+            modeloBrigadaAct.addRow(new Object[]{
+                brigada.getCodBrigada(),
+                brigada.getNombre_br(),
+                brigada.getEspecialidad(),
+                brigada.isLibre(),
+                brigada.getCodCuartel()
+            });
+        }
     }
 
 }

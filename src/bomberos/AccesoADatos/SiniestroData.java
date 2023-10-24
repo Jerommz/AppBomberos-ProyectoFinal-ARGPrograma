@@ -144,7 +144,7 @@ public class SiniestroData {
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
+            while (rs.next()) {
                 siniestro.setCodBrigada(rs.getInt("codBrigada"));
                 siniestro.setCodigo(rs.getInt("codigo"));
                 siniestro.setCoord_X((int) rs.getDouble("cood_X"));

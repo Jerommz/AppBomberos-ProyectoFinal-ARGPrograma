@@ -25,7 +25,7 @@ import javax.swing.JTextField;
  * @author jero
  */
 public class ListarSiniestros1 extends javax.swing.JPanel {
-     String[] modeloSiniestro = {"Codigo", "Tipo", "Fecha", "X", "Y", "Detalles", "Fecha finalizacion", "Puntaje", "Codigo Brigada"};
+     String[] modeloSiniestro = {"Codigo", "Tipo", "Fecha", "Detalles","X ","Y","Fecha finalizacion", "Puntaje", "Codigo Brigada"};
      SiniestroData siDB =new SiniestroData();
      
      DefaultTableModel modeloSiniestroAct = new DefaultTableModel(null, modeloSiniestro) {
