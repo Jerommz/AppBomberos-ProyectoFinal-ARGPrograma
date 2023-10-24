@@ -5,7 +5,10 @@
  */
 package bomberos.Vistas;
 
+import bomberos.AccesoADatos.CuartelData;
+import bomberos.Entidades.Cuartel;
 import java.awt.Color;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
@@ -14,7 +17,7 @@ import javax.swing.table.TableColumnModel;
  * @author jero
  */
 public class ListarCuarteles extends javax.swing.JPanel {
-
+   CuartelData cuartelDB = new CuartelData();
     String[] modeloCuartel = { "ID", "Nombre", "Direccion", "X", "Y", "Telefono", "Correo" };
     DefaultTableModel modeloCuartelAct = new DefaultTableModel(null, modeloCuartel) {
         @Override
@@ -29,6 +32,7 @@ public class ListarCuarteles extends javax.swing.JPanel {
     public ListarCuarteles() {
         initComponents();
         modeloTablaCuartel();
+        mostrarTablaCuartel();
     }
 
     /**
@@ -141,5 +145,20 @@ public class ListarCuarteles extends javax.swing.JPanel {
         columnaCuartel.getColumn(4).setMaxWidth(40);
         columnaCuartel.getColumn(5).setMaxWidth(100);
         columnaCuartel.getColumn(6).setMaxWidth(500);
+    }
+    public void mostrarTablaCuartel() {
+        
+        List<Cuartel> cuarteles = cuartelDB.obtenerCuarteles();
+        for (Cuartel cuartel : cuarteles) {
+            modeloCuartelAct.addRow(new Object[]{
+                cuartel.getCodCuartel(),
+                cuartel.getNombre_cuartel(),
+                cuartel.getDireccion(),
+                cuartel.getCoord_X(),
+                cuartel.getCoord_Y(),
+                cuartel.getTelefono(),
+                cuartel.getCorreo()
+            });
+        }
     }
 }
