@@ -71,7 +71,6 @@ public class Cuarteles extends javax.swing.JPanel {
         botonEliminarCuarteles = new javax.swing.JButton();
         botonModificarCuarteles = new javax.swing.JButton();
         botonBuscarCuarteles = new javax.swing.JButton();
-        botonListarCuarteles = new javax.swing.JButton();
         panelInternoIzq2 = new javax.swing.JPanel();
         textNombreCuartel = new javax.swing.JTextField();
         textCodigoCuartel = new javax.swing.JTextField();
@@ -266,27 +265,6 @@ public class Cuarteles extends javax.swing.JPanel {
         gridBagConstraints.ipady = 25;
         gridBagConstraints.insets = new java.awt.Insets(20, 0, 20, 0);
         panelInternoDer2.add(botonBuscarCuarteles, gridBagConstraints);
-
-        botonListarCuarteles.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        botonListarCuarteles.setForeground(java.awt.Color.white);
-        botonListarCuarteles.setText("Listar");
-        botonListarCuarteles.setBorder(null);
-        botonListarCuarteles.setBorderPainted(false);
-        botonListarCuarteles.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        botonListarCuarteles.setPreferredSize(new java.awt.Dimension(100, 25));
-        botonListarCuarteles.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonListarCuartelesActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.ipadx = 25;
-        gridBagConstraints.ipady = 25;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(20, 0, 20, 0);
-        panelInternoDer2.add(botonListarCuarteles, gridBagConstraints);
 
         panelInternoDer.add(panelInternoDer2, java.awt.BorderLayout.EAST);
 
@@ -609,11 +587,6 @@ public class Cuarteles extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_botonModificarCuartelesActionPerformed
 
-    private void botonListarCuartelesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonListarCuartelesActionPerformed
-        // TODO add your handling code here:
-        mostrarPanel(new ListarCuarteles());
-    }//GEN-LAST:event_botonListarCuartelesActionPerformed
-
     private void textNumeroCuartelKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textNumeroCuartelKeyTyped
         // TODO add your handling code here:
         if (textNumeroCuartel.getText().length() >= 15) {
@@ -643,7 +616,6 @@ public class Cuarteles extends javax.swing.JPanel {
     private javax.swing.JButton botonAgregarCuarteles;
     private javax.swing.JButton botonBuscarCuarteles;
     private javax.swing.JButton botonEliminarCuarteles;
-    private javax.swing.JButton botonListarCuarteles;
     private javax.swing.JButton botonModificarCuarteles;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

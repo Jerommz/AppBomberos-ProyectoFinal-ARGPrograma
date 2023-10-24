@@ -64,7 +64,6 @@ public final class Bomberos extends javax.swing.JPanel {
         botonEliminarBomberos = new javax.swing.JButton();
         botonModificarBomberos = new javax.swing.JButton();
         botonBuscarBomberos = new javax.swing.JButton();
-        botonListarBomberos = new javax.swing.JButton();
         panelInternoIzq2 = new javax.swing.JPanel();
         checkEstadoBombero = new javax.swing.JCheckBox();
         dateFechaNacBombero = new com.toedter.calendar.JDateChooser();
@@ -287,27 +286,6 @@ public final class Bomberos extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(20, 0, 20, 0);
         panelInternoDer2.add(botonBuscarBomberos, gridBagConstraints);
-
-        botonListarBomberos.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        botonListarBomberos.setForeground(java.awt.Color.white);
-        botonListarBomberos.setText("Listar");
-        botonListarBomberos.setBorder(null);
-        botonListarBomberos.setBorderPainted(false);
-        botonListarBomberos.setMaximumSize(new java.awt.Dimension(100, 25));
-        botonListarBomberos.setPreferredSize(new java.awt.Dimension(100, 25));
-        botonListarBomberos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonListarBomberosActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.ipadx = 25;
-        gridBagConstraints.ipady = 25;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(20, 0, 20, 0);
-        panelInternoDer2.add(botonListarBomberos, gridBagConstraints);
 
         panelInternoDer.add(panelInternoDer2, java.awt.BorderLayout.EAST);
 
@@ -644,11 +622,6 @@ public final class Bomberos extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_botonModificarBomberosActionPerformed
 
-    private void botonListarBomberosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonListarBomberosActionPerformed
-        // TODO add your handling code here:
-        mostrarPanel(new ListarBomberos());
-    }//GEN-LAST:event_botonListarBomberosActionPerformed
-
     private void textDNIBomberoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textDNIBomberoKeyTyped
         // TODO add your handling code here:
         if (textDNIBombero.getText().length() >= 8) {
@@ -670,7 +643,6 @@ public final class Bomberos extends javax.swing.JPanel {
     private javax.swing.JButton botonAgregarBombero;
     private javax.swing.JButton botonBuscarBomberos;
     private javax.swing.JButton botonEliminarBomberos;
-    private javax.swing.JButton botonListarBomberos;
     private javax.swing.JButton botonModificarBomberos;
     private javax.swing.JCheckBox checkEstadoBombero;
     private javax.swing.JComboBox<String> comboCodBriBombero;
