@@ -41,12 +41,10 @@ public class Siniestros extends javax.swing.JPanel {
     SiniestroData siniestroDB = new SiniestroData();
     CuartelData cuartelDB = new CuartelData();
     BrigadaData brigadaDB = new BrigadaData();
-    Cuartel cuartel =new Cuartel();
-    Brigada brigada =new Brigada();
-    Siniestro accidente =new Siniestro();
-    
+    Cuartel cuartel = new Cuartel();
+    Brigada brigada = new Brigada();
+    Siniestro accidente = new Siniestro();
 
-   
     private ImageIcon icono;
     private Conexion con;
     private List<Brigada> brigadas = new ArrayList<>();
@@ -501,39 +499,50 @@ public class Siniestros extends javax.swing.JPanel {
 
     private void botonCalcularSiniestrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCalcularSiniestrosActionPerformed
         // TODO add your handling code here:
-        int xSiniestro = Integer.valueOf(textCoordX.getText());
-        int ySiniestro = Integer.valueOf(textCoordY.getText());
-        double min = 0;
-        double sum = 100;
-        int codCuartel = 0;
-        List<Cuartel> cuarteles = cuartelDB.obtenerCuarteles();
-        for (Cuartel cuartel : cuarteles) {
-            int xCuartel = cuartel.getCoord_X();
-            int yCuartel = cuartel.getCoord_Y();
-            int cod = cuartel.getCodCuartel();
-            min = Math.hypot(xCuartel - xSiniestro, yCuartel - ySiniestro);
-            if (min <= sum) {
-                sum = min;
-                codCuartel = cod;
+        try {
+            int xSiniestro = Integer.valueOf(textCoordX.getText());
+            int ySiniestro = Integer.valueOf(textCoordY.getText());
+
+            if (!(textCoordX.getText().matches("\\d+")) || !(textCoordY.getText().matches("\\d+"))) {
+                JOptionPane.showMessageDialog(null, "Las coordenadas X e Y deben ser solo numericas.");
+
+            } else {
+                double min = 0;
+                double sum = 100;
+                int codCuartel = 0;
+                List<Cuartel> cuarteles = cuartelDB.obtenerCuarteles();
+                for (Cuartel cuartel : cuarteles) {
+                    int xCuartel = cuartel.getCoord_X();
+                    int yCuartel = cuartel.getCoord_Y();
+                    int cod = cuartel.getCodCuartel();
+                    min = Math.hypot(xCuartel - xSiniestro, yCuartel - ySiniestro);
+                    if (min <= sum) {
+                        sum = min;
+                        codCuartel = cod;
+                    }
+                }
+                String desc = textAreaDescripcion.getText();
+                String tipo = comboTipoAccidenteSiniestro.getSelectedItem().toString();
+                Date fecha = Date.valueOf(textFechaSiniestro.getText());
+                Cuartel cuartel = cuartelDB.buscarCuartel(codCuartel);
+                List<Brigada> brigadas = brigadaDB.obtenerBrigadaCuartel(codCuartel);
+                mostrarTablaBrigada(brigadas);
+
+                textCuartelCercano.setText(cuartel.getNombre_cuartel());
+                textCoordX1.setText(cuartel.getCoord_X() + "");
+                textCoordY1.setText(cuartel.getCoord_Y() + "");
+                textDireccion.setText(cuartel.getDireccion());
+                textDistancia.setText(sum + "");
             }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Error al intentar calcular siniestro.");
+
         }
-        String desc = textAreaDescripcion.getText();
-        String tipo = comboTipoAccidenteSiniestro.getSelectedItem().toString();
-        Date fecha = Date.valueOf(textFechaSiniestro.getText());
-        Cuartel cuartel = cuartelDB.buscarCuartel(codCuartel);
-        List<Brigada> brigadas = brigadaDB.obtenerBrigadaCuartel(codCuartel);
-        mostrarTablaBrigada(brigadas);
-        
-        textCuartelCercano.setText(cuartel.getNombre_cuartel());
-        textCoordX1.setText(cuartel.getCoord_X() + "");
-        textCoordY1.setText(cuartel.getCoord_Y() + "");
-        textDireccion.setText(cuartel.getDireccion());
-        textDistancia.setText(sum + "");
     }//GEN-LAST:event_botonCalcularSiniestrosActionPerformed
 
     private void botonListarSiniestros1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonListarSiniestros1ActionPerformed
         mostrarPanel(new ListarSiniestros1());
-        
+
     }//GEN-LAST:event_botonListarSiniestros1ActionPerformed
 
     private void textCoordXKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textCoordXKeyTyped
