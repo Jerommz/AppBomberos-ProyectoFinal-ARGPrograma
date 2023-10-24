@@ -18,30 +18,34 @@ public class BomberoData {
     }
 
     public void nuevoBombero(Bombero bombero) {
-        String sql = "insert into bombero(dni, nombre_ape, grupo_sang, fecha, celular, codBrigada, estado)"
-                + "VALUES (?, ?, ?, ?, ?, ?, ?)";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, bombero.getDni());
-            ps.setString(2, bombero.getNombre_ape());
-            ps.setString(3, bombero.getGrupo_sang());
-            ps.setDate(4, Date.valueOf(bombero.getFecha()));
-            ps.setInt(5, bombero.getCelular());
-            ps.setInt(6, bombero.getCodBrigada());
-            ps.setBoolean(7, bombero.isEstado());
-            int exito = ps.executeUpdate();
-            ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) {
-                bombero.setId_Bombero(rs.getInt(1));
-                JOptionPane.showMessageDialog(null, "Bombero agregado.");
-            } else {
-                JOptionPane.showMessageDialog(null, "Bombero no agregado.");
-            }
-            ps.close();
-            rs.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
-        }
+        int dnibusca = bombero.getDni();
+        if (bombero.getDni() != buscarBomberoPorDni(dnibusca).getDni()) {
+            String sql = "insert into bombero(dni, nombre_ape, grupo_sang, fecha, celular, codBrigada, estado)"
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+            try {
+                PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                ps.setInt(1, bombero.getDni());
+                ps.setString(2, bombero.getNombre_ape());
+                ps.setString(3, bombero.getGrupo_sang());
+                ps.setDate(4, Date.valueOf(bombero.getFecha()));
+                ps.setInt(5, bombero.getCelular());
+                ps.setInt(6, bombero.getCodBrigada());
+                ps.setBoolean(7, bombero.isEstado());
+                int exito = ps.executeUpdate();
+                ResultSet rs = ps.getGeneratedKeys();
+                if (rs.next()) {
+                    bombero.setId_Bombero(rs.getInt(1));
+                    JOptionPane.showMessageDialog(null, "Bombero agregado.");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Bombero no agregado.");
+                }
+                ps.close();
+                rs.close();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
+            }}else{
+                JOptionPane.showMessageDialog(null, "DNI existente, por favor modificar para dar de alta");
+                }
     }
 
     public void modificarBombero(Bombero bombero) {
