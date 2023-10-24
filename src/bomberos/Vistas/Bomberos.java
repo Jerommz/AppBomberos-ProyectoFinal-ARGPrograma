@@ -521,7 +521,7 @@ public class Bomberos extends javax.swing.JPanel {
                 }
             }
         } catch (NullPointerException ex) {
-            JOptionPane.showMessageDialog(null, "Bombero no encontrado, corrija el DNI.");
+            JOptionPane.showMessageDialog(null, "NO se encontro bombero con ese DNI, pruebe con uno diferente!");
             textIDBombero.setText("");
             textCelularBombero.setText("");
             textDNIBombero.setText("");

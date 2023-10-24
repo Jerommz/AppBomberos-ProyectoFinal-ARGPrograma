@@ -162,9 +162,6 @@ public class BomberoData {
                 bombero.setCodBrigada(rs.getInt("codBrigada"));
                 bombero.setEstado(rs.getBoolean("estado"));
             }
-            else {
-                JOptionPane.showMessageDialog(null, "NO se encontro bombero con ese DNI, pruebe con uno diferente!");
-            }
             ps.close();
             rs.close();
         } catch (SQLException ex) {
