@@ -1,9 +1,11 @@
 package bomberos.AccesoAdatos;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
-public class Conexion {
+public final class Conexion {
 
     private static final String url = "jdbc:mariadb://localhost/";
     private static final String dataBase = "bomberos";

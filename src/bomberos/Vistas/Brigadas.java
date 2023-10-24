@@ -71,6 +71,7 @@ public final class Brigadas extends javax.swing.JPanel {
         botonEliminarBrigadas = new javax.swing.JButton();
         botonModificarBrigadas = new javax.swing.JButton();
         botonBuscarBrigadas = new javax.swing.JButton();
+        botonListarBrigadas = new javax.swing.JButton();
         panelInternoIzq2 = new javax.swing.JPanel();
         checkLibreBrigada = new javax.swing.JCheckBox();
         textNombreBrigada = new javax.swing.JTextField();
@@ -218,7 +219,7 @@ public final class Brigadas extends javax.swing.JPanel {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 17;
+        gridBagConstraints.gridy = 18;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.ipadx = 25;
         gridBagConstraints.ipady = 25;
@@ -238,7 +239,7 @@ public final class Brigadas extends javax.swing.JPanel {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 18;
+        gridBagConstraints.gridy = 19;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.ipadx = 25;
         gridBagConstraints.ipady = 25;
@@ -263,6 +264,28 @@ public final class Brigadas extends javax.swing.JPanel {
         gridBagConstraints.ipady = 25;
         gridBagConstraints.insets = new java.awt.Insets(20, 0, 20, 0);
         panelInternoDer2.add(botonBuscarBrigadas, gridBagConstraints);
+
+        botonListarBrigadas.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        botonListarBrigadas.setForeground(java.awt.Color.white);
+        botonListarBrigadas.setText("Listar");
+        botonListarBrigadas.setBorder(null);
+        botonListarBrigadas.setBorderPainted(false);
+        botonListarBrigadas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonListarBrigadas.setMaximumSize(new java.awt.Dimension(100, 25));
+        botonListarBrigadas.setPreferredSize(new java.awt.Dimension(100, 25));
+        botonListarBrigadas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonListarBrigadasActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 17;
+        gridBagConstraints.ipadx = 25;
+        gridBagConstraints.ipady = 25;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(20, 0, 20, 0);
+        panelInternoDer2.add(botonListarBrigadas, gridBagConstraints);
 
         panelInternoDer.add(panelInternoDer2, java.awt.BorderLayout.EAST);
 
@@ -515,11 +538,17 @@ public final class Brigadas extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_botonModificarBrigadasActionPerformed
 
+    private void botonListarBrigadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonListarBrigadasActionPerformed
+        // TODO add your handling code here:
+        mostrarPanel(new ListarBrigadas());
+    }//GEN-LAST:event_botonListarBrigadasActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAgregarBrigadas;
     private javax.swing.JButton botonBuscarBrigadas;
     private javax.swing.JButton botonEliminarBrigadas;
+    private javax.swing.JButton botonListarBrigadas;
     private javax.swing.JButton botonModificarBrigadas;
     private javax.swing.JCheckBox checkLibreBrigada;
     private javax.swing.JComboBox<String> comboCodCuartelBrigada;
@@ -545,7 +574,7 @@ public final class Brigadas extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     public void botones() {
-        JButton btns[] = {botonAgregarBrigadas, botonEliminarBrigadas, botonModificarBrigadas, botonBuscarBrigadas};
+        JButton btns[] = {botonAgregarBrigadas, botonEliminarBrigadas, botonModificarBrigadas, botonBuscarBrigadas, botonListarBrigadas};
         for (JButton btn : btns) {
             btn.setBackground(new Color(184, 34, 34));
             btn.setUI(new BasicButtonUI());

@@ -1,7 +1,7 @@
 package bomberos.AccesoADatos;
 
+import bomberos.AccesoAdatos.Conexion;
 import bomberos.Entidades.Cuartel;
-import bomberos.AccesoAdatos.*;
 import bomberos.Entidades.Siniestro;
 import java.sql.*;
 import java.time.LocalDate;
@@ -11,18 +11,13 @@ import javax.swing.JOptionPane;
 
 public class SiniestroData {
 
-    private Connection con;
+    private final Connection con;
     private CuartelData cuartelDB;
-    private BomberoData bomberoDB;
     private Cuartel cuartel;
     private Siniestro siniestro;
 
     public SiniestroData() {
-
-    }
-
-    public SiniestroData(Connection con) {
-        this.con = con;
+        con = Conexion.getConnection();
     }
 
     public void cargarSiniestro(Siniestro siniestro) {
@@ -49,83 +44,7 @@ public class SiniestroData {
         }
     }
 
-    public void ubicacionSiniestroAcuartel(int codigo) {
-        String sql = "SELECT"
-                + "    siniestro.codigo AS siniestro_codigo,"
-                + "    MIN("
-                + "        SQRT("
-                + "            POW(cuartel.coord_X = ? - siniestro.coord_X = ?, 2) + POW(cuartel.coord_Y = ? - siniestro.coord_Y = ?, 2)"
-                + "        )"
-                + "    ) AS distancia_minima"
-                + "FROM"
-                + "    cuartel"
-                + "CROSS JOIN"
-                + "    siniestro"
-                + "GROUP BY"
-                + "    siniestro.codigo";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, codigo);
-            ps.setDouble(2, cuartel.getCoord_X());
-            ps.setDouble(3, siniestro.getCoord_X());
-            ps.setDouble(3, cuartel.getCoord_Y());
-            ps.setDouble(5, siniestro.getCoord_Y());
-            ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) {
-                double distancia_minima = rs.getDouble("distancia_minima");
-                JOptionPane.showMessageDialog(null, "Distancia al cuartel mas cercano: " + distancia_minima);
-
-            } else {
-                JOptionPane.showMessageDialog(null, "Ubicacion no encontrada.");
-            }
-            ps.close();
-            rs.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
-
-        }
-    }
-
-    public void cuartelMasCercano(int codigo) {
-        String sql = "SELECT siniestro.codigo"
-                + "    MIN("
-                + "        SQRT("
-                + "            POW(cuartel.coord_X = ? - siniestro.coord_X = ?, 2) + POW(cuartel.coord_Y = ? - siniestro.coord_Y = ?, 2)"
-                + "        )"
-                + "    ) AS distancia_minima"
-                + "cuartel.codCuartel AS cuartel_Mas_Cercano"
-                + "FROM"
-                + "    cuartel"
-                + "CROSS JOIN"
-                + "    siniestro"
-                + "GROUP BY"
-                + "    siniestro.codigo";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, codigo);
-            ps.setDouble(2, cuartel.getCoord_X());
-            ps.setDouble(3, siniestro.getCoord_X());
-            ps.setDouble(3, cuartel.getCoord_Y());
-            ps.setDouble(5, siniestro.getCoord_Y());
-            ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) {
-                double distancia_minima = rs.getDouble("distancia_minima");
-                JOptionPane.showMessageDialog(null, "Distancia al cuartel mas cercano: " + distancia_minima);
-                String cuartel_mas_cercano = rs.getString("cuartel_Mas_Cercano");
-                JOptionPane.showMessageDialog(null, "Cuartel mas cercano:" + cuartel_mas_cercano);
-            } else {
-                JOptionPane.showMessageDialog(null, "Ubicacion no encontrada.");
-            }
-            ps.close();
-            rs.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
-
-        }
-
-    }
-
-    public List<Siniestro> consultarSiniestros(Siniestro siniestro) {
+    public List<Siniestro> consultarSiniestros48hs(Siniestro siniestro) {
         List<Siniestro> accidentes = new ArrayList<>();
         String sql = "SELECT *"
                 + "FROM siniestro"
@@ -155,7 +74,6 @@ public class SiniestroData {
 
     public List<Siniestro> listarSiniestros() {
         List<Siniestro> accidentes = new ArrayList<>();
-        con = Conexion.getConnection();
         String sql = "SELECT codigo, tipo, fecha_siniestro, coord_X, coord_Y, detalles, fecha_resol, puntuacion, codBrigada FROM siniestro";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -182,13 +100,7 @@ public class SiniestroData {
     }
 
     public void anotarTerminacionDeSiniestro(int codigo, LocalDate fecha_resol, int puntuacion) {
-        String sql = "UPDATE "
-                + "    siniestro"
-                + "SET "
-                + "    fecha_terminacion = ?, "
-                + "    puntuacion = ?"
-                + "WHERE "
-                + "    codigo = ?";
+        String sql = "UPDATE siniestro SET fecha_terminacion = ?, puntuacion = ? WHERE codigo = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, codigo);
@@ -205,28 +117,27 @@ public class SiniestroData {
         }
     }
 
-    public String cuartelMasCercano() {
-        String cuartelMasCercano = null;
-        String sql = "SELECT siniestro.codigo AS siniestro_codigo, MIN(SQRT(POW(cuartel.coord_X - siniestro.coord_X, 2) + POW(cuartel.coord_Y - siniestro.coord_Y, 2))) AS distancia_minima, cuartel.codCuartel AS cuartel_Mas_Cercano FROM cuartel CROSS JOIN siniestro GROUP BY siniestro.codigo, cuartel.codCuartel ORDER BY distancia_minima LIMIT 0,25";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                double distancia_minima = rs.getDouble("distancia_minima");
-                cuartelMasCercano = rs.getString("cuartel_Mas_Cercano");
-                JOptionPane.showMessageDialog(null, "El cuartel más cercano se encuentra a una distancia de: " + distancia_minima);
-                JOptionPane.showMessageDialog(null, "El codigo del cuartel mas cercano es: " + cuartelMasCercano);
-            } else {
-                JOptionPane.showMessageDialog(null, "No se encontro la ubicacion.");
-            }
-            ps.close();
-            rs.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
-        }
-
-        return cuartelMasCercano;
-    }
+//    public String cuartelMasCercano() {
+//        String cuartelMasCercano = null;
+//        String sql = "SELECT siniestro.codigo AS siniestro_codigo, MIN(SQRT(POW(cuartel.coord_X - siniestro.coord_X, 2) + POW(cuartel.coord_Y - siniestro.coord_Y, 2))) AS distancia_minima, cuartel.codCuartel AS cuartel_Mas_Cercano FROM cuartel CROSS JOIN siniestro GROUP BY siniestro.codigo, cuartel.codCuartel ORDER BY distancia_minima LIMIT 0,25";
+//        try {
+//            PreparedStatement ps = con.prepareStatement(sql);
+//            ResultSet rs = ps.executeQuery();
+//            if (rs.next()) {
+//                double distancia_minima = rs.getDouble("distancia_minima");
+//                cuartelMasCercano = rs.getString("cuartel_Mas_Cercano");
+//                JOptionPane.showMessageDialog(null, "El cuartel más cercano se encuentra a una distancia de: " + distancia_minima);
+//                JOptionPane.showMessageDialog(null, "El codigo del cuartel mas cercano es: " + cuartelMasCercano);
+//            } else {
+//                JOptionPane.showMessageDialog(null, "No se encontro la ubicacion.");
+//            }
+//            ps.close();
+//            rs.close();
+//        } catch (SQLException ex) {
+//            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
+//        }
+//        return cuartelMasCercano;
+//    }
 
     public void modificarSiniestro(Siniestro siniestro) {
         String sql = "UPDATE siniestro SET tipo = ?, fecha_siniestro = ?, coord_X = ?, coord_Y = ?, detalles = ?, fecha_resol = ?, puntuacion = ?, codBrigada = ? WHERE codigo = ?";

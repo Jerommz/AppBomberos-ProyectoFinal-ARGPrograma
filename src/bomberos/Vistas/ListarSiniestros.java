@@ -10,21 +10,24 @@ import javax.swing.plaf.basic.BasicButtonUI;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import bomberos.AccesoADatos.SiniestroData;
+import java.awt.Component;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
-public class ListarSiniestros1 extends javax.swing.JPanel {
-     String[] modeloSiniestro = {"Codigo", "Tipo", "Fecha", "Detalles","X ","Y","Fecha finalizacion", "Puntaje", "Codigo Brigada"};
-     SiniestroData siniestroDB =new SiniestroData();
-     
-     DefaultTableModel modeloSiniestroAct = new DefaultTableModel(null, modeloSiniestro) {
+public final class ListarSiniestros extends javax.swing.JPanel {
+
+    String[] modeloSiniestro = {"Codigo", "Tipo", "Fecha", "Detalles", "X ", "Y", "Fecha finalizacion", "Puntaje", "Codigo Brigada"};
+    SiniestroData siniestroDB = new SiniestroData();
+
+    DefaultTableModel modeloSiniestroAct = new DefaultTableModel(null, modeloSiniestro) {
         @Override
         public boolean isCellEditable(int row, int column) {
             return false;
         }
     };
 
-    public ListarSiniestros1() {
+    public ListarSiniestros() {
         initComponents();
         botones();
         modeloTablaSiniestro();
@@ -32,7 +35,6 @@ public class ListarSiniestros1 extends javax.swing.JPanel {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
@@ -123,77 +125,159 @@ public class ListarSiniestros1 extends javax.swing.JPanel {
 
         panelBot.setBackground(new Color(161, 27, 27));
         panelBot.setPreferredSize(new java.awt.Dimension(0, 300));
-        panelBot.setLayout(null);
+        panelBot.setLayout(new java.awt.GridBagLayout());
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel2.setForeground(java.awt.Color.white);
         jLabel2.setText("Descripcion:");
-        panelBot.add(jLabel2);
-        jLabel2.setBounds(215, 168, 88, 19);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        panelBot.add(jLabel2, gridBagConstraints);
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel3.setForeground(java.awt.Color.white);
         jLabel3.setText("X:");
-        panelBot.add(jLabel3);
-        jLabel3.setBounds(512, 55, 13, 19);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 2, 0);
+        panelBot.add(jLabel3, gridBagConstraints);
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel4.setForeground(java.awt.Color.white);
         jLabel4.setText("Fecha fin:");
-        panelBot.add(jLabel4);
-        jLabel4.setBounds(230, 55, 69, 19);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 2, 0);
+        panelBot.add(jLabel4, gridBagConstraints);
 
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel5.setForeground(java.awt.Color.white);
         jLabel5.setText("Fecha inicio:");
-        panelBot.add(jLabel5);
-        jLabel5.setBounds(210, 20, 89, 19);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 6, 0);
+        panelBot.add(jLabel5, gridBagConstraints);
 
         jLabel6.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel6.setForeground(java.awt.Color.white);
         jLabel6.setText("Puntaje:");
-        panelBot.add(jLabel6);
-        jLabel6.setBounds(376, 55, 57, 19);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 2, 0);
+        panelBot.add(jLabel6, gridBagConstraints);
 
         jLabel7.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel7.setForeground(java.awt.Color.white);
         jLabel7.setText("Brigada asignada");
-        panelBot.add(jLabel7);
-        jLabel7.setBounds(657, 20, 121, 19);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 18;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTH;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 5);
+        panelBot.add(jLabel7, gridBagConstraints);
 
         textDescSiniestro.setBackground(new Color(193,29,29));
         textDescSiniestro.setColumns(20);
+        textDescSiniestro.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        textDescSiniestro.setForeground(java.awt.Color.white);
         textDescSiniestro.setRows(5);
+        textDescSiniestro.setBorder(null);
+        textDescSiniestro.setCaretColor(null);
+        textDescSiniestro.setHighlighter(null);
         textDescSiniestro.setMinimumSize(new java.awt.Dimension(0, 0));
+        textDescSiniestro.setSelectedTextColor(null);
+        textDescSiniestro.setSelectionColor(null);
+        textDescSiniestro.setVerifyInputWhenFocusTarget(false);
         jScrollPane2.setViewportView(textDescSiniestro);
 
-        panelBot.add(jScrollPane2);
-        jScrollPane2.setBounds(303, 92, 323, 183);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = 8;
+        gridBagConstraints.gridheight = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        panelBot.add(jScrollPane2, gridBagConstraints);
 
         textTipoSiniestro.setBackground(new Color(193,29,29));
+        textTipoSiniestro.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        textTipoSiniestro.setForeground(java.awt.Color.white);
+        textTipoSiniestro.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         textTipoSiniestro.setPreferredSize(new java.awt.Dimension(200, 30));
-        panelBot.add(textTipoSiniestro);
-        textTipoSiniestro.setBounds(434, 15, 200, 30);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 13;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 6, 0);
+        panelBot.add(textTipoSiniestro, gridBagConstraints);
 
         textFechaInicioSiniestro.setBackground(new Color(193,29,29));
-        textFechaInicioSiniestro.setPreferredSize(new java.awt.Dimension(70, 30));
-        panelBot.add(textFechaInicioSiniestro);
-        textFechaInicioSiniestro.setBounds(303, 15, 70, 30);
+        textFechaInicioSiniestro.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        textFechaInicioSiniestro.setForeground(java.awt.Color.white);
+        textFechaInicioSiniestro.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        textFechaInicioSiniestro.setPreferredSize(new java.awt.Dimension(100, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 6, 0);
+        panelBot.add(textFechaInicioSiniestro, gridBagConstraints);
 
         textFechaFinSiniestro.setBackground(new Color(193,29,29));
-        textFechaFinSiniestro.setPreferredSize(new java.awt.Dimension(70, 30));
-        panelBot.add(textFechaFinSiniestro);
-        textFechaFinSiniestro.setBounds(303, 50, 70, 30);
+        textFechaFinSiniestro.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        textFechaFinSiniestro.setForeground(java.awt.Color.white);
+        textFechaFinSiniestro.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        textFechaFinSiniestro.setPreferredSize(new java.awt.Dimension(100, 30));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 2, 0);
+        panelBot.add(textFechaFinSiniestro, gridBagConstraints);
 
         textPuntox.setBackground(new Color(193,29,29));
+        textPuntox.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        textPuntox.setForeground(java.awt.Color.white);
+        textPuntox.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         textPuntox.setPreferredSize(new java.awt.Dimension(40, 30));
-        panelBot.add(textPuntox);
-        textPuntox.setBounds(528, 50, 40, 30);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 7;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 1, 2, 5);
+        panelBot.add(textPuntox, gridBagConstraints);
 
         textBrigadaSiniestro.setBackground(new Color(193,29,29));
+        textBrigadaSiniestro.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        textBrigadaSiniestro.setForeground(java.awt.Color.white);
+        textBrigadaSiniestro.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         textBrigadaSiniestro.setPreferredSize(new java.awt.Dimension(50, 30));
-        panelBot.add(textBrigadaSiniestro);
-        textBrigadaSiniestro.setBounds(689, 45, 50, 30);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 18;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
+        gridBagConstraints.insets = new java.awt.Insets(0, 35, 2, 0);
+        panelBot.add(textBrigadaSiniestro, gridBagConstraints);
 
         botonModificarSiniestro.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         botonModificarSiniestro.setForeground(java.awt.Color.white);
@@ -206,30 +290,59 @@ public class ListarSiniestros1 extends javax.swing.JPanel {
                 botonModificarSiniestroActionPerformed(evt);
             }
         });
-        panelBot.add(botonModificarSiniestro);
-        botonModificarSiniestro.setBounds(634, 132, 120, 40);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 18;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        panelBot.add(botonModificarSiniestro, gridBagConstraints);
 
         jLabel8.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel8.setForeground(java.awt.Color.white);
         jLabel8.setText("Tipo:");
-        panelBot.add(jLabel8);
-        jLabel8.setBounds(398, 20, 34, 19);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 6, 0);
+        panelBot.add(jLabel8, gridBagConstraints);
 
         jLabel9.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel9.setForeground(java.awt.Color.white);
         jLabel9.setText("Y:");
-        panelBot.add(jLabel9);
-        jLabel9.setBounds(576, 55, 14, 19);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 8;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 2, 0);
+        panelBot.add(jLabel9, gridBagConstraints);
 
         textPuntoY.setBackground(new Color(193,29,29));
+        textPuntoY.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        textPuntoY.setForeground(java.awt.Color.white);
+        textPuntoY.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         textPuntoY.setPreferredSize(new java.awt.Dimension(40, 30));
-        panelBot.add(textPuntoY);
-        textPuntoY.setBounds(594, 50, 40, 30);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 9;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 9;
+        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 1, 2, 0);
+        panelBot.add(textPuntoY, gridBagConstraints);
 
         textPuntajeSiniestro2.setBackground(new Color(193,29,29));
+        textPuntajeSiniestro2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        textPuntajeSiniestro2.setForeground(java.awt.Color.white);
+        textPuntajeSiniestro2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         textPuntajeSiniestro2.setPreferredSize(new java.awt.Dimension(40, 30));
-        panelBot.add(textPuntajeSiniestro2);
-        textPuntajeSiniestro2.setBounds(434, 50, 40, 30);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 1, 2, 6);
+        panelBot.add(textPuntajeSiniestro2, gridBagConstraints);
 
         botonFinalizarSiniestro.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         botonFinalizarSiniestro.setForeground(java.awt.Color.white);
@@ -242,8 +355,12 @@ public class ListarSiniestros1 extends javax.swing.JPanel {
                 botonFinalizarSiniestroActionPerformed(evt);
             }
         });
-        panelBot.add(botonFinalizarSiniestro);
-        botonFinalizarSiniestro.setBounds(634, 190, 120, 40);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 18;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        panelBot.add(botonFinalizarSiniestro, gridBagConstraints);
 
         panelMain.add(panelBot, java.awt.BorderLayout.SOUTH);
 
@@ -266,42 +383,54 @@ public class ListarSiniestros1 extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonModificarSiniestroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarSiniestroActionPerformed
-        if(textBrigadaSiniestro ==null ||textDescSiniestro ==null ||textFechaFinSiniestro ==null ||textFechaInicioSiniestro==null|| textPuntajeSiniestro2==null||textTipoSiniestro ==null || textPuntox==null || textPuntoY == null){
-        JOptionPane.showMessageDialog(null, "todoslos campos deben estar completos");
-        }else{
-        int codBrigada=Integer.parseInt(textBrigadaSiniestro.getText());
-        String detalle =textDescSiniestro.getText();
-        LocalDate fecha_siniestro = LocalDate.parse( textFechaFinSiniestro.getText());
-        LocalDate fecha_resol = LocalDate.parse( textFechaInicioSiniestro.getText());
-        int puntaje =Integer.parseInt(textPuntajeSiniestro2.getText());
-        String tipo =textTipoSiniestro.getText();
-        int coor_X=Integer.parseInt(textPuntox.getText());
-        int cood_Y=Integer.parseInt(textPuntoY.getText());
-        Siniestro accidente =new Siniestro(tipo, fecha_siniestro, coor_X, cood_Y, detalle, fecha_resol, puntaje, codBrigada);
-        siniestroDB.modificarSiniestro(accidente);
+
+        Component[] comps = panelBot.getComponents();
+        for (Component comp : comps) {
+            if (comp instanceof JTextField) {
+                if (((JTextField) comp).getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Ningun campo puede estar vacio para modificar el siniestro.");
+                } else {
+                    int codBrigada = Integer.parseInt(textBrigadaSiniestro.getText());
+                    String detalle = textDescSiniestro.getText();
+                    LocalDate fecha_siniestro = LocalDate.parse(textFechaFinSiniestro.getText());
+                    LocalDate fecha_resol = LocalDate.parse(textFechaInicioSiniestro.getText());
+                    int puntaje = Integer.parseInt(textPuntajeSiniestro2.getText());
+                    String tipo = textTipoSiniestro.getText();
+                    int coor_X = Integer.parseInt(textPuntox.getText());
+                    int cood_Y = Integer.parseInt(textPuntoY.getText());
+                    Siniestro accidente = new Siniestro(tipo, fecha_siniestro, coor_X, cood_Y, detalle, fecha_resol, puntaje, codBrigada);
+                    siniestroDB.modificarSiniestro(accidente);
+                }
+            }
         }
     }//GEN-LAST:event_botonModificarSiniestroActionPerformed
 
     private void botonFinalizarSiniestroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonFinalizarSiniestroActionPerformed
-      if(textBrigadaSiniestro ==null ||textDescSiniestro ==null ||textFechaFinSiniestro ==null ||textFechaInicioSiniestro==null|| textPuntajeSiniestro2==null||textTipoSiniestro ==null || textPuntox==null || textPuntoY == null){
-        JOptionPane.showMessageDialog(null, "todoslos campos deben estar completos");
-        }else{
-        int codBrigada=Integer.parseInt(textBrigadaSiniestro.getText());
-        String detalle =textDescSiniestro.getText();
-        LocalDate fecha_siniestro = LocalDate.parse( textFechaFinSiniestro.getText());
-        LocalDate fecha_resol = LocalDate.parse( textFechaInicioSiniestro.getText());
-        int puntaje =Integer.parseInt(textPuntajeSiniestro2.getText());
-        String tipo =textTipoSiniestro.getText();
-        int coor_X=Integer.parseInt(textPuntox.getText());
-        int cood_Y=Integer.parseInt(textPuntoY.getText());
-        Siniestro accidente =new Siniestro(tipo, fecha_siniestro, coor_X, cood_Y, detalle, fecha_resol, puntaje, codBrigada); 
-        siniestroDB.anotarTerminacionDeSiniestro(cood_Y, fecha_resol, puntaje);
-      }
+
+        Component[] comps = panelBot.getComponents();
+        for (Component comp : comps) {
+            if (comp instanceof JTextField) {
+                if (((JTextField) comp).getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Ningun campo puede estar vacio para finalizar el siniestro.");
+                } else {
+                    int codBrigada = Integer.parseInt(textBrigadaSiniestro.getText());
+                    String detalle = textDescSiniestro.getText();
+                    LocalDate fecha_siniestro = LocalDate.parse(textFechaFinSiniestro.getText());
+                    LocalDate fecha_resol = LocalDate.parse(textFechaInicioSiniestro.getText());
+                    int puntaje = Integer.parseInt(textPuntajeSiniestro2.getText());
+                    String tipo = textTipoSiniestro.getText();
+                    int coor_X = Integer.parseInt(textPuntox.getText());
+                    int cood_Y = Integer.parseInt(textPuntoY.getText());
+                    Siniestro accidente = new Siniestro(tipo, fecha_siniestro, coor_X, cood_Y, detalle, fecha_resol, puntaje, codBrigada);
+                    siniestroDB.anotarTerminacionDeSiniestro(cood_Y, fecha_resol, puntaje);
+                }
+            }
+        }
     }//GEN-LAST:event_botonFinalizarSiniestroActionPerformed
 
-    private void cbListarAdminActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cbListarAdminActionPerformed
+    private void cbListarAdminActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-    }// GEN-LAST:event_cbListarAdminActionPerformed
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonFinalizarSiniestro;
@@ -333,7 +462,7 @@ public class ListarSiniestros1 extends javax.swing.JPanel {
     private javax.swing.JTextField textTipoSiniestro;
     // End of variables declaration//GEN-END:variables
 
- public void mostrarTablaSiniestro() {
+    public void mostrarTablaSiniestro() {
         List<Siniestro> siniestros = siniestroDB.listarSiniestros();
         for (Siniestro sini : siniestros) {
             modeloSiniestroAct.addRow(new Object[]{
@@ -380,8 +509,7 @@ public class ListarSiniestros1 extends javax.swing.JPanel {
             });
         }
     }
-    
-    
+
     public void modeloTablaSiniestro() {
         tablaListarAdmin.setModel(modeloSiniestroAct);
         TableColumnModel columnaSiniestro = tablaListarAdmin.getColumnModel();
@@ -395,7 +523,4 @@ public class ListarSiniestros1 extends javax.swing.JPanel {
         columnaSiniestro.getColumn(7).setMaxWidth(500);
         columnaSiniestro.getColumn(8).setMaxWidth(500);
     }
-    
-    
-    
 }

@@ -1,20 +1,20 @@
 
 package bomberos.Main;
 
-import bomberos.AccesoADatos.BrigadaData;
-import bomberos.AccesoADatos.CuartelData;
-import bomberos.AccesoADatos.SiniestroData;
-import bomberos.AccesoAdatos.BomberoData;
-import bomberos.AccesoAdatos.Conexion;
-import bomberos.Entidades.Bombero;
-import bomberos.Entidades.Brigada;
-import bomberos.Entidades.Siniestro;
-import java.sql.Connection;
-import java.time.LocalDate;
-import java.time.Month;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+//import bomberos.AccesoADatos.BrigadaData;
+//import bomberos.AccesoADatos.CuartelData;
+//import bomberos.AccesoADatos.SiniestroData;
+//import bomberos.AccesoAdatos.BomberoData;
+//import bomberos.AccesoAdatos.Conexion;
+//import bomberos.Entidades.Bombero;
+//import bomberos.Entidades.Brigada;
+//import bomberos.Entidades.Siniestro;
+//import java.sql.Connection;
+//import java.time.LocalDate;
+//import java.time.Month;
+//import java.util.ArrayList;
+//import java.util.List;
+//import java.util.Map;
 
 public class main {
 
@@ -71,8 +71,8 @@ public class main {
     }*/
     // ocupar brigada  
     
-    BrigadaData briDB = new BrigadaData();
-    briDB.ocuparBrigada(true, 9);
+//    BrigadaData briDB = new BrigadaData();
+//    briDB.ocuparBrigada(true, 9);
     
     
     // Disponibilidad de brigada 
@@ -94,23 +94,23 @@ public class main {
      //BomberoData bomDB =new BomberoData();
     //bomDB.asignarBrigada(5, 11)
 }*/
-     Conexion con = new Conexion(); // Asegúrate de que este constructor inicialice la conexión correctamente
-
-        // Verificar si la conexión es nula
-        if (con.getConnection() == null) {
-            System.out.println("La conexión es nula. Verifica la conexión a la base de datos.");
-            return;
-        }
-
-        // Definir los valores a usar
-        int codigo = 1; // Reemplaza con el código correspondiente
-        LocalDate fecha_resol = LocalDate.of(2023, 10, 24); // Reemplaza con la fecha correspondiente
-        int puntuacion = 5; // Reemplaza con la puntuación correspondiente
-
-        // Llamar al método anotarTerminacionDeSiniestro
-        SiniestroData siniestroData = new SiniestroData(con.getConnection());
-        siniestroData.anotarTerminacionDeSiniestro(codigo, fecha_resol, puntuacion);
-    }
+//     Conexion con = new Conexion(); // Asegúrate de que este constructor inicialice la conexión correctamente
+//
+//        // Verificar si la conexión es nula
+//        if (con.getConnection() == null) {
+//            System.out.println("La conexión es nula. Verifica la conexión a la base de datos.");
+//            return;
+//        }
+//
+//        // Definir los valores a usar
+//        int codigo = 1; // Reemplaza con el código correspondiente
+//        LocalDate fecha_resol = LocalDate.of(2023, 10, 24); // Reemplaza con la fecha correspondiente
+//        int puntuacion = 5; // Reemplaza con la puntuación correspondiente
+//
+//        // Llamar al método anotarTerminacionDeSiniestro
+//        SiniestroData siniestroData = new SiniestroData(con.getConnection());
+//        siniestroData.anotarTerminacionDeSiniestro(codigo, fecha_resol, puntuacion);
+//    }
 
   
 
@@ -138,29 +138,29 @@ public class main {
         }
     }*/
    
-    Conexion con = new Conexion(); // Reemplaza 'Conexion' con tu clase de conexión real
-        SiniestroData siniestroData = new SiniestroData(con.getConnection()); // Reemplaza 'SiniestroData' con tu clase real
-          //List<Siniestro> accidente = new ArrayList<>();
-        // Crea un objeto Siniestro para pasar al método consultarSiniestros
-        Siniestro siniestro = new Siniestro();
-        List<Siniestro> listaSiniestros = siniestroData.consultarSiniestros(siniestro);
-
-        // Iterar sobre la lista de siniestros y mostrar la información
-        if (listaSiniestros.isEmpty()) {
-            System.out.println("No se encontraron siniestros.");
-        } else {
-            // Iterar sobre la lista de siniestros y mostrar la información
-            for (Siniestro accidente : listaSiniestros) {
-                System.out.println("Código de brigada: " + accidente.getCodBrigada());
-                System.out.println("Código: " + accidente.getCodigo());
-                System.out.println("Coordenada X: " + accidente.getCoord_X());
-                System.out.println("Coordenada Y: " + accidente.getCoord_Y());
-                System.out.println("Detalles: " + accidente.getDetalles());
-                System.out.println("Fecha de siniestro: " + accidente.getFecha_siniestro());
-                System.out.println("Fecha de resolución: " + accidente.getFecha_resol());
-                System.out.println("Puntuación: " + accidente.getPuntuacion());
-            }
-   }
+//    Conexion con = new Conexion(); // Reemplaza 'Conexion' con tu clase de conexión real
+//        SiniestroData siniestroData = new SiniestroData(con.getConnection()); // Reemplaza 'SiniestroData' con tu clase real
+//          //List<Siniestro> accidente = new ArrayList<>();
+//        // Crea un objeto Siniestro para pasar al método consultarSiniestros
+//        Siniestro siniestro = new Siniestro();
+//        List<Siniestro> listaSiniestros = siniestroData.consultarSiniestros(siniestro);
+//
+//        // Iterar sobre la lista de siniestros y mostrar la información
+//        if (listaSiniestros.isEmpty()) {
+//            System.out.println("No se encontraron siniestros.");
+//        } else {
+//            // Iterar sobre la lista de siniestros y mostrar la información
+//            for (Siniestro accidente : listaSiniestros) {
+//                System.out.println("Código de brigada: " + accidente.getCodBrigada());
+//                System.out.println("Código: " + accidente.getCodigo());
+//                System.out.println("Coordenada X: " + accidente.getCoord_X());
+//                System.out.println("Coordenada Y: " + accidente.getCoord_Y());
+//                System.out.println("Detalles: " + accidente.getDetalles());
+//                System.out.println("Fecha de siniestro: " + accidente.getFecha_siniestro());
+//                System.out.println("Fecha de resolución: " + accidente.getFecha_resol());
+//                System.out.println("Puntuación: " + accidente.getPuntuacion());
+//            }
+//   }
     
-
+    }
 } 

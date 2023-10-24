@@ -71,6 +71,7 @@ public class Cuarteles extends javax.swing.JPanel {
         botonEliminarCuarteles = new javax.swing.JButton();
         botonModificarCuarteles = new javax.swing.JButton();
         botonBuscarCuarteles = new javax.swing.JButton();
+        botonListarCuartel = new javax.swing.JButton();
         panelInternoIzq2 = new javax.swing.JPanel();
         textNombreCuartel = new javax.swing.JTextField();
         textCodigoCuartel = new javax.swing.JTextField();
@@ -218,7 +219,7 @@ public class Cuarteles extends javax.swing.JPanel {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.ipadx = 25;
         gridBagConstraints.ipady = 25;
@@ -239,7 +240,7 @@ public class Cuarteles extends javax.swing.JPanel {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridy = 9;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.ipadx = 25;
         gridBagConstraints.ipady = 25;
@@ -265,6 +266,28 @@ public class Cuarteles extends javax.swing.JPanel {
         gridBagConstraints.ipady = 25;
         gridBagConstraints.insets = new java.awt.Insets(20, 0, 20, 0);
         panelInternoDer2.add(botonBuscarCuarteles, gridBagConstraints);
+
+        botonListarCuartel.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        botonListarCuartel.setForeground(java.awt.Color.white);
+        botonListarCuartel.setText("Listar");
+        botonListarCuartel.setBorder(null);
+        botonListarCuartel.setBorderPainted(false);
+        botonListarCuartel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonListarCuartel.setMaximumSize(new java.awt.Dimension(100, 25));
+        botonListarCuartel.setPreferredSize(new java.awt.Dimension(100, 25));
+        botonListarCuartel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonListarCuartelActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.ipadx = 25;
+        gridBagConstraints.ipady = 25;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(20, 0, 20, 0);
+        panelInternoDer2.add(botonListarCuartel, gridBagConstraints);
 
         panelInternoDer.add(panelInternoDer2, java.awt.BorderLayout.EAST);
 
@@ -591,7 +614,7 @@ public class Cuarteles extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (textNumeroCuartel.getText().length() >= 15) {
             evt.consume();
-            JOptionPane.showMessageDialog(null, "Maximo 15 numeros para telefono.");    // ---> Control de caracteres maximo por campo
+            JOptionPane.showMessageDialog(null, "Maximo 15 numeros para telefono.");
         }
     }//GEN-LAST:event_textNumeroCuartelKeyTyped
 
@@ -599,7 +622,7 @@ public class Cuarteles extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (textCoordX.getText().length() >= 3) {
             evt.consume();
-            JOptionPane.showMessageDialog(null, "Maximo 3 numeros para las coordenadas X en Cuarteles.");    // ---> Control de caracteres maximo por campo
+            JOptionPane.showMessageDialog(null, "Maximo 3 numeros para las coordenadas X en Cuarteles.");
         }
     }//GEN-LAST:event_textCoordXKeyTyped
 
@@ -607,15 +630,21 @@ public class Cuarteles extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (textCoordX.getText().length() >= 3) {
             evt.consume();
-            JOptionPane.showMessageDialog(null, "Maximo 3 numeros para las coordenadas Y en Cuarteles.");    // ---> Control de caracteres maximo por campo
+            JOptionPane.showMessageDialog(null, "Maximo 3 numeros para las coordenadas Y en Cuarteles.");
         }
     }//GEN-LAST:event_textCoordYKeyTyped
+
+    private void botonListarCuartelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonListarCuartelActionPerformed
+        // TODO add your handling code here:
+        mostrarPanel(new ListarCuarteles());
+    }//GEN-LAST:event_botonListarCuartelActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAgregarCuarteles;
     private javax.swing.JButton botonBuscarCuarteles;
     private javax.swing.JButton botonEliminarCuarteles;
+    private javax.swing.JButton botonListarCuartel;
     private javax.swing.JButton botonModificarCuarteles;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -644,7 +673,7 @@ public class Cuarteles extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     public void botones() {
-        JButton btns[] = {botonAgregarCuarteles, botonEliminarCuarteles, botonModificarCuarteles, botonBuscarCuarteles};
+        JButton btns[] = {botonAgregarCuarteles, botonEliminarCuarteles, botonModificarCuarteles, botonBuscarCuarteles, botonListarCuartel};
         for (JButton btn : btns) {
             btn.setBackground(new Color(184, 34, 34));
             btn.setUI(new BasicButtonUI());

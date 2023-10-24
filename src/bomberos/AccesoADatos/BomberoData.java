@@ -16,7 +16,6 @@ public class BomberoData {
         con = Conexion.getConnection();
     }
 
-    //revisar
     public void nuevoBombero(Bombero bombero) {
         int dnibusca = bombero.getDni();
         if (bombero.getDni() != buscarBomberoPorDni(dnibusca).getDni()) {
@@ -45,7 +44,7 @@ public class BomberoData {
                 JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
             }
         } else {
-            JOptionPane.showMessageDialog(null, "DNI existente, por favor modificar para dar de alta");
+            JOptionPane.showMessageDialog(null, "DNI existente, por favor modificar para dar de alta.");
         }
     }
 

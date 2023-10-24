@@ -69,7 +69,6 @@ public final class Administracion extends javax.swing.JPanel {
         panelTop = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         cbListarAdmin = new javax.swing.JComboBox<>(modeloCB);
-        jRadioButton1 = new javax.swing.JRadioButton();
         panelBot = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaListarAdmin = new javax.swing.JTable();
@@ -94,8 +93,7 @@ public final class Administracion extends javax.swing.JPanel {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(13, 505, 5, 505);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 0);
         panelTop.add(jLabel1, gridBagConstraints);
 
         cbListarAdmin.setBackground(new Color(193,29,29));
@@ -110,22 +108,11 @@ public final class Administracion extends javax.swing.JPanel {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(8, 565, 8, 0);
-        panelTop.add(cbListarAdmin, gridBagConstraints);
-
-        jRadioButton1.setForeground(java.awt.Color.white);
-        jRadioButton1.setText("Bomberos activos");
-        gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        panelTop.add(jRadioButton1, gridBagConstraints);
+        panelTop.add(cbListarAdmin, gridBagConstraints);
 
-        panelMain.add(panelTop, java.awt.BorderLayout.NORTH);
+        panelMain.add(panelTop, java.awt.BorderLayout.CENTER);
 
         panelBot.setBackground(new Color(161, 27, 27,220));
         panelBot.setPreferredSize(new java.awt.Dimension(1280, 540));
@@ -196,7 +183,6 @@ public final class Administracion extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cbListarAdmin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelBot;
     private javax.swing.JPanel panelMain;
@@ -218,7 +204,6 @@ public final class Administracion extends javax.swing.JPanel {
         columnaBombero.getColumn(3).setMaxWidth(80);
         columnaBombero.getColumn(6).setMaxWidth(100);
         columnaBombero.getColumn(7).setMaxWidth(100);
-
     }
 
     public void modeloTablaBrigada() {

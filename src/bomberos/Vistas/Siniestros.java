@@ -3,7 +3,6 @@ package bomberos.Vistas;
 import bomberos.AccesoADatos.BrigadaData;
 import bomberos.AccesoADatos.CuartelData;
 import bomberos.AccesoADatos.SiniestroData;
-import bomberos.AccesoAdatos.Conexion;
 import bomberos.Entidades.Brigada;
 import bomberos.Entidades.Siniestro;
 import java.awt.Color;
@@ -12,9 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
 import java.util.List;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicButtonUI;
@@ -31,14 +28,7 @@ public final class Siniestros extends javax.swing.JPanel {
     SiniestroData siniestroDB = new SiniestroData();
     CuartelData cuartelDB = new CuartelData();
     BrigadaData brigadaDB = new BrigadaData();
-    Cuartel cuartel = new Cuartel();
-    Brigada brigada = new Brigada();
-    Siniestro accidente = new Siniestro();
 
-    private ImageIcon icono;
-    private Conexion con;
-    private List<Brigada> brigadas = new ArrayList<>();
-    private List<Siniestros> sinie;
     String[] modeloBrigada = {"ID", "Nombre", "Especialidad", "Libre", "Distancia"};
     DefaultTableModel modeloBrigadaArt = new DefaultTableModel(null, modeloBrigada) {
         @Override
@@ -50,7 +40,6 @@ public final class Siniestros extends javax.swing.JPanel {
     public Siniestros() {
         initComponents();
         botones();
-        con = new Conexion();
         modeloTablaBrigada();
         mostrarComboBox();
         textAreaDescripcion.addKeyListener(new KeyAdapter() {
@@ -87,8 +76,8 @@ public final class Siniestros extends javax.swing.JPanel {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         textCoordX = new javax.swing.JTextField();
-        botonCalcularSiniestros = new javax.swing.JButton();
-        botonListarSiniestros1 = new javax.swing.JButton();
+        botonCalcularSiniestro = new javax.swing.JButton();
+        botonListarSiniestro = new javax.swing.JButton();
         panelDer = new javax.swing.JPanel();
         panelDerTop = new javax.swing.JPanel();
         textCuartelCercano = new javax.swing.JTextField();
@@ -171,7 +160,7 @@ public final class Siniestros extends javax.swing.JPanel {
         textFechaSiniestro.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         textFechaSiniestro.setForeground(java.awt.Color.white);
         textFechaSiniestro.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        textFechaSiniestro.setPreferredSize(new java.awt.Dimension(70, 30));
+        textFechaSiniestro.setPreferredSize(new java.awt.Dimension(100, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 15;
@@ -241,38 +230,39 @@ public final class Siniestros extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(5, 70, 10, 0);
         panelIzq.add(textCoordX, gridBagConstraints);
 
-        botonCalcularSiniestros.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        botonCalcularSiniestros.setForeground(java.awt.Color.white);
-        botonCalcularSiniestros.setText("Calcular");
-        botonCalcularSiniestros.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        botonCalcularSiniestros.setBorderPainted(false);
-        botonCalcularSiniestros.setPreferredSize(new java.awt.Dimension(140, 30));
-        botonCalcularSiniestros.addActionListener(new java.awt.event.ActionListener() {
+        botonCalcularSiniestro.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        botonCalcularSiniestro.setForeground(java.awt.Color.white);
+        botonCalcularSiniestro.setText("Calcular");
+        botonCalcularSiniestro.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        botonCalcularSiniestro.setBorderPainted(false);
+        botonCalcularSiniestro.setPreferredSize(new java.awt.Dimension(140, 30));
+        botonCalcularSiniestro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonCalcularSiniestrosActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 17;
-        panelIzq.add(botonCalcularSiniestros, gridBagConstraints);
-
-        botonListarSiniestros1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        botonListarSiniestros1.setForeground(java.awt.Color.white);
-        botonListarSiniestros1.setText("Listar siniestros");
-        botonListarSiniestros1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        botonListarSiniestros1.setBorderPainted(false);
-        botonListarSiniestros1.setPreferredSize(new java.awt.Dimension(140, 30));
-        botonListarSiniestros1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonListarSiniestros1ActionPerformed(evt);
+                botonCalcularSiniestroActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 18;
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
-        panelIzq.add(botonListarSiniestros1, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        panelIzq.add(botonCalcularSiniestro, gridBagConstraints);
+
+        botonListarSiniestro.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        botonListarSiniestro.setForeground(java.awt.Color.white);
+        botonListarSiniestro.setText("Listar siniestros");
+        botonListarSiniestro.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        botonListarSiniestro.setBorderPainted(false);
+        botonListarSiniestro.setPreferredSize(new java.awt.Dimension(140, 30));
+        botonListarSiniestro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonListarSiniestroActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 19;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 5, 0);
+        panelIzq.add(botonListarSiniestro, gridBagConstraints);
 
         jPanel2.add(panelIzq, java.awt.BorderLayout.WEST);
 
@@ -310,11 +300,11 @@ public final class Siniestros extends javax.swing.JPanel {
 
         textDistancia.setBackground(new Color(201, 16, 40));
         textDistancia.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        textDistancia.setPreferredSize(new java.awt.Dimension(60, 30));
+        textDistancia.setPreferredSize(new java.awt.Dimension(80, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 7;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 110);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 110);
         panelDerTop.add(textDistancia, gridBagConstraints);
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -349,7 +339,7 @@ public final class Siniestros extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 4;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 40);
+        gridBagConstraints.insets = new java.awt.Insets(0, 9, 0, 40);
         panelDerTop.add(textDireccion, gridBagConstraints);
 
         textCoordY1.setBackground(new Color(201, 16, 40));
@@ -488,7 +478,7 @@ public final class Siniestros extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void botonCalcularSiniestrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCalcularSiniestrosActionPerformed
+    private void botonCalcularSiniestroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCalcularSiniestroActionPerformed
         // TODO add your handling code here:
         try {
             Component[] comps = panelIzq.getComponents();
@@ -496,11 +486,13 @@ public final class Siniestros extends javax.swing.JPanel {
                 if (comp instanceof JTextField) {
                     if (((JTextField) comp).getText().equals("")) {
                         JOptionPane.showMessageDialog(null, "Ningun campo puede estar vacio para calcular el siniestro.");
+                        break;
                     } else {
                         String textXsin = textCoordX.getText();
                         String textYsin = textCoordY.getText();
                         if (!textXsin.matches("\\d+") || !textYsin.matches("\\d+")) {
                             JOptionPane.showMessageDialog(null, "Las coordenadas X e Y deben ser solo numericas.");
+                            break;
                         } else {
                             int xSiniestro = Integer.valueOf(textCoordX.getText());
                             int ySiniestro = Integer.valueOf(textCoordY.getText());
@@ -524,12 +516,12 @@ public final class Siniestros extends javax.swing.JPanel {
                             Cuartel cuartel = cuartelDB.buscarCuartel(codCuartel);
                             List<Brigada> brigadas = brigadaDB.obtenerBrigadaCuartel(codCuartel);
                             mostrarTablaBrigada(brigadas);
-
                             textCuartelCercano.setText(cuartel.getNombre_cuartel());
                             textCoordX1.setText(cuartel.getCoord_X() + "");
                             textCoordY1.setText(cuartel.getCoord_Y() + "");
                             textDireccion.setText(cuartel.getDireccion());
-                            textDistancia.setText(sum + "");
+                            double distancia = Math.round(sum * 100.0) / 100.0;
+                            textDistancia.setText(distancia + "");
                         }
                     }
                 }
@@ -537,11 +529,7 @@ public final class Siniestros extends javax.swing.JPanel {
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Error al intentar calcular siniestro.");
         }
-    }//GEN-LAST:event_botonCalcularSiniestrosActionPerformed
-
-    private void botonListarSiniestros1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonListarSiniestros1ActionPerformed
-        mostrarPanel(new ListarSiniestros1());
-    }//GEN-LAST:event_botonListarSiniestros1ActionPerformed
+    }//GEN-LAST:event_botonCalcularSiniestroActionPerformed
 
     private void textCoordXKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textCoordXKeyTyped
         // TODO add your handling code here:
@@ -559,10 +547,15 @@ public final class Siniestros extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_textCoordYKeyTyped
 
+    private void botonListarSiniestroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonListarSiniestroActionPerformed
+        // TODO add your handling code here:
+        mostrarPanel(new ListarSiniestros());
+    }//GEN-LAST:event_botonListarSiniestroActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botonCalcularSiniestros;
-    private javax.swing.JButton botonListarSiniestros1;
+    private javax.swing.JButton botonCalcularSiniestro;
+    private javax.swing.JButton botonListarSiniestro;
     private javax.swing.JComboBox<String> comboTipoAccidenteSiniestro;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -602,7 +595,7 @@ public final class Siniestros extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     public void botones() {
-        JButton btns[] = {botonCalcularSiniestros};
+        JButton btns[] = {botonListarSiniestro, botonCalcularSiniestro};
         for (JButton btn : btns) {
             btn.setBackground(new Color(161, 27, 27));
             btn.setUI(new BasicButtonUI());
@@ -666,7 +659,6 @@ public final class Siniestros extends javax.swing.JPanel {
     }
 
     public void mostrarTablaBrigada(List brig) {
-        brigadas = new ArrayList<>();
         List<Brigada> brigadas = brig;
         for (Brigada brigada : brigadas) {
             modeloBrigadaArt.addRow(new Object[]{

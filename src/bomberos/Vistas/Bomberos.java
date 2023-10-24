@@ -64,6 +64,7 @@ public final class Bomberos extends javax.swing.JPanel {
         botonEliminarBomberos = new javax.swing.JButton();
         botonModificarBomberos = new javax.swing.JButton();
         botonBuscarBomberos = new javax.swing.JButton();
+        botonListarBombero = new javax.swing.JButton();
         panelInternoIzq2 = new javax.swing.JPanel();
         checkEstadoBombero = new javax.swing.JCheckBox();
         dateFechaNacBombero = new com.toedter.calendar.JDateChooser();
@@ -236,7 +237,7 @@ public final class Bomberos extends javax.swing.JPanel {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.ipadx = 25;
         gridBagConstraints.ipady = 25;
@@ -258,7 +259,7 @@ public final class Bomberos extends javax.swing.JPanel {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridy = 9;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.ipadx = 25;
         gridBagConstraints.ipady = 25;
@@ -286,6 +287,28 @@ public final class Bomberos extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(20, 0, 20, 0);
         panelInternoDer2.add(botonBuscarBomberos, gridBagConstraints);
+
+        botonListarBombero.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        botonListarBombero.setForeground(java.awt.Color.white);
+        botonListarBombero.setText("Listar");
+        botonListarBombero.setBorder(null);
+        botonListarBombero.setBorderPainted(false);
+        botonListarBombero.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonListarBombero.setMaximumSize(new java.awt.Dimension(100, 25));
+        botonListarBombero.setPreferredSize(new java.awt.Dimension(100, 25));
+        botonListarBombero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonListarBomberoActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.ipadx = 25;
+        gridBagConstraints.ipady = 25;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(20, 0, 20, 0);
+        panelInternoDer2.add(botonListarBombero, gridBagConstraints);
 
         panelInternoDer.add(panelInternoDer2, java.awt.BorderLayout.EAST);
 
@@ -638,11 +661,17 @@ public final class Bomberos extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_textCelularBomberoKeyTyped
 
+    private void botonListarBomberoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonListarBomberoActionPerformed
+        // TODO add your handling code here:
+        mostrarPanel(new ListarBomberos());
+    }//GEN-LAST:event_botonListarBomberoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAgregarBombero;
     private javax.swing.JButton botonBuscarBomberos;
     private javax.swing.JButton botonEliminarBomberos;
+    private javax.swing.JButton botonListarBombero;
     private javax.swing.JButton botonModificarBomberos;
     private javax.swing.JCheckBox checkEstadoBombero;
     private javax.swing.JComboBox<String> comboCodBriBombero;
@@ -672,7 +701,7 @@ public final class Bomberos extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     public void botones() {
-        JButton btns[] = {botonAgregarBombero, botonEliminarBomberos, botonModificarBomberos, botonBuscarBomberos};
+        JButton btns[] = {botonAgregarBombero, botonEliminarBomberos, botonModificarBomberos, botonBuscarBomberos, botonListarBombero};
         for (JButton btn : btns) {
             btn.setBackground(new Color(184, 34, 34));
             btn.setUI(new BasicButtonUI());
