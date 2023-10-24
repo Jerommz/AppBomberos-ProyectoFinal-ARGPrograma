@@ -488,14 +488,13 @@ public class Cuarteles extends javax.swing.JPanel {
             } else {
                 String codCuartel = textCodigoCuartel.getText();
                 if (codCuartel.matches("\\d+")) {
-                    //int codCuartel = Integer.valueOf(textCodigoCuartel.getText());
                     Cuartel cuartel = cuartelDB.buscarCuartel(Integer.valueOf(codCuartel));
-                    textCodigoCuartel.setText(cuartel.getCodCuartel() + "");                        //<------ control de no ingreso de letras al buscar
+                    textCodigoCuartel.setText(Integer.toString(cuartel.getCodCuartel()));                        //<------ control de no ingreso de letras al buscar
                     textNombreCuartel.setText(cuartel.getNombre_cuartel());
                     textDireccionCuartel.setText(cuartel.getDireccion());
-                    textCoordX.setText(cuartel.getCoord_X() + "");
-                    textCoordY.setText(cuartel.getCoord_Y() + "");
-                    textNumeroCuartel.setText(cuartel.getTelefono() + "");
+                    textCoordX.setText(Integer.toString(cuartel.getCoord_X()));
+                    textCoordY.setText(Integer.toString(cuartel.getCoord_Y()));
+                    textNumeroCuartel.setText(Integer.toString(cuartel.getTelefono()));
                     textCorreoCuartel.setText(cuartel.getCorreo());
                 } else {
                     JOptionPane.showMessageDialog(null, "El campo codigo no puede contener letras.");
@@ -506,8 +505,6 @@ public class Cuarteles extends javax.swing.JPanel {
                     textCoordY.setText("");
                     textNumeroCuartel.setText("");
                     textCorreoCuartel.setText("");
-                    
-
                 }
             }
         } catch (NullPointerException ex) {
@@ -535,7 +532,6 @@ public class Cuarteles extends javax.swing.JPanel {
                             JOptionPane.showMessageDialog(null, "El telefono debe ser solo numerico.");
                             break;
                         } else {
-                            //int codCuartel = Integer.valueOf(textCodigoCuartel.getText());
                             String nombre_cuartel = textNombreCuartel.getText();
                             String direccion = textDireccionCuartel.getText();
                             int coordX = Integer.valueOf(textCoordX.getText());

@@ -438,7 +438,7 @@ public class Brigadas extends javax.swing.JPanel {
                 String codBrigada = textCodigoBrigada.getText();
                 if (codBrigada.matches("\\d+")) {
                     Brigada brigada = brigadaDB.buscarBrigada(Integer.valueOf(codBrigada));
-                    textCodigoBrigada.setText(brigada.getCodBrigada()+"");                        //<------ control de no ingreso de letras al buscar
+                    textCodigoBrigada.setText(Integer.toString(brigada.getCodBrigada()));                        //<------ control de no ingreso de letras al buscar
                     textNombreBrigada.setText(brigada.getNombre_br());
                     textEspecialidadBrigada.setText(brigada.getEspecialidad());
                     checkLibreBrigada.setSelected(brigada.isLibre());
