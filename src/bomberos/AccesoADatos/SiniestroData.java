@@ -5,7 +5,6 @@ import bomberos.AccesoAdatos.*;
 import bomberos.Entidades.Siniestro;
 import java.sql.*;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -206,27 +205,6 @@ public class SiniestroData {
         }
     }
 
-    String sql = "UPDATE siniestro SET fecha_resol = ?, puntuacion = ? WHERE codigo = ?";try
-    {
-        PreparedStatement ps = con.prepareStatement(sql);
-        ps.setDate(1, java.sql.Date.valueOf(fecha_resol));
-        ps.setInt(2, puntuacion);
-        ps.setInt(3, codigo);
-        int rowsAfectadas = ps.executeUpdate();
-        if (rowsAfectadas > 0) {
-            JOptionPane.showMessageDialog(null,
-                    "El siniestro con código " + codigo + " ha sido administrativamente concluido.");
-        } else {
-            JOptionPane.showMessageDialog(null, "No se pudo anotar la terminación del siniestro.");
-        }
-    }catch(
-    SQLException ex)
-    {
-        JOptionPane.showMessageDialog(null,
-                "Error al intentar anotar la terminación del siniestro: " + ex.getMessage());
-    }
-}
-
     public String cuartelMasCercano() {
         String cuartelMasCercano = null;
         String sql = "SELECT siniestro.codigo AS siniestro_codigo, MIN(SQRT(POW(cuartel.coord_X - siniestro.coord_X, 2) + POW(cuartel.coord_Y - siniestro.coord_Y, 2))) AS distancia_minima, cuartel.codCuartel AS cuartel_Mas_Cercano FROM cuartel CROSS JOIN siniestro GROUP BY siniestro.codigo, cuartel.codCuartel ORDER BY distancia_minima LIMIT 0,25";
@@ -265,7 +243,7 @@ public class SiniestroData {
             ps.setInt(9, siniestro.getCodigo());
             int exito = ps.executeUpdate();
             if (exito > 0) {
-                JOptionPane.showMessageDialog(null, "Siniestro modificado con éxito.");
+                JOptionPane.showMessageDialog(null, "Siniestro modificado con exito.");
             } else {
                 JOptionPane.showMessageDialog(null, "No se pudo modificar el siniestro.");
             }

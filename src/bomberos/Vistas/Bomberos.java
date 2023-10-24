@@ -672,7 +672,7 @@ public final class Bomberos extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     public void botones() {
-        JButton btns[] = {botonAgregarBombero, botonEliminarBomberos, botonModificarBomberos, botonBuscarBomberos, botonListarBomberos};
+        JButton btns[] = {botonAgregarBombero, botonEliminarBomberos, botonModificarBomberos, botonBuscarBomberos};
         for (JButton btn : btns) {
             btn.setBackground(new Color(184, 34, 34));
             btn.setUI(new BasicButtonUI());

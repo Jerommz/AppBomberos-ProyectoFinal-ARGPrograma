@@ -545,7 +545,7 @@ public final class Brigadas extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     public void botones() {
-        JButton btns[] = {botonAgregarBrigadas, botonEliminarBrigadas, botonModificarBrigadas, botonBuscarBrigadas, botonListarBrigadas};
+        JButton btns[] = {botonAgregarBrigadas, botonEliminarBrigadas, botonModificarBrigadas, botonBuscarBrigadas};
         for (JButton btn : btns) {
             btn.setBackground(new Color(184, 34, 34));
             btn.setUI(new BasicButtonUI());

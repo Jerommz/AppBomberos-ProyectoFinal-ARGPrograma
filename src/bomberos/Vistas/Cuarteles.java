@@ -644,8 +644,7 @@ public class Cuarteles extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     public void botones() {
-        JButton btns[] = {botonAgregarCuarteles, botonEliminarCuarteles, botonModificarCuarteles, botonBuscarCuarteles, botonListarCuarteles
-        };
+        JButton btns[] = {botonAgregarCuarteles, botonEliminarCuarteles, botonModificarCuarteles, botonBuscarCuarteles};
         for (JButton btn : btns) {
             btn.setBackground(new Color(184, 34, 34));
             btn.setUI(new BasicButtonUI());

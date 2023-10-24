@@ -69,6 +69,7 @@ public final class Administracion extends javax.swing.JPanel {
         panelTop = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         cbListarAdmin = new javax.swing.JComboBox<>(modeloCB);
+        jRadioButton1 = new javax.swing.JRadioButton();
         panelBot = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaListarAdmin = new javax.swing.JTable();
@@ -115,6 +116,14 @@ public final class Administracion extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(8, 565, 8, 0);
         panelTop.add(cbListarAdmin, gridBagConstraints);
+
+        jRadioButton1.setForeground(java.awt.Color.white);
+        jRadioButton1.setText("Bomberos activos");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        panelTop.add(jRadioButton1, gridBagConstraints);
 
         panelMain.add(panelTop, java.awt.BorderLayout.NORTH);
 
@@ -187,6 +196,7 @@ public final class Administracion extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cbListarAdmin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelBot;
     private javax.swing.JPanel panelMain;
