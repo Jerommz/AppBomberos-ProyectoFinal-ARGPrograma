@@ -505,13 +505,13 @@ public class Siniestros extends javax.swing.JPanel {
             for (Component comp : comps) {
                 if (comp instanceof JTextField) {
                     if (((JTextField) comp).getText().equals("")) {
-                        JOptionPane.showMessageDialog(null, "Ningun campo puede estar vacio.");
+                        JOptionPane.showMessageDialog(null, "Ningun campo puede estar vacio para calcular el siniestro.");    // ---> Control de caracteres para vacios
                         break;
                     } else {
                         String textXsin = textCoordX.getText();
                         String textYsin = textCoordY.getText();
                         if (!textXsin.matches("\\d+") || !textYsin.matches("\\d+")) {
-                            JOptionPane.showMessageDialog(null, "Las coordenadas X e Y deben ser solo numericas.");
+                            JOptionPane.showMessageDialog(null, "Las coordenadas X e Y deben ser solo numericas.");    // ---> Control de caracteres por tipo de dato ingresado
                             break;
                         } else {
                             int xSiniestro = Integer.valueOf(textCoordX.getText());
