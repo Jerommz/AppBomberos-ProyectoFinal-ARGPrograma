@@ -519,7 +519,7 @@ public class Siniestros extends javax.swing.JPanel {
         }
         String desc = textAreaDescripcion.getText();
         String tipo = comboTipoAccidenteSiniestro.getSelectedItem().toString();
-        Date fecha = Date.valueOf(textFechaSiniestro.getText());
+        LocalDate fecha = Date.valueOf(textFechaSiniestro.getText()).toLocalDate();
         Cuartel cuartel = cuartelDB.buscarCuartel(codCuartel);
         List<Brigada> brigadas = brigadaDB.obtenerBrigadaCuartel(codCuartel);
         mostrarTablaBrigada(brigadas);

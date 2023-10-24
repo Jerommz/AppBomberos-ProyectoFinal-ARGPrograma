@@ -5,10 +5,13 @@ import bomberos.AccesoADatos.BrigadaData;
 import bomberos.AccesoADatos.CuartelData;
 import bomberos.AccesoADatos.SiniestroData;
 import bomberos.AccesoAdatos.BomberoData;
+import bomberos.AccesoAdatos.Conexion;
 import bomberos.Entidades.Bombero;
 import bomberos.Entidades.Brigada;
 import bomberos.Entidades.Siniestro;
+import java.sql.Connection;
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -91,11 +94,32 @@ public class main {
      //BomberoData bomDB =new BomberoData();
     //bomDB.asignarBrigada(5, 11)
 }*/
-    
+     Conexion con = new Conexion(); // Asegúrate de que este constructor inicialice la conexión correctamente
 
-        Siniestro siniestro1 = new Siniestro();
-            SiniestroData siniestroData = new SiniestroData();
-    List<Siniestro> siniestros = siniestroData.listarSiniestros();
+        // Verificar si la conexión es nula
+        if (con.getConnection() == null) {
+            System.out.println("La conexión es nula. Verifica la conexión a la base de datos.");
+            return;
+        }
+
+        // Definir los valores a usar
+        int codigo = 1; // Reemplaza con el código correspondiente
+        LocalDate fecha_resol = LocalDate.of(2023, 10, 24); // Reemplaza con la fecha correspondiente
+        int puntuacion = 5; // Reemplaza con la puntuación correspondiente
+
+        // Llamar al método anotarTerminacionDeSiniestro
+        SiniestroData siniestroData = new SiniestroData(con.getConnection());
+        siniestroData.anotarTerminacionDeSiniestro(codigo, fecha_resol, puntuacion);
+    }
+
+  
+
+
+
+
+
+
+   /* List<Siniestro> siniestros = siniestroData.listarSiniestros();
 
     if (siniestros.isEmpty()) {
         System.out.println("La lista de siniestros está vacía.");
@@ -112,6 +136,7 @@ public class main {
             System.out.println("Puntuación: " + siniestro.getPuntuacion());
             System.out.println("Código de brigada: " + siniestro.getCodBrigada());
         }
-    }
-    }
+    }*/
+   
+    
 }

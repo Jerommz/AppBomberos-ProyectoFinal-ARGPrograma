@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -23,8 +24,13 @@ public class SiniestroData {
     private Siniestro siniestro;
 
     public SiniestroData() {
-        Connection con = Conexion.getConnection();
+        
     }
+
+    public SiniestroData(Connection con) {
+        this.con = con;
+    }
+    
 
     public void cargarSiniestro(Siniestro siniestro) {
         String sql = "INSERT INTO siniestro(tipo, fecha_siniestro, coord_X, coord_Y, detalles, fecha_resol, puntuacion, codBrigada) VALUES (?,?,?,?,?,?,?,?)";
@@ -191,29 +197,27 @@ public class SiniestroData {
     }
 
     public void anotarTerminacionDeSiniestro(int codigo, LocalDate fecha_resol, int puntuacion) {
-        String sql = "UPDATE "
-                + "    siniestro"
-                + "SET "
-                + "    fecha_terminacion = ?, "
-                + "    puntuacion = ?"
-                + "WHERE "
-                + "    codigo = ?";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, codigo);
-            ps.setDate(2, Date.valueOf(siniestro.getFecha_resol()));
-            ps.setInt(3, puntuacion);
-            ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) {
-                JOptionPane.showMessageDialog(null, "el siniestro ya fue administrativamente concluido");
-
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "error en sql siniestro terminacion" + ex);
-
-        }
-
+    Connection con = Conexion.getConnection();
+    if (con == null) {
+        System.out.println("La conexión es nula. Verifica la conexión a la base de datos.");
+        return;
     }
+    String sql = "UPDATE siniestro SET fecha_resol = ?, puntuacion = ? WHERE codigo = ?";
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setDate(1, java.sql.Date.valueOf(fecha_resol));
+        ps.setInt(2, puntuacion);
+        ps.setInt(3, codigo);
+        int rowsAfectadas = ps.executeUpdate();
+        if (rowsAfectadas> 0) {
+            JOptionPane.showMessageDialog(null, "El siniestro con código " + codigo + " ha sido administrativamente concluido.");
+        } else {
+            JOptionPane.showMessageDialog(null, "No se pudo anotar la terminación del siniestro.");
+        }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al intentar anotar la terminación del siniestro: " + ex.getMessage());
+    }
+}
 
     public String cuartelMasCercano() {
         String cuartelMasCercano = null;
@@ -237,6 +241,12 @@ public class SiniestroData {
         return cuartelMasCercano;
     }
 public void modificarSiniestro(Siniestro siniestro) {
+    con=Conexion.getConnection();
+    if (con == null) {
+            System.out.println("La conexión es nula. Verifica la conexión a la base de datos.");
+            return;
+        }
+     
     String sql = "UPDATE siniestro SET tipo = ?, fecha_siniestro = ?, coord_X = ?, coord_Y = ?, detalles = ?, fecha_resol = ?, puntuacion = ?, codBrigada = ? WHERE codigo = ?";
     try {
         PreparedStatement ps = con.prepareStatement(sql);
