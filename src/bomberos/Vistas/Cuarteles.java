@@ -562,6 +562,30 @@ public class Cuarteles extends javax.swing.JPanel {
 
     private void botonEliminarCuartelesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarCuartelesActionPerformed
         // TODO add your handling code here:
+        try {
+            Component[] comps = panelInternoIzq2.getComponents();
+            for (Component comp : comps) {
+                if (comp instanceof JTextField) {
+                    if (((JTextField) comp).getText().equals("")) {
+                        JOptionPane.showMessageDialog(null, "Ningun campo puede estar vacio, primero realice una busqueda.");
+                        break;
+                    } else {
+                        int codCuartel = Integer.valueOf(textCodigoCuartel.getText());
+                        cuartelDB.eliminarCuartel(codCuartel);
+                        break;
+                    }
+                }
+            }
+            textCodigoCuartel.setText("");
+            textNombreCuartel.setText("");
+            textDireccionCuartel.setText("");
+            textNumeroCuartel.setText("");
+            textCorreoCuartel.setText("");
+            textCoordX.setText("");
+            textCoordY.setText("");
+        } catch (NullPointerException ex) {
+            JOptionPane.showMessageDialog(null, "Error al intentar eliminar cuartel.");
+        }
     }//GEN-LAST:event_botonEliminarCuartelesActionPerformed
 
     private void botonModificarCuartelesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarCuartelesActionPerformed

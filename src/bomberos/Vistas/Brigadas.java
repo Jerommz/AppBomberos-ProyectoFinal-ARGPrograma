@@ -515,7 +515,7 @@ public class Brigadas extends javax.swing.JPanel {
             comboCodCuartelBrigada.setSelectedItem("");
             checkLibreBrigada.setSelected(false);
         } catch (NullPointerException ex) {
-            JOptionPane.showMessageDialog(null, "Error al intentar eliminar bombero.");
+            JOptionPane.showMessageDialog(null, "Error al intentar eliminar brigada.");
         }
     }//GEN-LAST:event_botonEliminarBrigadasActionPerformed
 

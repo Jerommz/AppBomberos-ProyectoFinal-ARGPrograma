@@ -66,7 +66,7 @@ public class BrigadaData {
     }
 
     public void eliminarBrigada(int codBrigada) {
-        String sql = "delete from brigada where codBrigada = ?"; 
+        String sql = "delete from brigada where codBrigada = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, codBrigada);
@@ -185,6 +185,8 @@ public class BrigadaData {
                 brigada.setEspecialidad(rs.getString("especialidad"));
                 brigada.setLibre(rs.getBoolean("libre"));
                 brigada.setCodCuartel(rs.getInt("codCuartel"));
+            } else {
+                JOptionPane.showMessageDialog(null, "NO se encontro brigada con ese código, pruebe con uno diferente!");
             }
             ps.close();
             rs.close();
