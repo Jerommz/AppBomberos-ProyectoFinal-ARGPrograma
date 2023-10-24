@@ -66,7 +66,7 @@ public class BrigadaData {
     }
 
     public void eliminarBrigada(int codBrigada) {
-        String sql = "delete * from brigada where codBrigada = ?";
+        String sql = "delete from brigada where codBrigada = ?"; 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, codBrigada);

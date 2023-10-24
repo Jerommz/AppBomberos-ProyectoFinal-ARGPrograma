@@ -495,7 +495,28 @@ public class Brigadas extends javax.swing.JPanel {
 
     private void botonEliminarBrigadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarBrigadasActionPerformed
         // TODO add your handling code here:
-
+        try {
+            Component[] comps = panelInternoIzq2.getComponents();
+            for (Component comp : comps) {
+                if (comp instanceof JTextField) {
+                    if (((JTextField) comp).getText().equals("")) {
+                        JOptionPane.showMessageDialog(null, "Ningun campo puede estar vacio, primero realice una busqueda.");
+                        break;
+                    } else {
+                        int codBrig = Integer.valueOf(textCodigoBrigada.getText());
+                        brigadaDB.eliminarBrigada(codBrig);
+                        break;
+                    }
+                }
+            }
+            textCodigoBrigada.setText("");
+            textNombreBrigada.setText("");
+            textEspecialidadBrigada.setText("");
+            comboCodCuartelBrigada.setSelectedItem("");
+            checkLibreBrigada.setSelected(false);
+        } catch (NullPointerException ex) {
+            JOptionPane.showMessageDialog(null, "Error al intentar eliminar bombero.");
+        }
     }//GEN-LAST:event_botonEliminarBrigadasActionPerformed
 
     private void botonModificarBrigadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarBrigadasActionPerformed
@@ -614,7 +635,7 @@ public class Brigadas extends javax.swing.JPanel {
             comboCodCuartelBrigada.setSelectedItem(String.valueOf(codigo));
         }
     }
-    
+
     public void mostrarPanel(Component com) {
         panelInterno.removeAll();
         panelInterno.add(com);

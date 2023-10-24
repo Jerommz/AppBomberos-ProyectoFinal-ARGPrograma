@@ -51,7 +51,7 @@ public class CuartelData {
     }
 
     public void modificarCuartel(Cuartel cuartel) {
-        String sql = "UPDATE cuartel SET nombre_cuartel = ?, direccion = ?, coord_X = ?, coord_Y = ?, telefono = ?, correo = ? WHERE codCuartel = ?";
+        String sql = "UPDATE cuartel SET nombre_cuartel = ?, direccion = ?, coord_X = ?, coord_Y = ?, telefono = ?, correo = ? WHERE cuartel.codCuartel = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, cuartel.getNombre_cuartel());
@@ -74,7 +74,7 @@ public class CuartelData {
     }
 
     public void eliminarCuartel(int codCuartel) {
-        String sql = "delete cuartel where codCuartel =?";
+        String sql = "delete * from cuartel where codCuartel =?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, cuartel.getCodCuartel());
