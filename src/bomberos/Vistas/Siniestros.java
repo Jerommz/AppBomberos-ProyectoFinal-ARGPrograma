@@ -31,6 +31,7 @@ import java.awt.event.KeyEvent;
 import java.sql.Date;
 import java.time.LocalDate;
 import bomberos.Vistas.ListarSiniestros1;
+import javax.swing.JTextField;
 
 /**
  *
@@ -500,44 +501,56 @@ public class Siniestros extends javax.swing.JPanel {
     private void botonCalcularSiniestrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCalcularSiniestrosActionPerformed
         // TODO add your handling code here:
         try {
-            int xSiniestro = Integer.valueOf(textCoordX.getText());
-            int ySiniestro = Integer.valueOf(textCoordY.getText());
+            Component[] comps = panelIzq.getComponents();
+            for (Component comp : comps) {
+                if (comp instanceof JTextField) {
+                    if (((JTextField) comp).getText().equals("")) {
+                        JOptionPane.showMessageDialog(null, "Ningun campo puede estar vacio.");
+                        break;
+                    } else {
+                        String textXsin = textCoordX.getText();
+                        String textYsin = textCoordY.getText();
+                        if (!textXsin.matches("\\d+") || !textYsin.matches("\\d+")) {
+                            JOptionPane.showMessageDialog(null, "Las coordenadas X e Y deben ser solo numericas.");
+                            break;
+                        } else {
+                            int xSiniestro = Integer.valueOf(textCoordX.getText());
+                            int ySiniestro = Integer.valueOf(textCoordY.getText());
+                            double min = 0;
+                            double sum = 100;
+                            int codCuartel = 0;
+                            List<Cuartel> cuarteles = cuartelDB.obtenerCuarteles();
+                            for (Cuartel cuartel : cuarteles) {
+                                int xCuartel = cuartel.getCoord_X();
+                                int yCuartel = cuartel.getCoord_Y();
+                                int cod = cuartel.getCodCuartel();
+                                min = Math.hypot(xCuartel - xSiniestro, yCuartel - ySiniestro);
+                                if (min <= sum) {
+                                    sum = min;
+                                    codCuartel = cod;
+                                }
+                            }
+                            String desc = textAreaDescripcion.getText();
+                            String tipo = comboTipoAccidenteSiniestro.getSelectedItem().toString();
+                            Date fecha = Date.valueOf(textFechaSiniestro.getText());
+                            Cuartel cuartel = cuartelDB.buscarCuartel(codCuartel);
+                            List<Brigada> brigadas = brigadaDB.obtenerBrigadaCuartel(codCuartel);
+                            mostrarTablaBrigada(brigadas);
 
-            if (!(textCoordX.getText().matches("\\d+")) || !(textCoordY.getText().matches("\\d+"))) {
-                JOptionPane.showMessageDialog(null, "Las coordenadas X e Y deben ser solo numericas.");
+                            textCuartelCercano.setText(cuartel.getNombre_cuartel());
+                            textCoordX1.setText(cuartel.getCoord_X() + "");
+                            textCoordY1.setText(cuartel.getCoord_Y() + "");
+                            textDireccion.setText(cuartel.getDireccion());
+                            textDistancia.setText(sum + "");
+                        }
 
-            } else {
-                double min = 0;
-                double sum = 100;
-                int codCuartel = 0;
-                List<Cuartel> cuarteles = cuartelDB.obtenerCuarteles();
-                for (Cuartel cuartel : cuarteles) {
-                    int xCuartel = cuartel.getCoord_X();
-                    int yCuartel = cuartel.getCoord_Y();
-                    int cod = cuartel.getCodCuartel();
-                    min = Math.hypot(xCuartel - xSiniestro, yCuartel - ySiniestro);
-                    if (min <= sum) {
-                        sum = min;
-                        codCuartel = cod;
                     }
                 }
-                String desc = textAreaDescripcion.getText();
-                String tipo = comboTipoAccidenteSiniestro.getSelectedItem().toString();
-                Date fecha = Date.valueOf(textFechaSiniestro.getText());
-                Cuartel cuartel = cuartelDB.buscarCuartel(codCuartel);
-                List<Brigada> brigadas = brigadaDB.obtenerBrigadaCuartel(codCuartel);
-                mostrarTablaBrigada(brigadas);
-
-                textCuartelCercano.setText(cuartel.getNombre_cuartel());
-                textCoordX1.setText(cuartel.getCoord_X() + "");
-                textCoordY1.setText(cuartel.getCoord_Y() + "");
-                textDireccion.setText(cuartel.getDireccion());
-                textDistancia.setText(sum + "");
             }
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Error al intentar calcular siniestro.");
-
         }
+
     }//GEN-LAST:event_botonCalcularSiniestrosActionPerformed
 
     private void botonListarSiniestros1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonListarSiniestros1ActionPerformed
