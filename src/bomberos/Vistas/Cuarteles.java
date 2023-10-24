@@ -500,6 +500,13 @@ public class Cuarteles extends javax.swing.JPanel {
                 } else {
                     JOptionPane.showMessageDialog(null, "El campo codigo no puede contener letras.");
                     textCodigoCuartel.setText("");
+                    textNombreCuartel.setText("");
+                    textDireccionCuartel.setText("");
+                    textCoordX.setText("");
+                    textCoordY.setText("");
+                    textNumeroCuartel.setText("");
+                    textCorreoCuartel.setText("");
+                    
 
                 }
             }

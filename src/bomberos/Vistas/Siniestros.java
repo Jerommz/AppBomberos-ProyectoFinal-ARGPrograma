@@ -26,6 +26,8 @@ import javax.swing.plaf.basic.BasicButtonUI;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import bomberos.Entidades.Cuartel;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.Date;
 import java.time.LocalDate;
 
@@ -62,6 +64,15 @@ public class Siniestros extends javax.swing.JPanel {
         con = new Conexion();
         modeloTablaBrigada();
         mostrarComboBox();
+        textAreaDescripcion.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                if (textAreaDescripcion.getText().length() >= 80) {
+                    evt.consume();
+                    JOptionPane.showMessageDialog(null, "Maximo 80 caracteres para el nombre de cuartel.");    // ---> Control de caracteres maximo por campo
+                }
+            }
+        });
     }
 
     /**
@@ -188,6 +199,11 @@ public class Siniestros extends javax.swing.JPanel {
         textCoordY.setForeground(java.awt.Color.white);
         textCoordY.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         textCoordY.setPreferredSize(new java.awt.Dimension(40, 30));
+        textCoordY.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                textCoordYKeyTyped(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 11;
@@ -229,6 +245,11 @@ public class Siniestros extends javax.swing.JPanel {
         textCoordX.setForeground(java.awt.Color.white);
         textCoordX.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         textCoordX.setPreferredSize(new java.awt.Dimension(40, 30));
+        textCoordX.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                textCoordXKeyTyped(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 11;
@@ -512,6 +533,22 @@ public class Siniestros extends javax.swing.JPanel {
     private void botonListarSiniestros1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonListarSiniestros1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_botonListarSiniestros1ActionPerformed
+
+    private void textCoordXKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textCoordXKeyTyped
+        // TODO add your handling code here:
+        if (textCoordX.getText().length() >= 3) {
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Maximo 3 numeros para las coordenadas X en Cuarteles.");    // ---> Control de caracteres maximo por campo
+        }
+    }//GEN-LAST:event_textCoordXKeyTyped
+
+    private void textCoordYKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textCoordYKeyTyped
+        // TODO add your handling code here:
+        if (textCoordY.getText().length() >= 3) {
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Maximo 3 numeros para las coordenadas Y en Cuarteles.");    // ---> Control de caracteres maximo por campo
+        }
+    }//GEN-LAST:event_textCoordYKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
