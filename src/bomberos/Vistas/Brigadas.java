@@ -12,6 +12,8 @@ import bomberos.Entidades.Brigada;
 import bomberos.Entidades.Cuartel;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -38,6 +40,24 @@ public class Brigadas extends javax.swing.JPanel {
         initComponents();
         botones();
         mostrarComboCodCuart(1);
+        textNombreBrigada.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                if (textNombreBrigada.getText().length() >= 20) {
+                    evt.consume();
+                    JOptionPane.showMessageDialog(null, "Maximo 20 caracteres.");    // ---> Control de caracteres maximo por campo
+                }
+            }
+        });
+        textEspecialidadBrigada.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                if (textEspecialidadBrigada.getText().length() >= 80) {
+                    evt.consume();
+                    JOptionPane.showMessageDialog(null, "Maximo 80 caracteres.");    // ---> Control de caracteres maximo por campo
+                }
+            }
+        });
     }
 
     /**
@@ -418,6 +438,7 @@ public class Brigadas extends javax.swing.JPanel {
                 String codBrigada = textCodigoBrigada.getText();
                 if (codBrigada.matches("\\d+")) {
                     Brigada brigada = brigadaDB.buscarBrigada(Integer.valueOf(codBrigada));
+                    textCodigoBrigada.setText(Integer.toString(brigada.getCodBrigada()));                        //<------ control de no ingreso de letras al buscar
                     textNombreBrigada.setText(brigada.getNombre_br());
                     textEspecialidadBrigada.setText(brigada.getEspecialidad());
                     checkLibreBrigada.setSelected(brigada.isLibre());
@@ -474,7 +495,28 @@ public class Brigadas extends javax.swing.JPanel {
 
     private void botonEliminarBrigadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarBrigadasActionPerformed
         // TODO add your handling code here:
-
+        try {
+            Component[] comps = panelInternoIzq2.getComponents();
+            for (Component comp : comps) {
+                if (comp instanceof JTextField) {
+                    if (((JTextField) comp).getText().equals("")) {
+                        JOptionPane.showMessageDialog(null, "Ningun campo puede estar vacio, primero realice una busqueda.");
+                        break;
+                    } else {
+                        int codBrig = Integer.valueOf(textCodigoBrigada.getText());
+                        brigadaDB.eliminarBrigada(codBrig);
+                        break;
+                    }
+                }
+            }
+            textCodigoBrigada.setText("");
+            textNombreBrigada.setText("");
+            textEspecialidadBrigada.setText("");
+            comboCodCuartelBrigada.setSelectedItem("");
+            checkLibreBrigada.setSelected(false);
+        } catch (NullPointerException ex) {
+            JOptionPane.showMessageDialog(null, "Error al intentar eliminar brigada.");
+        }
     }//GEN-LAST:event_botonEliminarBrigadasActionPerformed
 
     private void botonModificarBrigadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarBrigadasActionPerformed
@@ -593,7 +635,7 @@ public class Brigadas extends javax.swing.JPanel {
             comboCodCuartelBrigada.setSelectedItem(String.valueOf(codigo));
         }
     }
-    
+
     public void mostrarPanel(Component com) {
         panelInterno.removeAll();
         panelInterno.add(com);

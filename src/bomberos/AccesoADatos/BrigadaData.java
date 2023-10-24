@@ -45,8 +45,7 @@ public class BrigadaData {
     }
 
     public void modificarBrigada(Brigada brigada) {
-        String sql = "update brigada set nombre_br = ?, especialidad = ?, "
-                + "libre = ?, codCuartel = ? WHERE codBrigada = ?";
+        String sql = "update brigada set nombre_br = ?, especialidad = ?,libre = ?, codCuartel = ? WHERE codBrigada = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, brigada.getNombre_br());
@@ -56,18 +55,18 @@ public class BrigadaData {
             ps.setInt(5, brigada.getCodBrigada());
             int exito = ps.executeUpdate();
             if (exito == 1) {
-                JOptionPane.showMessageDialog(null, "Datos modificados.");
+                JOptionPane.showMessageDialog(null, "Brigada modificada.");
             } else {
-                JOptionPane.showMessageDialog(null, "Datos no modificados.");
+                JOptionPane.showMessageDialog(null, "Brigada no modificada.");
             }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
+            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos brigada.");
         }
     }
 
     public void eliminarBrigada(int codBrigada) {
-        String sql = "delete * from brigada where codBrigada = ?";
+        String sql = "delete from brigada where codBrigada = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, codBrigada);
@@ -186,6 +185,8 @@ public class BrigadaData {
                 brigada.setEspecialidad(rs.getString("especialidad"));
                 brigada.setLibre(rs.getBoolean("libre"));
                 brigada.setCodCuartel(rs.getInt("codCuartel"));
+            } else {
+                JOptionPane.showMessageDialog(null, "NO se encontro brigada con ese código, pruebe con uno diferente!");
             }
             ps.close();
             rs.close();
@@ -242,5 +243,4 @@ public class BrigadaData {
         }
         return brigadas;
     }
-
 }

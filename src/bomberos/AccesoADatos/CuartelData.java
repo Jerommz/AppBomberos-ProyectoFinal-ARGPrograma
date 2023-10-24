@@ -17,10 +17,11 @@ public class CuartelData {
     private final Connection con;
     private Cuartel cuartel;
     private CuartelData cuakDB;
-    private  Conexion conexion;
+    private Conexion conexion;
+
     //constructor vacio
     public CuartelData() {
-       
+
         con = Conexion.getConnection();
     }
 
@@ -51,7 +52,7 @@ public class CuartelData {
     }
 
     public void modificarCuartel(Cuartel cuartel) {
-        String sql = "UPDATE cuartel SET nombre_cuartel = ?, direccion = ?, coord_X = ?, coord_Y = ?, telefono = ?, correo = ? WHERE codCuartel = ?";
+        String sql = "UPDATE cuartel SET nombre_cuartel = ?, direccion = ?, coord_X = ?, coord_Y = ?, telefono = ?, correo = ? WHERE cuartel.codCuartel = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, cuartel.getNombre_cuartel());
@@ -74,10 +75,10 @@ public class CuartelData {
     }
 
     public void eliminarCuartel(int codCuartel) {
-        String sql = "delete cuartel where codCuartel =?";
+        String sql = "delete from cuartel where codCuartel =?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, cuartel.getCodCuartel());
+            ps.setInt(1, codCuartel);
             int exito = ps.executeUpdate();
             if (exito == 1) {
                 JOptionPane.showMessageDialog(null, "Cuartel eliminado.");
@@ -111,12 +112,12 @@ public class CuartelData {
     }
 
     public List<Cuartel> obtenerCuarteles() {
-        if(con == null){
-        JOptionPane.showMessageDialog(null, "error en conexion verifique maria ");
+        if (con == null) {
+            JOptionPane.showMessageDialog(null, "error en conexion verifique maria ");
         }
         List<Cuartel> cuarteles = new ArrayList<>();
         String sql = "SELECT codCuartel, nombre_cuartel, direccion, coord_X, coord_Y, telefono, correo FROM cuartel";
-        
+
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -131,15 +132,15 @@ public class CuartelData {
                 cuartel.setCorreo(rs.getString("correo"));
                 cuarteles.add(cuartel);
             }
-          
+
             ps.close();
             rs.close();
-            
+
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.Cuarteles");
         }
         return cuarteles;
-        
+
     }
 
     public Cuartel buscarCuartel(int codCuartel) {
@@ -157,12 +158,18 @@ public class CuartelData {
                 cuartel.setCoord_Y(rs.getInt("coord_Y"));
                 cuartel.setTelefono(rs.getInt("telefono"));
                 cuartel.setCorreo(rs.getString("correo"));
+            } else {
+                JOptionPane.showMessageDialog(null, "NO se encontro cuartel con ese código, pruebe con uno diferente!");
             }
             ps.close();
             rs.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.1");
+            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
         }
         return cuartel;
+    }
+
+    public Cuartel buscarCuartel(String codCuartel) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

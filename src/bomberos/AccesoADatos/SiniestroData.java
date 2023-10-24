@@ -236,5 +236,30 @@ public class SiniestroData {
 
         return cuartelMasCercano;
     }
+public void modificarSiniestro(Siniestro siniestro) {
+    String sql = "UPDATE siniestro SET tipo = ?, fecha_siniestro = ?, coord_X = ?, coord_Y = ?, detalles = ?, fecha_resol = ?, puntuacion = ?, codBrigada = ? WHERE codigo = ?";
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1, siniestro.getTipo());
+        ps.setDate(2, Date.valueOf(siniestro.getFecha_siniestro()));
+        ps.setInt(3, siniestro.getCoord_X());
+        ps.setInt(4, siniestro.getCoord_Y());
+        ps.setString(5, siniestro.getDetalles());
+        ps.setDate(6, Date.valueOf(siniestro.getFecha_resol()));
+        ps.setInt(7, siniestro.getPuntuacion());
+        ps.setInt(8, siniestro.getCodBrigada());
+        //  un campo id que representa la clave primaria de la tabla siniestro
+        ps.setInt(9, siniestro.getCodigo());
+        
+        int exito = ps.executeUpdate();
+        if (exito > 0) {
+            JOptionPane.showMessageDialog(null, "Siniestro modificado con éxito.");
+        } else {
+            JOptionPane.showMessageDialog(null, "No se pudo modificar el siniestro.");
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "error al cargar sql de modificar siniestro"+e); // Manejo básico de excepciones, puedes personalizar esto según tus necesidades.
+    }
+}
 
 }
