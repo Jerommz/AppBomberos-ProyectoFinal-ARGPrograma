@@ -45,7 +45,16 @@ public class Brigadas extends javax.swing.JPanel {
             public void keyTyped(KeyEvent evt) {
                 if (textNombreBrigada.getText().length() >= 20) {
                     evt.consume();
-                    JOptionPane.showMessageDialog(null, "Maximo 20 caracteres.");
+                    JOptionPane.showMessageDialog(null, "Maximo 20 caracteres.");    // ---> Control de caracteres maximo por campo
+                }
+            }
+        });
+        textEspecialidadBrigada.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                if (textEspecialidadBrigada.getText().length() >= 80) {
+                    evt.consume();
+                    JOptionPane.showMessageDialog(null, "Maximo 80 caracteres.");    // ---> Control de caracteres maximo por campo
                 }
             }
         });
@@ -429,6 +438,7 @@ public class Brigadas extends javax.swing.JPanel {
                 String codBrigada = textCodigoBrigada.getText();
                 if (codBrigada.matches("\\d+")) {
                     Brigada brigada = brigadaDB.buscarBrigada(Integer.valueOf(codBrigada));
+                    textCodigoBrigada.setText(brigada.getCodBrigada()+"");                        //<------ control de no ingreso de letras al buscar
                     textNombreBrigada.setText(brigada.getNombre_br());
                     textEspecialidadBrigada.setText(brigada.getEspecialidad());
                     checkLibreBrigada.setSelected(brigada.isLibre());

@@ -9,6 +9,8 @@ import bomberos.AccesoADatos.CuartelData;
 import bomberos.Entidades.Cuartel;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JButton;
@@ -30,6 +32,33 @@ public class Cuarteles extends javax.swing.JPanel {
     public Cuarteles() {
         initComponents();
         botones();
+        textNombreCuartel.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                if (textNombreCuartel.getText().length() >= 20) {
+                    evt.consume();
+                    JOptionPane.showMessageDialog(null, "Maximo 20 caracteres para el nombre de cuartel.");    // ---> Control de caracteres maximo por campo
+                }
+            }
+        });
+        textDireccionCuartel.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                if (textDireccionCuartel.getText().length() >= 30) {
+                    evt.consume();
+                    JOptionPane.showMessageDialog(null, "Maximo 30 caracteres para la dirección de cuartel.");    // ---> Control de caracteres maximo por campo
+                }
+            }
+        });
+        textCorreoCuartel.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                if (textCorreoCuartel.getText().length() >= 30) {
+                    evt.consume();
+                    JOptionPane.showMessageDialog(null, "Maximo 30 caracteres para la dirección de correo de cuartel.");    // ---> Control de caracteres maximo por campo
+                }
+            }
+        });
     }
 
     /**
@@ -343,6 +372,11 @@ public class Cuarteles extends javax.swing.JPanel {
         textNumeroCuartel.setForeground(java.awt.Color.white);
         textNumeroCuartel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         textNumeroCuartel.setPreferredSize(new java.awt.Dimension(150, 30));
+        textNumeroCuartel.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                textNumeroCuartelKeyTyped(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 13;
@@ -377,6 +411,11 @@ public class Cuarteles extends javax.swing.JPanel {
         textCoordY.setForeground(java.awt.Color.white);
         textCoordY.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         textCoordY.setPreferredSize(new java.awt.Dimension(50, 30));
+        textCoordY.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                textCoordYKeyTyped(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 12;
@@ -389,6 +428,11 @@ public class Cuarteles extends javax.swing.JPanel {
         textCoordX.setForeground(java.awt.Color.white);
         textCoordX.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         textCoordX.setPreferredSize(new java.awt.Dimension(50, 30));
+        textCoordX.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                textCoordXKeyTyped(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 12;
@@ -442,14 +486,22 @@ public class Cuarteles extends javax.swing.JPanel {
             if (textCodigoCuartel.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Introduzca un codigo valido.");
             } else {
-                int codBrigada = Integer.valueOf(textCodigoCuartel.getText());
-                Cuartel cuartel = cuartelDB.buscarCuartel(codBrigada);
-                textNombreCuartel.setText(cuartel.getNombre_cuartel());
-                textDireccionCuartel.setText(cuartel.getDireccion());
-                textCoordX.setText(cuartel.getCoord_X() + "");
-                textCoordY.setText(cuartel.getCoord_Y() + "");
-                textNumeroCuartel.setText(cuartel.getTelefono() + "");
-                textCorreoCuartel.setText(cuartel.getCorreo());
+                String codCuartel = textCodigoCuartel.getText();
+                if (codCuartel.matches("\\d+")) {
+                    //int codCuartel = Integer.valueOf(textCodigoCuartel.getText());
+                    Cuartel cuartel = cuartelDB.buscarCuartel(Integer.valueOf(codCuartel));
+                    textCodigoCuartel.setText(cuartel.getCodCuartel() + "");                        //<------ control de no ingreso de letras al buscar
+                    textNombreCuartel.setText(cuartel.getNombre_cuartel());
+                    textDireccionCuartel.setText(cuartel.getDireccion());
+                    textCoordX.setText(cuartel.getCoord_X() + "");
+                    textCoordY.setText(cuartel.getCoord_Y() + "");
+                    textNumeroCuartel.setText(cuartel.getTelefono() + "");
+                    textCorreoCuartel.setText(cuartel.getCorreo());
+                } else {
+                    JOptionPane.showMessageDialog(null, "El campo codigo no puede contener letras.");
+                    textCodigoCuartel.setText("");
+
+                }
             }
         } catch (NullPointerException ex) {
             JOptionPane.showMessageDialog(null, "Cuartel no encontrado, corrija el codigo.");
@@ -553,6 +605,30 @@ public class Cuarteles extends javax.swing.JPanel {
         // TODO add your handling code here:
         mostrarPanel(new ListarCuarteles());
     }//GEN-LAST:event_botonListarCuartelesActionPerformed
+
+    private void textNumeroCuartelKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textNumeroCuartelKeyTyped
+        // TODO add your handling code here:
+        if (textNumeroCuartel.getText().length() >= 15) {
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Maximo 15 numeros para telefono.");    // ---> Control de caracteres maximo por campo
+        }
+    }//GEN-LAST:event_textNumeroCuartelKeyTyped
+
+    private void textCoordXKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textCoordXKeyTyped
+        // TODO add your handling code here:
+        if (textCoordX.getText().length() >= 3) {
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Maximo 3 numeros para las coordenadas X en Cuarteles.");    // ---> Control de caracteres maximo por campo
+        }
+    }//GEN-LAST:event_textCoordXKeyTyped
+
+    private void textCoordYKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textCoordYKeyTyped
+        // TODO add your handling code here:
+        if (textCoordX.getText().length() >= 3) {
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Maximo 3 numeros para las coordenadas Y en Cuarteles.");    // ---> Control de caracteres maximo por campo
+        }
+    }//GEN-LAST:event_textCoordYKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
