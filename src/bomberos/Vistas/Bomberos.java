@@ -46,7 +46,7 @@ public class Bomberos extends javax.swing.JPanel {
             public void keyTyped(KeyEvent evt) {
                 if (textNombreApBombero.getText().length() >= 50) {
                     evt.consume();
-                    JOptionPane.showMessageDialog(null, "Maximo 50 caracteres.");
+                    JOptionPane.showMessageDialog(null, "Maximo 50 caracteres.");    // ---> Control de caracteres maximo por campo
                 }
             }
         });
@@ -667,7 +667,7 @@ public class Bomberos extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (textDNIBombero.getText().length() >= 8) {
             evt.consume();
-            JOptionPane.showMessageDialog(null, "Maximo 8 numeros.");
+            JOptionPane.showMessageDialog(null, "Maximo 8 numeros.");    // ---> Control de caracteres maximo por campo
         }
     }//GEN-LAST:event_textDNIBomberoKeyTyped
 
@@ -675,7 +675,7 @@ public class Bomberos extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (textCelularBombero.getText().length() >= 11) {
             evt.consume();
-            JOptionPane.showMessageDialog(null, "Maximo 11 numeros.");
+            JOptionPane.showMessageDialog(null, "Maximo 11 numeros.");    // ---> Control de caracteres maximo por campo
         }
     }//GEN-LAST:event_textCelularBomberoKeyTyped
 

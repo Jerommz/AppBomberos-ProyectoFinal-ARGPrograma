@@ -17,7 +17,7 @@ public class CuartelData {
     private final Connection con;
     private Cuartel cuartel;
     private CuartelData cuakDB;
-    private  Conexion conexion;
+    private Conexion conexion;
     //constructor vacio
     public CuartelData() {
        
@@ -161,8 +161,12 @@ public class CuartelData {
             ps.close();
             rs.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.1");
+            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
         }
         return cuartel;
+    }
+
+    public Cuartel buscarCuartel(String codCuartel) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
