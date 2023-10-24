@@ -1,32 +1,25 @@
 package bomberos.AccesoADatos;
 
-import java.sql.Connection;
 import bomberos.AccesoAdatos.Conexion;
 import bomberos.Entidades.Cuartel;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
 public class CuartelData {
 
-    //atributos necesarios para los metodos utilizados
     private final Connection con;
     private Cuartel cuartel;
     private CuartelData cuakDB;
     private Conexion conexion;
 
-    //constructor vacio
     public CuartelData() {
-
         con = Conexion.getConnection();
     }
 
     public void nuevoCuartel(Cuartel cuartel) {
-        String sql = "INSERT INTO cuartel(nombre_cuartel, direccion, coord_X, coord_Y, telefono, correo) VALUES (?,?,?,?,?,?)";
+        String sql = "INSERT INTO cuartel(nombre_cuartel, direccion, coord_X, coord_Y, telefono, correo) VALUES (?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, cuartel.getNombre_cuartel());
@@ -42,12 +35,11 @@ public class CuartelData {
                 JOptionPane.showMessageDialog(null, "Cuartel agregado.");
             } else {
                 JOptionPane.showMessageDialog(null, "Cuartel no agregado.");
-
             }
             ps.close();
             rs.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos cuartel.");
+            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
         }
     }
 
@@ -68,14 +60,15 @@ public class CuartelData {
             } else {
                 JOptionPane.showMessageDialog(null, "Cuartel no modificado.");
             }
+            ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos cuartel.");
+            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
         }
 
     }
 
     public void eliminarCuartel(int codCuartel) {
-        String sql = "delete from cuartel where codCuartel =?";
+        String sql = "DELETE from cuartel where codCuartel = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, codCuartel);
@@ -85,8 +78,9 @@ public class CuartelData {
             } else {
                 JOptionPane.showMessageDialog(null, "Cuartel no eliminado.");
             }
+            ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos cuartel.");
+            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
         }
 
     }
@@ -98,7 +92,6 @@ public class CuartelData {
                 + "WHERE c.codcuartel = ?"
                 + "GROUP BY b.codbrigada";
         try {
-
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, cuartel.getCodCuartel());
             ResultSet rs = ps.getGeneratedKeys();
@@ -106,18 +99,16 @@ public class CuartelData {
                 int count = rs.getInt("count");
                 JOptionPane.showMessageDialog(null, "Cantidad de brigadas: " + count);
             }
+            ps.close();
+            rs.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos cuartel.");
+            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
         }
     }
 
     public List<Cuartel> obtenerCuarteles() {
-        if (con == null) {
-            JOptionPane.showMessageDialog(null, "error en conexion verifique maria ");
-        }
         List<Cuartel> cuarteles = new ArrayList<>();
         String sql = "SELECT codCuartel, nombre_cuartel, direccion, coord_X, coord_Y, telefono, correo FROM cuartel";
-
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -132,12 +123,10 @@ public class CuartelData {
                 cuartel.setCorreo(rs.getString("correo"));
                 cuarteles.add(cuartel);
             }
-
             ps.close();
             rs.close();
-
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.Cuarteles");
+            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
         }
         return cuarteles;
 
@@ -159,7 +148,7 @@ public class CuartelData {
                 cuartel.setTelefono(rs.getInt("telefono"));
                 cuartel.setCorreo(rs.getString("correo"));
             } else {
-                JOptionPane.showMessageDialog(null, "NO se encontro cuartel con ese código, pruebe con uno diferente!");
+                JOptionPane.showMessageDialog(null, "No se encontro cuartel con ese codigo, pruebe con uno diferente.");
             }
             ps.close();
             rs.close();
@@ -167,9 +156,5 @@ public class CuartelData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
         }
         return cuartel;
-    }
-
-    public Cuartel buscarCuartel(String codCuartel) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

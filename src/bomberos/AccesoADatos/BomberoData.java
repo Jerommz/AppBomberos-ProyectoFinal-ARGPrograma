@@ -1,7 +1,6 @@
 package bomberos.AccesoAdatos;
 
 import bomberos.Entidades.Bombero;
-import java.sql.Connection;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +16,7 @@ public class BomberoData {
         con = Conexion.getConnection();
     }
 
+    //revisar
     public void nuevoBombero(Bombero bombero) {
         int dnibusca = bombero.getDni();
         if (bombero.getDni() != buscarBomberoPorDni(dnibusca).getDni()) {
@@ -43,14 +43,15 @@ public class BomberoData {
                 rs.close();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
-            }}else{
-                JOptionPane.showMessageDialog(null, "DNI existente, por favor modificar para dar de alta");
-                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "DNI existente, por favor modificar para dar de alta");
+        }
     }
 
     public void modificarBombero(Bombero bombero) {
         String sql = "update bombero set dni = ?, nombre_ape = ?, grupo_sang = ?, "
-                + "fecha = ?, celular = ?, codBrigada = ?, estado = ? WHERE id_bombero =?";
+                + "fecha = ?, celular = ?, codBrigada = ?, estado = ? WHERE id_bombero = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, bombero.getDni());
@@ -102,6 +103,8 @@ public class BomberoData {
                     asignarBomberoABrigada(codBrigada, id_bombero);
                 }
             }
+            ps.close();
+            rs.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
         }
@@ -115,17 +118,18 @@ public class BomberoData {
             ps.setInt(2, id_bombero);
             int exito = ps.executeUpdate();
             if (exito == 1) {
-                JOptionPane.showMessageDialog(null, "bombero asignado");
+                JOptionPane.showMessageDialog(null, "Bombero asignado.");
             } else {
-                JOptionPane.showMessageDialog(null, "el bombero no se pudo asignar a la brigada");
+                JOptionPane.showMessageDialog(null, "Bombero no asignado.");
             }
+            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
         }
     }
 
     public List<Bombero> listarBomberos(int codBrigada) {
-        String sql = "SELECT  id_bombero,dni, nombre_ape, grupo_sang, fecha, celular,  estado FROM bombero WHERE codBrigada =?";
+        String sql = "SELECT  id_bombero, dni, nombre_ape, grupo_sang, fecha, celular, estado FROM bombero WHERE codBrigada = ?";
         List<Bombero> bomberos = new ArrayList<>();
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -150,7 +154,7 @@ public class BomberoData {
     }
 
     public Bombero buscarBomberoPorDni(int dni) {
-        String sql = "select id_bombero, nombre_ape, grupo_sang, fecha, celular, codBrigada, estado from bombero where dni = ?";
+        String sql = "SELECT id_bombero, nombre_ape, grupo_sang, fecha, celular, codBrigada, estado from bombero where dni = ?";
         bombero = new Bombero();
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -184,8 +188,10 @@ public class BomberoData {
             if (rs.next()) {
                 count = rs.getInt(1);
             }
+            ps.close();
+            rs.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al contar bomberos.");
+            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
         }
         return count;
     }

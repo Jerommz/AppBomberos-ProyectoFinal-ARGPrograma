@@ -9,10 +9,8 @@ import javax.swing.JOptionPane;
 
 public class BrigadaData {
 
-    //atributos necesarios para los metodos utilizados
     private final Connection con;
 
-    //constructor vacio
     public BrigadaData() {
         con = Conexion.getConnection();
     }
@@ -21,7 +19,6 @@ public class BrigadaData {
         String sql = "insert into brigada(nombre_br, especialidad, libre, codCuartel)"
                 + "VALUES (?, ?, ?, ?)";
         try {
-            //envio de query a la base de datos
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             ps.setString(1, brigada.getNombre_br());
@@ -31,7 +28,6 @@ public class BrigadaData {
             int exito = ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
-                //seteo de idbombero en bomberoData
                 brigada.setCodBrigada(rs.getInt(1));
                 JOptionPane.showMessageDialog(null, "Brigada agregada.");
             } else {
@@ -61,7 +57,7 @@ public class BrigadaData {
             }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos brigada.");
+            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
         }
     }
 
@@ -100,7 +96,7 @@ public class BrigadaData {
             ps.close();
             rs.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.brigada.");
+            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
         }
         return brigadas;
     }
@@ -115,6 +111,7 @@ public class BrigadaData {
             if (exito == 1) {
                 JOptionPane.showMessageDialog(null, "Brigada " + codBrigada + " en camino.");
             }
+            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
         }
@@ -134,6 +131,8 @@ public class BrigadaData {
                     JOptionPane.showMessageDialog(null, "Brigada no disponible.");
                 }
             }
+            ps.close();
+            rs.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
         }
@@ -151,6 +150,7 @@ public class BrigadaData {
             } else {
                 JOptionPane.showMessageDialog(null, "Especialidad no actualizada.");
             }
+            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
         }
@@ -166,6 +166,8 @@ public class BrigadaData {
             if (rs.next()) {
                 especialidad = rs.getString("especialidad");
             }
+            ps.close();
+            rs.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
         }
@@ -186,7 +188,7 @@ public class BrigadaData {
                 brigada.setLibre(rs.getBoolean("libre"));
                 brigada.setCodCuartel(rs.getInt("codCuartel"));
             } else {
-                JOptionPane.showMessageDialog(null, "NO se encontro brigada con ese código, pruebe con uno diferente!");
+                JOptionPane.showMessageDialog(null, "No se encontro brigada con ese codigo, pruebe con uno diferente.");
             }
             ps.close();
             rs.close();
@@ -215,7 +217,7 @@ public class BrigadaData {
             ps.close();
             rs.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos de brigadas por cuartel.");
+            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
         }
         return brigadas;
     }
@@ -239,7 +241,7 @@ public class BrigadaData {
             ps.close();
             rs.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos de brigadas.");
+            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
         }
         return brigadas;
     }
