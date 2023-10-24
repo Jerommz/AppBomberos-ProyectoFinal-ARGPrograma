@@ -28,6 +28,7 @@ import javax.swing.table.TableColumnModel;
 import bomberos.Entidades.Cuartel;
 import java.sql.Date;
 import java.time.LocalDate;
+import bomberos.Vistas.ListarSiniestros1;
 
 /**
  *
@@ -510,7 +511,8 @@ public class Siniestros extends javax.swing.JPanel {
     }//GEN-LAST:event_botonCalcularSiniestrosActionPerformed
 
     private void botonListarSiniestros1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonListarSiniestros1ActionPerformed
-        // TODO add your handling code here:
+        mostrarPanel(new ListarSiniestros1());
+        
     }//GEN-LAST:event_botonListarSiniestros1ActionPerformed
 
 

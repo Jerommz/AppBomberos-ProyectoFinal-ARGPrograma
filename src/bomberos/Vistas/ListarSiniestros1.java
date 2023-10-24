@@ -5,26 +5,36 @@
  */
 package bomberos.Vistas;
 
+import bomberos.AccesoADatos.SiniestroData;
+import bomberos.Entidades.Siniestro;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.plaf.basic.BasicButtonUI;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
+import bomberos.AccesoADatos.SiniestroData;
+import java.time.LocalDate;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
  * @author jero
  */
 public class ListarSiniestros1 extends javax.swing.JPanel {
-
-    String[] modeloCuartel = {"ID", "Nombre", "Direccion", "X", "Y", "Telefono", "Correo"};
-    DefaultTableModel modeloCuartelAct = new DefaultTableModel(null, modeloCuartel) {
+     String[] modeloSiniestro = {"Codigo", "Tipo", "Fecha", "X", "Y", "Detalles", "Fecha finalizacion", "Puntaje", "Codigo Brigada"};
+     SiniestroData siDB =new SiniestroData();
+     
+     DefaultTableModel modeloSiniestroAct = new DefaultTableModel(null, modeloSiniestro) {
         @Override
         public boolean isCellEditable(int row, int column) {
             return false;
         }
     };
+
 
     /**
      * Creates new form ListarCuarteles
@@ -33,6 +43,8 @@ public class ListarSiniestros1 extends javax.swing.JPanel {
         initComponents();
 //        modeloTablaCuartel();
         botones();
+        modeloTablaSiniestro();
+        mostrarTablaSiniestro();
     }
 
     /**
@@ -65,12 +77,12 @@ public class ListarSiniestros1 extends javax.swing.JPanel {
         textTipoSiniestro = new javax.swing.JTextField();
         textFechaInicioSiniestro = new javax.swing.JTextField();
         textFechaFinSiniestro = new javax.swing.JTextField();
-        textPuntajeSiniestro = new javax.swing.JTextField();
+        textPuntox = new javax.swing.JTextField();
         textBrigadaSiniestro = new javax.swing.JTextField();
         botonModificarSiniestro = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        textPuntajeSiniestro1 = new javax.swing.JTextField();
+        textPuntoY = new javax.swing.JTextField();
         textPuntajeSiniestro2 = new javax.swing.JTextField();
         botonFinalizarSiniestro = new javax.swing.JButton();
 
@@ -194,10 +206,10 @@ public class ListarSiniestros1 extends javax.swing.JPanel {
         panelBot.add(textFechaFinSiniestro);
         textFechaFinSiniestro.setBounds(303, 50, 70, 30);
 
-        textPuntajeSiniestro.setBackground(new Color(193,29,29));
-        textPuntajeSiniestro.setPreferredSize(new java.awt.Dimension(40, 30));
-        panelBot.add(textPuntajeSiniestro);
-        textPuntajeSiniestro.setBounds(528, 50, 40, 30);
+        textPuntox.setBackground(new Color(193,29,29));
+        textPuntox.setPreferredSize(new java.awt.Dimension(40, 30));
+        panelBot.add(textPuntox);
+        textPuntox.setBounds(528, 50, 40, 30);
 
         textBrigadaSiniestro.setBackground(new Color(193,29,29));
         textBrigadaSiniestro.setPreferredSize(new java.awt.Dimension(50, 30));
@@ -210,6 +222,11 @@ public class ListarSiniestros1 extends javax.swing.JPanel {
         botonModificarSiniestro.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         botonModificarSiniestro.setBorderPainted(false);
         botonModificarSiniestro.setPreferredSize(new java.awt.Dimension(120, 40));
+        botonModificarSiniestro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonModificarSiniestroActionPerformed(evt);
+            }
+        });
         panelBot.add(botonModificarSiniestro);
         botonModificarSiniestro.setBounds(634, 132, 120, 40);
 
@@ -225,10 +242,10 @@ public class ListarSiniestros1 extends javax.swing.JPanel {
         panelBot.add(jLabel9);
         jLabel9.setBounds(576, 55, 14, 19);
 
-        textPuntajeSiniestro1.setBackground(new Color(193,29,29));
-        textPuntajeSiniestro1.setPreferredSize(new java.awt.Dimension(40, 30));
-        panelBot.add(textPuntajeSiniestro1);
-        textPuntajeSiniestro1.setBounds(594, 50, 40, 30);
+        textPuntoY.setBackground(new Color(193,29,29));
+        textPuntoY.setPreferredSize(new java.awt.Dimension(40, 30));
+        panelBot.add(textPuntoY);
+        textPuntoY.setBounds(594, 50, 40, 30);
 
         textPuntajeSiniestro2.setBackground(new Color(193,29,29));
         textPuntajeSiniestro2.setPreferredSize(new java.awt.Dimension(40, 30));
@@ -241,6 +258,11 @@ public class ListarSiniestros1 extends javax.swing.JPanel {
         botonFinalizarSiniestro.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         botonFinalizarSiniestro.setBorderPainted(false);
         botonFinalizarSiniestro.setPreferredSize(new java.awt.Dimension(120, 40));
+        botonFinalizarSiniestro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonFinalizarSiniestroActionPerformed(evt);
+            }
+        });
         panelBot.add(botonFinalizarSiniestro);
         botonFinalizarSiniestro.setBounds(634, 190, 120, 40);
 
@@ -263,6 +285,40 @@ public class ListarSiniestros1 extends javax.swing.JPanel {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void botonModificarSiniestroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarSiniestroActionPerformed
+        if(textBrigadaSiniestro ==null ||textDescSiniestro ==null ||textFechaFinSiniestro ==null ||textFechaInicioSiniestro==null|| textPuntajeSiniestro2==null||textTipoSiniestro ==null || textPuntox==null || textPuntoY == null){
+        JOptionPane.showMessageDialog(null, "todoslos campos deben estar completos");
+        }else{
+        int codBrigada=Integer.parseInt(textBrigadaSiniestro.getText());
+        String detalle =textDescSiniestro.getText();
+        LocalDate fecha_siniestro = LocalDate.parse( textFechaFinSiniestro.getText());
+        LocalDate fecha_resol = LocalDate.parse( textFechaInicioSiniestro.getText());
+        int puntaje =Integer.parseInt(textPuntajeSiniestro2.getText());
+        String tipo =textTipoSiniestro.getText();
+        int coor_X=Integer.parseInt(textPuntox.getText());
+        int cood_Y=Integer.parseInt(textPuntoY.getText());
+        Siniestro accidente =new Siniestro(tipo, fecha_siniestro, coor_X, cood_Y, detalle, fecha_resol, puntaje, codBrigada);
+        siDB.modificarSiniestro(accidente);
+        }
+    }//GEN-LAST:event_botonModificarSiniestroActionPerformed
+
+    private void botonFinalizarSiniestroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonFinalizarSiniestroActionPerformed
+      if(textBrigadaSiniestro ==null ||textDescSiniestro ==null ||textFechaFinSiniestro ==null ||textFechaInicioSiniestro==null|| textPuntajeSiniestro2==null||textTipoSiniestro ==null || textPuntox==null || textPuntoY == null){
+        JOptionPane.showMessageDialog(null, "todoslos campos deben estar completos");
+        }else{
+        int codBrigada=Integer.parseInt(textBrigadaSiniestro.getText());
+        String detalle =textDescSiniestro.getText();
+        LocalDate fecha_siniestro = LocalDate.parse( textFechaFinSiniestro.getText());
+        LocalDate fecha_resol = LocalDate.parse( textFechaInicioSiniestro.getText());
+        int puntaje =Integer.parseInt(textPuntajeSiniestro2.getText());
+        String tipo =textTipoSiniestro.getText();
+        int coor_X=Integer.parseInt(textPuntox.getText());
+        int cood_Y=Integer.parseInt(textPuntoY.getText());
+        Siniestro accidente =new Siniestro(tipo, fecha_siniestro, coor_X, cood_Y, detalle, fecha_resol, puntaje, codBrigada); 
+        siDB.anotarTerminacionDeSiniestro(cood_Y, fecha_resol, puntaje);
+      }
+    }//GEN-LAST:event_botonFinalizarSiniestroActionPerformed
 
     private void cbListarAdminActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cbListarAdminActionPerformed
         // TODO add your handling code here:
@@ -292,23 +348,29 @@ public class ListarSiniestros1 extends javax.swing.JPanel {
     private javax.swing.JTextArea textDescSiniestro;
     private javax.swing.JTextField textFechaFinSiniestro;
     private javax.swing.JTextField textFechaInicioSiniestro;
-    private javax.swing.JTextField textPuntajeSiniestro;
-    private javax.swing.JTextField textPuntajeSiniestro1;
     private javax.swing.JTextField textPuntajeSiniestro2;
+    private javax.swing.JTextField textPuntoY;
+    private javax.swing.JTextField textPuntox;
     private javax.swing.JTextField textTipoSiniestro;
     // End of variables declaration//GEN-END:variables
 
-//    public void modeloTablaCuartel() {
-//        tablaListarAdmin.setModel(modeloCuartelAct);
-//        TableColumnModel columnaCuartel = tablaListarAdmin.getColumnModel();
-//        columnaCuartel.getColumn(0).setMaxWidth(60);
-//        columnaCuartel.getColumn(1).setMaxWidth(300);
-//        columnaCuartel.getColumn(2).setMaxWidth(500);
-//        columnaCuartel.getColumn(3).setMaxWidth(40);
-//        columnaCuartel.getColumn(4).setMaxWidth(40);
-//        columnaCuartel.getColumn(5).setMaxWidth(100);
-//        columnaCuartel.getColumn(6).setMaxWidth(500);
-//    }
+ public void mostrarTablaSiniestro() {
+        
+        List<Siniestro> siniestros = siDB.listarSiniestros();
+        for (Siniestro sini : siniestros) {
+            modeloSiniestroAct.addRow(new Object[]{
+                sini.getCodigo(),
+                sini.getTipo(),
+                sini.getFecha_siniestro(),
+                sini.getDetalles(),
+                sini.getCoord_X(),
+                sini.getCoord_Y(),
+                sini.getFecha_resol(),
+                sini.getPuntuacion(),
+                sini.getCodBrigada()
+            });
+        }
+    }
 
     public void botones() {
         JButton btns[] = {botonModificarSiniestro, botonFinalizarSiniestro};
@@ -340,4 +402,23 @@ public class ListarSiniestros1 extends javax.swing.JPanel {
             });
         }
     }
+    
+    
+    public void modeloTablaSiniestro() {
+
+        tablaListarAdmin.setModel(modeloSiniestroAct);
+        TableColumnModel columnaSiniestro = tablaListarAdmin.getColumnModel();
+        columnaSiniestro.getColumn(0).setMaxWidth(60);
+        columnaSiniestro.getColumn(1).setMaxWidth(300);
+        columnaSiniestro.getColumn(2).setMaxWidth(500);
+        columnaSiniestro.getColumn(3).setMaxWidth(40);
+        columnaSiniestro.getColumn(4).setMaxWidth(40);
+        columnaSiniestro.getColumn(5).setMaxWidth(100);
+        columnaSiniestro.getColumn(6).setMaxWidth(500);
+        columnaSiniestro.getColumn(7).setMaxWidth(500);
+        columnaSiniestro.getColumn(8).setMaxWidth(500);
+    }
+    
+    
+    
 }
