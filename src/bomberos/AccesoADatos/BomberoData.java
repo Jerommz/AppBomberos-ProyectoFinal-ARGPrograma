@@ -9,7 +9,6 @@ import javax.swing.JOptionPane;
 public class BomberoData {
 
     private final Connection con;
-    private Bombero bombero;
     private BomberoData briDB;
 
     public BomberoData() {
@@ -128,15 +127,16 @@ public class BomberoData {
     }
 
     public List<Bombero> listarBomberos(int codBrigada) {
-        String sql = "SELECT  id_bombero, dni, nombre_ape, grupo_sang, fecha, celular, estado FROM bombero WHERE codBrigada = ?";
+        String sql = "SELECT * FROM bombero WHERE codBrigada = ?";
         List<Bombero> bomberos = new ArrayList<>();
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, codBrigada);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
+            while (rs.next()) {
                 Bombero bombero = new Bombero();
                 bombero.setId_Bombero(rs.getInt("id_bombero"));
+                bombero.setDni(rs.getInt("dni"));
                 bombero.setNombre_ape(rs.getString("nombre_ape"));
                 bombero.setGrupo_sang(rs.getString("grupo_sang"));
                 bombero.setFecha(rs.getDate("fecha").toLocalDate());
@@ -154,7 +154,7 @@ public class BomberoData {
 
     public Bombero buscarBomberoPorDni(int dni) {
         String sql = "SELECT id_bombero, nombre_ape, grupo_sang, fecha, celular, codBrigada, estado from bombero where dni = ?";
-        bombero = new Bombero();
+        Bombero bombero = new Bombero();
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, dni);
