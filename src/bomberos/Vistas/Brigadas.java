@@ -452,8 +452,9 @@ public final class Brigadas extends javax.swing.JPanel {
                         JOptionPane.showMessageDialog(null, "Ningun campo puede estar vacio.");
                         break;
                     } else {
-                        String codBrigada = textCodigoBrigada.getText();
-                        if (codBrigada.matches("\\d+")) {
+                        //String codBrigada = textCodigoBrigada.getText();
+                        String nomBrig = textNombreBrigada.getText();
+                        if (!nomBrig.matches("\\d+")) {
                             String nombre_br = textNombreBrigada.getText();
                             String especialidad = textEspecialidadBrigada.getText();
                             boolean libre = checkLibreBrigada.isSelected();

@@ -29,7 +29,7 @@ public class BrigadaData {
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 brigada.setCodBrigada(rs.getInt(1));
-                JOptionPane.showMessageDialog(null, "Brigada agregada.");
+                JOptionPane.showMessageDialog(null, "Brigada agregada con numero: " + brigada.getCodBrigada() );
             } else {
                 JOptionPane.showMessageDialog(null, "Brigada no agregada.");
             }
