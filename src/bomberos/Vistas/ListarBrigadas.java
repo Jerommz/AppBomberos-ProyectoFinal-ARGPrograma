@@ -5,19 +5,31 @@
  */
 package bomberos.Vistas;
 
+import bomberos.AccesoADatos.BrigadaData;
+import bomberos.Entidades.Brigada;
 import java.awt.Color;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
  * @author jero
  */
 public class ListarBrigadas extends javax.swing.JPanel {
-
-    /**
-     * Creates new form ListarBomberos
-     */
+    String[] modeloBrigada = {"ID", "Nombre", "Especialidad", "Libre", "Cuartel"};
+    BrigadaData brigadaDB = new BrigadaData();
+    DefaultTableModel modeloBrigadaAct = new DefaultTableModel(null, modeloBrigada) {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
     public ListarBrigadas() {
         initComponents();
+        modeloTablaBrigada();
+        mostrarTablaBrigada();
+        listarBrigadas();
     }
 
     /**
@@ -58,6 +70,11 @@ public class ListarBrigadas extends javax.swing.JPanel {
         cbListarCuarteles.setBackground(new Color(193,29,29));
         cbListarCuarteles.setForeground(java.awt.Color.white);
         cbListarCuarteles.setPreferredSize(new java.awt.Dimension(130, 30));
+        cbListarCuarteles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbListarCuartelesActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -66,6 +83,11 @@ public class ListarBrigadas extends javax.swing.JPanel {
 
         rbBrigadasLibres.setForeground(java.awt.Color.white);
         rbBrigadasLibres.setText("Libres/Asignadas");
+        rbBrigadasLibres.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbBrigadasLibresActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
@@ -100,6 +122,20 @@ public class ListarBrigadas extends javax.swing.JPanel {
         add(panelBot, java.awt.BorderLayout.SOUTH);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cbListarCuartelesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbListarCuartelesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbListarCuartelesActionPerformed
+
+    private void rbBrigadasLibresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbBrigadasLibresActionPerformed
+        rbBrigadasLibres.setSelected(true);
+        actualizarTabla();
+        mostrarTablaBrigadaLibres();
+        
+    }//GEN-LAST:event_rbBrigadasLibresActionPerformed
+    public void actualizarTabla() {
+        DefaultTableModel mod = (DefaultTableModel) tablaListarBrigadas.getModel();
+        mod.setRowCount(0);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cbListarCuarteles;
@@ -110,4 +146,51 @@ public class ListarBrigadas extends javax.swing.JPanel {
     private javax.swing.JRadioButton rbBrigadasLibres;
     private javax.swing.JTable tablaListarBrigadas;
     // End of variables declaration//GEN-END:variables
+ public void modeloTablaBrigada() {
+        tablaListarBrigadas.setModel(modeloBrigadaAct);
+        TableColumnModel columnaBrigada = tablaListarBrigadas.getColumnModel();
+        columnaBrigada.getColumn(0).setMaxWidth(60);
+        columnaBrigada.getColumn(1).setMaxWidth(300);
+        columnaBrigada.getColumn(2).setMaxWidth(800);
+        columnaBrigada.getColumn(3).setMaxWidth(80);
+        columnaBrigada.getColumn(4).setMaxWidth(80);
+    }
+   public void mostrarTablaBrigada() {
+        
+        List<Brigada> brigadas = brigadaDB.obtenerBrigadas();
+        for (Brigada brigada : brigadas) {
+            modeloBrigadaAct.addRow(new Object[]{
+                brigada.getCodBrigada(),
+                brigada.getNombre_br(),
+                brigada.getEspecialidad(),
+                brigada.isLibre(),
+                brigada.getCodCuartel()
+            });
+        }
+    }
+    public void listarBrigadas(){
+     List <Brigada>briDB =brigadaDB.obtenerBrigadas();
+     for(Brigada brigada : briDB){
+     cbListarCuarteles.addItem(brigada.getNombre_br());
+     
+     }
+    
+    
+    }
+ public void mostrarTablaBrigadaLibres() {
+        
+        List<Brigada> brigadas = brigadaDB.obtenerBrigadasLibres();
+        for (Brigada brigada : brigadas) {
+            modeloBrigadaAct.addRow(new Object[]{
+                brigada.getCodBrigada(),
+                brigada.getNombre_br(),
+                brigada.getEspecialidad(),
+                brigada.isLibre(),
+                brigada.getCodCuartel()
+            });
+        }
+    }    
+     
+
+
 }

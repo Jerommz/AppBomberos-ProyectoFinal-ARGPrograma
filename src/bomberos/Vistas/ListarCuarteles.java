@@ -5,19 +5,31 @@
  */
 package bomberos.Vistas;
 
+import bomberos.AccesoADatos.CuartelData;
+import bomberos.Entidades.Cuartel;
 import java.awt.Color;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
  * @author jero
  */
 public class ListarCuarteles extends javax.swing.JPanel {
-
-    /**
-     * Creates new form ListarBomberos
-     */
+  String[] modeloCuartel = {"ID", "Nombre", "Direccion", "X", "Y", "Telefono", "Correo"};
+    CuartelData cuartelDB = new CuartelData();
+    DefaultTableModel modeloCuartelAct = new DefaultTableModel(null, modeloCuartel) {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
     public ListarCuarteles() {
         initComponents();
+        modeloTablaCuartel();
+        mostrarTablaCuartel();
+        listarCuarteles();
     }
 
     /**
@@ -101,4 +113,41 @@ public class ListarCuarteles extends javax.swing.JPanel {
     private javax.swing.JPanel panelTop;
     private javax.swing.JTable tablaListarCuarteles;
     // End of variables declaration//GEN-END:variables
+ public void modeloTablaCuartel() {
+        tablaListarCuarteles.setModel(modeloCuartelAct);
+        TableColumnModel columnaCuartel = tablaListarCuarteles.getColumnModel();
+        columnaCuartel.getColumn(0).setMaxWidth(60);
+        columnaCuartel.getColumn(1).setMaxWidth(300);
+        columnaCuartel.getColumn(2).setMaxWidth(500);
+        columnaCuartel.getColumn(3).setMaxWidth(40);
+        columnaCuartel.getColumn(4).setMaxWidth(40);
+        columnaCuartel.getColumn(5).setMaxWidth(100);
+        columnaCuartel.getColumn(6).setMaxWidth(500);
+    }
+ public void mostrarTablaCuartel() {
+        
+        List<Cuartel> cuarteles = cuartelDB.obtenerCuarteles();
+        for (Cuartel cuartel : cuarteles) {
+            modeloCuartelAct.addRow(new Object[]{
+                cuartel.getCodCuartel(),
+                cuartel.getNombre_cuartel(),
+                cuartel.getDireccion(),
+                cuartel.getCoord_X(),
+                cuartel.getCoord_Y(),
+                cuartel.getTelefono(),
+                cuartel.getCorreo()
+            });
+        }
+    }
+  public void listarCuarteles(){
+    List <Cuartel>cuarteles = cuartelDB.obtenerCuarteles();
+    for(Cuartel cuartel :cuarteles){
+    
+    cbListarCuarteles.addItem(cuartel.getNombre_cuartel());
+    
+    }
+  
+  }
+
+
 }

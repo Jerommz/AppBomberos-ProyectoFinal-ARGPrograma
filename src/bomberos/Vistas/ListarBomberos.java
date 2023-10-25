@@ -75,6 +75,11 @@ public final class ListarBomberos extends javax.swing.JPanel {
 
         rbBomberosActivos.setForeground(java.awt.Color.white);
         rbBomberosActivos.setText("Activos");
+        rbBomberosActivos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbBomberosActivosActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
@@ -110,6 +115,14 @@ public final class ListarBomberos extends javax.swing.JPanel {
         add(panelBot, java.awt.BorderLayout.SOUTH);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void rbBomberosActivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbBomberosActivosActionPerformed
+        rbBomberosActivos.setSelected(true);
+        actualizarTabla();
+        mostrarTablaBombero();
+        mostrarTablaBomberoActivos();
+        
+    }//GEN-LAST:event_rbBomberosActivosActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cbListarBrigadas;
@@ -124,6 +137,8 @@ public final class ListarBomberos extends javax.swing.JPanel {
     public void actualizarTabla() {
         DefaultTableModel mod = (DefaultTableModel) tablaListarBomberos.getModel();
         mod.setRowCount(0);
+        
+        
     }
 
     public void modeloTablaBombero() {
@@ -170,9 +185,44 @@ public final class ListarBomberos extends javax.swing.JPanel {
     }
 
     public void mostrarCombo() {
-        List<Brigada> brigadas = brigadaDB.obtenerBrigadas();
-        for (Brigada brigada : brigadas) {
-            cbListarBrigadas.addItem(brigada.getNombre_br());
+        List<Bombero> bomberos = bomberoDB.obtenerBomberos();
+        for (Bombero bombero : bomberos) {
+            cbListarBrigadas.addItem(bombero.getNombre_ape());
         }
     }
+    
+    public void mostrarTablaBomberoActivos() {
+        actualizarTabla();
+        int codCuartel = 0;
+        int codCuartelB = 0;
+        String nombre = "";
+        List<Brigada> brigadas = brigadaDB.obtenerBrigadas();
+        List<Cuartel> cuarteles = cuartelDB.obtenerCuarteles();
+        for (Cuartel cuartel : cuarteles) {
+            codCuartel = cuartel.getCodCuartel();
+            nombre = cuartel.getNombre_cuartel();
+            for (Brigada brigada : brigadas) {
+                codCuartelB = brigada.getCodCuartel();
+                if (codCuartel == codCuartelB) {
+                    List<Bombero> bomberos = bomberoDB.obtenerBomberosActivos();
+                    for (Bombero bombero : bomberos) {
+                        modeloBomberoAct.addRow(new Object[]{
+                            bombero.getId_Bombero(),
+                            bombero.getDni(),
+                            bombero.getNombre_ape(),
+                            bombero.getGrupo_sang(),
+                            bombero.getFecha(),
+                            bombero.getCelular(),
+                            bombero.getCodBrigada(),
+                            nombre
+                        });
+                    }
+                }
+                break;
+            }
+
+        }
+    }
+
+   
 }

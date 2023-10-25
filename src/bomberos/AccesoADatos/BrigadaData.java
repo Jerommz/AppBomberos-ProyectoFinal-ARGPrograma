@@ -245,4 +245,26 @@ public class BrigadaData {
         }
         return brigadas;
     }
+     public List<Brigada> obtenerBrigadasLibres() {
+        List<Brigada> brigadas = new ArrayList<>();
+        String sql = "select * from brigada where libre =0";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Brigada brigada = new Brigada();
+                brigada.setCodBrigada(rs.getInt("codBrigada"));
+                brigada.setNombre_br(rs.getString("nombre_br"));
+                brigada.setEspecialidad(rs.getString("especialidad"));
+                brigada.isLibre();
+                brigada.setCodCuartel(rs.getInt("codCuartel"));
+                brigadas.add(brigada);
+            }
+            ps.close();
+            rs.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
+        }
+        return brigadas;
+    }
 }

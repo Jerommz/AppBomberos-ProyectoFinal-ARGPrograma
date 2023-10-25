@@ -220,4 +220,29 @@ public class BomberoData {
         }
         return bomberos;
     }
+     public List<Bombero> obtenerBomberosActivos() {
+        List<Bombero> bomberos = new ArrayList<>();
+        String sql = "select * from bombero where estado = 1";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Bombero bombero = new Bombero();
+                bombero.setId_Bombero(rs.getInt("id_bombero"));
+                bombero.setDni(rs.getInt("dni"));
+                bombero.setNombre_ape(rs.getString("nombre_ape"));
+                bombero.setGrupo_sang(rs.getString("grupo_sang"));
+                bombero.setFecha(rs.getDate("fecha").toLocalDate());
+                bombero.setCelular(rs.getInt("celular"));
+                bombero.setCodBrigada(rs.getInt("codBrigada"));
+                bombero.setEstado(rs.getBoolean("estado"));
+                bomberos.add(bombero);
+            }
+            ps.close();
+            rs.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
+        }
+        return bomberos;
+    }
 }
