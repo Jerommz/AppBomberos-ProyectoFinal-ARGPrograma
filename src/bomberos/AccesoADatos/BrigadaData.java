@@ -68,7 +68,7 @@ public class BrigadaData {
             ps.setInt(1, codBrigada);
             int exito = ps.executeUpdate();
             if (exito == 1) {
-                JOptionPane.showMessageDialog(null, "Brigada eliminado.");
+                JOptionPane.showMessageDialog(null, "Brigada eliminada.");
             } else {
                 JOptionPane.showMessageDialog(null, "Brigada no eliminada.");
             }
