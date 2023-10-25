@@ -32,7 +32,7 @@ public class CuartelData {
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 cuartel.setCodCuartel(rs.getInt(1));
-                JOptionPane.showMessageDialog(null, "Cuartel agregado.");
+                JOptionPane.showMessageDialog(null, "Cuartel agregado con Código N°: " + cuartel.getCodCuartel());
             } else {
                 JOptionPane.showMessageDialog(null, "Cuartel no agregado.");
             }

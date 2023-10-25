@@ -29,7 +29,7 @@ public class BrigadaData {
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 brigada.setCodBrigada(rs.getInt(1));
-                JOptionPane.showMessageDialog(null, "Brigada agregada.");
+                JOptionPane.showMessageDialog(null, "Brigada agregada con Código N°: " + brigada.getCodBrigada());
             } else {
                 JOptionPane.showMessageDialog(null, "Brigada no agregada.");
             }
@@ -68,7 +68,7 @@ public class BrigadaData {
             ps.setInt(1, codBrigada);
             int exito = ps.executeUpdate();
             if (exito == 1) {
-                JOptionPane.showMessageDialog(null, "Brigada eliminado.");
+                JOptionPane.showMessageDialog(null, "Brigada eliminada.");
             } else {
                 JOptionPane.showMessageDialog(null, "Brigada no eliminada.");
             }
