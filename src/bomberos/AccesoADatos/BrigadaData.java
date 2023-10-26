@@ -235,7 +235,7 @@ public class BrigadaData {
                 brigada.setNombre_br(rs.getString("nombre_br"));
                 brigada.setEspecialidad(rs.getString("especialidad"));
                 brigada.setLibre(rs.getBoolean("libre"));
-                brigada.setCodCuartel(codCuartel);
+                brigada.setCodCuartel(rs.getInt("codCuartel"));
                 brigadas.add(brigada);
             }
             ps.close();
