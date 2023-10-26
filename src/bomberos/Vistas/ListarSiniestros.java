@@ -10,17 +10,15 @@ import javax.swing.plaf.basic.BasicButtonUI;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import bomberos.AccesoADatos.SiniestroData;
-import java.awt.Component;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
+import javax.swing.table.TableRowSorter;
 
 public final class ListarSiniestros extends javax.swing.JPanel {
 
     String[] modeloSiniestro = {"Codigo", "Tipo", "Fecha", "Detalles", "X ", "Y", "Fecha finalizacion", "Puntaje", "Codigo Brigada"};
     SiniestroData siniestroDB = new SiniestroData();
-    Siniestro siniestro = new Siniestro();
+
     DefaultTableModel modeloSiniestroAct = new DefaultTableModel(null, modeloSiniestro) {
         @Override
         public boolean isCellEditable(int row, int column) {
@@ -131,9 +129,6 @@ public final class ListarSiniestros extends javax.swing.JPanel {
         tablaListarAdmin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tablaListarAdminMouseClicked(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                tablaListarAdminMousePressed(evt);
             }
         });
         jScrollPane1.setViewportView(tablaListarAdmin);
@@ -275,19 +270,19 @@ public final class ListarSiniestros extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(textFechaInicioSiniestro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addGap(6, 6, 6)
+                .addGap(14, 14, 14)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textFechaFinSiniestro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(14, 14, 14)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textTipoSiniestro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
-                .addGap(10, 10, 10)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(14, 14, 14)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(textPuntajeSiniestro2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addGap(18, 18, 18)
+                .addGap(14, 14, 14)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textPuntox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
@@ -335,6 +330,7 @@ public final class ListarSiniestros extends javax.swing.JPanel {
             }
         });
 
+        textCodigoSiniestro.setBackground(new Color(193,29,29));
         textCodigoSiniestro.setPreferredSize(new java.awt.Dimension(50, 30));
 
         textBrigadaSiniestro.setBackground(new Color(193,29,29));
@@ -372,15 +368,15 @@ public final class ListarSiniestros extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(textBrigadaSiniestro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, 16)
+                .addGap(14, 14, 14)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(textCodigoSiniestro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addComponent(botonModificarSiniestro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(14, 14, 14)
                 .addComponent(botonFinalizarSiniestro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
 
         panelBot.add(jPanel3, java.awt.BorderLayout.EAST);
@@ -407,11 +403,6 @@ public final class ListarSiniestros extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tablaListarAdminMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaListarAdminMousePressed
-   
-       
-    }//GEN-LAST:event_tablaListarAdminMousePressed
-
     private void tablaListarAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaListarAdminMouseClicked
         int seleccionar = tablaListarAdmin.rowAtPoint(evt.getPoint());
         textBrigadaSiniestro.setText(String.valueOf(tablaListarAdmin.getValueAt(seleccionar, 8)));
@@ -426,54 +417,54 @@ public final class ListarSiniestros extends javax.swing.JPanel {
     }//GEN-LAST:event_tablaListarAdminMouseClicked
 
     private void botonModificarSiniestroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarSiniestroActionPerformed
-      if(textBrigadaSiniestro == null ||textCodigoSiniestro ==null ||textDescSiniestro ==null ||textFechaFinSiniestro == null || textFechaInicioSiniestro ==null || textPuntajeSiniestro2 ==null || textPuntox ==null || textPuntoY ==null || textTipoSiniestro ==null){
-      JOptionPane.showMessageDialog(null, "debe cliquear la tabla  ");
-      } else{
-          int codBrigada=Integer.valueOf(textBrigadaSiniestro.getText());
-          int codigo =Integer.valueOf(textCodigoSiniestro.getText());
-          String   detalle =textDescSiniestro.getText();
-          LocalDate fecha_resol =LocalDate.parse(textFechaFinSiniestro.getText()); 
-          LocalDate fecha_Inicio =LocalDate.parse(textFechaInicioSiniestro.getText());
-          int puntuacion = Integer.parseInt(textPuntajeSiniestro2.getText());
-          int cood_x =Integer.parseInt(textPuntox.getText());
-          int cood_y =Integer.parseInt(textPuntoY.getText());
-          String tipo =textFechaInicioSiniestro.getText();
-          Siniestro siniestro = new Siniestro(codigo, tipo, fecha_Inicio, cood_x, cood_y, detalle, fecha_resol, puntuacion, codBrigada);
-     siniestroDB.modificarSiniestro(siniestro);
-      
-      } 
+        if (textBrigadaSiniestro == null || textCodigoSiniestro == null || textDescSiniestro == null || textFechaFinSiniestro == null || textFechaInicioSiniestro == null || textPuntajeSiniestro2 == null || textPuntox == null || textPuntoY == null || textTipoSiniestro == null) {
+            JOptionPane.showMessageDialog(null, "debe cliquear la tabla  ");
+        } else {
+            int codBrigada = Integer.valueOf(textBrigadaSiniestro.getText());
+            int codigo = Integer.valueOf(textCodigoSiniestro.getText());
+            String detalle = textDescSiniestro.getText();
+            LocalDate fecha_resol = LocalDate.parse(textFechaFinSiniestro.getText());
+            LocalDate fecha_Inicio = LocalDate.parse(textFechaInicioSiniestro.getText());
+            int puntuacion = Integer.parseInt(textPuntajeSiniestro2.getText());
+            int cood_x = Integer.parseInt(textPuntox.getText());
+            int cood_y = Integer.parseInt(textPuntoY.getText());
+            String tipo = textFechaInicioSiniestro.getText();
+            Siniestro siniestro = new Siniestro(codigo, tipo, fecha_Inicio, cood_x, cood_y, detalle, fecha_resol, puntuacion, codBrigada);
+            siniestroDB.modificarSiniestro(siniestro);
+            actualizarTabla();
+            mostrarTablaSiniestro();
+        }
     }//GEN-LAST:event_botonModificarSiniestroActionPerformed
 
     private void botonFinalizarSiniestroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonFinalizarSiniestroActionPerformed
-          if(textBrigadaSiniestro == null ||textCodigoSiniestro ==null ||textDescSiniestro ==null ||textFechaFinSiniestro == null || textFechaInicioSiniestro ==null || textPuntajeSiniestro2 ==null || textPuntox ==null || textPuntoY ==null || textTipoSiniestro ==null){
-      JOptionPane.showMessageDialog(null, "debe cliquear la tabla  ");
-      } else{
-              int codBrigada=Integer.valueOf(textBrigadaSiniestro.getText());
-          int codigo =Integer.valueOf(textCodigoSiniestro.getText());
-          String   detalle =textDescSiniestro.getText();
-          LocalDate fecha_resol =LocalDate.parse(textFechaFinSiniestro.getText()); 
-          LocalDate fecha_Inicio =LocalDate.parse(textFechaInicioSiniestro.getText());
-          int puntuacion = Integer.parseInt(textPuntajeSiniestro2.getText());
-          int cood_x =Integer.parseInt(textPuntox.getText());
-          int cood_y =Integer.parseInt(textPuntoY.getText());
-          String tipo =textFechaInicioSiniestro.getText();
-          Siniestro siniestro = new Siniestro(codigo, tipo, fecha_Inicio, cood_x, cood_y, detalle, fecha_resol, puntuacion, codBrigada);
-      siniestroDB.anotarTerminacionDeSiniestro(codigo, fecha_resol, puntuacion);
-      
-      } 
+        if (textBrigadaSiniestro == null || textCodigoSiniestro == null || textDescSiniestro == null || textFechaFinSiniestro == null || textFechaInicioSiniestro == null || textPuntajeSiniestro2 == null || textPuntox == null || textPuntoY == null || textTipoSiniestro == null) {
+            JOptionPane.showMessageDialog(null, "debe cliquear la tabla  ");
+        } else {
+            int codBrigada = Integer.valueOf(textBrigadaSiniestro.getText());
+            int codigo = Integer.valueOf(textCodigoSiniestro.getText());
+            String detalle = textDescSiniestro.getText();
+            LocalDate fecha_resol = LocalDate.parse(textFechaFinSiniestro.getText());
+            LocalDate fecha_Inicio = LocalDate.parse(textFechaInicioSiniestro.getText());
+            int puntuacion = Integer.parseInt(textPuntajeSiniestro2.getText());
+            int cood_x = Integer.parseInt(textPuntox.getText());
+            int cood_y = Integer.parseInt(textPuntoY.getText());
+            String tipo = textFechaInicioSiniestro.getText();
+            Siniestro siniestro = new Siniestro(codigo, tipo, fecha_Inicio, cood_x, cood_y, detalle, fecha_resol, puntuacion, codBrigada);
+            siniestroDB.anotarTerminacionDeSiniestro(codigo, fecha_resol, puntuacion);
+
+        }
     }//GEN-LAST:event_botonFinalizarSiniestroActionPerformed
 
     private void jcb48hsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcb48hsActionPerformed
-        jcb48hs.setSelected(true);
-        actualizarTabla();
-        modeloTablaSiniestro();
-        mostrarTabla48hsSiniestro();
-        
+        if (jcb48hs.isSelected()) {
+            actualizarTabla();
+            modeloTablaSiniestro();
+            mostrarTabla48hsSiniestro();
+        } else {
+            mostrarTablaSiniestro();
+        }
     }//GEN-LAST:event_jcb48hsActionPerformed
 
-    private void cbListarAdminActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonFinalizarSiniestro;
@@ -512,17 +503,19 @@ public final class ListarSiniestros extends javax.swing.JPanel {
 
     public void mostrarTablaSiniestro() {
         List<Siniestro> siniestros = siniestroDB.listarSiniestros();
-        for (Siniestro sini : siniestros) {
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modeloSiniestroAct);
+        tablaListarAdmin.setRowSorter(sorter);
+        for (Siniestro siniestro : siniestros) {
             modeloSiniestroAct.addRow(new Object[]{
-                sini.getCodigo(),
-                sini.getTipo(),
-                sini.getFecha_siniestro(),
-                sini.getDetalles(),
-                sini.getCoord_X(),
-                sini.getCoord_Y(),
-                sini.getFecha_resol(),
-                sini.getPuntuacion(),
-                sini.getCodBrigada()
+                siniestro.getCodigo(),
+                siniestro.getTipo(),
+                siniestro.getFecha_siniestro(),
+                siniestro.getDetalles(),
+                siniestro.getCoord_X(),
+                siniestro.getCoord_Y(),
+                siniestro.getFecha_resol(),
+                siniestro.getPuntuacion(),
+                siniestro.getCodBrigada()
             });
         }
     }
@@ -571,24 +564,26 @@ public final class ListarSiniestros extends javax.swing.JPanel {
         columnaSiniestro.getColumn(7).setMaxWidth(500);
         columnaSiniestro.getColumn(8).setMaxWidth(500);
     }
+
     public void actualizarTabla() {
         DefaultTableModel mod = (DefaultTableModel) tablaListarAdmin.getModel();
         mod.setRowCount(0);
     }
-    
-     public void mostrarTabla48hsSiniestro() {
-        List<Siniestro> siniestros = siniestroDB.consultarSiniestros48hs(siniestro);
-        for (Siniestro sini : siniestros) {
+
+    public void mostrarTabla48hsSiniestro() {
+        Siniestro siniestro1 = new Siniestro();
+        List<Siniestro> siniestros = siniestroDB.consultarSiniestros48hs(siniestro1);
+        for (Siniestro siniestro : siniestros) {
             modeloSiniestroAct.addRow(new Object[]{
-                sini.getCodigo(),
-                sini.getTipo(),
-                sini.getFecha_siniestro(),
-                sini.getDetalles(),
-                sini.getCoord_X(),
-                sini.getCoord_Y(),
-                sini.getFecha_resol(),
-                sini.getPuntuacion(),
-                sini.getCodBrigada()
+                siniestro.getCodigo(),
+                siniestro.getTipo(),
+                siniestro.getFecha_siniestro(),
+                siniestro.getDetalles(),
+                siniestro.getCoord_X(),
+                siniestro.getCoord_Y(),
+                siniestro.getFecha_resol(),
+                siniestro.getPuntuacion(),
+                siniestro.getCodBrigada()
             });
         }
     }

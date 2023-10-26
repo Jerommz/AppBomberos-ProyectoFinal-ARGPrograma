@@ -127,8 +127,8 @@ public class BomberoData {
     }
 
     public List<Bombero> listarBomberos(int codBrigada) {
-        String sql = "SELECT * FROM bombero WHERE codBrigada = ?";
         List<Bombero> bomberos = new ArrayList<>();
+        String sql = "SELECT * FROM bombero WHERE codBrigada = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, codBrigada);

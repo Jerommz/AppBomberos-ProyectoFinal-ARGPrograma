@@ -295,7 +295,7 @@ public final class ListarBomberos extends javax.swing.JPanel {
             }
         }
     }
-    
+
     public void mostrarTablaBomberoNoActivos() {
         actualizarTabla();
         List<Brigada> brigadas = brigadaDB.obtenerBrigadas();
@@ -304,24 +304,24 @@ public final class ListarBomberos extends javax.swing.JPanel {
             int codBrigada = brigada.getCodBrigada();
             List<Bombero> bomberos = bomberoDB.listarBomberos(codBrigada);
             for (int i = 0; i < bomberos.size(); i++) {
-                if(bomberos.get(i).isEstado() == false){
+                if (bomberos.get(i).isEstado() == false) {
                     int idBombero = bomberos.get(i).getId_Bombero();
-                int dni = bomberos.get(i).getDni();
-                String nombre = bomberos.get(i).getNombre_ape();
-                String sangre = bomberos.get(i).getGrupo_sang();
-                LocalDate fecha = bomberos.get(i).getFecha();
-                int celular = bomberos.get(i).getCelular();
-                String nombreCuartel = obtenerNombreCuartel(codBrigada);
-                modeloBomberoAct.addRow(new Object[]{
-                    idBombero,
-                    dni,
-                    nombre,
-                    sangre,
-                    fecha,
-                    celular,
-                    codBrigada,
-                    nombreCuartel
-                });
+                    int dni = bomberos.get(i).getDni();
+                    String nombre = bomberos.get(i).getNombre_ape();
+                    String sangre = bomberos.get(i).getGrupo_sang();
+                    LocalDate fecha = bomberos.get(i).getFecha();
+                    int celular = bomberos.get(i).getCelular();
+                    String nombreCuartel = obtenerNombreCuartel(codBrigada);
+                    modeloBomberoAct.addRow(new Object[]{
+                        idBombero,
+                        dni,
+                        nombre,
+                        sangre,
+                        fecha,
+                        celular,
+                        codBrigada,
+                        nombreCuartel
+                    });
                 }
             }
         }

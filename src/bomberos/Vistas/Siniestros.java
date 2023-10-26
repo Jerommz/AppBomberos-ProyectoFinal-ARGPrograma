@@ -7,8 +7,6 @@ import bomberos.Entidades.Brigada;
 import bomberos.Entidades.Siniestro;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
@@ -29,6 +27,13 @@ public final class Siniestros extends javax.swing.JPanel {
     CuartelData cuartelDB = new CuartelData();
     BrigadaData brigadaDB = new BrigadaData();
 
+    String[] modelo = {"(1)Incendios en viviendas e industrias.",
+        "(2)Salvamento en derrumbes.",
+        "(3)Rescates en ambito montaña.",
+        "(4)Rescate de personas atrapadas en accidentes de trafico.",
+        "(5)Socorrer inundaciones.",
+        "(6)Operativos de prevencion."};
+
     String[] modeloBrigada = {"ID", "Nombre", "Especialidad", "Libre", "Distancia"};
     DefaultTableModel modeloBrigadaArt = new DefaultTableModel(null, modeloBrigada) {
         @Override
@@ -41,13 +46,32 @@ public final class Siniestros extends javax.swing.JPanel {
         initComponents();
         botones();
         modeloTablaBrigada();
-        mostrarComboBox();
         textAreaDescripcion.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent evt) {
                 if (textAreaDescripcion.getText().length() >= 80) {
                     evt.consume();
                     JOptionPane.showMessageDialog(null, "Maximo 80 caracteres para detalle de Siniestros.");
+                }
+            }
+        });
+
+        textCoordX.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                if (textCoordX.getText().length() >= 2) {
+                    evt.consume();
+                    JOptionPane.showMessageDialog(null, "Maximo 2 caracteres para coordenada X de Siniestros.");
+                }
+            }
+        });
+
+        textCoordY.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                if (textCoordY.getText().length() >= 2) {
+                    evt.consume();
+                    JOptionPane.showMessageDialog(null, "Maximo 2 caracteres para coordenada Y de Siniestros.");
                 }
             }
         });
@@ -65,7 +89,7 @@ public final class Siniestros extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         panelIzq = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        comboTipoAccidenteSiniestro = new javax.swing.JComboBox<>();
+        comboTipoAccidenteSiniestro = new javax.swing.JComboBox<>(modelo);
         jLabel5 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -78,6 +102,7 @@ public final class Siniestros extends javax.swing.JPanel {
         textCoordX = new javax.swing.JTextField();
         botonCalcularSiniestro = new javax.swing.JButton();
         botonListarSiniestro = new javax.swing.JButton();
+        botonRegistrarSiniestro = new javax.swing.JButton();
         panelDer = new javax.swing.JPanel();
         panelDerTop = new javax.swing.JPanel();
         textCuartelCercano = new javax.swing.JTextField();
@@ -260,9 +285,26 @@ public final class Siniestros extends javax.swing.JPanel {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 19;
+        gridBagConstraints.gridy = 21;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 5, 0);
         panelIzq.add(botonListarSiniestro, gridBagConstraints);
+
+        botonRegistrarSiniestro.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        botonRegistrarSiniestro.setForeground(java.awt.Color.white);
+        botonRegistrarSiniestro.setText("Registrar");
+        botonRegistrarSiniestro.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        botonRegistrarSiniestro.setBorderPainted(false);
+        botonRegistrarSiniestro.setPreferredSize(new java.awt.Dimension(140, 30));
+        botonRegistrarSiniestro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRegistrarSiniestroActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 19;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        panelIzq.add(botonRegistrarSiniestro, gridBagConstraints);
 
         jPanel2.add(panelIzq, java.awt.BorderLayout.WEST);
 
@@ -514,7 +556,7 @@ public final class Siniestros extends javax.swing.JPanel {
                             String tipo = comboTipoAccidenteSiniestro.getSelectedItem().toString();
                             Date fecha = Date.valueOf(textFechaSiniestro.getText());
                             Cuartel cuartel = cuartelDB.buscarCuartel(codCuartel);
-                            List<Brigada> brigadas = brigadaDB.listarBrigadasDeCuartel(codCuartel);
+                            List<Brigada> brigadas = brigadaDB.listarBrigadas(codCuartel);
                             mostrarTablaBrigada(brigadas);
                             textCuartelCercano.setText(cuartel.getNombre_cuartel());
                             textCoordX1.setText(cuartel.getCoord_X() + "");
@@ -552,10 +594,15 @@ public final class Siniestros extends javax.swing.JPanel {
         mostrarPanel(new ListarSiniestros());
     }//GEN-LAST:event_botonListarSiniestroActionPerformed
 
+    private void botonRegistrarSiniestroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarSiniestroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonRegistrarSiniestroActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonCalcularSiniestro;
     private javax.swing.JButton botonListarSiniestro;
+    private javax.swing.JButton botonRegistrarSiniestro;
     private javax.swing.JComboBox<String> comboTipoAccidenteSiniestro;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -595,7 +642,7 @@ public final class Siniestros extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     public void botones() {
-        JButton btns[] = {botonListarSiniestro, botonCalcularSiniestro};
+        JButton btns[] = {botonListarSiniestro, botonCalcularSiniestro, botonRegistrarSiniestro};
         for (JButton btn : btns) {
             btn.setBackground(new Color(161, 27, 27));
             btn.setUI(new BasicButtonUI());
@@ -632,22 +679,6 @@ public final class Siniestros extends javax.swing.JPanel {
         panelDer.revalidate();
     }
 
-    public void mostrarComboBox() {
-        int contador = 0;
-        comboTipoAccidenteSiniestro.addItem("Seleccione un siniestro");
-        for (Siniestro a : siniestroDB.listarSiniestros()) {
-            comboTipoAccidenteSiniestro.addItem("" + a.getTipo());
-            contador = contador + 1;
-        }
-        comboTipoAccidenteSiniestro.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String seleccion = (String) comboTipoAccidenteSiniestro.getSelectedItem();
-                JOptionPane.showMessageDialog(null, "Seleccionaste: " + seleccion);
-            }
-        });
-    }
-
     public void modeloTablaBrigada() {
         jTbrigadas.setModel(modeloBrigadaArt);
         TableColumnModel columnaBrigada = jTbrigadas.getColumnModel();
@@ -659,6 +690,7 @@ public final class Siniestros extends javax.swing.JPanel {
     }
 
     public void mostrarTablaBrigada(List brig) {
+        actualizarTabla();
         List<Brigada> brigadas = brig;
         for (Brigada brigada : brigadas) {
             modeloBrigadaArt.addRow(new Object[]{
@@ -671,8 +703,8 @@ public final class Siniestros extends javax.swing.JPanel {
     }
 
     public void AsignarBrigada(int codCuartel) {
-        actualizarTablaBrigadas();
-        List<Brigada> brigadas = brigadaDB.listarBrigadasDeCuartel(codCuartel);
+        actualizarTabla();
+        List<Brigada> brigadas = brigadaDB.listarBrigadas(codCuartel);
         for (Brigada brigada : brigadas) {
             modeloBrigadaArt.addRow(new Object[]{
                 brigada.getCodBrigada(),
@@ -684,7 +716,7 @@ public final class Siniestros extends javax.swing.JPanel {
         }
     }
 
-    public void actualizarTablaBrigadas() {
+    public void actualizarTabla() {
         DefaultTableModel mod = (DefaultTableModel) jTbrigadas.getModel();
         mod.setRowCount(0);
     }

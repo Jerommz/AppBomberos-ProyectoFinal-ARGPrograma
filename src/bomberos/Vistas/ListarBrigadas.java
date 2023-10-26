@@ -6,7 +6,9 @@
 package bomberos.Vistas;
 
 import bomberos.AccesoADatos.BrigadaData;
+import bomberos.AccesoADatos.CuartelData;
 import bomberos.Entidades.Brigada;
+import bomberos.Entidades.Cuartel;
 import java.awt.Color;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -17,19 +19,22 @@ import javax.swing.table.TableColumnModel;
  * @author jero
  */
 public class ListarBrigadas extends javax.swing.JPanel {
+
     String[] modeloBrigada = {"ID", "Nombre", "Especialidad", "Libre", "Cuartel"};
     BrigadaData brigadaDB = new BrigadaData();
+    CuartelData cuartelDB = new CuartelData();
     DefaultTableModel modeloBrigadaAct = new DefaultTableModel(null, modeloBrigada) {
         @Override
         public boolean isCellEditable(int row, int column) {
             return false;
         }
     };
+
     public ListarBrigadas() {
         initComponents();
+        mostrarCombo();
         modeloTablaBrigada();
         mostrarTablaBrigada();
-        listarBrigadas();
     }
 
     /**
@@ -48,7 +53,7 @@ public class ListarBrigadas extends javax.swing.JPanel {
         panelDer = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         cbListarCuarteles = new javax.swing.JComboBox<>();
-        rbBrigadasLibres = new javax.swing.JRadioButton();
+        jCheckBox1 = new javax.swing.JCheckBox();
         panelBot = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaListarBrigadas = new javax.swing.JTable();
@@ -60,6 +65,7 @@ public class ListarBrigadas extends javax.swing.JPanel {
         panelTop.setPreferredSize(new java.awt.Dimension(1000, 100));
         panelTop.setLayout(new java.awt.BorderLayout());
 
+        panelIzq.setBackground(new Color(161, 27, 27));
         panelIzq.setPreferredSize(new java.awt.Dimension(150, 100));
         panelIzq.setLayout(new java.awt.GridBagLayout());
 
@@ -77,6 +83,7 @@ public class ListarBrigadas extends javax.swing.JPanel {
 
         panelTop.add(panelIzq, java.awt.BorderLayout.WEST);
 
+        panelDer.setBackground(new Color(161, 27, 27));
         panelDer.setPreferredSize(new java.awt.Dimension(850, 100));
         panelDer.setLayout(new java.awt.GridBagLayout());
 
@@ -87,12 +94,17 @@ public class ListarBrigadas extends javax.swing.JPanel {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 55);
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 9, 55);
         panelDer.add(jLabel1, gridBagConstraints);
 
         cbListarCuarteles.setBackground(new Color(193,29,29));
         cbListarCuarteles.setForeground(java.awt.Color.white);
         cbListarCuarteles.setPreferredSize(new java.awt.Dimension(130, 30));
+        cbListarCuarteles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbListarCuartelesActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -101,19 +113,19 @@ public class ListarBrigadas extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 55);
         panelDer.add(cbListarCuarteles, gridBagConstraints);
 
-        rbBrigadasLibres.setForeground(java.awt.Color.white);
-        rbBrigadasLibres.setText("Libres/Asignadas");
+        jCheckBox1.setForeground(java.awt.Color.white);
+        jCheckBox1.setText("Libre/Asignadas");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.insets = new java.awt.Insets(0, 1, 0, 59);
-        panelDer.add(rbBrigadasLibres, gridBagConstraints);
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 60);
+        panelDer.add(jCheckBox1, gridBagConstraints);
 
         panelTop.add(panelDer, java.awt.BorderLayout.EAST);
 
         add(panelTop, java.awt.BorderLayout.NORTH);
 
+        panelBot.setBackground(new Color(161, 27, 27));
         panelBot.setPreferredSize(new java.awt.Dimension(1000, 400));
         panelBot.setLayout(new java.awt.BorderLayout());
 
@@ -138,6 +150,11 @@ public class ListarBrigadas extends javax.swing.JPanel {
 
         add(panelBot, java.awt.BorderLayout.SOUTH);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cbListarCuartelesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbListarCuartelesActionPerformed
+        // TODO add your handling code here:
+        mostrarTablaBrigada();
+    }//GEN-LAST:event_cbListarCuartelesActionPerformed
     public void actualizarTabla() {
         DefaultTableModel mod = (DefaultTableModel) tablaListarBrigadas.getModel();
         mod.setRowCount(0);
@@ -145,6 +162,7 @@ public class ListarBrigadas extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cbListarCuarteles;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -152,7 +170,6 @@ public class ListarBrigadas extends javax.swing.JPanel {
     private javax.swing.JPanel panelDer;
     private javax.swing.JPanel panelIzq;
     private javax.swing.JPanel panelTop;
-    private javax.swing.JRadioButton rbBrigadasLibres;
     private javax.swing.JTable tablaListarBrigadas;
     // End of variables declaration//GEN-END:variables
  public void modeloTablaBrigada() {
@@ -164,30 +181,53 @@ public class ListarBrigadas extends javax.swing.JPanel {
         columnaBrigada.getColumn(3).setMaxWidth(80);
         columnaBrigada.getColumn(4).setMaxWidth(80);
     }
-   public void mostrarTablaBrigada() {
-        
-        List<Brigada> brigadas = brigadaDB.obtenerBrigadas();
-        for (Brigada brigada : brigadas) {
-            modeloBrigadaAct.addRow(new Object[]{
-                brigada.getCodBrigada(),
-                brigada.getNombre_br(),
-                brigada.getEspecialidad(),
-                brigada.isLibre(),
-                brigada.getCodCuartel()
-            });
+
+    public void mostrarTablaBrigada() {
+        actualizarTabla();
+        List<Cuartel> cuarteles = cuartelDB.obtenerCuarteles();
+        String nombreCB = String.valueOf(cbListarCuarteles.getSelectedItem());
+        for (Cuartel cuartel : cuarteles) {
+            int codCuartel = cuartel.getCodCuartel();
+            if (cuartel.getNombre_cuartel().equals(nombreCB)) {
+                List<Brigada> brigadas = brigadaDB.listarBrigadas(codCuartel);
+                for (int i = 0; i < brigadas.size(); i++) {
+                    int codBrigada = brigadas.get(i).getCodBrigada();
+                    String nombre = brigadas.get(i).getNombre_br();
+                    String especialidad = brigadas.get(i).getEspecialidad();
+                    boolean libre = brigadas.get(i).isLibre();
+                    modeloBrigadaAct.addRow(new Object[]{
+                        codBrigada,
+                        nombre,
+                        especialidad,
+                        libre,
+                        codCuartel
+                    });
+                }
+            }
         }
+
+//        List<Brigada> brigadas = brigadaDB.obtenerBrigadas();
+//        for (Brigada brigada : brigadas) {
+//            modeloBrigadaAct.addRow(new Object[]{
+//                brigada.getCodBrigada(),
+//                brigada.getNombre_br(),
+//                brigada.getEspecialidad(),
+//                brigada.isLibre(),
+//                brigada.getCodCuartel()
+//            });
+//        }
     }
-    public void listarBrigadas(){
-     List <Brigada>briDB =brigadaDB.obtenerBrigadas();
-     for(Brigada brigada : briDB){
-     cbListarCuarteles.addItem(brigada.getNombre_br());
-     
-     }
-    
-    
+
+    public void mostrarCombo() {
+        List<Cuartel> cuarteles = cuartelDB.obtenerCuarteles();
+        for (Cuartel cuartel : cuarteles) {
+            cbListarCuarteles.addItem(cuartel.getNombre_cuartel());
+        }
+
     }
- public void mostrarTablaBrigadaLibres() {
-        
+
+    public void mostrarTablaBrigadaLibres() {
+
         List<Brigada> brigadas = brigadaDB.obtenerBrigadasLibres();
         for (Brigada brigada : brigadas) {
             modeloBrigadaAct.addRow(new Object[]{
@@ -198,8 +238,6 @@ public class ListarBrigadas extends javax.swing.JPanel {
                 brigada.getCodCuartel()
             });
         }
-    }    
-     
-
+    }
 
 }

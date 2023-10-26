@@ -198,7 +198,7 @@ public class BrigadaData {
         return brigada;
     }
 
-    public List<Brigada> listarBrigadasDeCuartel(int codCuartel) {
+    public List<Brigada> listarBrigadas(int codCuartel) {
         List<Brigada> brigadas = new ArrayList<>();
         String sql = "SELECT * FROM brigada WHERE codCuartel = ?";
         try {
@@ -222,30 +222,7 @@ public class BrigadaData {
         return brigadas;
     }
 
-    public List<Brigada> obtenerBrigadaCuartel(int codCuartel) {
-        List<Brigada> brigadas = new ArrayList<>();
-        Brigada brigada = new Brigada();
-        String sql = "SELECT * FROM brigada WHERE codCuartel = ? AND libre = 1";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, codCuartel);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                brigada.setCodBrigada(rs.getInt("codBrigada"));
-                brigada.setNombre_br(rs.getString("nombre_br"));
-                brigada.setEspecialidad(rs.getString("especialidad"));
-                brigada.setLibre(rs.getBoolean("libre"));
-                brigada.setCodCuartel(rs.getInt("codCuartel"));
-                brigadas.add(brigada);
-            }
-            ps.close();
-            rs.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
-        }
-        return brigadas;
-    }
-     public List<Brigada> obtenerBrigadasLibres() {
+    public List<Brigada> obtenerBrigadasLibres() {
         List<Brigada> brigadas = new ArrayList<>();
         String sql = "select * from brigada where libre =0";
         try {
