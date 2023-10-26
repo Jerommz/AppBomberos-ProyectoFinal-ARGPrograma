@@ -2,7 +2,6 @@ package bomberos.AccesoADatos;
 
 import java.sql.Connection;
 import bomberos.AccesoAdatos.Conexion;
-import bomberos.Entidades.Brigada;
 import bomberos.Entidades.Cuartel;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
