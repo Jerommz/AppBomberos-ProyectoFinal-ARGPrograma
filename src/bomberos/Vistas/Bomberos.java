@@ -334,7 +334,7 @@ public final class Bomberos extends javax.swing.JPanel {
 
         dateFechaNacBombero.setBackground(new Color(193,29,29));
         dateFechaNacBombero.setForeground(java.awt.Color.white);
-        dateFechaNacBombero.setDateFormatString("yyyy-MM-dd");
+        dateFechaNacBombero.setDateFormatString("dd-MM-yyyy");
         dateFechaNacBombero.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         dateFechaNacBombero.setPreferredSize(new java.awt.Dimension(215, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();

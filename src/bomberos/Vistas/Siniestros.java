@@ -4,7 +4,6 @@ import bomberos.AccesoADatos.BrigadaData;
 import bomberos.AccesoADatos.CuartelData;
 import bomberos.AccesoADatos.SiniestroData;
 import bomberos.Entidades.Brigada;
-import bomberos.Entidades.Siniestro;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.MouseEvent;
@@ -18,7 +17,7 @@ import javax.swing.table.TableColumnModel;
 import bomberos.Entidades.Cuartel;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.sql.Date;
+import java.time.LocalDate;
 import javax.swing.JTextField;
 
 public final class Siniestros extends javax.swing.JPanel {
@@ -46,6 +45,9 @@ public final class Siniestros extends javax.swing.JPanel {
         initComponents();
         botones();
         modeloTablaBrigada();
+        LocalDate fecha = LocalDate.now();
+        textFechaSiniestro.setText(String.valueOf(fecha));
+
         textAreaDescripcion.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent evt) {
@@ -312,7 +314,7 @@ public final class Siniestros extends javax.swing.JPanel {
         panelDer.setLayout(new java.awt.BorderLayout());
 
         panelDerTop.setBackground(new Color(184, 34, 34));
-        panelDerTop.setPreferredSize(new java.awt.Dimension(980, 300));
+        panelDerTop.setPreferredSize(new java.awt.Dimension(980, 320));
         panelDerTop.setLayout(new java.awt.GridBagLayout());
 
         textCuartelCercano.setBackground(new Color(201, 16, 40));
@@ -426,7 +428,7 @@ public final class Siniestros extends javax.swing.JPanel {
         panelDer.add(panelDerTop, java.awt.BorderLayout.NORTH);
 
         panelDerBot.setBackground(new Color(184, 34, 34));
-        panelDerBot.setPreferredSize(new java.awt.Dimension(980, 300));
+        panelDerBot.setPreferredSize(new java.awt.Dimension(980, 320));
         panelDerBot.setLayout(new java.awt.BorderLayout());
 
         jTbrigadas.setBackground(new Color(193,29,29));
@@ -517,6 +519,7 @@ public final class Siniestros extends javax.swing.JPanel {
     private void botonCalcularSiniestroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCalcularSiniestroActionPerformed
         // TODO add your handling code here:
         try {
+            int cont = 0;
             Component[] comps = panelIzq.getComponents();
             for (Component comp : comps) {
                 if (comp instanceof JTextField) {
@@ -548,7 +551,6 @@ public final class Siniestros extends javax.swing.JPanel {
                             }
                             String desc = textAreaDescripcion.getText();
                             String tipo = comboTipoAccidenteSiniestro.getSelectedItem().toString();
-                            Date fecha = Date.valueOf(textFechaSiniestro.getText());
                             Cuartel cuartel = cuartelDB.buscarCuartel(codCuartel);
                             List<Brigada> brigadas = brigadaDB.listarBrigadas(codCuartel);
                             mostrarTablaBrigada(brigadas);

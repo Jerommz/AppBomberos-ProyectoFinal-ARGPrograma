@@ -35,11 +35,12 @@ public final class ListarBrigadas extends javax.swing.JPanel {
         panelTop = new javax.swing.JPanel();
         panelIzq = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        panelDer = new javax.swing.JPanel();
+        panelMid = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         cbListarCuarteles = new javax.swing.JComboBox<>();
         checkBrigadaLibre = new javax.swing.JCheckBox();
         checkBrigadaAsignada = new javax.swing.JCheckBox();
+        panelDer = new javax.swing.JPanel();
         panelBot = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaListarBrigadas = new javax.swing.JTable();
@@ -53,7 +54,7 @@ public final class ListarBrigadas extends javax.swing.JPanel {
 
         panelIzq.setBackground(new Color(161, 27, 27));
         panelIzq.setPreferredSize(new java.awt.Dimension(150, 100));
-        panelIzq.setLayout(new java.awt.GridBagLayout());
+        panelIzq.setLayout(new java.awt.BorderLayout());
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel2.setForeground(java.awt.Color.white);
@@ -61,17 +62,13 @@ public final class ListarBrigadas extends javax.swing.JPanel {
         jLabel2.setText("Brigadas");
         jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabel2.setPreferredSize(new java.awt.Dimension(150, 24));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        panelIzq.add(jLabel2, gridBagConstraints);
+        panelIzq.add(jLabel2, java.awt.BorderLayout.CENTER);
 
         panelTop.add(panelIzq, java.awt.BorderLayout.WEST);
 
-        panelDer.setBackground(new Color(161, 27, 27));
-        panelDer.setPreferredSize(new java.awt.Dimension(850, 100));
-        panelDer.setLayout(new java.awt.GridBagLayout());
+        panelMid.setBackground(new Color(161, 27, 27));
+        panelMid.setPreferredSize(new java.awt.Dimension(700, 100));
+        panelMid.setLayout(new java.awt.GridBagLayout());
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel1.setForeground(java.awt.Color.white);
@@ -80,8 +77,8 @@ public final class ListarBrigadas extends javax.swing.JPanel {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 9, 55);
-        panelDer.add(jLabel1, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 9, 80);
+        panelMid.add(jLabel1, gridBagConstraints);
 
         cbListarCuarteles.setBackground(new Color(193,29,29));
         cbListarCuarteles.setForeground(java.awt.Color.white);
@@ -96,8 +93,8 @@ public final class ListarBrigadas extends javax.swing.JPanel {
         gridBagConstraints.gridy = 1;
         gridBagConstraints.ipadx = 50;
         gridBagConstraints.ipady = 4;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 55);
-        panelDer.add(cbListarCuarteles, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 80);
+        panelMid.add(cbListarCuarteles, gridBagConstraints);
 
         checkBrigadaLibre.setForeground(java.awt.Color.white);
         checkBrigadaLibre.setText("Libres");
@@ -110,11 +107,11 @@ public final class ListarBrigadas extends javax.swing.JPanel {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 60);
-        panelDer.add(checkBrigadaLibre, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 85);
+        panelMid.add(checkBrigadaLibre, gridBagConstraints);
 
         checkBrigadaAsignada.setForeground(java.awt.Color.white);
-        checkBrigadaAsignada.setText("Asignadas");
+        checkBrigadaAsignada.setText("Ocupadas");
         checkBrigadaAsignada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBrigadaAsignadaActionPerformed(evt);
@@ -124,9 +121,14 @@ public final class ListarBrigadas extends javax.swing.JPanel {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 60);
-        panelDer.add(checkBrigadaAsignada, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 85);
+        panelMid.add(checkBrigadaAsignada, gridBagConstraints);
 
+        panelTop.add(panelMid, java.awt.BorderLayout.CENTER);
+
+        panelDer.setBackground(new Color(161, 27, 27));
+        panelDer.setPreferredSize(new java.awt.Dimension(150, 100));
+        panelDer.setLayout(new java.awt.BorderLayout());
         panelTop.add(panelDer, java.awt.BorderLayout.EAST);
 
         add(panelTop, java.awt.BorderLayout.NORTH);
@@ -192,6 +194,7 @@ public final class ListarBrigadas extends javax.swing.JPanel {
     private javax.swing.JPanel panelBot;
     private javax.swing.JPanel panelDer;
     private javax.swing.JPanel panelIzq;
+    private javax.swing.JPanel panelMid;
     private javax.swing.JPanel panelTop;
     private javax.swing.JTable tablaListarBrigadas;
     // End of variables declaration//GEN-END:variables
@@ -256,7 +259,7 @@ public final class ListarBrigadas extends javax.swing.JPanel {
                     String nombre = brigadas.get(i).getNombre_br();
                     String especialidad = brigadas.get(i).getEspecialidad();
                     boolean libre = brigadas.get(i).isLibre();
-                    System.out.println("libre"+ libre);
+                    System.out.println("libre" + libre);
                     int codCuartel = brigadas.get(i).getCodCuartel();
                     modeloBrigadaAct.addRow(new Object[]{
                         codBrigada,
@@ -280,20 +283,20 @@ public final class ListarBrigadas extends javax.swing.JPanel {
                 for (int i = 0; i < brigadas.size(); i++) {
                     boolean libre = brigadas.get(i).isLibre();
                     if (libre == false) {
-                    int codBrigada = brigadas.get(i).getCodBrigada();
-                    String nombre = brigadas.get(i).getNombre_br();
-                    String especialidad = brigadas.get(i).getEspecialidad();
-                    int codCuartel = brigadas.get(i).getCodCuartel();
-                    modeloBrigadaAct.addRow(new Object[]{
-                        codBrigada,
-                        nombre,
-                        especialidad,
-                        libre,
-                        codCuartel
-                    });
+                        int codBrigada = brigadas.get(i).getCodBrigada();
+                        String nombre = brigadas.get(i).getNombre_br();
+                        String especialidad = brigadas.get(i).getEspecialidad();
+                        int codCuartel = brigadas.get(i).getCodCuartel();
+                        modeloBrigadaAct.addRow(new Object[]{
+                            codBrigada,
+                            nombre,
+                            especialidad,
+                            libre,
+                            codCuartel
+                        });
+                    }
                 }
             }
         }
-    }
     }
 }

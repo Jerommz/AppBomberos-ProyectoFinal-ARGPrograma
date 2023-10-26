@@ -40,8 +40,12 @@ public final class ListarSiniestros extends javax.swing.JPanel {
 
         panelMain = new javax.swing.JPanel();
         panelTop = new javax.swing.JPanel();
+        panelIzq = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        panelMidTop = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jcb48hs = new javax.swing.JCheckBox();
+        panelBotTop = new javax.swing.JPanel();
         panelMid = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaListarAdmin = new javax.swing.JTable();
@@ -78,18 +82,27 @@ public final class ListarSiniestros extends javax.swing.JPanel {
 
         panelTop.setBackground(new Color(161, 27, 27));
         panelTop.setPreferredSize(new java.awt.Dimension(0, 100));
-        panelTop.setLayout(new java.awt.GridBagLayout());
+        panelTop.setLayout(new java.awt.BorderLayout());
+
+        panelIzq.setBackground(new Color(161, 27, 27));
+        panelIzq.setLayout(new java.awt.BorderLayout());
+
+        jLabel11.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel11.setForeground(java.awt.Color.white);
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("Siniestros");
+        jLabel11.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel11.setPreferredSize(new java.awt.Dimension(150, 24));
+        panelIzq.add(jLabel11, java.awt.BorderLayout.CENTER);
+
+        panelTop.add(panelIzq, java.awt.BorderLayout.WEST);
+
+        panelMidTop.setBackground(new Color(161, 27, 27));
+        panelMidTop.setPreferredSize(new java.awt.Dimension(700, 48));
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setForeground(java.awt.Color.white);
         jLabel1.setText("Seleccione un siniestro:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
-        panelTop.add(jLabel1, gridBagConstraints);
 
         jcb48hs.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jcb48hs.setForeground(java.awt.Color.white);
@@ -99,10 +112,40 @@ public final class ListarSiniestros extends javax.swing.JPanel {
                 jcb48hsActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        panelTop.add(jcb48hs, gridBagConstraints);
+
+        javax.swing.GroupLayout panelMidTopLayout = new javax.swing.GroupLayout(panelMidTop);
+        panelMidTop.setLayout(panelMidTopLayout);
+        panelMidTopLayout.setHorizontalGroup(
+            panelMidTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(panelMidTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelMidTopLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(panelMidTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel1)
+                        .addGroup(panelMidTopLayout.createSequentialGroup()
+                            .addGap(34, 34, 34)
+                            .addComponent(jcb48hs)))
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        panelMidTopLayout.setVerticalGroup(
+            panelMidTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(panelMidTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelMidTopLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel1)
+                    .addGap(0, 0, 0)
+                    .addComponent(jcb48hs)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        panelTop.add(panelMidTop, java.awt.BorderLayout.CENTER);
+
+        panelBotTop.setBackground(new Color(161, 27, 27));
+        panelBotTop.setPreferredSize(new java.awt.Dimension(150, 0));
+        panelBotTop.setLayout(new java.awt.BorderLayout());
+        panelTop.add(panelBotTop, java.awt.BorderLayout.EAST);
 
         panelMain.add(panelTop, java.awt.BorderLayout.NORTH);
 
@@ -134,6 +177,8 @@ public final class ListarSiniestros extends javax.swing.JPanel {
         jScrollPane1.setViewportView(tablaListarAdmin);
 
         panelMid.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        panelMain.add(panelMid, java.awt.BorderLayout.CENTER);
 
         panelBot.setBackground(new Color(161, 27, 27));
         panelBot.setPreferredSize(new java.awt.Dimension(0, 300));
@@ -381,9 +426,7 @@ public final class ListarSiniestros extends javax.swing.JPanel {
 
         panelBot.add(jPanel3, java.awt.BorderLayout.EAST);
 
-        panelMid.add(panelBot, java.awt.BorderLayout.PAGE_END);
-
-        panelMain.add(panelMid, java.awt.BorderLayout.CENTER);
+        panelMain.add(panelBot, java.awt.BorderLayout.PAGE_END);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -471,6 +514,7 @@ public final class ListarSiniestros extends javax.swing.JPanel {
     private javax.swing.JButton botonModificarSiniestro;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -486,8 +530,11 @@ public final class ListarSiniestros extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JCheckBox jcb48hs;
     private javax.swing.JPanel panelBot;
+    private javax.swing.JPanel panelBotTop;
+    private javax.swing.JPanel panelIzq;
     private javax.swing.JPanel panelMain;
     private javax.swing.JPanel panelMid;
+    private javax.swing.JPanel panelMidTop;
     private javax.swing.JPanel panelTop;
     private javax.swing.JTable tablaListarAdmin;
     private javax.swing.JTextField textBrigadaSiniestro;
