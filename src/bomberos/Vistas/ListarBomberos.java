@@ -168,6 +168,8 @@ public final class ListarBomberos extends javax.swing.JPanel {
     private void cbListarBrigadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbListarBrigadasActionPerformed
         // TODO add your handling code here:
         actualizarTabla();
+        checkBomberoActivo.setSelected(false);
+        checkBomberoNoActivo.setSelected(false);
         mostrarTablaBomberos();
     }//GEN-LAST:event_cbListarBrigadasActionPerformed
 
@@ -177,7 +179,6 @@ public final class ListarBomberos extends javax.swing.JPanel {
             mostrarTablaBomberoNoActivos();
             checkBomberoActivo.setSelected(false);
         }
-
     }//GEN-LAST:event_checkBomberoNoActivoActionPerformed
 
     private void checkBomberoActivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBomberoActivoActionPerformed

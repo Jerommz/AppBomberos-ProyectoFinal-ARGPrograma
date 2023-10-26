@@ -29,7 +29,6 @@ public class ListarCuarteles extends javax.swing.JPanel {
         initComponents();
         modeloTablaCuartel();
         mostrarTablaCuartel();
-        listarCuarteles();
     }
 
     /**
@@ -125,7 +124,6 @@ public class ListarCuarteles extends javax.swing.JPanel {
         columnaCuartel.getColumn(6).setMaxWidth(500);
     }
  public void mostrarTablaCuartel() {
-        
         List<Cuartel> cuarteles = cuartelDB.obtenerCuarteles();
         for (Cuartel cuartel : cuarteles) {
             modeloCuartelAct.addRow(new Object[]{
