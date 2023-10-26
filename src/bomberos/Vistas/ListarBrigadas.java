@@ -114,7 +114,7 @@ public final class ListarBrigadas extends javax.swing.JPanel {
         panelDer.add(checkBrigadaLibre, gridBagConstraints);
 
         checkBrigadaAsignada.setForeground(java.awt.Color.white);
-        checkBrigadaAsignada.setText("Ocupadas");
+        checkBrigadaAsignada.setText("Asignadas");
         checkBrigadaAsignada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBrigadaAsignadaActionPerformed(evt);
@@ -168,16 +168,17 @@ public final class ListarBrigadas extends javax.swing.JPanel {
     private void checkBrigadaLibreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBrigadaLibreActionPerformed
         // TODO add your handling code here:
         if (checkBrigadaLibre.isSelected()) {
-            checkBrigadaAsignada.setSelected(false);
             mostrarTablaBrigadaLibre();
+            checkBrigadaAsignada.setSelected(false);
+
         }
     }//GEN-LAST:event_checkBrigadaLibreActionPerformed
 
     private void checkBrigadaAsignadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBrigadaAsignadaActionPerformed
         // TODO add your handling code here:
         if (checkBrigadaAsignada.isSelected()) {
-            checkBrigadaLibre.setSelected(false);
             mostrarTablaBrigadaOcupada();
+            checkBrigadaLibre.setSelected(false);
         }
     }//GEN-LAST:event_checkBrigadaAsignadaActionPerformed
 
@@ -246,23 +247,26 @@ public final class ListarBrigadas extends javax.swing.JPanel {
     public void mostrarTablaBrigadaLibre() {
         actualizarTabla();
         List<Cuartel> cuarteles = cuartelDB.obtenerCuarteles();
+        String nombreCB = String.valueOf(cbListarCuarteles.getSelectedItem());
         for (Cuartel cuartel : cuarteles) {
-            List<Brigada> brigadas = brigadaDB.obtenerBrigadasLibres();
-            for (int i = 0; i < brigadas.size(); i++) {
-                int codBrigada = brigadas.get(i).getCodBrigada();
-                String nombre = brigadas.get(i).getNombre_br();
-                String especialidad = brigadas.get(i).getEspecialidad();
-                boolean libre = brigadas.get(i).isLibre();
-                int codCuartel = brigadas.get(i).getCodCuartel();
-                modeloBrigadaAct.addRow(new Object[]{
-                    codBrigada,
-                    nombre,
-                    especialidad,
-                    libre,
-                    codCuartel
-                });
+            if (cuartel.getNombre_cuartel().equals(nombreCB)) {
+                List<Brigada> brigadas = brigadaDB.obtenerBrigadasLibres();
+                for (int i = 0; i < brigadas.size(); i++) {
+                    int codBrigada = brigadas.get(i).getCodBrigada();
+                    String nombre = brigadas.get(i).getNombre_br();
+                    String especialidad = brigadas.get(i).getEspecialidad();
+                    boolean libre = brigadas.get(i).isLibre();
+                    System.out.println("libre"+ libre);
+                    int codCuartel = brigadas.get(i).getCodCuartel();
+                    modeloBrigadaAct.addRow(new Object[]{
+                        codBrigada,
+                        nombre,
+                        especialidad,
+                        libre,
+                        codCuartel
+                    });
+                }
             }
-            break;
         }
     }
 
@@ -276,20 +280,20 @@ public final class ListarBrigadas extends javax.swing.JPanel {
                 for (int i = 0; i < brigadas.size(); i++) {
                     boolean libre = brigadas.get(i).isLibre();
                     if (libre == false) {
-                        int codBrigada = brigadas.get(i).getCodBrigada();
-                        String nombre = brigadas.get(i).getNombre_br();
-                        String especialidad = brigadas.get(i).getEspecialidad();
-                        int codCuartel = brigadas.get(i).getCodCuartel();
-                        modeloBrigadaAct.addRow(new Object[]{
-                            codBrigada,
-                            nombre,
-                            especialidad,
-                            libre,
-                            codCuartel
-                        });
-                    }
+                    int codBrigada = brigadas.get(i).getCodBrigada();
+                    String nombre = brigadas.get(i).getNombre_br();
+                    String especialidad = brigadas.get(i).getEspecialidad();
+                    int codCuartel = brigadas.get(i).getCodCuartel();
+                    modeloBrigadaAct.addRow(new Object[]{
+                        codBrigada,
+                        nombre,
+                        especialidad,
+                        libre,
+                        codCuartel
+                    });
                 }
             }
         }
+    }
     }
 }
