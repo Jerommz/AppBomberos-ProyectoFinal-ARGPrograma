@@ -19,6 +19,7 @@ import bomberos.Entidades.Cuartel;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.Date;
+import java.time.LocalDate;
 import javax.swing.JTextField;
 
 public final class Siniestros extends javax.swing.JPanel {
@@ -589,7 +590,51 @@ public final class Siniestros extends javax.swing.JPanel {
     }//GEN-LAST:event_botonListarSiniestroActionPerformed
 
     private void botonRegistrarSiniestroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarSiniestroActionPerformed
-        // TODO add your handling code here:
+                                       
+    try {
+        boolean campoVacio = false;
+        Component[] comps = panelIzq.getComponents();
+        for (Component comp : comps) {
+            if (comp instanceof JTextField) {
+                if (((JTextField) comp).getText().isEmpty()) {
+                    campoVacio = true;
+                    break;
+                }
+            }
+        }
+
+        if (campoVacio) {
+            JOptionPane.showMessageDialog(null, "Ningun campo puede estar vacio para calcular el siniestro.");
+        } else {
+            String textXsin = textCoordX.getText();
+            String textYsin = textCoordY.getText();
+            if (!textXsin.matches("\\d+") || !textYsin.matches("\\d+")) {
+                JOptionPane.showMessageDialog(null, "Las coordenadas X e Y deben ser solo numericas.");
+            } else {
+                String tipo = comboTipoAccidenteSiniestro.getSelectedItem().toString();
+                LocalDate fecha = LocalDate.parse(textFechaSiniestro.getText());
+                String detalle = textAreaDescripcion.getText();
+                int coord_x = Integer.parseInt(textCoordX.getText());
+                int coord_Y = Integer.parseInt(textCoordY1.getText());
+                LocalDate fecha_fin = LocalDate.parse(textFechaSiniestro.getText());
+                int puntaje = 0;
+                int selectedRow = jTbrigadas.getSelectedRow();
+                if (selectedRow != -1) {
+                    int codBrigada = Integer.parseInt(jTbrigadas.getModel().getValueAt(selectedRow, 0).toString());
+                    Siniestro siniestro = new Siniestro(tipo, fecha, coord_x, coord_Y, detalle, fecha_fin, puntaje, codBrigada);
+                    siniestroDB.cargarSiniestro(siniestro);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Por favor, seleccione una brigada.");
+                }
+            }
+        }
+    } catch (NumberFormatException ex) {
+        JOptionPane.showMessageDialog(null, "Error al intentar calcular el siniestro.");
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(null, "Error al analizar la fecha. Asegúrate de ingresar la fecha en el formato correcto.");
+    }
+
+
     }//GEN-LAST:event_botonRegistrarSiniestroActionPerformed
 
 
