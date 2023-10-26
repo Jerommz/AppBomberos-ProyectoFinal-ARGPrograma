@@ -43,6 +43,9 @@ public class ListarBrigadas extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         panelTop = new javax.swing.JPanel();
+        panelIzq = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        panelDer = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         cbListarCuarteles = new javax.swing.JComboBox<>();
         rbBrigadasLibres = new javax.swing.JRadioButton();
@@ -55,7 +58,27 @@ public class ListarBrigadas extends javax.swing.JPanel {
 
         panelTop.setBackground(new Color(161, 27, 27,220));
         panelTop.setPreferredSize(new java.awt.Dimension(1000, 100));
-        panelTop.setLayout(new java.awt.GridBagLayout());
+        panelTop.setLayout(new java.awt.BorderLayout());
+
+        panelIzq.setPreferredSize(new java.awt.Dimension(150, 100));
+        panelIzq.setLayout(new java.awt.GridBagLayout());
+
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel2.setForeground(java.awt.Color.white);
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Brigadas");
+        jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel2.setPreferredSize(new java.awt.Dimension(150, 24));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        panelIzq.add(jLabel2, gridBagConstraints);
+
+        panelTop.add(panelIzq, java.awt.BorderLayout.WEST);
+
+        panelDer.setPreferredSize(new java.awt.Dimension(850, 100));
+        panelDer.setLayout(new java.awt.GridBagLayout());
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel1.setForeground(java.awt.Color.white);
@@ -64,36 +87,30 @@ public class ListarBrigadas extends javax.swing.JPanel {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.insets = new java.awt.Insets(5, 21, 0, 0);
-        panelTop.add(jLabel1, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 55);
+        panelDer.add(jLabel1, gridBagConstraints);
 
         cbListarCuarteles.setBackground(new Color(193,29,29));
         cbListarCuarteles.setForeground(java.awt.Color.white);
         cbListarCuarteles.setPreferredSize(new java.awt.Dimension(130, 30));
-        cbListarCuarteles.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbListarCuartelesActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(5, 34, 0, 0);
-        panelTop.add(cbListarCuarteles, gridBagConstraints);
+        gridBagConstraints.ipadx = 50;
+        gridBagConstraints.ipady = 4;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 55);
+        panelDer.add(cbListarCuarteles, gridBagConstraints);
 
         rbBrigadasLibres.setForeground(java.awt.Color.white);
         rbBrigadasLibres.setText("Libres/Asignadas");
-        rbBrigadasLibres.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbBrigadasLibresActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.gridheight = 2;
-        gridBagConstraints.insets = new java.awt.Insets(0, 29, 0, 0);
-        panelTop.add(rbBrigadasLibres, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(0, 1, 0, 59);
+        panelDer.add(rbBrigadasLibres, gridBagConstraints);
+
+        panelTop.add(panelDer, java.awt.BorderLayout.EAST);
 
         add(panelTop, java.awt.BorderLayout.NORTH);
 
@@ -121,17 +138,6 @@ public class ListarBrigadas extends javax.swing.JPanel {
 
         add(panelBot, java.awt.BorderLayout.SOUTH);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void cbListarCuartelesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbListarCuartelesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbListarCuartelesActionPerformed
-
-    private void rbBrigadasLibresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbBrigadasLibresActionPerformed
-        rbBrigadasLibres.setSelected(true);
-        actualizarTabla();
-        mostrarTablaBrigadaLibres();
-        
-    }//GEN-LAST:event_rbBrigadasLibresActionPerformed
     public void actualizarTabla() {
         DefaultTableModel mod = (DefaultTableModel) tablaListarBrigadas.getModel();
         mod.setRowCount(0);
@@ -140,8 +146,11 @@ public class ListarBrigadas extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cbListarCuarteles;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelBot;
+    private javax.swing.JPanel panelDer;
+    private javax.swing.JPanel panelIzq;
     private javax.swing.JPanel panelTop;
     private javax.swing.JRadioButton rbBrigadasLibres;
     private javax.swing.JTable tablaListarBrigadas;

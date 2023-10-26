@@ -130,6 +130,7 @@ public final class ListarSiniestros extends javax.swing.JPanel {
         panelBot.setPreferredSize(new java.awt.Dimension(0, 300));
         panelBot.setLayout(new java.awt.BorderLayout());
 
+        jPanel1.setBackground(new Color(161, 27, 27));
         jPanel1.setPreferredSize(new java.awt.Dimension(326, 300));
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
@@ -167,6 +168,7 @@ public final class ListarSiniestros extends javax.swing.JPanel {
 
         panelBot.add(jPanel1, java.awt.BorderLayout.WEST);
 
+        jPanel2.setBackground(new Color(161, 27, 27));
         jPanel2.setPreferredSize(new java.awt.Dimension(328, 300));
 
         jLabel9.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -284,6 +286,7 @@ public final class ListarSiniestros extends javax.swing.JPanel {
 
         panelBot.add(jPanel2, java.awt.BorderLayout.CENTER);
 
+        jPanel3.setBackground(new Color(161, 27, 27));
         jPanel3.setPreferredSize(new java.awt.Dimension(326, 300));
 
         jLabel7.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -341,19 +344,19 @@ public final class ListarSiniestros extends javax.swing.JPanel {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(58, 58, 58)
+                .addGap(53, 53, 53)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textCodigoSiniestro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
+                    .addComponent(jLabel7)
+                    .addComponent(textBrigadaSiniestro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textBrigadaSiniestro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10))
+                    .addComponent(jLabel10)
+                    .addComponent(textCodigoSiniestro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addComponent(botonModificarSiniestro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(botonFinalizarSiniestro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         panelBot.add(jPanel3, java.awt.BorderLayout.EAST);
