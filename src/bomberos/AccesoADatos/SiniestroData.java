@@ -34,7 +34,7 @@ public class SiniestroData {
             ps.setInt(8, siniestro.getCodBrigada());
             int exito = ps.executeUpdate();
             if (exito == 1) {
-                JOptionPane.showMessageDialog(null, "Siniestro registrado.");
+                JOptionPane.showMessageDialog(null, "Siniestro registrado con Código N°: " + siniestro.getCodigo());
             } else {
                 JOptionPane.showMessageDialog(null, "Siniestro no registrado.");
             }
