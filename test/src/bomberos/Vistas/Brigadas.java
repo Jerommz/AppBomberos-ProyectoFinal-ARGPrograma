@@ -7,7 +7,6 @@ package bomberos.Vistas;
 
 import bomberos.AccesoADatos.BrigadaData;
 import bomberos.AccesoADatos.CuartelData;
-import bomberos.Entidades.Bombero;
 import bomberos.Entidades.Brigada;
 import bomberos.Entidades.Cuartel;
 import java.awt.Color;
@@ -16,7 +15,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;

@@ -13,20 +13,10 @@ import bomberos.Entidades.Brigada;
 import bomberos.Entidades.Cuartel;
 import java.awt.Color;
 import java.awt.event.ItemEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import javax.swing.ComboBoxModel;
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
 import javax.swing.event.TableModelListener;
-import javax.swing.plaf.basic.BasicButtonUI;
 import javax.swing.table.DefaultTableModel;
 
 /**

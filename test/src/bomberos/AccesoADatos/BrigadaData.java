@@ -1,7 +1,6 @@
 package bomberos.AccesoADatos;
 
 import bomberos.AccesoAdatos.Conexion;
-import bomberos.Entidades.Bombero;
 import bomberos.Entidades.Brigada;
 import java.util.*;
 import java.sql.*;

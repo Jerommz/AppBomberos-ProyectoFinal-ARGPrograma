@@ -6,7 +6,6 @@
 package bomberos.Vistas;
 
 import bomberos.AccesoADatos.CuartelData;
-import bomberos.Entidades.Brigada;
 import bomberos.Entidades.Cuartel;
 import java.awt.Color;
 import java.awt.Component;
