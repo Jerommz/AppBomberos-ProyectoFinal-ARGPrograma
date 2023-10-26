@@ -4,6 +4,7 @@ import bomberos.AccesoADatos.BrigadaData;
 import bomberos.AccesoADatos.CuartelData;
 import bomberos.AccesoADatos.SiniestroData;
 import bomberos.Entidades.Brigada;
+import bomberos.Entidades.Siniestro;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.MouseEvent;
@@ -17,6 +18,7 @@ import javax.swing.table.TableColumnModel;
 import bomberos.Entidades.Cuartel;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.Date;
 import java.time.LocalDate;
 import javax.swing.JTextField;
 
@@ -45,9 +47,6 @@ public final class Siniestros extends javax.swing.JPanel {
         initComponents();
         botones();
         modeloTablaBrigada();
-        LocalDate fecha = LocalDate.now();
-        textFechaSiniestro.setText(String.valueOf(fecha));
-
         textAreaDescripcion.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent evt) {
@@ -314,7 +313,7 @@ public final class Siniestros extends javax.swing.JPanel {
         panelDer.setLayout(new java.awt.BorderLayout());
 
         panelDerTop.setBackground(new Color(184, 34, 34));
-        panelDerTop.setPreferredSize(new java.awt.Dimension(980, 320));
+        panelDerTop.setPreferredSize(new java.awt.Dimension(980, 300));
         panelDerTop.setLayout(new java.awt.GridBagLayout());
 
         textCuartelCercano.setBackground(new Color(201, 16, 40));
@@ -428,7 +427,7 @@ public final class Siniestros extends javax.swing.JPanel {
         panelDer.add(panelDerTop, java.awt.BorderLayout.NORTH);
 
         panelDerBot.setBackground(new Color(184, 34, 34));
-        panelDerBot.setPreferredSize(new java.awt.Dimension(980, 320));
+        panelDerBot.setPreferredSize(new java.awt.Dimension(980, 300));
         panelDerBot.setLayout(new java.awt.BorderLayout());
 
         jTbrigadas.setBackground(new Color(193,29,29));
@@ -519,7 +518,6 @@ public final class Siniestros extends javax.swing.JPanel {
     private void botonCalcularSiniestroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCalcularSiniestroActionPerformed
         // TODO add your handling code here:
         try {
-            int cont = 0;
             Component[] comps = panelIzq.getComponents();
             for (Component comp : comps) {
                 if (comp instanceof JTextField) {
@@ -551,6 +549,7 @@ public final class Siniestros extends javax.swing.JPanel {
                             }
                             String desc = textAreaDescripcion.getText();
                             String tipo = comboTipoAccidenteSiniestro.getSelectedItem().toString();
+                            Date fecha = Date.valueOf(textFechaSiniestro.getText());
                             Cuartel cuartel = cuartelDB.buscarCuartel(codCuartel);
                             List<Brigada> brigadas = brigadaDB.listarBrigadas(codCuartel);
                             mostrarTablaBrigada(brigadas);
@@ -591,7 +590,51 @@ public final class Siniestros extends javax.swing.JPanel {
     }//GEN-LAST:event_botonListarSiniestroActionPerformed
 
     private void botonRegistrarSiniestroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarSiniestroActionPerformed
-        // TODO add your handling code here:
+                                       
+    try {
+        boolean campoVacio = false;
+        Component[] comps = panelIzq.getComponents();
+        for (Component comp : comps) {
+            if (comp instanceof JTextField) {
+                if (((JTextField) comp).getText().isEmpty()) {
+                    campoVacio = true;
+                    break;
+                }
+            }
+        }
+
+        if (campoVacio) {
+            JOptionPane.showMessageDialog(null, "Ningun campo puede estar vacio para calcular el siniestro.");
+        } else {
+            String textXsin = textCoordX.getText();
+            String textYsin = textCoordY.getText();
+            if (!textXsin.matches("\\d+") || !textYsin.matches("\\d+")) {
+                JOptionPane.showMessageDialog(null, "Las coordenadas X e Y deben ser solo numericas.");
+            } else {
+                String tipo = comboTipoAccidenteSiniestro.getSelectedItem().toString();
+                LocalDate fecha = LocalDate.parse(textFechaSiniestro.getText());
+                String detalle = textAreaDescripcion.getText();
+                int coord_x = Integer.parseInt(textCoordX.getText());
+                int coord_Y = Integer.parseInt(textCoordY1.getText());
+                LocalDate fecha_fin = LocalDate.parse(textFechaSiniestro.getText());
+                int puntaje = 0;
+                int selectedRow = jTbrigadas.getSelectedRow();
+                if (selectedRow != -1) {
+                    int codBrigada = Integer.parseInt(jTbrigadas.getModel().getValueAt(selectedRow, 0).toString());
+                    Siniestro siniestro = new Siniestro(tipo, fecha, coord_x, coord_Y, detalle, fecha_fin, puntaje, codBrigada);
+                    siniestroDB.cargarSiniestro(siniestro);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Por favor, seleccione una brigada.");
+                }
+            }
+        }
+    } catch (NumberFormatException ex) {
+        JOptionPane.showMessageDialog(null, "Error al intentar calcular el siniestro.");
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(null, "Error al analizar la fecha. Asegúrate de ingresar la fecha en el formato correcto.");
+    }
+
+
     }//GEN-LAST:event_botonRegistrarSiniestroActionPerformed
 
 
