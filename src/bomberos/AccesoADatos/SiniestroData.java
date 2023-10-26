@@ -3,7 +3,12 @@ package bomberos.AccesoADatos;
 import bomberos.AccesoAdatos.Conexion;
 import bomberos.Entidades.Cuartel;
 import bomberos.Entidades.Siniestro;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,14 +50,11 @@ public class SiniestroData {
     }
 
     public List<Siniestro> consultarSiniestros48hs(Siniestro sinie) {
-        con = Conexion.getConnection();
         List<Siniestro> accidentes = new ArrayList<>();
         String sql = "SELECT * FROM siniestro WHERE fecha_siniestro >= (CURDATE() - INTERVAL 1 DAY) OR fecha_resol >= (CURDATE() - INTERVAL 1 DAY)";
-
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-
             while (rs.next()) {
                 Siniestro siniestro = new Siniestro();
 
@@ -68,7 +70,6 @@ public class SiniestroData {
                 siniestro.setCodBrigada(rs.getInt("codBrigada"));
                 accidentes.add(siniestro);
             }
-
             ps.close();
             rs.close();
         } catch (SQLException ex) {
@@ -91,7 +92,6 @@ public class SiniestroData {
                 siniestro.setDetalles(rs.getString("detalles"));
                 siniestro.setCoord_X(rs.getInt("coord_X"));
                 siniestro.setCoord_Y(rs.getInt("coord_Y"));
-
                 siniestro.setFecha_resol(rs.getDate("fecha_resol").toLocalDate());
                 siniestro.setPuntuacion(rs.getInt("puntuacion"));
                 siniestro.setCodBrigada(rs.getInt("codBrigada"));
@@ -122,27 +122,6 @@ public class SiniestroData {
         }
     }
 
-//    public String cuartelMasCercano() {
-//        String cuartelMasCercano = null;
-//        String sql = "SELECT siniestro.codigo AS siniestro_codigo, MIN(SQRT(POW(cuartel.coord_X - siniestro.coord_X, 2) + POW(cuartel.coord_Y - siniestro.coord_Y, 2))) AS distancia_minima, cuartel.codCuartel AS cuartel_Mas_Cercano FROM cuartel CROSS JOIN siniestro GROUP BY siniestro.codigo, cuartel.codCuartel ORDER BY distancia_minima LIMIT 0,25";
-//        try {
-//            PreparedStatement ps = con.prepareStatement(sql);
-//            ResultSet rs = ps.executeQuery();
-//            if (rs.next()) {
-//                double distancia_minima = rs.getDouble("distancia_minima");
-//                cuartelMasCercano = rs.getString("cuartel_Mas_Cercano");
-//                JOptionPane.showMessageDialog(null, "El cuartel más cercano se encuentra a una distancia de: " + distancia_minima);
-//                JOptionPane.showMessageDialog(null, "El codigo del cuartel mas cercano es: " + cuartelMasCercano);
-//            } else {
-//                JOptionPane.showMessageDialog(null, "No se encontro la ubicacion.");
-//            }
-//            ps.close();
-//            rs.close();
-//        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
-//        }
-//        return cuartelMasCercano;
-//    }
     public void modificarSiniestro(Siniestro siniestro) {
         String sql = "UPDATE siniestro SET tipo = ?, fecha_siniestro = ?, coord_X = ?, coord_Y = ?, detalles = ?, fecha_resol = ?, puntuacion = ?, codBrigada = ? WHERE codigo = ?";
         try {

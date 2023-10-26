@@ -115,7 +115,6 @@ public final class Siniestros extends javax.swing.JPanel {
         jLabel12 = new javax.swing.JLabel();
         textCoordX1 = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        panelDerMid = new javax.swing.JPanel();
         panelDerBot = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTbrigadas = new javax.swing.JTable();
@@ -426,11 +425,6 @@ public final class Siniestros extends javax.swing.JPanel {
 
         panelDer.add(panelDerTop, java.awt.BorderLayout.NORTH);
 
-        panelDerMid.setBackground(new Color(184, 34, 34));
-        panelDerMid.setPreferredSize(new java.awt.Dimension(980, 40));
-        panelDerMid.setLayout(new java.awt.BorderLayout());
-        panelDer.add(panelDerMid, java.awt.BorderLayout.CENTER);
-
         panelDerBot.setBackground(new Color(184, 34, 34));
         panelDerBot.setPreferredSize(new java.awt.Dimension(980, 300));
         panelDerBot.setLayout(new java.awt.BorderLayout());
@@ -624,7 +618,6 @@ public final class Siniestros extends javax.swing.JPanel {
     private javax.swing.JTable jTbrigadas;
     private javax.swing.JPanel panelDer;
     private javax.swing.JPanel panelDerBot;
-    private javax.swing.JPanel panelDerMid;
     private javax.swing.JPanel panelDerTop;
     private javax.swing.JPanel panelIzq;
     private javax.swing.JPanel panelRoot;
