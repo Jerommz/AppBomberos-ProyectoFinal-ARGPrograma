@@ -89,7 +89,7 @@ public class BrigadaData {
                 brigada.setCodBrigada(rs.getInt("codBrigada"));
                 brigada.setNombre_br(rs.getString("nombre_br"));
                 brigada.setEspecialidad(rs.getString("especialidad"));
-                brigada.isLibre();
+                brigada.setLibre(rs.getBoolean("libre"));
                 brigada.setCodCuartel(rs.getInt("codCuartel"));
                 brigadas.add(brigada);
             }
@@ -210,7 +210,7 @@ public class BrigadaData {
                 brigada.setCodBrigada(rs.getInt("codBrigada"));
                 brigada.setNombre_br(rs.getString("nombre_br"));
                 brigada.setEspecialidad(rs.getString("especialidad"));
-                brigada.isLibre();
+                brigada.setLibre(rs.getBoolean("libre"));
                 brigada.setCodCuartel(rs.getInt("codCuartel"));
                 brigadas.add(brigada);
             }
@@ -224,7 +224,7 @@ public class BrigadaData {
 
     public List<Brigada> obtenerBrigadasLibres() {
         List<Brigada> brigadas = new ArrayList<>();
-        String sql = "select * from brigada where libre =0";
+        String sql = "select * from brigada where libre =1";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -233,7 +233,7 @@ public class BrigadaData {
                 brigada.setCodBrigada(rs.getInt("codBrigada"));
                 brigada.setNombre_br(rs.getString("nombre_br"));
                 brigada.setEspecialidad(rs.getString("especialidad"));
-                brigada.isLibre();
+                brigada.setLibre(rs.getBoolean("libre"));
                 brigada.setCodCuartel(rs.getInt("codCuartel"));
                 brigadas.add(brigada);
             }
