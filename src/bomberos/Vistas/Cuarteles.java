@@ -605,6 +605,13 @@ public class Cuarteles extends javax.swing.JPanel {
                     }
                 }
             }
+             textCodigoCuartel.setText("");
+            textNombreCuartel.setText("");
+            textDireccionCuartel.setText("");
+            textNumeroCuartel.setText("");
+            textCorreoCuartel.setText("");
+            textCoordX.setText("");
+            textCoordY.setText("");
         } catch (NullPointerException ex) {
             JOptionPane.showMessageDialog(null, "Error al intentar modificar brigada.");
         }

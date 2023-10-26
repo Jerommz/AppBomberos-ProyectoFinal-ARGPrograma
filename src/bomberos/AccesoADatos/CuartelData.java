@@ -157,4 +157,30 @@ public class CuartelData {
         }
         return cuartel;
     }
+     public List<Cuartel> obtenerCuartelesPorNombre(String nombreCuartel) {
+        List<Cuartel> cuarteles = new ArrayList<>();
+        String sql = "SELECT codCuartel, nombre_cuartel, direccion, coord_X, coord_Y, telefono, correo FROM cuartelwhere nombre_cuartel = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, nombreCuartel);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Cuartel cuartel = new Cuartel();
+                cuartel.setCodCuartel(rs.getInt("codCuartel"));
+                cuartel.setNombre_cuartel(rs.getString("nombre_cuartel"));
+                cuartel.setDireccion(rs.getString("direccion"));
+                cuartel.setCoord_X(rs.getInt("coord_X"));
+                cuartel.setCoord_Y(rs.getInt("coord_Y"));
+                cuartel.setTelefono(rs.getInt("telefono"));
+                cuartel.setCorreo(rs.getString("correo"));
+                cuarteles.add(cuartel);
+            }
+            ps.close();
+            rs.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
+        }
+        return cuarteles;
+
+    }
 }

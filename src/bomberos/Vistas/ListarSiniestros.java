@@ -13,13 +13,14 @@ import bomberos.AccesoADatos.SiniestroData;
 import java.awt.Component;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 
 public final class ListarSiniestros extends javax.swing.JPanel {
 
     String[] modeloSiniestro = {"Codigo", "Tipo", "Fecha", "Detalles", "X ", "Y", "Fecha finalizacion", "Puntaje", "Codigo Brigada"};
     SiniestroData siniestroDB = new SiniestroData();
-
+    Siniestro siniestro = new Siniestro();
     DefaultTableModel modeloSiniestroAct = new DefaultTableModel(null, modeloSiniestro) {
         @Override
         public boolean isCellEditable(int row, int column) {
@@ -42,7 +43,7 @@ public final class ListarSiniestros extends javax.swing.JPanel {
         panelMain = new javax.swing.JPanel();
         panelTop = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        jcb48hs = new javax.swing.JCheckBox();
         panelMid = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaListarAdmin = new javax.swing.JTable();
@@ -92,13 +93,18 @@ public final class ListarSiniestros extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         panelTop.add(jLabel1, gridBagConstraints);
 
-        jCheckBox1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jCheckBox1.setForeground(java.awt.Color.white);
-        jCheckBox1.setText("Ultimas 48 horas");
+        jcb48hs.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jcb48hs.setForeground(java.awt.Color.white);
+        jcb48hs.setText("Ultimas 48 horas");
+        jcb48hs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcb48hsActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
-        panelTop.add(jCheckBox1, gridBagConstraints);
+        panelTop.add(jcb48hs, gridBagConstraints);
 
         panelMain.add(panelTop, java.awt.BorderLayout.NORTH);
 
@@ -122,6 +128,14 @@ public final class ListarSiniestros extends javax.swing.JPanel {
             }
         ));
         tablaListarAdmin.setRowHeight(30);
+        tablaListarAdmin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaListarAdminMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tablaListarAdminMousePressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaListarAdmin);
 
         panelMid.add(jScrollPane1, java.awt.BorderLayout.CENTER);
@@ -296,6 +310,11 @@ public final class ListarSiniestros extends javax.swing.JPanel {
         botonFinalizarSiniestro.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         botonFinalizarSiniestro.setBorderPainted(false);
         botonFinalizarSiniestro.setPreferredSize(new java.awt.Dimension(120, 40));
+        botonFinalizarSiniestro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonFinalizarSiniestroActionPerformed(evt);
+            }
+        });
 
         jLabel10.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel10.setForeground(java.awt.Color.white);
@@ -307,6 +326,11 @@ public final class ListarSiniestros extends javax.swing.JPanel {
         botonModificarSiniestro.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         botonModificarSiniestro.setBorderPainted(false);
         botonModificarSiniestro.setPreferredSize(new java.awt.Dimension(120, 40));
+        botonModificarSiniestro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonModificarSiniestroActionPerformed(evt);
+            }
+        });
 
         textCodigoSiniestro.setPreferredSize(new java.awt.Dimension(50, 30));
 
@@ -380,6 +404,70 @@ public final class ListarSiniestros extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void tablaListarAdminMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaListarAdminMousePressed
+   
+       
+    }//GEN-LAST:event_tablaListarAdminMousePressed
+
+    private void tablaListarAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaListarAdminMouseClicked
+        int seleccionar = tablaListarAdmin.rowAtPoint(evt.getPoint());
+        textBrigadaSiniestro.setText(String.valueOf(tablaListarAdmin.getValueAt(seleccionar, 8)));
+        textCodigoSiniestro.setText(String.valueOf(tablaListarAdmin.getValueAt(seleccionar, 0)));
+        textDescSiniestro.setText(String.valueOf(tablaListarAdmin.getValueAt(seleccionar, 3)));
+        textFechaFinSiniestro.setText(String.valueOf(tablaListarAdmin.getValueAt(seleccionar, 6)));
+        textFechaInicioSiniestro.setText(String.valueOf(tablaListarAdmin.getValueAt(seleccionar, 2)));
+        textPuntajeSiniestro2.setText(String.valueOf(tablaListarAdmin.getValueAt(seleccionar, 7)));
+        textPuntox.setText(String.valueOf(tablaListarAdmin.getValueAt(seleccionar, 4)));
+        textPuntoY.setText(String.valueOf(tablaListarAdmin.getValueAt(seleccionar, 5)));
+        textTipoSiniestro.setText(String.valueOf(tablaListarAdmin.getValueAt(seleccionar, 1)));
+    }//GEN-LAST:event_tablaListarAdminMouseClicked
+
+    private void botonModificarSiniestroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarSiniestroActionPerformed
+      if(textBrigadaSiniestro == null ||textCodigoSiniestro ==null ||textDescSiniestro ==null ||textFechaFinSiniestro == null || textFechaInicioSiniestro ==null || textPuntajeSiniestro2 ==null || textPuntox ==null || textPuntoY ==null || textTipoSiniestro ==null){
+      JOptionPane.showMessageDialog(null, "debe cliquear la tabla  ");
+      } else{
+          int codBrigada=Integer.valueOf(textBrigadaSiniestro.getText());
+          int codigo =Integer.valueOf(textCodigoSiniestro.getText());
+          String   detalle =textDescSiniestro.getText();
+          LocalDate fecha_resol =LocalDate.parse(textFechaFinSiniestro.getText()); 
+          LocalDate fecha_Inicio =LocalDate.parse(textFechaInicioSiniestro.getText());
+          int puntuacion = Integer.parseInt(textPuntajeSiniestro2.getText());
+          int cood_x =Integer.parseInt(textPuntox.getText());
+          int cood_y =Integer.parseInt(textPuntoY.getText());
+          String tipo =textFechaInicioSiniestro.getText();
+          Siniestro siniestro = new Siniestro(codigo, tipo, fecha_Inicio, cood_x, cood_y, detalle, fecha_resol, puntuacion, codBrigada);
+     siniestroDB.modificarSiniestro(siniestro);
+      
+      } 
+    }//GEN-LAST:event_botonModificarSiniestroActionPerformed
+
+    private void botonFinalizarSiniestroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonFinalizarSiniestroActionPerformed
+          if(textBrigadaSiniestro == null ||textCodigoSiniestro ==null ||textDescSiniestro ==null ||textFechaFinSiniestro == null || textFechaInicioSiniestro ==null || textPuntajeSiniestro2 ==null || textPuntox ==null || textPuntoY ==null || textTipoSiniestro ==null){
+      JOptionPane.showMessageDialog(null, "debe cliquear la tabla  ");
+      } else{
+              int codBrigada=Integer.valueOf(textBrigadaSiniestro.getText());
+          int codigo =Integer.valueOf(textCodigoSiniestro.getText());
+          String   detalle =textDescSiniestro.getText();
+          LocalDate fecha_resol =LocalDate.parse(textFechaFinSiniestro.getText()); 
+          LocalDate fecha_Inicio =LocalDate.parse(textFechaInicioSiniestro.getText());
+          int puntuacion = Integer.parseInt(textPuntajeSiniestro2.getText());
+          int cood_x =Integer.parseInt(textPuntox.getText());
+          int cood_y =Integer.parseInt(textPuntoY.getText());
+          String tipo =textFechaInicioSiniestro.getText();
+          Siniestro siniestro = new Siniestro(codigo, tipo, fecha_Inicio, cood_x, cood_y, detalle, fecha_resol, puntuacion, codBrigada);
+      siniestroDB.anotarTerminacionDeSiniestro(codigo, fecha_resol, puntuacion);
+      
+      } 
+    }//GEN-LAST:event_botonFinalizarSiniestroActionPerformed
+
+    private void jcb48hsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcb48hsActionPerformed
+        jcb48hs.setSelected(true);
+        actualizarTabla();
+        modeloTablaSiniestro();
+        mostrarTabla48hsSiniestro();
+        
+    }//GEN-LAST:event_jcb48hsActionPerformed
+
     private void cbListarAdminActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     }
@@ -387,7 +475,6 @@ public final class ListarSiniestros extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonFinalizarSiniestro;
     private javax.swing.JButton botonModificarSiniestro;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -403,6 +490,7 @@ public final class ListarSiniestros extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JCheckBox jcb48hs;
     private javax.swing.JPanel panelBot;
     private javax.swing.JPanel panelMain;
     private javax.swing.JPanel panelMid;
@@ -479,5 +567,26 @@ public final class ListarSiniestros extends javax.swing.JPanel {
         columnaSiniestro.getColumn(6).setMaxWidth(500);
         columnaSiniestro.getColumn(7).setMaxWidth(500);
         columnaSiniestro.getColumn(8).setMaxWidth(500);
+    }
+    public void actualizarTabla() {
+        DefaultTableModel mod = (DefaultTableModel) tablaListarAdmin.getModel();
+        mod.setRowCount(0);
+    }
+    
+     public void mostrarTabla48hsSiniestro() {
+        List<Siniestro> siniestros = siniestroDB.consultarSiniestros48hs(siniestro);
+        for (Siniestro sini : siniestros) {
+            modeloSiniestroAct.addRow(new Object[]{
+                sini.getCodigo(),
+                sini.getTipo(),
+                sini.getFecha_siniestro(),
+                sini.getDetalles(),
+                sini.getCoord_X(),
+                sini.getCoord_Y(),
+                sini.getFecha_resol(),
+                sini.getPuntuacion(),
+                sini.getCodBrigada()
+            });
+        }
     }
 }

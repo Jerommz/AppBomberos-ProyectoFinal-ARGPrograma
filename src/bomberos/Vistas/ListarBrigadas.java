@@ -6,7 +6,9 @@
 package bomberos.Vistas;
 
 import bomberos.AccesoADatos.BrigadaData;
+import bomberos.AccesoADatos.CuartelData;
 import bomberos.Entidades.Brigada;
+import bomberos.Entidades.Cuartel;
 import java.awt.Color;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -17,18 +19,21 @@ import javax.swing.table.TableColumnModel;
  * @author jero
  */
 public class ListarBrigadas extends javax.swing.JPanel {
+
     String[] modeloBrigada = {"ID", "Nombre", "Especialidad", "Libre", "Cuartel"};
     BrigadaData brigadaDB = new BrigadaData();
+    CuartelData cuartelDB = new CuartelData();
     DefaultTableModel modeloBrigadaAct = new DefaultTableModel(null, modeloBrigada) {
         @Override
         public boolean isCellEditable(int row, int column) {
             return false;
         }
     };
+
     public ListarBrigadas() {
         initComponents();
         modeloTablaBrigada();
-        mostrarTablaBrigada();
+        mostrarTablaBrigadaLibres();
         listarBrigadas();
     }
 
@@ -123,14 +128,17 @@ public class ListarBrigadas extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cbListarCuartelesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbListarCuartelesActionPerformed
-        // TODO add your handling code here:
+        rbBrigadasLibres.setSelected(false);
+        actualizarTabla();
+        mostrarTablaBrigada();
     }//GEN-LAST:event_cbListarCuartelesActionPerformed
 
     private void rbBrigadasLibresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbBrigadasLibresActionPerformed
         rbBrigadasLibres.setSelected(true);
         actualizarTabla();
-        mostrarTablaBrigadaLibres();
-        
+        mostrarTablaDeBrigadasAsignadas();
+       
+
     }//GEN-LAST:event_rbBrigadasLibresActionPerformed
     public void actualizarTabla() {
         DefaultTableModel mod = (DefaultTableModel) tablaListarBrigadas.getModel();
@@ -138,7 +146,7 @@ public class ListarBrigadas extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> cbListarCuarteles;
+    private javax.swing.JComboBox<Cuartel> cbListarCuarteles;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelBot;
@@ -155,8 +163,9 @@ public class ListarBrigadas extends javax.swing.JPanel {
         columnaBrigada.getColumn(3).setMaxWidth(80);
         columnaBrigada.getColumn(4).setMaxWidth(80);
     }
-   public void mostrarTablaBrigada() {
-        
+
+    public void mostrarTablaBrigada() {
+
         List<Brigada> brigadas = brigadaDB.obtenerBrigadas();
         for (Brigada brigada : brigadas) {
             modeloBrigadaAct.addRow(new Object[]{
@@ -168,17 +177,22 @@ public class ListarBrigadas extends javax.swing.JPanel {
             });
         }
     }
-    public void listarBrigadas(){
-     List <Brigada>briDB =brigadaDB.obtenerBrigadas();
-     for(Brigada brigada : briDB){
-     cbListarCuarteles.addItem(brigada.getNombre_br());
-     
-     }
-    
-    
+
+   public void listarBrigadas() {
+    List<Cuartel> cuarteles= cuartelDB.obtenerCuarteles();
+    for (Cuartel cuartel1 : cuarteles) {
+        cbListarCuarteles.addItem(cuartel1);
     }
- public void mostrarTablaBrigadaLibres() {
-        
+}
+
+
+
+   
+
+
+
+    public void mostrarTablaBrigadaLibres() {
+
         List<Brigada> brigadas = brigadaDB.obtenerBrigadasLibres();
         for (Brigada brigada : brigadas) {
             modeloBrigadaAct.addRow(new Object[]{
@@ -189,8 +203,67 @@ public class ListarBrigadas extends javax.swing.JPanel {
                 brigada.getCodCuartel()
             });
         }
-    }    
-     
+    }
+
+  /*  public void mostrarTablaDeBrigadasAsignadas() {
+        actualizarTabla();
+        List<Cuartel> cuarteles = cuartelDB.obtenerCuarteles();
+        String nombre_cuartel = String.valueOf(cbListarCuarteles.getSelectedIndex());
+        for (Cuartel cuartel : cuarteles) {
+            int codCuartel = cuartel.getCodCuartel();
+            if (cuartel.getNombre_cuartel().equals(nombre_cuartel)) {
+                List<Brigada> brigadas = brigadaDB.obtenerBrigadas();
+                for (int i = 0; i < brigadas.size(); i++) {
+                    if (brigadas.get(i).isLibre() == true) {
+                        int codBrigada = brigadas.get(i).getCodBrigada();
+                        String nombre = brigadas.get(i).getNombre_br();
+                        String especialidad = brigadas.get(i).getEspecialidad();
+
+                        int codCuatel = brigadas.get(i).getCodCuartel();
+                        modeloBrigadaAct.addRow(new Object[]{
+                            codBrigada,
+                            nombre,
+                            especialidad,
+                            codCuartel
+
+                        });
+
+                    }
+
+                }
+            }
+
+        }
+
+    }*/
+    
+   public void mostrarTablaDeBrigadasAsignadas() {
+    actualizarTabla();
+    Object selectedItem = (Object)cbListarCuarteles.getSelectedItem();
+    if (selectedItem instanceof Cuartel) {
+        Cuartel cuartelSeleccionado = (Cuartel) selectedItem;
+        int codCuartel = cuartelSeleccionado.getCodCuartel();
+        List<Brigada> brigadas = brigadaDB.obtenerBrigadaCuartel(codCuartel);
+        modeloBrigadaAct.setRowCount(0); // Limpiar la tabla antes de agregar nuevas filas
+
+        for (Brigada brigada : brigadas) {
+            if (brigada.isLibre()) {
+                int codBrigada = brigada.getCodBrigada();
+                String nombre = brigada.getNombre_br();
+                String especialidad = brigada.getEspecialidad();
+                int codCuatel = brigada.getCodCuartel();
+                modeloBrigadaAct.addRow(new Object[]{
+                    codBrigada,
+                    nombre,
+                    especialidad,
+                    codCuartel
+                });
+            }
+        }
+    }
+}
+
+
 
 
 }
