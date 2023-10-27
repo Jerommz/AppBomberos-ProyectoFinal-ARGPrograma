@@ -228,6 +228,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="textFechaSiniestro">
                       <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                           <Connection code="new Color(193,29,29)" type="code"/>
                         </Property>
