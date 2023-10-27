@@ -50,7 +50,7 @@ public final class Siniestros extends javax.swing.JPanel {
         modeloTablaBrigada();
         
         LocalDate fecha = LocalDate.now();
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String text = fecha.format(format);
         textFechaSiniestro.setText(String.valueOf(text));
         

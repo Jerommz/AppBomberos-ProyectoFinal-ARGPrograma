@@ -471,7 +471,7 @@ public final class ListarSiniestros extends javax.swing.JPanel {
             int puntuacion = Integer.parseInt(textPuntajeSiniestro2.getText());
             int cood_x = Integer.parseInt(textPuntox.getText());
             int cood_y = Integer.parseInt(textPuntoY.getText());
-            String tipo = textFechaInicioSiniestro.getText();
+            String tipo = textTipoSiniestro.getText();
             Siniestro siniestro = new Siniestro(codigo, tipo, fecha_Inicio, cood_x, cood_y, detalle, fecha_resol, puntuacion, codBrigada);
             siniestroDB.modificarSiniestro(siniestro);
             actualizarTabla();
@@ -491,7 +491,7 @@ public final class ListarSiniestros extends javax.swing.JPanel {
             int puntuacion = Integer.parseInt(textPuntajeSiniestro2.getText());
             int cood_x = Integer.parseInt(textPuntox.getText());
             int cood_y = Integer.parseInt(textPuntoY.getText());
-            String tipo = textFechaInicioSiniestro.getText();
+            String tipo = textTipoSiniestro.getText();
             Siniestro siniestro = new Siniestro(codigo, tipo, fecha_Inicio, cood_x, cood_y, detalle, fecha_resol, puntuacion, codBrigada);
             siniestroDB.anotarTerminacionDeSiniestro(codigo, fecha_resol, puntuacion);
 
