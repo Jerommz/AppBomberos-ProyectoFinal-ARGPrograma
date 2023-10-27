@@ -48,6 +48,30 @@ public class SiniestroData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
         }
     }
+    
+    public void cargarSiniestroCompleto(Siniestro siniestro) {
+        String sql = "INSERT INTO siniestro(tipo, fecha_siniestro, coord_X, coord_Y, detalles, fecha_resol, puntuacion, codBrigada) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, siniestro.getTipo());
+            ps.setDate(2, Date.valueOf(siniestro.getFecha_siniestro()));
+            ps.setInt(3, siniestro.getCoord_X());
+            ps.setInt(4, siniestro.getCoord_Y());
+            ps.setString(5, siniestro.getDetalles());
+            ps.setDate(6, Date.valueOf(siniestro.getFecha_resol()));
+            ps.setInt(7, siniestro.getPuntuacion());
+            ps.setInt(8, siniestro.getCodBrigada());
+            int exito = ps.executeUpdate();
+            if (exito == 1) {
+                JOptionPane.showMessageDialog(null, "Siniestro registrado con Código N°: " + siniestro.getCodigo());
+            } else {
+                JOptionPane.showMessageDialog(null, "Siniestro no registrado.");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
+        }
+    }
 
     public List<Siniestro> consultarSiniestros48hs(Siniestro sinie) {
         List<Siniestro> accidentes = new ArrayList<>();
