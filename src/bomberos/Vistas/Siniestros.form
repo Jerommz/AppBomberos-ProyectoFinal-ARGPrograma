@@ -491,6 +491,7 @@
                       <SubComponents>
                         <Component class="javax.swing.JTextField" name="textCuartelCercano">
                           <Properties>
+                            <Property name="editable" type="boolean" value="false"/>
                             <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                               <Connection code="new Color(201, 16, 40)" type="code"/>
                             </Property>
@@ -536,6 +537,7 @@
                         </Component>
                         <Component class="javax.swing.JTextField" name="textDistancia">
                           <Properties>
+                            <Property name="editable" type="boolean" value="false"/>
                             <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                               <Connection code="new Color(201, 16, 40)" type="code"/>
                             </Property>
@@ -606,6 +608,7 @@
                         </Component>
                         <Component class="javax.swing.JTextField" name="textDireccion">
                           <Properties>
+                            <Property name="editable" type="boolean" value="false"/>
                             <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                               <Connection code="new Color(201, 16, 40)" type="code"/>
                             </Property>
@@ -626,6 +629,7 @@
                         </Component>
                         <Component class="javax.swing.JTextField" name="textCoordY1">
                           <Properties>
+                            <Property name="editable" type="boolean" value="false"/>
                             <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                               <Connection code="new Color(201, 16, 40)" type="code"/>
                             </Property>
@@ -665,6 +669,7 @@
                         </Component>
                         <Component class="javax.swing.JTextField" name="textCoordX1">
                           <Properties>
+                            <Property name="editable" type="boolean" value="false"/>
                             <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                               <Connection code="new Color(201, 16, 40)" type="code"/>
                             </Property>
