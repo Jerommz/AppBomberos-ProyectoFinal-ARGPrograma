@@ -8,6 +8,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ public class SiniestroData {
     public void cargarSiniestro(Siniestro siniestro) {
         String sql = "INSERT INTO siniestro(tipo, fecha_siniestro, coord_X, coord_Y, detalles, fecha_resol, puntuacion, codBrigada) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try {
-            PreparedStatement ps = con.prepareStatement(sql);
+            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, siniestro.getTipo());
             ps.setDate(2, Date.valueOf(siniestro.getFecha_siniestro()));
             ps.setInt(3, siniestro.getCoord_X());
@@ -38,7 +39,9 @@ public class SiniestroData {
             ps.setInt(7, siniestro.getPuntuacion());
             ps.setInt(8, siniestro.getCodBrigada());
             int exito = ps.executeUpdate();
-            if (exito == 1) {
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                siniestro.setCodigo(rs.getInt(1));
                 JOptionPane.showMessageDialog(null, "Siniestro registrado con Código N°: " + siniestro.getCodigo());
             } else {
                 JOptionPane.showMessageDialog(null, "Siniestro no registrado.");
