@@ -20,7 +20,6 @@ import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicButtonUI;
 
 public final class Bomberos extends javax.swing.JPanel {
-
     BomberoData bomberoDB = new BomberoData();
     BrigadaData brigadaDB = new BrigadaData();
     String[] modelo = {"AB+", "AB-", "B+", "B-", "A+", "A-", "O+", "O-"};
@@ -34,7 +33,7 @@ public final class Bomberos extends javax.swing.JPanel {
             public void keyTyped(KeyEvent evt) {
                 if (textNombreApBombero.getText().length() >= 50) {
                     evt.consume();
-                    JOptionPane.showMessageDialog(null, "Maximo 50 caracteres.");    // ---> Control de caracteres maximo por campo
+                    JOptionPane.showMessageDialog(null, "Maximo 50 caracteres.");
                 }
             }
         });
@@ -660,7 +659,7 @@ public final class Bomberos extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (textDNIBombero.getText().length() >= 8) {
             evt.consume();
-            JOptionPane.showMessageDialog(null, "Maximo 8 numeros.");    // ---> Control de caracteres maximo por campo
+            JOptionPane.showMessageDialog(null, "Maximo 8 numeros.");
         }
     }//GEN-LAST:event_textDNIBomberoKeyTyped
 
@@ -668,7 +667,7 @@ public final class Bomberos extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (textCelularBombero.getText().length() >= 11) {
             evt.consume();
-            JOptionPane.showMessageDialog(null, "Maximo 11 numeros.");    // ---> Control de caracteres maximo por campo
+            JOptionPane.showMessageDialog(null, "Maximo 11 numeros.");
         }
     }//GEN-LAST:event_textCelularBomberoKeyTyped
 

@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class BrigadaData {
-
     Brigada brigad = new Brigada();
     private final Connection con;
 
@@ -17,16 +16,13 @@ public class BrigadaData {
     }
 
     public void nuevaBrigada(Brigada brigada) {
-        String sql = "insert into brigada(nombre_br, especialidad, libre, codCuartel)"
-                + "VALUES (?, ?, ?, ?)";
+        String sql = "insert into brigada(nombre_br, especialidad, libre, codCuartel) VALUES (?, ?, ?, ?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-
             ps.setString(1, brigada.getNombre_br());
             ps.setString(2, brigada.getEspecialidad());
             ps.setBoolean(3, brigada.isLibre());
             ps.setInt(4, brigada.getCodCuartel());
-            int exito = ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 brigada.setCodBrigada(rs.getInt(1));
@@ -112,13 +108,11 @@ public class BrigadaData {
         String sql = "update brigada set libre = ? where codBrigada = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-
             if (check) {
                 ps.setInt(1, 0); // Set libre to 0 for ocupado
                 ps.setInt(2, codBrigada);
                 int exito = ps.executeUpdate();
                 if (exito == 1) {
-
                     JOptionPane.showMessageDialog(null, "Brigada " + codBrigada + " en camino.");
                 } else {
                     JOptionPane.showMessageDialog(null, "Hubo un problema al ocupar la brigada.");
@@ -239,7 +233,7 @@ public class BrigadaData {
 
     public List<Brigada> obtenerBrigadasLibres() {
         List<Brigada> brigadas = new ArrayList<>();
-        String sql = "select * from brigada where libre =1";
+        String sql = "select * from brigada where libre = 1";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -270,7 +264,7 @@ public class BrigadaData {
         ps.setInt(2, codBrigada);
         int exito = ps.executeUpdate();
         if (exito == 1) {
-            JOptionPane.showMessageDialog(null, "Brigada " + codBrigada + " Esta brigada quedó libre");
+            JOptionPane.showMessageDialog(null, "Brigada " + codBrigada + " disponible.");
         } else {
             JOptionPane.showMessageDialog(null, "Ha ocurrido un error en desocupar brigada.");
         }

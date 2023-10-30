@@ -13,8 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicButtonUI;
 
-public class Cuarteles extends javax.swing.JPanel {
-
+public final class Cuarteles extends javax.swing.JPanel {
     CuartelData cuartelDB = new CuartelData();
 
     public Cuarteles() {
@@ -29,21 +28,23 @@ public class Cuarteles extends javax.swing.JPanel {
                 }
             }
         });
+        
         textDireccionCuartel.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent evt) {
                 if (textDireccionCuartel.getText().length() >= 30) {
                     evt.consume();
-                    JOptionPane.showMessageDialog(null, "Maximo 30 caracteres para la dirección de cuartel.");
+                    JOptionPane.showMessageDialog(null, "Maximo 30 caracteres para la direccion de cuartel.");
                 }
             }
         });
+        
         textCorreoCuartel.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent evt) {
                 if (textCorreoCuartel.getText().length() >= 30) {
                     evt.consume();
-                    JOptionPane.showMessageDialog(null, "Maximo 30 caracteres para la dirección de correo de cuartel.");
+                    JOptionPane.showMessageDialog(null, "Maximo 30 caracteres para la direccion de correo de cuartel.");
                 }
             }
         });
@@ -478,7 +479,7 @@ public class Cuarteles extends javax.swing.JPanel {
                     textDireccionCuartel.setText(cuartel.getDireccion());
                     textCoordX.setText(Integer.toString(cuartel.getCoord_X()));
                     textCoordY.setText(Integer.toString(cuartel.getCoord_Y()));
-                    textNumeroCuartel.setText(Integer.toString(cuartel.getTelefono()));
+                    textNumeroCuartel.setText(cuartel.getTelefono());
                     textCorreoCuartel.setText(cuartel.getCorreo());
                 } else {
                     JOptionPane.showMessageDialog(null, "El campo codigo no puede contener letras.");
@@ -520,14 +521,13 @@ public class Cuarteles extends javax.swing.JPanel {
                             String direccion = textDireccionCuartel.getText();
                             int coordX = Integer.valueOf(textCoordX.getText());
                             int coordY = Integer.valueOf(textCoordY.getText());
-                            int telefono = Integer.valueOf(textNumeroCuartel.getText());
+                            String telefono = textNumeroCuartel.getText();
                             String correo = textCorreoCuartel.getText();
                             Cuartel cuartel = new Cuartel(nombre_cuartel, direccion, coordX, coordY, telefono, correo);
                             cuartelDB.nuevoCuartel(cuartel);
                             textCodigoCuartel.setText("");
                             textNombreCuartel.setText("");
                             textDireccionCuartel.setText("");
-                            //textCoordenadasCuartel.setText("");
                             textNumeroCuartel.setText("");
                             textCorreoCuartel.setText("");
                             textCoordX.setText("");
@@ -540,7 +540,6 @@ public class Cuarteles extends javax.swing.JPanel {
         } catch (NullPointerException ex) {
             JOptionPane.showMessageDialog(null, "Error al intentar agregar una brigada nuevo.");
         }
-
     }//GEN-LAST:event_botonAgregarCuartelesActionPerformed
 
     private void botonEliminarCuartelesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarCuartelesActionPerformed
@@ -596,7 +595,7 @@ public class Cuarteles extends javax.swing.JPanel {
                             String direccion = textDireccionCuartel.getText();
                             int coordX = Integer.valueOf(textCoordX.getText());
                             int coordY = Integer.valueOf(textCoordY.getText());
-                            int telefono = Integer.valueOf(textNumeroCuartel.getText());
+                            String telefono = textNumeroCuartel.getText();
                             String correo = textCorreoCuartel.getText();
                             Cuartel cuartel = new Cuartel(codCuartel, nombre_cuartel, direccion, coordX, coordY, telefono, correo);
                             cuartelDB.modificarCuartel(cuartel);
@@ -629,7 +628,7 @@ public class Cuarteles extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (textCoordX.getText().length() >= 3) {
             evt.consume();
-            JOptionPane.showMessageDialog(null, "Maximo 3 numeros para las coordenadas X en Cuarteles.");
+            JOptionPane.showMessageDialog(null, "Maximo 3 numeros para las coordenadas X en cuarteles.");
         }
     }//GEN-LAST:event_textCoordXKeyTyped
 
@@ -637,7 +636,7 @@ public class Cuarteles extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (textCoordX.getText().length() >= 3) {
             evt.consume();
-            JOptionPane.showMessageDialog(null, "Maximo 3 numeros para las coordenadas Y en Cuarteles.");
+            JOptionPane.showMessageDialog(null, "Maximo 3 numeros para las coordenadas Y en cuarteles.");
         }
     }//GEN-LAST:event_textCoordYKeyTyped
 

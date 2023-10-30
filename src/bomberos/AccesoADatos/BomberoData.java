@@ -7,7 +7,6 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 public class BomberoData {
-
     private final Connection con;
     private BomberoData briDB;
 
@@ -18,8 +17,7 @@ public class BomberoData {
     public void nuevoBombero(Bombero bombero) {
         int dnibusca = bombero.getDni();
         if (bombero.getDni() != buscarBomberoPorDni(dnibusca).getDni()) {
-            String sql = "insert into bombero(dni, nombre_ape, grupo_sang, fecha, celular, codBrigada, estado)"
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String sql = "insert into bombero(dni, nombre_ape, grupo_sang, fecha, celular, codBrigada, estado) VALUES (?, ?, ?, ?, ?, ?, ?)";
             try {
                 PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                 ps.setInt(1, bombero.getDni());
@@ -48,8 +46,7 @@ public class BomberoData {
     }
 
     public void modificarBombero(Bombero bombero) {
-        String sql = "update bombero set dni = ?, nombre_ape = ?, grupo_sang = ?, "
-                + "fecha = ?, celular = ?, codBrigada = ?, estado = ? WHERE id_bombero = ?";
+        String sql = "update bombero set dni = ?, nombre_ape = ?, grupo_sang = ?, fecha = ?, celular = ?, codBrigada = ?, estado = ? WHERE id_bombero = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, bombero.getDni());
@@ -62,7 +59,7 @@ public class BomberoData {
             ps.setInt(8, bombero.getId_Bombero());
             int exito = ps.executeUpdate();
             if (exito == 1) {
-                JOptionPane.showMessageDialog(null, "Datos modificados");
+                JOptionPane.showMessageDialog(null, "Datos modificados.");
             } else {
                 JOptionPane.showMessageDialog(null, "Datos no modificados.");
             }
@@ -220,6 +217,7 @@ public class BomberoData {
         }
         return bomberos;
     }
+    
      public List<Bombero> obtenerBomberosActivos() {
         List<Bombero> bomberos = new ArrayList<>();
         String sql = "select * from bombero where estado = 1";

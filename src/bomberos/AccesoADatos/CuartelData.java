@@ -8,7 +8,6 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 public class CuartelData {
-
     private final Connection con;
     private Cuartel cuartel;
     private CuartelData cuakDB;
@@ -26,7 +25,7 @@ public class CuartelData {
             ps.setString(2, cuartel.getDireccion());
             ps.setInt(3, cuartel.getCoord_X());
             ps.setInt(4, cuartel.getCoord_Y());
-            ps.setInt(5, cuartel.getTelefono());
+            ps.setString(5, cuartel.getTelefono());
             ps.setString(6, cuartel.getCorreo());
             int exito = ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
@@ -34,7 +33,7 @@ public class CuartelData {
                 cuartel.setCodCuartel(rs.getInt(1));
                 JOptionPane.showMessageDialog(null, "Cuartel agregado con Código N°: " + cuartel.getCodCuartel());
             } else {
-                JOptionPane.showMessageDialog(null, "Cuartel no agregado.");
+                JOptionPane.showMessageDialog(null, "Cuartel no agregado.aca");
             }
             ps.close();
             rs.close();
@@ -51,7 +50,7 @@ public class CuartelData {
             ps.setString(2, cuartel.getDireccion());
             ps.setInt(3, cuartel.getCoord_X());
             ps.setInt(4, cuartel.getCoord_Y());
-            ps.setInt(5, cuartel.getTelefono());
+            ps.setString(5, cuartel.getTelefono());
             ps.setString(6, cuartel.getCorreo());
             ps.setInt(7, cuartel.getCodCuartel());
             int exito = ps.executeUpdate();
@@ -64,7 +63,6 @@ public class CuartelData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
         }
-
     }
 
     public void eliminarCuartel(int codCuartel) {
@@ -82,7 +80,6 @@ public class CuartelData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
         }
-
     }
 
     public void contarBrigadas(int codCuartel) {
@@ -119,7 +116,7 @@ public class CuartelData {
                 cuartel.setDireccion(rs.getString("direccion"));
                 cuartel.setCoord_X(rs.getInt("coord_X"));
                 cuartel.setCoord_Y(rs.getInt("coord_Y"));
-                cuartel.setTelefono(rs.getInt("telefono"));
+                cuartel.setTelefono(rs.getString("telefono"));
                 cuartel.setCorreo(rs.getString("correo"));
                 cuarteles.add(cuartel);
             }
@@ -129,7 +126,6 @@ public class CuartelData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
         }
         return cuarteles;
-
     }
 
     public Cuartel buscarCuartel(int codCuartel) {
@@ -145,7 +141,7 @@ public class CuartelData {
                 cuartel.setDireccion(rs.getString("direccion"));
                 cuartel.setCoord_X(rs.getInt("coord_X"));
                 cuartel.setCoord_Y(rs.getInt("coord_Y"));
-                cuartel.setTelefono(rs.getInt("telefono"));
+                cuartel.setTelefono(rs.getString("telefono"));
                 cuartel.setCorreo(rs.getString("correo"));
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontro cuartel con ese codigo, pruebe con uno diferente.");
@@ -157,6 +153,7 @@ public class CuartelData {
         }
         return cuartel;
     }
+    
      public List<Cuartel> obtenerCuartelesPorNombre(String nombreCuartel) {
         List<Cuartel> cuarteles = new ArrayList<>();
         String sql = "SELECT codCuartel, nombre_cuartel, direccion, coord_X, coord_Y, telefono, correo FROM cuartelwhere nombre_cuartel = ?";
@@ -171,7 +168,7 @@ public class CuartelData {
                 cuartel.setDireccion(rs.getString("direccion"));
                 cuartel.setCoord_X(rs.getInt("coord_X"));
                 cuartel.setCoord_Y(rs.getInt("coord_Y"));
-                cuartel.setTelefono(rs.getInt("telefono"));
+                cuartel.setTelefono(rs.getString("telefono"));
                 cuartel.setCorreo(rs.getString("correo"));
                 cuarteles.add(cuartel);
             }
@@ -181,6 +178,5 @@ public class CuartelData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
         }
         return cuarteles;
-
     }
 }

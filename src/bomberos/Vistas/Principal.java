@@ -2,16 +2,12 @@ package bomberos.Vistas;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.MouseInfo;
-import java.awt.PointerInfo;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JButton;
 import javax.swing.plaf.basic.BasicButtonUI;
 
 public final class Principal extends javax.swing.JFrame {
-
-    int var = 1;
 
     public Principal() {
         initComponents();
@@ -217,85 +213,37 @@ public final class Principal extends javax.swing.JFrame {
     private javax.swing.JPanel panelTop;
     // End of variables declaration//GEN-END:variables
 
-    public void mousePos() {
-        // Get the current mouse pointer info
-        PointerInfo pointerInfo = MouseInfo.getPointerInfo();
-
-        // Get the mouse coordinates
-        int mouseX = pointerInfo.getLocation().x;
-        int mouseY = pointerInfo.getLocation().y;
-
-        // Display the mouse coordinates
-        System.out.println("Mouse X: " + mouseX);
-        System.out.println("Mouse Y: " + mouseY);
-    }
-
     public void botones() {
-        if (var == 1) {
-            JButton btns[] = {jBotonBombero, jBotonBrigada, jBotonCuartel, jBotonSiniestro, jBotonAdmin};
-            for (JButton btn : btns) {
-                btn.setBackground(new Color(206, 32, 40));
-                btn.setUI(new BasicButtonUI());
-                btn.addMouseListener(new MouseListener() {
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                    }
+        JButton btns[] = {jBotonBombero, jBotonBrigada, jBotonCuartel, jBotonSiniestro, jBotonAdmin};
+        for (JButton btn : btns) {
+            btn.setBackground(new Color(206, 32, 40));
+            btn.setUI(new BasicButtonUI());
+            btn.addMouseListener(new MouseListener() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                }
 
-                    @Override
-                    public void mousePressed(MouseEvent e) {
-                    }
+                @Override
+                public void mousePressed(MouseEvent e) {
+                }
 
-                    @Override
-                    public void mouseReleased(MouseEvent e) {
-                    }
+                @Override
+                public void mouseReleased(MouseEvent e) {
+                }
 
-                    @Override
-                    public void mouseEntered(MouseEvent e) {
-                        btn.setBackground(new Color(241, 119, 0));
-                    }
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    btn.setBackground(new Color(241, 119, 0));
+                }
 
-                    @Override
-                    public void mouseExited(MouseEvent e) {
-                        btn.setBackground(new Color(206, 32, 40));
-                    }
-                });
-            }
-            panelTop.setBackground(new Color(206, 32, 40));
-            panelBotMostrar.setBackground(new Color(161, 27, 27));
-            var = 0;
-        } else {
-            JButton btns[] = {jBotonBombero, jBotonBrigada, jBotonCuartel, jBotonSiniestro, jBotonAdmin};
-            for (JButton btn : btns) {
-                btn.setBackground(new Color(241, 119, 0));
-                btn.setUI(new BasicButtonUI());
-                btn.addMouseListener(new MouseListener() {
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                    }
-
-                    @Override
-                    public void mousePressed(MouseEvent e) {
-                    }
-
-                    @Override
-                    public void mouseReleased(MouseEvent e) {
-                    }
-
-                    @Override
-                    public void mouseEntered(MouseEvent e) {
-                        btn.setBackground(new Color(255, 186, 5));
-                    }
-
-                    @Override
-                    public void mouseExited(MouseEvent e) {
-                        btn.setBackground(new Color(241, 119, 0));
-                    }
-                });
-            }
-            panelTop.setBackground(new Color(241, 119, 0));
-            panelBotMostrar.setBackground(new Color(255, 186, 5));
-            var = 1;
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    btn.setBackground(new Color(206, 32, 40));
+                }
+            });
         }
+        panelTop.setBackground(new Color(206, 32, 40));
+        panelBotMostrar.setBackground(new Color(161, 27, 27));
     }
 
     public void mostrarPanel(Component com) {

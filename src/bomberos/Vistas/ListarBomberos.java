@@ -13,7 +13,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
 public final class ListarBomberos extends javax.swing.JPanel {
-
     String[] modeloBombero = {"ID", "Dni", "Nombre", "Sangre", "Nacimiento", "Celular", "Brigada", "Cuartel"};
     BomberoData bomberoDB = new BomberoData();
     BrigadaData brigadaDB = new BrigadaData();

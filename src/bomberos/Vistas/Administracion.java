@@ -14,7 +14,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
 public final class Administracion extends javax.swing.JPanel {
-
     String[] modeloCB = {"Bomberos", "Brigadas", "Cuarteles", "Siniestros"};
     String[] modeloBombero = {"ID", "Dni", "Nombre", "Sangre", "Nacimiento", "Celular", "Brigada", "Activo"};
     String[] modeloBrigada = {"ID", "Nombre", "Especialidad", "Libre", "Cuartel"};
@@ -229,7 +228,6 @@ public final class Administracion extends javax.swing.JPanel {
     }
 
     public void modeloTablaSiniestro() {
-
         tablaListarAdmin.setModel(modeloSiniestroAct);
         TableColumnModel columnaSiniestro = tablaListarAdmin.getColumnModel();
         columnaSiniestro.getColumn(0).setMaxWidth(60);

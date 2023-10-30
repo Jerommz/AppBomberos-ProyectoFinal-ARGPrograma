@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.TableRowSorter;
 
 public final class ListarSiniestros extends javax.swing.JPanel {
-   BrigadaData brigadaDB =new BrigadaData();
+    BrigadaData brigadaDB = new BrigadaData();
     String[] modeloSiniestro = {"Codigo", "Tipo", "Fecha", "Detalles", "X ", "Y", "Fecha finalizacion", "Puntaje", "Codigo Brigada"};
     SiniestroData siniestroDB = new SiniestroData();
 
@@ -355,6 +355,9 @@ public final class ListarSiniestros extends javax.swing.JPanel {
 
         textCodigoSiniestro.setEditable(false);
         textCodigoSiniestro.setBackground(new Color(193,29,29));
+        textCodigoSiniestro.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        textCodigoSiniestro.setForeground(java.awt.Color.white);
+        textCodigoSiniestro.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         textCodigoSiniestro.setPreferredSize(new java.awt.Dimension(50, 30));
 
         textBrigadaSiniestro.setEditable(false);
@@ -443,7 +446,7 @@ public final class ListarSiniestros extends javax.swing.JPanel {
 
     private void botonModificarSiniestroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarSiniestroActionPerformed
         if (textBrigadaSiniestro == null || textCodigoSiniestro == null || textDescSiniestro == null || textFechaFinSiniestro == null || textFechaInicioSiniestro == null || textPuntajeSiniestro2 == null || textPuntox == null || textPuntoY == null || textTipoSiniestro == null) {
-            JOptionPane.showMessageDialog(null, "debe cliquear la tabla  ");
+            JOptionPane.showMessageDialog(null, "Seleccione un siniestro para modificar.");
         } else {
             int codBrigada = Integer.valueOf(textBrigadaSiniestro.getText());
             int codigo = Integer.valueOf(textCodigoSiniestro.getText());
@@ -463,7 +466,7 @@ public final class ListarSiniestros extends javax.swing.JPanel {
 
     private void botonFinalizarSiniestroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonFinalizarSiniestroActionPerformed
         if (textBrigadaSiniestro == null || textCodigoSiniestro == null || textDescSiniestro == null || textFechaFinSiniestro == null || textFechaInicioSiniestro == null || textPuntajeSiniestro2 == null || textPuntox == null || textPuntoY == null || textTipoSiniestro == null) {
-            JOptionPane.showMessageDialog(null, "debe cliquear la tabla  ");
+            JOptionPane.showMessageDialog(null, "Seleccione un siniestro para finalizar.");
         } else {
             int codBrigada = Integer.valueOf(textBrigadaSiniestro.getText());
             int codigo = Integer.valueOf(textCodigoSiniestro.getText());
@@ -477,7 +480,6 @@ public final class ListarSiniestros extends javax.swing.JPanel {
             brigadaDB.desocuparBrigada(codBrigada);
             Siniestro siniestro = new Siniestro(codigo, tipo, fecha_Inicio, cood_x, cood_y, detalle, fecha_resol, puntuacion, codBrigada);
             siniestroDB.anotarTerminacionDeSiniestro(codigo, fecha_resol, puntuacion);
-
         }
     }//GEN-LAST:event_botonFinalizarSiniestroActionPerformed
 
@@ -492,44 +494,37 @@ public final class ListarSiniestros extends javax.swing.JPanel {
     }//GEN-LAST:event_jcb48hsActionPerformed
 
     private void textFechaFinSiniestroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFechaFinSiniestroKeyTyped
-            char key = evt.getKeyChar();
-    boolean numeros = (key >= '0' && key <= '9') || key == '-';
-    if (!numeros) {
-        evt.consume();
-        JOptionPane.showMessageDialog(null, "Debe introducir una fecha válida en el formato yyyy-mm-dd");
-        textFechaFinSiniestro.setText("");
-    }
+        char key = evt.getKeyChar();
+        boolean numeros = (key >= '0' && key <= '9') || key == '-';
+        if (!numeros) {
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Debe introducir una fecha válida en el formato yyyy-mm-dd");
+            textFechaFinSiniestro.setText("");
+        }
     }//GEN-LAST:event_textFechaFinSiniestroKeyTyped
 
     private void textPuntajeSiniestro2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textPuntajeSiniestro2KeyTyped
-        int key =evt.getKeyChar();
-        boolean numeros =key>=47 && key>=57;
-        if(!numeros){
-       
-        textPuntajeSiniestro2.setText("");
-        
+        int key = evt.getKeyChar();
+        boolean numeros = key >= 47 && key >= 57;
+        if (!numeros) {
+            textPuntajeSiniestro2.setText("");
         }
-        
     }//GEN-LAST:event_textPuntajeSiniestro2KeyTyped
 
     private void textPuntoYKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textPuntoYKeyTyped
-       int key =evt.getKeyChar();
-        boolean numeros =key>=47 && key>=57;
-        if(!numeros){
-        
-        textPuntajeSiniestro2.setText("");
-        
+        int key = evt.getKeyChar();
+        boolean numeros = key >= 47 && key >= 57;
+        if (!numeros) {
+            textPuntajeSiniestro2.setText("");
         }
     }//GEN-LAST:event_textPuntoYKeyTyped
 
     private void textPuntoxKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textPuntoxKeyTyped
-       int key =evt.getKeyChar();
-        boolean numeros =key>=47 && key>=57;
-        if(!numeros){
-        
-        textPuntajeSiniestro2.setText("");
-        
-        } 
+        int key = evt.getKeyChar();
+        boolean numeros = key >= 47 && key >= 57;
+        if (!numeros) {
+            textPuntajeSiniestro2.setText("");
+        }
     }//GEN-LAST:event_textPuntoxKeyTyped
 
 

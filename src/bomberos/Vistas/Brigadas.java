@@ -19,7 +19,6 @@ import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicButtonUI;
 
 public final class Brigadas extends javax.swing.JPanel {
-
     CuartelData cuartelDB = new CuartelData();
     BrigadaData brigadaDB = new BrigadaData();
     BomberoData bomberoDB = new BomberoData();
@@ -33,16 +32,17 @@ public final class Brigadas extends javax.swing.JPanel {
             public void keyTyped(KeyEvent evt) {
                 if (textNombreBrigada.getText().length() >= 20) {
                     evt.consume();
-                    JOptionPane.showMessageDialog(null, "Maximo 20 caracteres.");    // ---> Control de caracteres maximo por campo
+                    JOptionPane.showMessageDialog(null, "Maximo 20 caracteres.");
                 }
             }
         });
+        
         textEspecialidadBrigada.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent evt) {
                 if (textEspecialidadBrigada.getText().length() >= 80) {
                     evt.consume();
-                    JOptionPane.showMessageDialog(null, "Maximo 80 caracteres.");    // ---> Control de caracteres maximo por campo
+                    JOptionPane.showMessageDialog(null, "Maximo 80 caracteres.");
                 }
             }
         });
@@ -423,7 +423,7 @@ public final class Brigadas extends javax.swing.JPanel {
                 String codBrigada = textCodigoBrigada.getText();
                 if (codBrigada.matches("\\d+")) {
                     Brigada brigada = brigadaDB.buscarBrigada(Integer.valueOf(codBrigada));
-                    textCodigoBrigada.setText(Integer.toString(brigada.getCodBrigada()));                        //<------ control de no ingreso de letras al buscar
+                    textCodigoBrigada.setText(Integer.toString(brigada.getCodBrigada()));
                     textNombreBrigada.setText(brigada.getNombre_br());
                     textEspecialidadBrigada.setText(brigada.getEspecialidad());
                     checkLibreBrigada.setSelected(brigada.isLibre());
@@ -453,7 +453,6 @@ public final class Brigadas extends javax.swing.JPanel {
                         JOptionPane.showMessageDialog(null, "Ningun campo puede estar vacio.");
                         break;
                     } else {
-                        //String codBrigada = textCodigoBrigada.getText();
                         String nomBrig = textNombreBrigada.getText();
                         if (!nomBrig.matches("\\d+")) {
                             String nombre_br = textNombreBrigada.getText();

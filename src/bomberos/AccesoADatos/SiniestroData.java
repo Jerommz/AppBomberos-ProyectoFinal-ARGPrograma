@@ -16,7 +16,6 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 public class SiniestroData {
-
     private Connection con;
     private CuartelData cuartelDB;
     private Cuartel cuartel;
@@ -61,14 +60,12 @@ public class SiniestroData {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Siniestro siniestro = new Siniestro();
-
                 siniestro.setCodigo(rs.getInt("codigo"));
                 siniestro.setTipo(rs.getString("tipo"));
                 siniestro.setFecha_siniestro(rs.getDate("fecha_siniestro").toLocalDate());
                 siniestro.setDetalles(rs.getString("detalles"));
                 siniestro.setCoord_X(rs.getInt("coord_X"));
                 siniestro.setCoord_Y(rs.getInt("coord_Y"));
-
                 siniestro.setFecha_resol(rs.getDate("fecha_resol").toLocalDate());
                 siniestro.setPuntuacion(rs.getInt("puntuacion"));
                 siniestro.setCodBrigada(rs.getInt("codBrigada"));
@@ -150,5 +147,4 @@ public class SiniestroData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
         }
     }
-
 }
