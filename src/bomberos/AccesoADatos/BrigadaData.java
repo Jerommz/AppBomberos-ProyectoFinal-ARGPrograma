@@ -46,11 +46,17 @@ public class BrigadaData {
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, brigada.getNombre_br());
+            System.out.println(brigada.getNombre_br());
             ps.setString(2, brigada.getEspecialidad());
+            System.out.println(brigada.getEspecialidad());
             ps.setBoolean(3, brigada.isLibre());
+            System.out.println(brigada.isLibre());
             ps.setInt(4, brigada.getCodCuartel());
+            System.out.println(brigada.getCodCuartel());
             ps.setInt(5, brigada.getCodBrigada());
+            System.out.println(brigada.getCodBrigada());
             int exito = ps.executeUpdate();
+            System.out.println(exito);
             if (exito == 1) {
                 JOptionPane.showMessageDialog(null, "Brigada modificada.");
             } else {
@@ -81,7 +87,7 @@ public class BrigadaData {
 
     public List<Brigada> obtenerBrigadas() {
         List<Brigada> brigadas = new ArrayList<>();
-        String sql = "select * from brigada";
+        String sql = "select * from brigada GROUP BY nombre_br";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();

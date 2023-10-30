@@ -256,7 +256,6 @@ public final class ListarBrigadas extends javax.swing.JPanel {
                     String nombre = brigadas.get(i).getNombre_br();
                     String especialidad = brigadas.get(i).getEspecialidad();
                     boolean libre = brigadas.get(i).isLibre();
-                    System.out.println("libre"+ libre);
                     int codCuartel = brigadas.get(i).getCodCuartel();
                     modeloBrigadaAct.addRow(new Object[]{
                         codBrigada,

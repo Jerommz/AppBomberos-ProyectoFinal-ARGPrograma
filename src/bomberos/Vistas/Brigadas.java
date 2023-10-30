@@ -523,7 +523,7 @@ public final class Brigadas extends javax.swing.JPanel {
                             String especialidad = textEspecialidadBrigada.getText();
                             boolean libre = checkLibreBrigada.isSelected();
                             String codCuartel = String.valueOf(comboCodCuartelBrigada.getSelectedItem());
-                            Brigada brigada = new Brigada(nombre_br, especialidad, libre, Integer.parseInt(codCuartel));
+                            Brigada brigada = new Brigada(Integer.valueOf(codBrigada), nombre_br, especialidad, libre, Integer.parseInt(codCuartel));
                             brigadaDB.modificarBrigada(brigada);
                             break;
                         } else {
@@ -538,7 +538,7 @@ public final class Brigadas extends javax.swing.JPanel {
                     }
                 }
             }
-             textCodigoBrigada.setText("");
+            textCodigoBrigada.setText("");
             textNombreBrigada.setText("");
             textEspecialidadBrigada.setText("");
             comboCodCuartelBrigada.setSelectedItem("");

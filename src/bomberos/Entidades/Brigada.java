@@ -33,6 +33,10 @@ public class Brigada {
         this.codCuartel = codCuartel;
     }
 
+    public Brigada(String nombre_br, String especialidad, boolean libre, int codigoBrigada, int parseInt) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public int getCodBrigada() {
         return codBrigada;
     }
