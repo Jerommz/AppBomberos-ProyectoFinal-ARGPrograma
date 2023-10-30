@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-10-2023 a las 00:41:50
+-- Tiempo de generación: 30-10-2023 a las 03:40:36
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -115,7 +115,9 @@ INSERT INTO `bombero` (`id_bombero`, `dni`, `nombre_ape`, `grupo_sang`, `fecha`,
 (77, 67890123, 'Tom Cruise', 'O+', '1995-02-01', 678901237, 27, 1),
 (78, 77657322, 'Leonardo DiCaprio', 'B-', '1987-07-22', 1177657322, 24, 1),
 (79, 32254222, 'Dwayne Johnson', 'B+', '1989-05-09', 322542222, 12, 1),
-(80, 33334321, 'Vin Diesel', 'O+', '1974-08-08', 333334321, 8, 1);
+(80, 33334321, 'Vin Diesel', 'O+', '1974-08-08', 333334321, 8, 1),
+(81, 30603053, 'Lucrecia Caporaletti', 'AB-', '1983-07-20', 1122334455, 1, 1),
+(82, 30340175, 'Hernan Lopez', 'O+', '1983-06-23', 1122334466, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -136,8 +138,8 @@ CREATE TABLE `brigada` (
 --
 
 INSERT INTO `brigada` (`codBrigada`, `nombre_br`, `especialidad`, `libre`, `codCuartel`) VALUES
-(1, 'Alpha', '(1) Incendios en viviendas e industrias', 0, 3),
-(2, 'Beta', '(2) Salvamento en derrumbes', 1, 2),
+(1, 'Alpha', '(1) Incendios en viviendas e industrias', 1, 3),
+(2, 'Beta', '(2) Salvamento en derrumbes', 0, 2),
 (5, 'Gama', '(3) Rescates en ámbito montaña', 1, 7),
 (6, 'Omega', '(4) Rescate de personas atrapadas en accidentes de tráfico', 1, 1),
 (7, 'Ipsilon', '(5) Socorrer inundaciones', 1, 4),
@@ -150,7 +152,7 @@ INSERT INTO `brigada` (`codBrigada`, `nombre_br`, `especialidad`, `libre`, `codC
 (22, 'Alpha', '(1) Incendios en viviendas e industrias', 1, 2),
 (23, 'Alpha', '(1) Incendios en viviendas e industrias', 1, 7),
 (24, 'Ipsilon', '(5) Socorrer inundaciones', 1, 5),
-(25, 'Ipsilon', '(5) Socorrer inundaciones', 0, 6),
+(25, 'Ipsilon', '(5) Socorrer inundaciones', 1, 6),
 (26, 'Omega', '(4) Rescate de personas atrapadas en accidentes de tráfico', 1, 3),
 (27, 'Omega', '(4) Rescate de personas atrapadas en accidentes de tráfico', 1, 4);
 
@@ -166,7 +168,7 @@ CREATE TABLE `cuartel` (
   `direccion` varchar(30) NOT NULL,
   `coord_X` int(11) NOT NULL,
   `coord_Y` int(11) NOT NULL,
-  `telefono` int(15) NOT NULL,
+  `telefono` varchar(15) NOT NULL,
   `correo` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -175,14 +177,13 @@ CREATE TABLE `cuartel` (
 --
 
 INSERT INTO `cuartel` (`codCuartel`, `nombre_cuartel`, `direccion`, `coord_X`, `coord_Y`, `telefono`, `correo`) VALUES
-(1, 'Ituzaingo', 'Olivera 578', 22, 55, 11113333, 'ituzaingo@bomberos.com.ar'),
-(2, 'Moron', '9 de Julio 127', 66, 48, 22223333, 'moron@bomberos.com.ar'),
-(3, 'Palermo', 'Av. Nafta 500', 12, 95, 33334444, 'palermo@bomberos.com.ar'),
-(4, 'Caballito', 'Rivadavia 16000', 87, 47, 44445555, 'caballito@bomberos.com.ar'),
-(5, 'Merlo', 'Av. Baldazo 33000', 35, 60, 55556666, 'merlo@bomberos.com.ar'),
-(6, 'Ciudadela', 'Av. Rio 6300', 30, 94, 66667777, 'ciudadela@bomberos.com.ar'),
-(7, 'San Justo', 'Av. Fuego 700', 28, 65, 77778888, 'sanjusto@bomberos.com.ar'),
-(8, 'Demo Cuartel', 'zaraza 123', 11, 22, 123, 'zaraza@blabla.com');
+(1, 'Ituzaingo', 'Olivera 578', 22, 55, '11113333', 'ituzaingo@bomberos.com.ar'),
+(2, 'Moron', '9 de Julio 127', 66, 48, '22223333', 'moron@bomberos.com.ar'),
+(3, 'Palermo', 'Av. Nafta 500', 12, 95, '33334444', 'palermo@bomberos.com.ar'),
+(4, 'Caballito', 'Rivadavia 16000', 87, 47, '44445555', 'caballito@bomberos.com.ar'),
+(5, 'Merlo', 'Av. Baldazo 33000', 35, 60, '55556666', 'merlo@bomberos.com.ar'),
+(6, 'Ciudadela', 'Av. Rio 6300', 30, 94, '66667777', 'ciudadela@bomberos.com.ar'),
+(7, 'San Justo', 'Av. Fuego 700', 28, 65, '77778888', 'sanjusto@bomberos.com.ar');
 
 -- --------------------------------------------------------
 
@@ -207,29 +208,30 @@ CREATE TABLE `siniestro` (
 --
 
 INSERT INTO `siniestro` (`codigo`, `tipo`, `fecha_siniestro`, `coord_X`, `coord_Y`, `detalles`, `fecha_resol`, `puntuacion`, `codBrigada`) VALUES
-(1, '(5)Socorrer inundaciones.', '2023-10-26', 44, 60, 'asasas\n\n\nfffff', '2023-10-26', 7, 24),
-(2, '(2) Salvamento en derrumbes', '2023-10-25', 77, 48, 'asasas\nsdfsfsdf\nssssss\naaaaaa\nbbbbbb', '2023-10-26', 9, 21),
-(3, '(1)Incendios en viviendas e industrias.', '2023-10-26', 55, 48, 'dwdsd', '2023-10-26', 0, 21),
-(4, '(1)Incendios en viviendas e industrias.', '2023-10-26', 55, 48, 'dwdsd', '2023-10-26', 0, 21),
-(5, '(1)Incendios en viviendas e industrias.', '2023-10-26', 55, 60, 'asas', '2023-10-26', 0, 24),
-(6, '(1)Incendios en viviendas e industrias.', '2023-10-26', 55, 48, 'asas', '2023-10-26', 0, 22),
-(7, '(1)Incendios en viviendas e industrias.', '2023-10-27', 33, 55, 'dfddd', '2023-10-27', 7, 10),
-(8, '(1)Incendios en viviendas e industrias.', '2023-10-27', 55, 60, 'gfftf', '2023-10-27', 0, 24),
-(9, '(1)Incendios en viviendas e industrias.', '2023-10-27', 44, 60, 'hghgh', '2023-10-27', 0, 24),
-(10, '(1)Incendios en viviendas e industrias.', '2023-10-27', 66, 48, 'asasaaaaaaaaaa', '2023-10-27', 0, 21),
-(11, '(2)Salvamento en derrumbes.', '2023-10-27', 66, 48, 'hhhhhhhhhhh', '2023-10-27', 0, 2),
-(12, '(2)Salvamento en derrumbes.', '2023-10-27', 66, 48, 'hhhhhhhhhhh', '2023-10-27', 0, 21),
-(13, '(2)Salvamento en derrumbes.', '2023-10-27', 55, 48, 'ffffffffffffff', '2023-10-27', 0, 2),
-(14, '(2)Salvamento en derrumbes.', '2023-10-27', 55, 48, 'ffffffffffffff', '2023-10-27', 0, 2),
-(15, '(2)Salvamento en derrumbes.', '2023-10-27', 55, 48, 'ffffffffffffff', '2023-10-27', 0, 2),
-(16, '(3)Rescates en ambito montaña.', '2023-10-27', 55, 48, 'hhhhhhhh', '2023-10-27', 0, 21),
-(17, '(6)Operativos de prevencion.', '2023-10-27', 33, 65, 'FFFFFFFFF', '2023-10-27', 0, 23),
-(18, '(5)Socorrer inundaciones.', '2023-10-27', 55, 48, 'GGGGGGG', '2023-10-27', 0, 2),
-(19, '(1)Incendios en viviendas e industrias.', '2023-10-27', 44, 60, 'dsdsd', '2023-10-27', 8, 24),
-(20, '(2)Salvamento en derrumbes.', '2023-10-27', 44, 60, '44', '2023-10-27', 0, 24),
-(21, '(1)Incendios en viviendas e industrias.', '2023-10-27', 44, 60, 'sdsdsdsdsdsdsd', '2023-10-27', 0, 24),
-(22, '(1)Incendios en viviendas e industrias.', '2023-10-27', 88, 47, 'sddddddddddddddd', '2023-10-27', 0, 27),
-(23, '(1)Incendios en viviendas e industrias.', '2023-10-27', 44, 60, 'LLLLLLLLLLL', '2023-10-27', 0, 24);
+(1, '(5)Socorrer inundaciones.', '2023-10-26', 44, 60, 'Me ahogo', '2023-10-26', 7, 24),
+(2, '(2) Salvamento en derrumbes', '2023-10-25', 77, 48, 'Me tiembla todo', '2023-10-26', 9, 21),
+(3, '(1)Incendios en viviendas e industrias.', '2023-10-26', 55, 48, 'Se me quema el asado', '2023-10-26', 5, 21),
+(4, '(1)Incendios en viviendas e industrias.', '2023-10-26', 55, 48, 'Gato en arbol', '2023-10-26', 9, 21),
+(5, '(1)Incendios en viviendas e industrias.', '2023-10-26', 55, 60, 'Derramiento quimico', '2023-10-26', 7, 24),
+(6, '(1)Incendios en viviendas e industrias.', '2023-10-26', 55, 48, 'Incendi en choque vehicular', '2023-10-26', 6, 22),
+(7, '(1)Incendios en viviendas e industrias.', '2023-10-27', 33, 55, 'Prevencion incendio forestal', '2023-10-27', 7, 10),
+(8, '(1)Incendios en viviendas e industrias.', '2023-10-27', 55, 60, 'Se me queman los papeles!', '2023-10-27', 4, 24),
+(9, '(1)Incendios en viviendas e industrias.', '2023-10-27', 44, 60, 'Quemamos neuronas', '2023-10-27', 8, 24),
+(10, '(1)Incendios en viviendas e industrias.', '2023-10-27', 66, 48, 'asasaaaaaaaaaa', '2023-10-27', 10, 21),
+(11, '(2)Salvamento en derrumbes.', '2023-10-27', 66, 48, 'Rescate de personas', '2023-10-27', 10, 2),
+(12, '(2)Salvamento en derrumbes.', '2023-10-27', 66, 48, 'Huracan', '2023-10-27', 7, 21),
+(13, '(2)Salvamento en derrumbes.', '2023-10-27', 55, 48, 'Casa bombardeada', '2023-10-27', 9, 2),
+(14, '(2)Salvamento en derrumbes.', '2023-10-27', 55, 48, 'Tsunami', '2023-10-27', 9, 2),
+(15, '(2)Salvamento en derrumbes.', '2023-10-27', 55, 48, 'Mina abandonada', '2023-10-27', 8, 2),
+(16, '(3)Rescates en ambito montaña.', '2023-10-27', 55, 48, 'Alce lastimado', '2023-10-27', 6, 21),
+(17, '(6)Operativos de prevencion.', '2023-10-27', 33, 65, 'Inspeccion de matafuegos', '2023-10-27', 6, 23),
+(18, '(5)Socorrer inundaciones.', '2023-10-27', 55, 48, 'Inundación en la Plata', '2023-10-27', 2, 2),
+(19, '(1)Incendios en viviendas e industrias.', '2023-10-27', 44, 60, 'Incendio en maderera Pino Ardiente', '2023-10-27', 8, 24),
+(20, '(2)Salvamento en derrumbes.', '2023-10-27', 44, 60, 'Derrumbe en construccion', '2023-10-27', 3, 24),
+(21, '(4) Rescate de personas atrapadas en accidentes de tráfico', '2023-10-27', 44, 60, 'Atrapados en accidente de tren', '2023-10-27', 8, 24),
+(22, '(1)Incendios en viviendas e industrias.', '2023-10-27', 88, 47, 'Incendio en quimica Exploit!', '2023-10-27', 6, 27),
+(23, '(4) Rescate de personas atrapadas en accidentes de tráfico', '2023-10-27', 44, 60, 'Accidente en casa, hombre mayor encerrado', '2023-10-27', 8, 24),
+(24, '(2)Salvamento en derrumbes.', '2023-10-29', 55, 60, 'Derrumbe el aconcagua', '2023-10-30', 8, 8);
 
 --
 -- Índices para tablas volcadas
@@ -271,25 +273,25 @@ ALTER TABLE `siniestro`
 -- AUTO_INCREMENT de la tabla `bombero`
 --
 ALTER TABLE `bombero`
-  MODIFY `id_bombero` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `id_bombero` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
 -- AUTO_INCREMENT de la tabla `brigada`
 --
 ALTER TABLE `brigada`
-  MODIFY `codBrigada` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `codBrigada` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de la tabla `cuartel`
 --
 ALTER TABLE `cuartel`
-  MODIFY `codCuartel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `codCuartel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `siniestro`
 --
 ALTER TABLE `siniestro`
-  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- Restricciones para tablas volcadas
