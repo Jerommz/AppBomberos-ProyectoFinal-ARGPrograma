@@ -628,7 +628,7 @@ public final class Siniestros extends javax.swing.JPanel {
                     String detalle = textAreaDescripcion.getText();
                     int coord_x = Integer.parseInt(textCoordX.getText());
                     int coord_Y = Integer.parseInt(textCoordY1.getText());
-                    LocalDate fecha_fin = LocalDate.parse(textFechaSiniestro.getText());
+                    LocalDate fecha_fin = LocalDate.now().parse(textFechaSiniestro.getText());
                     int puntaje = 0;
                     int selectedRow = jTbrigadas.getSelectedRow();
                     if (selectedRow != -1) {
