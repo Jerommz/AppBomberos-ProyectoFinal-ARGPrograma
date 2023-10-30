@@ -23,6 +23,7 @@ public class BrigadaData {
             ps.setString(2, brigada.getEspecialidad());
             ps.setBoolean(3, brigada.isLibre());
             ps.setInt(4, brigada.getCodCuartel());
+            int exito = ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 brigada.setCodBrigada(rs.getInt(1));
@@ -42,15 +43,10 @@ public class BrigadaData {
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, brigada.getNombre_br());
-            System.out.println(brigada.getNombre_br());
             ps.setString(2, brigada.getEspecialidad());
-            System.out.println(brigada.getEspecialidad());
             ps.setBoolean(3, brigada.isLibre());
-            System.out.println(brigada.isLibre());
             ps.setInt(4, brigada.getCodCuartel());
-            System.out.println(brigada.getCodCuartel());
             ps.setInt(5, brigada.getCodBrigada());
-            System.out.println(brigada.getCodBrigada());
             int exito = ps.executeUpdate();
             System.out.println(exito);
             if (exito == 1) {
