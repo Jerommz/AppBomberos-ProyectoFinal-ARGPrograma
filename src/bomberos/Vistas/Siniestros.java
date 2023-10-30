@@ -18,8 +18,8 @@ import javax.swing.table.TableColumnModel;
 import bomberos.Entidades.Cuartel;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.Date;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import javax.swing.JTextField;
 
 public final class Siniestros extends javax.swing.JPanel {
@@ -47,10 +47,6 @@ public final class Siniestros extends javax.swing.JPanel {
         initComponents();
         botones();
         modeloTablaBrigada();
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        LocalDate fecha = LocalDate.now();
-        String fechaFormateada = fecha.format(format);
-        textFechaSiniestro.setText(String.valueOf(fechaFormateada));
         textAreaDescripcion.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent evt) {
@@ -185,12 +181,16 @@ public final class Siniestros extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(5, 6, 10, 0);
         panelIzq.add(jLabel9, gridBagConstraints);
 
-        textFechaSiniestro.setEditable(false);
         textFechaSiniestro.setBackground(new Color(193,29,29));
         textFechaSiniestro.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         textFechaSiniestro.setForeground(java.awt.Color.white);
         textFechaSiniestro.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         textFechaSiniestro.setPreferredSize(new java.awt.Dimension(100, 30));
+        textFechaSiniestro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                textFechaSiniestroKeyTyped(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 15;
@@ -559,16 +559,16 @@ public final class Siniestros extends javax.swing.JPanel {
                             }
                             String desc = textAreaDescripcion.getText();
                             String tipo = comboTipoAccidenteSiniestro.getSelectedItem().toString();
+                            Date fecha = Date.valueOf(textFechaSiniestro.getText());
                             Cuartel cuartel = cuartelDB.buscarCuartel(codCuartel);
                             List<Brigada> brigadas = brigadaDB.listarBrigadas(codCuartel);
-
+                            mostrarTablaBrigada(brigadas);
                             textCuartelCercano.setText(cuartel.getNombre_cuartel());
                             textCoordX1.setText(cuartel.getCoord_X() + "");
                             textCoordY1.setText(cuartel.getCoord_Y() + "");
                             textDireccion.setText(cuartel.getDireccion());
                             double distancia = Math.round(sum * 100.0) / 100.0;
                             textDistancia.setText(distancia + "");
-                            mostrarTablaBrigada(brigadas, distancia);
                         }
                     }
                 }
@@ -600,36 +600,53 @@ public final class Siniestros extends javax.swing.JPanel {
     }//GEN-LAST:event_botonListarSiniestroActionPerformed
 
     private void botonRegistrarSiniestroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarSiniestroActionPerformed
+        int codigo = 0;
         try {
             boolean campoVacio = false;
             Component[] comps = panelIzq.getComponents();
             for (Component comp : comps) {
                 if (comp instanceof JTextField) {
-                    if (((JTextField) comp).getText().equals("")) {
+                    if (((JTextField) comp).getText().isEmpty()) {
                         campoVacio = true;
+                        break;
                     }
                 }
             }
-            if (campoVacio == true) {
-                JOptionPane.showMessageDialog(null, "Ningun campo puede estar vacio para calcular el siniestro.");
+
+            if (campoVacio) {
+                JOptionPane.showMessageDialog(null, "Ningun campo puede estar vacio debes calcular primero el siniestro.");
             } else {
                 String textXsin = textCoordX.getText();
                 String textYsin = textCoordY.getText();
                 if (!textXsin.matches("\\d+") || !textYsin.matches("\\d+")) {
                     JOptionPane.showMessageDialog(null, "Las coordenadas X e Y deben ser solo numericas.");
                 } else {
+
+                    codigo = codigo + 1;
                     String tipo = comboTipoAccidenteSiniestro.getSelectedItem().toString();
-                    String fecha = textFechaSiniestro.getText();
-                    DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-                    LocalDate fechaFormateada = LocalDate.parse(fecha, format);
-                    System.out.println(fechaFormateada);
+                    LocalDate fecha = LocalDate.parse(textFechaSiniestro.getText());
                     String detalle = textAreaDescripcion.getText();
                     int coord_x = Integer.parseInt(textCoordX.getText());
                     int coord_Y = Integer.parseInt(textCoordY1.getText());
+                    LocalDate fecha_fin = LocalDate.parse(textFechaSiniestro.getText());
+                    int puntaje = 0;
                     int selectedRow = jTbrigadas.getSelectedRow();
                     if (selectedRow != -1) {
                         int codBrigada = Integer.parseInt(jTbrigadas.getModel().getValueAt(selectedRow, 0).toString());
-                        Siniestro siniestro = new Siniestro(tipo, fechaFormateada, coord_x, coord_Y, detalle, codBrigada);
+                        String libreValue = jTbrigadas.getModel().getValueAt(selectedRow, 3).toString();
+                        System.out.println("Valor de 'libre' en la tabla: " + libreValue);
+
+                        boolean libre = Boolean.parseBoolean(libreValue);
+
+                        if (libre) {
+                            System.out.println("La brigada está libre");
+                            brigadaDB.ocuparBrigada(libre, codBrigada);
+                        } else {
+                            System.out.println("La brigada no está libre");
+                            JOptionPane.showMessageDialog(null, "Seleccione una brigada libre.");
+                        }
+
+                        Siniestro siniestro = new Siniestro(codigo, tipo, fecha, coord_x, coord_Y, detalle, fecha_fin, puntaje, codBrigada);
                         siniestroDB.cargarSiniestro(siniestro);
                     } else {
                         JOptionPane.showMessageDialog(null, "Por favor, seleccione una brigada.");
@@ -637,9 +654,24 @@ public final class Siniestros extends javax.swing.JPanel {
                 }
             }
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "Error al intentar calcular el siniestro.");
+            JOptionPane.showMessageDialog(null, "Error al intentar registrar el siniestro.");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al analizar la fecha. Asegúrate de ingresar la fecha en el formato correcto.");
         }
+
+
     }//GEN-LAST:event_botonRegistrarSiniestroActionPerformed
+
+    private void textFechaSiniestroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFechaSiniestroKeyTyped
+        char key = evt.getKeyChar();
+        boolean numeros = (key >= '0' && key <= '9') || key == '-';
+        if (!numeros) {
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Debe introducir una fecha válida en el formato yyyy-mm-dd");
+            textFechaSiniestro.setText("");
+        }
+
+    }//GEN-LAST:event_textFechaSiniestroKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -731,7 +763,7 @@ public final class Siniestros extends javax.swing.JPanel {
         columnaBrigada.getColumn(4).setMaxWidth(80);
     }
 
-    public void mostrarTablaBrigada(List brig, double distancia) {
+    public void mostrarTablaBrigada(List brig) {
         actualizarTabla();
         List<Brigada> brigadas = brig;
         for (Brigada brigada : brigadas) {
@@ -739,8 +771,7 @@ public final class Siniestros extends javax.swing.JPanel {
                 brigada.getCodBrigada(),
                 brigada.getNombre_br(),
                 brigada.getEspecialidad(),
-                brigada.isLibre(),
-                distancia
+                brigada.isLibre()
             });
         }
     }

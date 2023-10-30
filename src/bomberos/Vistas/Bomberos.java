@@ -334,7 +334,7 @@ public final class Bomberos extends javax.swing.JPanel {
 
         dateFechaNacBombero.setBackground(new Color(193,29,29));
         dateFechaNacBombero.setForeground(java.awt.Color.white);
-        dateFechaNacBombero.setDateFormatString("dd-MM-yyyy");
+        dateFechaNacBombero.setDateFormatString("yyyy-MM-dd");
         dateFechaNacBombero.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         dateFechaNacBombero.setPreferredSize(new java.awt.Dimension(215, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -504,6 +504,7 @@ public final class Bomberos extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(null, "El campo DNI no puede contener letras.");
                 }
             }
+           
         } catch (NullPointerException ex) {
             JOptionPane.showMessageDialog(null, "No se encontro bombero con ese DNI, pruebe con uno diferente.");
             textIDBombero.setText("");
@@ -590,6 +591,8 @@ public final class Bomberos extends javax.swing.JPanel {
             textCelularBombero.setText("");
             dateFechaNacBombero.setDate(null);
             checkEstadoBombero.setSelected(false);
+            comboCodBriBombero.setSelectedIndex(0);
+            comboSangreBombero.setSelectedIndex(0);
         } catch (NullPointerException ex) {
             JOptionPane.showMessageDialog(null, "Error al intentar eliminar bombero.");
         }
@@ -640,6 +643,14 @@ public final class Bomberos extends javax.swing.JPanel {
                     }
                 }
             }
+            textIDBombero.setText("");
+            textDNIBombero.setText("");
+            textNombreApBombero.setText("");
+            textCelularBombero.setText("");
+            dateFechaNacBombero.setDate(null);
+            checkEstadoBombero.setSelected(false);
+            comboCodBriBombero.setSelectedIndex(0);
+            comboSangreBombero.setSelectedIndex(0);
         } catch (NullPointerException ex) {
             JOptionPane.showMessageDialog(null, "Error al intentar modificar bombero.");
         }

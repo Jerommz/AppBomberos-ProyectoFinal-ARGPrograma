@@ -2,6 +2,12 @@
 package bomberos.Main;
 
 //import bomberos.AccesoADatos.BrigadaData;
+
+import bomberos.AccesoADatos.SiniestroData;
+import bomberos.Entidades.Siniestro;
+import java.time.LocalDate;
+import java.time.Month;
+
 //import bomberos.AccesoADatos.CuartelData;
 //import bomberos.AccesoADatos.SiniestroData;
 //import bomberos.AccesoAdatos.BomberoData;
@@ -161,6 +167,11 @@ public class main {
 //                System.out.println("Puntuación: " + accidente.getPuntuacion());
 //            }
 //   }
-    
+    Siniestro siniestro =new Siniestro(0, "accidente", LocalDate.of(2023, 10, 26), 11, 55, "siniestro vial gente atrapada", LocalDate.of(2023, 10, 27), 8, 6);
+    SiniestroData siniestroDB =new SiniestroData();
+    siniestroDB.cargarSiniestro(siniestro);
     }
+    
+    
+    
 } 

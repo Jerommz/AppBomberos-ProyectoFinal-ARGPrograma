@@ -7,13 +7,8 @@ import bomberos.Entidades.Bombero;
 import bomberos.Entidades.Brigada;
 import bomberos.Entidades.Cuartel;
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.time.LocalDate;
 import java.util.List;
-import javax.swing.JButton;
-import javax.swing.plaf.basic.BasicButtonUI;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
@@ -43,10 +38,9 @@ public final class ListarBomberos extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         panelTop = new javax.swing.JPanel();
-        panelDer = new javax.swing.JPanel();
         panelIzq = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        panelMid = new javax.swing.JPanel();
+        panelDer = new javax.swing.JPanel();
         checkBomberoActivo = new javax.swing.JCheckBox();
         checkBomberoNoActivo = new javax.swing.JCheckBox();
         cbListarBrigadas = new javax.swing.JComboBox<>();
@@ -61,11 +55,6 @@ public final class ListarBomberos extends javax.swing.JPanel {
         panelTop.setBackground(new Color(161, 27, 27,220));
         panelTop.setPreferredSize(new java.awt.Dimension(1000, 100));
         panelTop.setLayout(new java.awt.BorderLayout());
-
-        panelDer.setBackground(new Color(161, 27, 27));
-        panelDer.setPreferredSize(new java.awt.Dimension(150, 100));
-        panelDer.setLayout(new java.awt.BorderLayout());
-        panelTop.add(panelDer, java.awt.BorderLayout.EAST);
 
         panelIzq.setBackground(new Color(161, 27, 27));
         panelIzq.setLayout(new java.awt.GridBagLayout());
@@ -84,9 +73,9 @@ public final class ListarBomberos extends javax.swing.JPanel {
 
         panelTop.add(panelIzq, java.awt.BorderLayout.WEST);
 
-        panelMid.setBackground(new Color(161, 27, 27));
-        panelMid.setPreferredSize(new java.awt.Dimension(700, 100));
-        panelMid.setLayout(new java.awt.GridBagLayout());
+        panelDer.setBackground(new Color(161, 27, 27));
+        panelDer.setPreferredSize(new java.awt.Dimension(850, 100));
+        panelDer.setLayout(new java.awt.GridBagLayout());
 
         checkBomberoActivo.setForeground(java.awt.Color.white);
         checkBomberoActivo.setText("Activo");
@@ -100,7 +89,7 @@ public final class ListarBomberos extends javax.swing.JPanel {
         gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
-        panelMid.add(checkBomberoActivo, gridBagConstraints);
+        panelDer.add(checkBomberoActivo, gridBagConstraints);
 
         checkBomberoNoActivo.setForeground(java.awt.Color.white);
         checkBomberoNoActivo.setText("No activo");
@@ -116,7 +105,7 @@ public final class ListarBomberos extends javax.swing.JPanel {
         gridBagConstraints.gridwidth = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 90, 0, 0);
-        panelMid.add(checkBomberoNoActivo, gridBagConstraints);
+        panelDer.add(checkBomberoNoActivo, gridBagConstraints);
 
         cbListarBrigadas.setBackground(new Color(193,29,29));
         cbListarBrigadas.setForeground(java.awt.Color.white);
@@ -134,7 +123,7 @@ public final class ListarBomberos extends javax.swing.JPanel {
         gridBagConstraints.ipadx = 50;
         gridBagConstraints.ipady = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        panelMid.add(cbListarBrigadas, gridBagConstraints);
+        panelDer.add(cbListarBrigadas, gridBagConstraints);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel1.setForeground(java.awt.Color.white);
@@ -144,14 +133,13 @@ public final class ListarBomberos extends javax.swing.JPanel {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
-        panelMid.add(jLabel1, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 85);
+        panelDer.add(jLabel1, gridBagConstraints);
 
-        panelTop.add(panelMid, java.awt.BorderLayout.CENTER);
+        panelTop.add(panelDer, java.awt.BorderLayout.EAST);
 
         add(panelTop, java.awt.BorderLayout.CENTER);
 
-        panelBot.setBackground(new Color(161, 27, 27));
         panelBot.setPreferredSize(new java.awt.Dimension(1000, 400));
         panelBot.setLayout(new java.awt.BorderLayout());
 
@@ -212,7 +200,6 @@ public final class ListarBomberos extends javax.swing.JPanel {
     private javax.swing.JPanel panelBot;
     private javax.swing.JPanel panelDer;
     private javax.swing.JPanel panelIzq;
-    private javax.swing.JPanel panelMid;
     private javax.swing.JPanel panelTop;
     private javax.swing.JTable tablaListarBomberos;
     // End of variables declaration//GEN-END:variables

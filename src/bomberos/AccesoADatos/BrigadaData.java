@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 
 public class BrigadaData {
 
+    Brigada brigad = new Brigada();
     private final Connection con;
 
     public BrigadaData() {
@@ -105,11 +106,19 @@ public class BrigadaData {
         String sql = "update brigada set libre = ? where codBrigada = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setBoolean(1, check);
-            ps.setInt(2, codBrigada);
-            int exito = ps.executeUpdate();
-            if (exito == 1) {
-                JOptionPane.showMessageDialog(null, "Brigada " + codBrigada + " en camino.");
+
+            if (check) {
+                ps.setInt(1, 0); // Set libre to 0 for ocupado
+                ps.setInt(2, codBrigada);
+                int exito = ps.executeUpdate();
+                if (exito == 1) {
+
+                    JOptionPane.showMessageDialog(null, "Brigada " + codBrigada + " en camino.");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Hubo un problema al ocupar la brigada.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Seleccione una brigada libre.");
             }
             ps.close();
         } catch (SQLException ex) {
@@ -244,4 +253,26 @@ public class BrigadaData {
         }
         return brigadas;
     }
+
+    public void desocuparBrigada(int codBrigada) {
+    String sql = "update brigada set libre = ? where codBrigada = ?";
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+
+        // Establecer el valor de la columna 'libre' a 1 para indicar que está libre
+        ps.setInt(1, 1); // Aquí se asume que 1 representa 'libre'
+        ps.setInt(2, codBrigada);
+        int exito = ps.executeUpdate();
+        if (exito == 1) {
+            JOptionPane.showMessageDialog(null, "Brigada " + codBrigada + " Esta brigada quedó libre");
+        } else {
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error en desocupar brigada.");
+        }
+        ps.close();
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.");
+    }
+}
+
+
 }

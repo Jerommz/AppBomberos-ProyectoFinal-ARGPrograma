@@ -1,5 +1,6 @@
 package bomberos.Vistas;
 
+import bomberos.AccesoADatos.BrigadaData;
 import bomberos.Entidades.Siniestro;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
@@ -15,7 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.TableRowSorter;
 
 public final class ListarSiniestros extends javax.swing.JPanel {
-
+   BrigadaData brigadaDB =new BrigadaData();
     String[] modeloSiniestro = {"Codigo", "Tipo", "Fecha", "Detalles", "X ", "Y", "Fecha finalizacion", "Puntaje", "Codigo Brigada"};
     SiniestroData siniestroDB = new SiniestroData();
 
@@ -40,12 +41,8 @@ public final class ListarSiniestros extends javax.swing.JPanel {
 
         panelMain = new javax.swing.JPanel();
         panelTop = new javax.swing.JPanel();
-        panelIzq = new javax.swing.JPanel();
-        jLabel11 = new javax.swing.JLabel();
-        panelMidTop = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jcb48hs = new javax.swing.JCheckBox();
-        panelBotTop = new javax.swing.JPanel();
         panelMid = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaListarAdmin = new javax.swing.JTable();
@@ -82,27 +79,18 @@ public final class ListarSiniestros extends javax.swing.JPanel {
 
         panelTop.setBackground(new Color(161, 27, 27));
         panelTop.setPreferredSize(new java.awt.Dimension(0, 100));
-        panelTop.setLayout(new java.awt.BorderLayout());
-
-        panelIzq.setBackground(new Color(161, 27, 27));
-        panelIzq.setLayout(new java.awt.BorderLayout());
-
-        jLabel11.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel11.setForeground(java.awt.Color.white);
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText("Siniestros");
-        jLabel11.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jLabel11.setPreferredSize(new java.awt.Dimension(150, 24));
-        panelIzq.add(jLabel11, java.awt.BorderLayout.CENTER);
-
-        panelTop.add(panelIzq, java.awt.BorderLayout.WEST);
-
-        panelMidTop.setBackground(new Color(161, 27, 27));
-        panelMidTop.setPreferredSize(new java.awt.Dimension(700, 48));
+        panelTop.setLayout(new java.awt.GridBagLayout());
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setForeground(java.awt.Color.white);
         jLabel1.setText("Seleccione un siniestro:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
+        panelTop.add(jLabel1, gridBagConstraints);
 
         jcb48hs.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jcb48hs.setForeground(java.awt.Color.white);
@@ -112,40 +100,10 @@ public final class ListarSiniestros extends javax.swing.JPanel {
                 jcb48hsActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout panelMidTopLayout = new javax.swing.GroupLayout(panelMidTop);
-        panelMidTop.setLayout(panelMidTopLayout);
-        panelMidTopLayout.setHorizontalGroup(
-            panelMidTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-            .addGroup(panelMidTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(panelMidTopLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addGroup(panelMidTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel1)
-                        .addGroup(panelMidTopLayout.createSequentialGroup()
-                            .addGap(34, 34, 34)
-                            .addComponent(jcb48hs)))
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        panelMidTopLayout.setVerticalGroup(
-            panelMidTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-            .addGroup(panelMidTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(panelMidTopLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jLabel1)
-                    .addGap(0, 0, 0)
-                    .addComponent(jcb48hs)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-
-        panelTop.add(panelMidTop, java.awt.BorderLayout.CENTER);
-
-        panelBotTop.setBackground(new Color(161, 27, 27));
-        panelBotTop.setPreferredSize(new java.awt.Dimension(150, 0));
-        panelBotTop.setLayout(new java.awt.BorderLayout());
-        panelTop.add(panelBotTop, java.awt.BorderLayout.EAST);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        panelTop.add(jcb48hs, gridBagConstraints);
 
         panelMain.add(panelTop, java.awt.BorderLayout.NORTH);
 
@@ -177,8 +135,6 @@ public final class ListarSiniestros extends javax.swing.JPanel {
         jScrollPane1.setViewportView(tablaListarAdmin);
 
         panelMid.add(jScrollPane1, java.awt.BorderLayout.CENTER);
-
-        panelMain.add(panelMid, java.awt.BorderLayout.CENTER);
 
         panelBot.setBackground(new Color(161, 27, 27));
         panelBot.setPreferredSize(new java.awt.Dimension(0, 300));
@@ -254,7 +210,13 @@ public final class ListarSiniestros extends javax.swing.JPanel {
         textPuntox.setForeground(java.awt.Color.white);
         textPuntox.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         textPuntox.setPreferredSize(new java.awt.Dimension(40, 30));
+        textPuntox.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                textPuntoxKeyTyped(evt);
+            }
+        });
 
+        textFechaInicioSiniestro.setEditable(false);
         textFechaInicioSiniestro.setBackground(new Color(193,29,29));
         textFechaInicioSiniestro.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         textFechaInicioSiniestro.setForeground(java.awt.Color.white);
@@ -266,13 +228,24 @@ public final class ListarSiniestros extends javax.swing.JPanel {
         textPuntoY.setForeground(java.awt.Color.white);
         textPuntoY.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         textPuntoY.setPreferredSize(new java.awt.Dimension(40, 30));
+        textPuntoY.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                textPuntoYKeyTyped(evt);
+            }
+        });
 
         textFechaFinSiniestro.setBackground(new Color(193,29,29));
         textFechaFinSiniestro.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         textFechaFinSiniestro.setForeground(java.awt.Color.white);
         textFechaFinSiniestro.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         textFechaFinSiniestro.setPreferredSize(new java.awt.Dimension(100, 30));
+        textFechaFinSiniestro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                textFechaFinSiniestroKeyTyped(evt);
+            }
+        });
 
+        textTipoSiniestro.setEditable(false);
         textTipoSiniestro.setBackground(new Color(193,29,29));
         textTipoSiniestro.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         textTipoSiniestro.setForeground(java.awt.Color.white);
@@ -284,6 +257,11 @@ public final class ListarSiniestros extends javax.swing.JPanel {
         textPuntajeSiniestro2.setForeground(java.awt.Color.white);
         textPuntajeSiniestro2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         textPuntajeSiniestro2.setPreferredSize(new java.awt.Dimension(40, 30));
+        textPuntajeSiniestro2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                textPuntajeSiniestro2KeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -375,9 +353,11 @@ public final class ListarSiniestros extends javax.swing.JPanel {
             }
         });
 
+        textCodigoSiniestro.setEditable(false);
         textCodigoSiniestro.setBackground(new Color(193,29,29));
         textCodigoSiniestro.setPreferredSize(new java.awt.Dimension(50, 30));
 
+        textBrigadaSiniestro.setEditable(false);
         textBrigadaSiniestro.setBackground(new Color(193,29,29));
         textBrigadaSiniestro.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         textBrigadaSiniestro.setForeground(java.awt.Color.white);
@@ -426,7 +406,9 @@ public final class ListarSiniestros extends javax.swing.JPanel {
 
         panelBot.add(jPanel3, java.awt.BorderLayout.EAST);
 
-        panelMain.add(panelBot, java.awt.BorderLayout.PAGE_END);
+        panelMid.add(panelBot, java.awt.BorderLayout.PAGE_END);
+
+        panelMain.add(panelMid, java.awt.BorderLayout.CENTER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -492,6 +474,7 @@ public final class ListarSiniestros extends javax.swing.JPanel {
             int cood_x = Integer.parseInt(textPuntox.getText());
             int cood_y = Integer.parseInt(textPuntoY.getText());
             String tipo = textTipoSiniestro.getText();
+            brigadaDB.desocuparBrigada(codBrigada);
             Siniestro siniestro = new Siniestro(codigo, tipo, fecha_Inicio, cood_x, cood_y, detalle, fecha_resol, puntuacion, codBrigada);
             siniestroDB.anotarTerminacionDeSiniestro(codigo, fecha_resol, puntuacion);
 
@@ -508,13 +491,53 @@ public final class ListarSiniestros extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jcb48hsActionPerformed
 
+    private void textFechaFinSiniestroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFechaFinSiniestroKeyTyped
+            char key = evt.getKeyChar();
+    boolean numeros = (key >= '0' && key <= '9') || key == '-';
+    if (!numeros) {
+        evt.consume();
+        JOptionPane.showMessageDialog(null, "Debe introducir una fecha válida en el formato yyyy-mm-dd");
+        textFechaFinSiniestro.setText("");
+    }
+    }//GEN-LAST:event_textFechaFinSiniestroKeyTyped
+
+    private void textPuntajeSiniestro2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textPuntajeSiniestro2KeyTyped
+        int key =evt.getKeyChar();
+        boolean numeros =key>=47 && key>=57;
+        if(!numeros){
+       
+        textPuntajeSiniestro2.setText("");
+        
+        }
+        
+    }//GEN-LAST:event_textPuntajeSiniestro2KeyTyped
+
+    private void textPuntoYKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textPuntoYKeyTyped
+       int key =evt.getKeyChar();
+        boolean numeros =key>=47 && key>=57;
+        if(!numeros){
+        
+        textPuntajeSiniestro2.setText("");
+        
+        }
+    }//GEN-LAST:event_textPuntoYKeyTyped
+
+    private void textPuntoxKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textPuntoxKeyTyped
+       int key =evt.getKeyChar();
+        boolean numeros =key>=47 && key>=57;
+        if(!numeros){
+        
+        textPuntajeSiniestro2.setText("");
+        
+        } 
+    }//GEN-LAST:event_textPuntoxKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonFinalizarSiniestro;
     private javax.swing.JButton botonModificarSiniestro;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -530,11 +553,8 @@ public final class ListarSiniestros extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JCheckBox jcb48hs;
     private javax.swing.JPanel panelBot;
-    private javax.swing.JPanel panelBotTop;
-    private javax.swing.JPanel panelIzq;
     private javax.swing.JPanel panelMain;
     private javax.swing.JPanel panelMid;
-    private javax.swing.JPanel panelMidTop;
     private javax.swing.JPanel panelTop;
     private javax.swing.JTable tablaListarAdmin;
     private javax.swing.JTextField textBrigadaSiniestro;

@@ -435,6 +435,7 @@ public final class Brigadas extends javax.swing.JPanel {
                     textNombreBrigada.setText("");
                     textEspecialidadBrigada.setText("");
                     checkLibreBrigada.setSelected(false);
+                    textBomberosActivos.setText("");
                 }
             }
         } catch (NullPointerException ex) {
@@ -468,6 +469,7 @@ public final class Brigadas extends javax.swing.JPanel {
                             textNombreBrigada.setText("");
                             textEspecialidadBrigada.setText("");
                             checkLibreBrigada.setSelected(false);
+                            textBomberosActivos.setText("");
                             break;
                         }
                     }
@@ -499,6 +501,7 @@ public final class Brigadas extends javax.swing.JPanel {
             textEspecialidadBrigada.setText("");
             comboCodCuartelBrigada.setSelectedItem("");
             checkLibreBrigada.setSelected(false);
+            textBomberosActivos.setText("");
         } catch (NullPointerException ex) {
             JOptionPane.showMessageDialog(null, "Error al intentar eliminar brigada.");
         }
@@ -529,11 +532,18 @@ public final class Brigadas extends javax.swing.JPanel {
                             textNombreBrigada.setText("");
                             textEspecialidadBrigada.setText("");
                             checkLibreBrigada.setSelected(false);
+                            textBomberosActivos.setText("");
                             break;
                         }
                     }
                 }
             }
+             textCodigoBrigada.setText("");
+            textNombreBrigada.setText("");
+            textEspecialidadBrigada.setText("");
+            comboCodCuartelBrigada.setSelectedItem("");
+            checkLibreBrigada.setSelected(false);
+            textBomberosActivos.setText("");
         } catch (NullPointerException ex) {
             JOptionPane.showMessageDialog(null, "Error al intentar modificar brigada.");
         }
