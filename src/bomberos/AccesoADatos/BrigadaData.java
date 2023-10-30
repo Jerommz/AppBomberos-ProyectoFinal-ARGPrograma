@@ -42,7 +42,7 @@ public class BrigadaData {
     }
 
     public void modificarBrigada(Brigada brigada) {
-        String sql = "update brigada set nombre_br = ?, especialidad = ?,libre = ?, codCuartel = ? WHERE codBrigada = ?";
+        String sql = "update brigada set nombre_br = ?, especialidad = ?, libre = ?, codCuartel = ? WHERE codBrigada = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, brigada.getNombre_br());
