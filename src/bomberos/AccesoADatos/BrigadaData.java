@@ -79,7 +79,7 @@ public class BrigadaData {
 
     public List<Brigada> obtenerBrigadas() {
         List<Brigada> brigadas = new ArrayList<>();
-        String sql = "select * from brigada GROUP BY nombre_br";
+        String sql = "select * from brigada order by codCuartel";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
